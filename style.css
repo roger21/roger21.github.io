@@ -26,5 +26,5 @@ div.body > a{
 display:block;
 }
 div.body > a:before{
-content:"? ";
+content:"● ";
 }
