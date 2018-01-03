@@ -19,8 +19,8 @@ div.body > *:last-child{
   margin-bottom:30px;
 }
 div.body > *{
-  margin-left:30px;
-  margin-right:30px;
+  margin:10px 30px;
+
 }
 div.body > a{
   display:block;
@@ -33,7 +33,7 @@ a:visited{
   color:#707070;
   text-decoration:none;
 }
-a:hover,a:visited:hover{
+a:hover, a:visited:hover{
   color:#909090;
   text-decoration:none;
 }
