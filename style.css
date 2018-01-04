@@ -1,29 +1,64 @@
-html,body,div,hr,p,img,h1,h3{
+html, body, div, hr, h1, table, tr, th, td{
   margin:0;
   border:0;
   padding:0;
 }
-div.body{
-  margin:30px;
-  border:2px dashed;
-  padding:0;
+body{
   color:#303030;
   background-color:white;
-  font-family:verdana,arial,helvetica,sans-serif;
+  font-family:Verdana,Arial,Sans-serif,Helvetica;
   font-size:16px;
 }
-div.body > *:first-child{
+div.index{
+  margin:30px;
+  border:2px dashed #303030;
+  padding:0;
+}
+div.index > a{
+  display:block;
+  margin:10px 30px;
+}
+div.index > *:first-child{
   margin-top:30px;
 }
-div.body > *:last-child{
+div.index > *:last-child{
   margin-bottom:30px;
 }
-div.body > *{
-  margin:10px 30px;
-
+div.index > hr{
+  height:0;
+  margin:20px 30px;
+  border-width:2px 0 0;
+  border-style:dashed;
+  border-color:#303030;
 }
-div.body > a{
-  display:block;
+div.table{
+  margin:30px;
+  padding:0;
+  text-align:center;
+}
+div.table > h1{
+  margin:30px;
+}
+div.table > table{
+  margin:30px auto;
+  border-collapse:collapse;
+  border-spacing:0;
+}
+div.table > table tr{
+  background-color:#d7d7f7;
+}
+div.table > table tr[class]:hover{
+  background-color:#ffdfaf;
+}
+div.table > table tr.data1{
+  background-color:#f7f7f7;
+}
+div.table > table tr.data2{
+  background-color:#e7e7f7;
+}
+div.table > table td, div.table > table th{
+  padding:2px 10px;
+  border:1px solid silver;
 }
 a{
   color:#505050;
