@@ -1,4 +1,4 @@
-pour effacer les tableaux
+﻿pour effacer les tableaux
 -------------------------
 
 sed -i -e "1h;2,$H;$!d;g" -e "s/    <table>.*    <\/table>/    <table>\n    <\/table>/g" *_2017_*.html
@@ -8,11 +8,14 @@ del sed*
 les corrections
 ---------------
 
-sed -i -e "s/MAIS C4EST QUOI CES BABYLONES DE MAYRDE/MAIS C4EST QUOI CES<br>BABYLONES DE MAYRDE/g" *_2017_*.html
+sed -i -e "s/MAIS C4EST QUOI CES BABYLONES DE MAYRDE/MAIS C4EST QUOI CES<br>BABYLONES DE MAYRDE/g" culge_2017_*.html
 sed -i -e "1h;2,$H;$!d;g" -e "s/>\n<td/><td/g" *_2017_*.html
 sed -i -e "s/^<tr/      <tr/g" *_2017_*.html
 sed -i -e "s/nowrap;\"^>il y a/nowrap;\"><div style=\"text-align: right\">il y a/g" *_2017_*.html
 sed -i -e "s/jours<\/td/jours<\/div><\/td/g" *_2017_*.html
+sed -i -e "s/url1/<a href=\"/g" questions_2017_*.html
+sed -i -e "s/url2/\"^>/g" questions_2017_*.html
+sed -i -e "s/url3/<\/a>/g" questions_2017_*.html
 del sed*
 
 
