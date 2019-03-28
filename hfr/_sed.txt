@@ -1,0 +1,34 @@
+﻿pour effacer les tableaux
+-------------------------
+
+sed -i -e "1h;2,$H;$!d;g" -e "s/    <table>.*    <\/table>/    <table>\n    <\/table>/g" *_2018_*.html
+sed -i -e "s/2017/2018/g" *_2018_*.html
+del sed*
+
+
+les corrections
+---------------
+
+sed -i -e "s/MAIS C4EST QUOI CES BABYLONES DE MAYRDE/MAIS C4EST QUOI CES<br>BABYLONES DE MAYRDE/g" culge_2018_*.html
+sed -i -e "1h;2,$H;$!d;g" -e "s/>\n<td/><td/g" *_2018_*.html
+sed -i -e "s/^<tr/      <tr/g" *_2018_*.html
+sed -i -e "s/nowrap;\"^>il y a/nowrap;\"><div style=\"text-align: right\">il y a/g" *_2018_*.html
+sed -i -e "s/jours<\/td/jours<\/div><\/td/g" *_2018_*.html
+sed -i -e "s/url1/<a href=\"/g" questions_2018_*.html
+sed -i -e "s/url2/\"^>/g" questions_2018_*.html
+sed -i -e "s/url3/<\/a>/g" questions_2018_*.html
+del sed*
+
+
+vérifier l'encodage
+-------------------
+
+file -i *.html
+
+
+pour forcer l'encodage das les fichiers
+---------------------------------------
+
+  <!-- utf-8: Ω -->
+
+
