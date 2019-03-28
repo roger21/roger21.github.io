@@ -61,10 +61,10 @@ div.table > table tr{
 div.table > table tr[class]:hover{
   background-color:#ffdfaf;
 }
-div.table > table tr.data1{
+div.table > table tr.data{
   background-color:#f7f7f7;
 }
-div.table > table tr.data2{
+div.table > table tr.data1{
   background-color:#e7e7f7;
 }
 div.table > table th{
