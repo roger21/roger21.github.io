@@ -1,0 +1,49 @@
+# nettoyage et transformation des csv en données gnuplot
+
+sed -i "s/\"//g" lorenz*.txt
+sed -i "s/,/ /g" lorenz*.txt
+sed -i "1d" lorenz*.txt
+del sed*
+
+
+# initialisation du terminal, du graph, du titre, etc.
+
+reset
+set terminal svg size 1600,900 dynamic font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+clear
+set mxtics 4
+set mytics 4
+set key at 2.5,97.5 top left Left opaque reverse samplen 3.5 box spacing 1.4 width -4
+set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set title "hfr : courbes de lorenz de répartition des posts"
+set xlabel "les comptes (en %)"
+set ylabel "les posts (en %)"
+set xtics offset 0,0.3
+
+
+# les lignes 90% et 99%
+
+set label 1 "90" at 90,-6.5 center tc rgbcolor "#007f00" boxed
+set arrow 1 from 90,-5.5 to 90,3.80 nohead lw 1 lc "#007f00" dt (31,9)
+set label 2 "99" at 99,-6.5 center tc rgbcolor "#007f00" boxed
+set arrow 2 from 99,-5.5 to 99,28.65 nohead lw 1 lc "#007f00" dt (31,9)
+
+set label 3 "2.04" at 3.5,2.04 right tc rgbcolor "#007f00"
+set arrow 3 from 4,2.04 to 90,2.04 nohead lw 1 lc "#007f00" dt (31,9)
+set label 4 "3.80" at 3.5,3.80 right tc rgbcolor "#007f00"
+set arrow 4 from 4,3.80 to 90,3.80 nohead lw 1 lc "#007f00" dt (31,9)
+set label 5 "19.50" at 3.5,19.50 right tc rgbcolor "#007f00" boxed
+set arrow 5 from 4,19.50 to 99,19.50 nohead lw 1 lc "#007f00" dt (31,9)
+set label 6 "28.65" at 3.5,28.65 right tc rgbcolor "#007f00"
+set arrow 6 from 4,28.65 to 99,28.65 nohead lw 1 lc "#007f00" dt (31,9)
+
+
+# les courbes
+
+set output "courbes_lorenz_posts.svg"
+plot [-1:101][-2:102] \
+"lorenz1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "tous les comptes", \
+"lorenz2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "les comptes avec au moins un post"
+set output
+
+
