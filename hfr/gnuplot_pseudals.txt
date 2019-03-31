@@ -1,0 +1,30 @@
+# nettoyage et transformation des csv en données gnuplot
+
+sed -i "s/\"//g" pseudals.txt
+sed -i "s/,/ /g" pseudals.txt
+sed -i "1d" pseudals.txt
+del sed*
+
+
+# initialisation du terminal, du graph, du titre, etc.
+
+reset
+set terminal svg size 1600,900 dynamic font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+clear
+set mytics 5
+unset key
+set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set title "{/=16hfr : longueur des pseudals\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set xlabel "{/=16longeur du pseudal"
+set ylabel "{/=16nombre de comptes"
+set xtics 0, 1, 44 offset 0,0.3
+set style fill transparent solid 0.4
+
+
+# le graph
+
+set output "longueur_pseudals.svg"
+plot [-1:45][0:200000] "pseudals.txt" w boxes lw 2 lc rgbcolor "#7f00ff"
+set output
+
+
