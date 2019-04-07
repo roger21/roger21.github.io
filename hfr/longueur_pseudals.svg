@@ -38,7 +38,7 @@
 	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
 	</filter>
 </defs>
-<g fill="none" color="#FFFFFF" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
@@ -834,7 +834,7 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(841.9,36.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
-		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-size="16.0">hfr : longueur des pseudals</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-weight="bold"  font-size="18.0">hfr : longueur des pseudals</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
 	</g>
 	<g transform="translate(841.9,57.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
 		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-size="12.0">(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>

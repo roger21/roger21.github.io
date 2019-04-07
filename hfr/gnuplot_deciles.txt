@@ -1,0 +1,42 @@
+# nettoyage des données
+
+#sed -i "s/\"//g" deciles*.txt
+#sed -i "s/,/ /g" deciles*.txt
+#sed -i "1d" deciles*.txt
+#del sed*
+
+
+# le graph
+
+reset
+set terminal svg size 1600,900 dynamic font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set output "deciles_posteurs.svg"
+set multiplot layout 1,2 title "{/:Bold=18hfr : répartition en déciles du top 1% des posteurs\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set xtics offset 0,0.3 0.1
+set format y "%.f"
+set style fill transparent solid 0.4
+set mytics 4
+set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set xlabel "{/=16les comptes hfr (en %)"
+set x2label "{/=16le nombre de posts pour passer d'un décile à l'autre"
+set ylabel "{/=16somme des posts par décile"
+set tmargin 4.5
+set style line 1 lw 2 lc rgbcolor "#2f8f4f"
+set key tc variable
+
+boldus(s) = sprintf("{/:Bold=14 %.2f%%}", s)
+
+set key at 99.05,56250000 top left Left opaque reverse samplen -1 box spacing 1.3 width -2 height .2
+set x2tics ("1818" 99, "2123" 99.1, "2507" 99.2, "3005" 99.3, "3730" 99.4, "4712" 99.5, "6221" 99.6, "8538" 99.7, "12491" 99.8, "22413" 99.9, "207555" 100)
+plot [98.95:100.05][0:60000000] "deciles1.txt" u 1:2 w boxes lw 2 lc rgbcolor "#7f00ff" title "{/:Boldpour tous les comptes hfr", \
+'' u 1:($2 + 1000000):(boldus($3)) w labels left rotate tc ls 1 title "{/:Bold% du nombre total de posts"
+
+set key at 99.05,56250000 top left Left opaque reverse samplen -1 box spacing 1.3 width -4 height 0.2
+set x2tics ("3913" 99, "4497" 99.1, "5224" 99.2, "6143" 99.3, "7289" 99.4, "8877" 99.5, "10942" 99.6, "14179" 99.7, "20055" 99.8, "32032" 99.9, "207555" 100)
+plot [98.95:100.05][0:60000000] "deciles2.txt" u 1:2 w boxes lw 2 lc rgbcolor "#ff007f" title "{/:Boldpour les comptes avec au moins un post", \
+'' u 1:($2 + 1000000):(boldus($3)) w labels left rotate tc ls 1 title "{/:Bold% du nombre total de posts}"
+
+unset multiplot
+set output
+
+
