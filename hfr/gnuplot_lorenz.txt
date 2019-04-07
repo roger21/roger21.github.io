@@ -16,8 +16,8 @@ set mytics 4
 set key at 2.5,97.5 top left Left opaque reverse samplen 3 box spacing 1.3 width -3 height .2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
 set title "{/:Bold=18 hfr : courbes de lorenz de répartition des posts\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
-set xlabel '{/=16 les comptes hfr (en %)'
-set ylabel '{/=16 les posts (en %)'
+set xlabel "{/=16 les comptes hfr (en %)"
+set ylabel "{/=16 les posts (en %)"
 set xtics offset 0,0.3
 set key tc variable
 
