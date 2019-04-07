@@ -1,27 +1,28 @@
 # nettoyage des données
 
-#sed -i "s/\"//g" lorenz*.txt
-#sed -i "s/,/ /g" lorenz*.txt
-#sed -i "1d" lorenz*.txt
+#sed -i "s/\"//g" data_lorenz*.txt
+#sed -i "s/,/ /g" data_lorenz*.txt
+#sed -i "1d" data_lorenz*.txt
 #del sed*
 
 
 # le graph
 
 reset
-set terminal svg size 1600,900 dynamic font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
-set output "courbes_lorenz_posts.svg"
+set terminal svg size 1600,900 dynamic name "hfr_courbes_lorenz_posts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set output "hfr_courbes_lorenz_posts.svg"
 set mxtics 4
 set mytics 4
-set key at 2.5,97.5 top left Left opaque reverse samplen 3.5 box spacing 1.3 width -6 height .2
+set key at 2.5,97.5 top left Left opaque reverse samplen 3 box spacing 1.3 width -3 height .2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
-set title "{/:Bold=18hfr : courbes de lorenz de répartition des posts\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
-set xlabel '{/=16les comptes hfr (en %)'
-set ylabel '{/=16les posts (en %)'
+set title "{/:Bold=18 hfr : courbes de lorenz de répartition des posts\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set xlabel '{/=16 les comptes hfr (en %)'
+set ylabel '{/=16 les posts (en %)'
 set xtics offset 0,0.3
+set key tc variable
 
 
-# les lignes 90% et 99%
+# les lignes vertes
 
 set arrow 1 from 90,-5.5 to 90,3.80 nohead back lw 1 lc "#007f00" dt (31,9)
 set arrow 2 from 99,-5.5 to 99,28.65 nohead back lw 1 lc "#007f00" dt (31,9)
@@ -43,8 +44,8 @@ set label 6 "28.65" at 3.5,28.65 right tc rgbcolor "#007f00"
 # les courbes
 
 plot [-1:101][-2:102] \
-"lorenz1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "tous les comptes hfr", \
-"lorenz2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "les comptes avec au moins un post"
+"data_lorenz1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "{/:Bold pour tous les comptes hfr", \
+"data_lorenz2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "{/:Bold pour les comptes avec au moins un post"
 set output
 
 
