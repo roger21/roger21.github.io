@@ -25,6 +25,7 @@ set key at 2015.25,130000 center center Left opaque reverse samplen 3 box spacin
 
 plot [2000:2019] "data_yearcreation.txt" w filledcurves x1 lc rgbcolor "#003fbf" notitle, \
 "data_yearcreation.txt" w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum", \
+"data_yearcreatrue.txt" w lines lw 2 lc rgbcolor "#003fbf" dt (10,5) title "{/:Bold ayant une date de dernier message", \
 "data_yearlastpost.txt" w filledcurves x1 lc rgbcolor "#bf3f3f" notitle, \
 "data_yearlastpost.txt" w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message"
 set output
