@@ -9,7 +9,7 @@
 # le graph
 
 reset
-set terminal svg size 1600,900 dynamic mouse standalone name "hfr_courbes_lorenz_posts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_courbes_lorenz_posts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_courbes_lorenz_posts.svg"
 set mxtics 4
 set mytics 4

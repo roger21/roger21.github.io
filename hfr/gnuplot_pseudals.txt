@@ -9,7 +9,7 @@
 # le graph
 
 reset
-set terminal svg size 1600,900 dynamic mouse standalone name "hfr_longueur_pseudals" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_longueur_pseudals" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_longueur_pseudals.svg"
 set mytics 5
 set key at 43.5,180000 center right Left opaque reverse samplen 3 box spacing 1.3 width -3.5 height .2
