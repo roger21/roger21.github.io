@@ -11,7 +11,7 @@
 reset
 set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_nbsmileys_posteurs.svg"
-set title "{/:Bold=18 hfr : les nombres de smileys\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set title "{/:Bold=18 hfr : le nombre de smileys dans le profil\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set xtics offset 0,0.3
 set style data histogram
 set style histogram rowstacked
@@ -19,13 +19,13 @@ set boxwidth 0.75
 set yrange [0:110]
 set key tc variable
 set style fill transparent solid 0.4
-set xlabel "{/=16 le nombre de smileys dans le profil"
-set ylabel "{/=16 répartition des comptes hfr ayant le même nombre de smileys\n{/=16 en fonction du nombre de posts (et en %)"
+set xlabel "{/=16 le nombre de smileys dans le profil" offset 0,0.4
+set ylabel "{/=16 les comptes hfr ayant le même nombre de smileys dans le profil\n{/=16 répartis en fonction du nombre de posts (et normalisés en %)"
 set ytics 0, 10, 109
-set mytics 4
+set mytics 2
 set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
-set key outside Left opaque reverse samplen -1 box spacing 1.4 width -0
-set style line 1 lw 2 lc rgbcolor "#2f8f4f"
+set key outside Left opaque reverse samplen -1 box spacing 1.4 width -1
+set style line 1 lw 2 lc rgbcolor "#3f3f3f"
 
 boldus(s) = sprintf("{/:Bold=14 %.f}", s)
 
@@ -37,7 +37,7 @@ plot \
 "data_nbsmileys_posteurs.txt" u 6:xtic(1) lw 2 lc rgbcolor "#9467bd" title "{/:Bold 1 000+ posts", \
 "data_nbsmileys_posteurs.txt" u 7:xtic(1) lw 2 lc rgbcolor "#8c564b" title "{/:Bold 10 000+ posts", \
 "data_nbsmileys_posteurs.txt" u 8:xtic(1) lw 2 lc rgbcolor "#e377c2" title "{/:Bold 100 000+ posts", \
-"data_nbsmileys_posteurs.txt" u 1:(105):(boldus($9)) w labels center tc ls 1 boxed title "{/:Bold nb comptes hfr", \
+"data_nbsmileys_posteurs.txt" u 1:(104.75):(boldus($9)) w labels center tc ls 1 boxed title "{/:Bold nb de comptes hfr", \
 
 set output
 

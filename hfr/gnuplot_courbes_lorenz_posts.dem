@@ -11,34 +11,33 @@
 reset
 set terminal svg size 1600,900 dynamic name "hfr_courbes_lorenz_posts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_courbes_lorenz_posts.svg"
-set mxtics 4
-set mytics 4
-set key at 2.5,97.5 top left Left opaque reverse samplen 3 box spacing 1.3 width -3 height .2
+set mxtics 2
+set mytics 2
+set key at 2.5,97.5 top left Left opaque reverse samplen 3 box spacing 1.3 width -5 height .2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
-set title "{/:Bold=18 hfr : courbes de lorenz de répartition des posts\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
-set xlabel "{/=16 les comptes hfr (en %)"
+set title "{/:Bold=18 hfr : les courbes de lorenz de répartition des posts\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set xlabel "{/=16 les comptes hfr (en %)" offset 0,0.4
 set ylabel "{/=16 les posts (en %)"
-set xtics offset 0,0.3
+set xtics 10 offset 0,0.3
+set ytics 10
 set key tc variable
 
 
-# les lignes vertes
+# les lignes vertes et les labels
 
-set arrow 1 from 90,-5.5 to 90,3.80 nohead back lw 1 lc "#007f00" dt (31,9)
-set arrow 2 from 99,-5.5 to 99,28.65 nohead back lw 1 lc "#007f00" dt (31,9)
+set arrow 1 from 90,-2    to 90,3.80  nohead back lw 1 lc "#007f00" dt (10,6)
+set arrow 2 from 99,-2    to 99,28.65 nohead back lw 1 lc "#007f00" dt (10,6)
+set arrow 3 from -1,2.04  to 90,2.04  nohead back lw 1 lc "#007f00" dt (10,6)
+set arrow 4 from -1,3.80  to 90,3.80  nohead back lw 1 lc "#007f00" dt (10,6)
+set arrow 5 from -1,19.50 to 99,19.50 nohead back lw 1 lc "#007f00" dt (10,6)
+set arrow 6 from -1,28.65 to 99,28.65 nohead back lw 1 lc "#007f00" dt (10,6)
 
-set label 1 "90" at 90,-6.5 center tc rgbcolor "#007f00"
-set label 2 "99" at 99,-6.5 center tc rgbcolor "#007f00"
-
-set arrow 3 from 4,2.04 to 90,2.04 nohead back lw 1 lc "#007f00" dt (31,9)
-set arrow 4 from 4,3.80 to 90,3.80 nohead back lw 1 lc "#007f00" dt (31,9)
-set arrow 5 from 4,19.50 to 99,19.50 nohead back lw 1 lc "#007f00" dt (31,9)
-set arrow 6 from 4,28.65 to 99,28.65 nohead back lw 1 lc "#007f00" dt (31,9)
-
-set label 3 "2.04" at 3.5,2.04 right tc rgbcolor "#007f00"
-set label 4 "3.80" at 3.5,3.80 right tc rgbcolor "#007f00"
-set label 5 "19.50" at 3.5,19.50 right tc rgbcolor "#007f00" boxed
-set label 6 "28.65" at 3.5,28.65 right tc rgbcolor "#007f00"
+set label 1 "{/:Bold 90"      at 90,-0.1 center front tc rgbcolor "#007f00" boxed
+set label 2 "{/:Bold 99"      at 99,-0.1 center front tc rgbcolor "#007f00" boxed
+set label 3 "{/:Bold  2.04 "  at 5,2.04  right  front tc rgbcolor "#007f00" boxed
+set label 4 "{/:Bold  3.80 "  at 5,3.80  right  front tc rgbcolor "#007f00" boxed
+set label 5 "{/:Bold  19.50 " at 5,19.50 right  front tc rgbcolor "#007f00" boxed
+set label 6 "{/:Bold  28.65 " at 5,28.65 right  front tc rgbcolor "#007f00" boxed
 
 
 # les courbes

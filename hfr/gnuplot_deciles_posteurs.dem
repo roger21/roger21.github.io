@@ -13,12 +13,13 @@ set terminal svg size 1600,900 dynamic name "hfr_deciles_posteurs" font "Verdana
 set output "hfr_deciles_posteurs.svg"
 set multiplot layout 1,2 title "{/:Bold=18 hfr : répartition en déciles du top 1% des posteurs\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set xtics offset 0,0.3 0.1
+set x2tics offset 0,-0.3
 set format y "%.f"
 set style fill transparent solid 0.4
 set mytics 4
 set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
-set xlabel "{/=16 les comptes hfr (en %)"
-set x2label "{/=16 le nombre de posts pour passer d'un décile à l'autre"
+set xlabel "{/=16 les comptes hfr (en %)" offset 0,0.4
+set x2label "{/=16 le nombre de posts pour passer d'un décile à l'autre" offset 0,-0.4
 set ylabel "{/=16 somme des posts par décile"
 set tmargin 4.5
 set style line 1 lw 2 lc rgbcolor "#2f8f4f"

@@ -12,16 +12,16 @@ reset
 set terminal svg size 1600,900 dynamic name "hfr_longueur_pseudals" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_longueur_pseudals.svg"
 set mytics 5
-set key at 43.5,180000 center right Left opaque reverse samplen 3 box spacing 1.3 width -3.5 height .2
+set key at 43.5,180000 center right Left opaque reverse samplen 3 box spacing 1.3 width -6.5 height .2
 set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
-set title "{/:Bold=18 hfr : longueur des pseudals\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
-set xlabel "{/=16 longeur du pseudal"
-set ylabel "{/=16 nombre de comptes"
+set title "{/:Bold=18 hfr : la longueur des pseudals\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set xlabel "{/=16 la longeur du pseudal" offset 0,0.4
+set ylabel "{/=16 les comptes hfr"
 set xtics 0, 1, 44 offset 0,0.3
 set style fill transparent solid 0.4
 set key tc variable
 
-plot [-1:45][0:200000] "data_longueur_pseudals.txt" w boxes lw 2 lc rgbcolor "#003fbf" title "{/:Bold nombre de comptes / longueur du pseudal"
+plot [-1:45][0:200000] "data_longueur_pseudals.txt" w boxes lw 2 lc rgbcolor "#003fbf" title "{/:Bold les comptes hfr / la longueur du pseudal"
 set output
 
 
