@@ -21,7 +21,7 @@ set xtics 0, 1, 44 offset 0,0.3
 set style fill transparent solid 0.4
 set key tc variable
 
-plot [-1:45][0:200000] "data_pseudals.txt" w boxes lw 2 lc rgbcolor "#003fbf" title "{/:Bold nombre de comptes / longueur du pseudal"
+plot [-1:45][0:200000] "data_longueur_pseudals.txt" w boxes lw 2 lc rgbcolor "#003fbf" title "{/:Bold nombre de comptes / longueur du pseudal"
 set output
 
 

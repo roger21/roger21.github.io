@@ -44,8 +44,8 @@ set label 6 "28.65" at 3.5,28.65 right tc rgbcolor "#007f00"
 # les courbes
 
 plot [-1:101][-2:102] \
-"data_lorenz1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "{/:Bold pour tous les comptes hfr", \
-"data_lorenz2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "{/:Bold pour les comptes avec au moins un post"
+"data_courbes_lorenz_posts1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "{/:Bold pour tous les comptes hfr", \
+"data_courbes_lorenz_posts2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "{/:Bold pour les comptes avec au moins un post"
 set output
 
 
