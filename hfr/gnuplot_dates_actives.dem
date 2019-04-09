@@ -28,7 +28,9 @@ set origin 0,0.3
 plot [2000:2019][0:700000] \
 "data_dates_actives.txt" u 1:4 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum avec au moins un post", \
 "data_dates_actives.txt" u 1:5 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message avant 2019", \
-"data_dates_actives.txt" u 1:4:5 w filledcurves lw 2 lc rgbcolor "#bf3fff" title "{/:Bold les conptes hfr actifs"
+"data_dates_actives.txt" u 1:4:5 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "{/:Bold les conptes hfr actifs"
+
+minus(s) = sprintf("{/:Bold=12 %.f}", s)
 
 set ylabel "{/=16 les comptes hfr actifs"
 set key at 2018.25,75000 center right Left opaque reverse samplen 3 box spacing 1.3 width -4.5 height .2
@@ -37,7 +39,8 @@ set ytics 50000
 set size 1,0.3
 set origin 0,0
 plot [2000:2019][0:100000] \
-"data_dates_actives.txt" u 1:6 w lines lw 2lc rgbcolor "#bf3fff" title "{/:Bold les conptes hfr actifs"
+"data_dates_actives.txt" u 1:6 w lines lw 2 lc rgbcolor "#7f3fff" title "{/:Bold les conptes hfr actifs", \
+"data_dates_actives.txt" u 1:6:(minus($6)) w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#df3fdf" pt 7 ps .75 offset first -.075,8000 notitle
 
 unset multiplot
 set output
