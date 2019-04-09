@@ -8,6 +8,8 @@
 
 # le graph
 
+unset multiplot
+reset session
 reset
 set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_nbsmileys_posteurs.svg"

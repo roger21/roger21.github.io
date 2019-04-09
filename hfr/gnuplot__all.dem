@@ -1,3 +1,6 @@
+unset multiplot
+reset session
+reset
 load "gnuplot_courbes_lorenz_posts.dem"
 load "gnuplot_dates_creation_lastpost.dem"
 load "gnuplot_dates_active_accounts.dem"

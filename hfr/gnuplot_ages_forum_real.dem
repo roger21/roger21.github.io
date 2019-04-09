@@ -1,0 +1,25 @@
+# nettoyage des données
+
+#sed -i "s/\"//g" data_ages_forum_real*.txt
+#sed -i "s/,/ /g" data_ages_forum_real*.txt
+#sed -i "1d" data_ages_forum_real*.txt
+#del sed*
+
+
+# le graph
+
+unset multiplot
+reset session
+reset
+set terminal svg size 1600,900 dynamic name "hfr_ages_forum_real" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set output "hfr_ages_forum_real.svg"
+set multiplot layout 2,1 title "{/:Bold=18 hfr : l'ages des forumeurs actifs en 2019\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set key tc variable
+
+#plot NaN
+
+unset multiplot
+set output
+
+
