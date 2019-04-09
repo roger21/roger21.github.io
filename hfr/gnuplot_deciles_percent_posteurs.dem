@@ -9,7 +9,7 @@
 # le graph
 
 reset
-set terminal svg size 1600,900 dynamic name "hfr_deciles_posteurs" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_deciles_percent_posteurs" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_deciles_percent_posteurs.svg"
 set multiplot layout 1,2 title "{/:Bold=18 hfr : la répartition en déciles du top 1% des posteurs\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set xtics offset 0,0.3 0.1
