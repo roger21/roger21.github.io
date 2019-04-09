@@ -16,7 +16,6 @@ set style fill transparent solid 0.4
 set key tc variable
 set grid xtics ytics mxtics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
 set xtics 1
-set mxtics 2
 set format y "%7.f"
 set xlabel "{/=16 les années"
 

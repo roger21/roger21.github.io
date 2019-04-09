@@ -16,11 +16,10 @@ set xlabel "{/=16 les années"
 set ylabel "{/=16 les comptes hfr"
 set style fill transparent solid 0.4
 set key tc variable
-set mytics 2
 set grid xtics ytics mxtics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
 set xtics 1
 set ytics 10000
-set mxtics 2
+set mytics 2
 set key at 2015.25,130000 center center Left opaque reverse samplen 3 box spacing 1.3 width -4 height .2
 
 set arrow 1 from 2000.625,31250 to 2001,70000 backhead front size character 1.1,25 nofilled lw 2 lc "#007f00"
