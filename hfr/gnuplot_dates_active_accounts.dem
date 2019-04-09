@@ -10,7 +10,7 @@
 
 reset
 set terminal svg size 1600,900 dynamic name "hfr_dates_actives" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
-set output "hfr_dates_actives.svg"
+set output "hfr_dates_active_accounts.svg"
 set multiplot title "{/:Bold=18 hfr : les comptes hfr actifs\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set style fill transparent solid 0.4
 set key tc variable
@@ -26,9 +26,9 @@ set ytics 100000
 set size 1,0.625
 set origin 0,0.3
 plot [2000:2019][0:700000] \
-"data_dates_actives.txt" u 1:4 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum avec au moins un post", \
-"data_dates_actives.txt" u 1:5 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message avant 2019", \
-"data_dates_actives.txt" u 1:4:5 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "{/:Bold les conptes hfr actifs"
+"data_dates_active_accounts.txt" u 1:4 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum avec au moins un post", \
+"data_dates_active_accounts.txt" u 1:5 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message avant 2019", \
+"data_dates_active_accounts.txt" u 1:4:5 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "{/:Bold les conptes hfr actifs"
 
 minus(s) = sprintf("{/:Bold=12 %.f}", s)
 
@@ -39,8 +39,8 @@ set ytics 50000
 set size 1,0.3
 set origin 0,0
 plot [2000:2019][0:100000] \
-"data_dates_actives.txt" u 1:6 w lines lw 2 lc rgbcolor "#7f3fff" title "{/:Bold les conptes hfr actifs", \
-"data_dates_actives.txt" u 1:6:(minus($6)) w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#df3fdf" pt 7 ps .75 offset first -.075,8000 notitle
+"data_dates_active_accounts.txt" u 1:6 w lines lw 2 lc rgbcolor "#7f3fff" title "{/:Bold les conptes hfr actifs", \
+"data_dates_active_accounts.txt" u 1:6:(minus($6)) w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#df3fdf" pt 7 ps .75 offset first -.075,8000 notitle
 
 unset multiplot
 set output

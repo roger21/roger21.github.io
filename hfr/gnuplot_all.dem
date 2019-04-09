@@ -1,7 +1,7 @@
 load "gnuplot_courbes_lorenz_posts.dem"
-load "gnuplot_creation_lastpost.dem"
-load "gnuplot_dates_actives.dem"
-load "gnuplot_deciles_posteurs.dem"
+load "gnuplot_dates_creation_lastpost.dem"
+load "gnuplot_dates_active_accounts.dem"
+load "gnuplot_deciles_percent_posteurs.dem"
 load "gnuplot_longueur_pseudals.dem"
 load "gnuplot_nbsmileys_posteurs.dem"
 
