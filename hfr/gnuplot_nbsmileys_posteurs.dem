@@ -1,8 +1,8 @@
 # nettoyage des données
 
-#sed -i "s/\"//g" data_nbsmileys.txt
-#sed -i "s/,/ /g" data_nbsmileys.txt
-#sed -i "1d" data_nbsmileys*.txt
+#sed -i "s/\"//g" data_nbsmileys_posteurs.txt
+#sed -i "s/,/ /g" data_nbsmileys_posteurs.txt
+#sed -i "1d" data_nbsmileys_posteurs.txt
 #del sed*
 
 
@@ -33,12 +33,12 @@ boldus(s) = sprintf("{/:Bold=14 %.f}", s)
 
 plot \
 "data_nbsmileys_posteurs.txt" u 2:xtic(1) lw 2 lc rgbcolor "#1f77b4" title "{/:Bold 0 post", \
-"data_nbsmileys_posteurs.txt" u 3:xtic(1) lw 2 lc rgbcolor "#ff7f0e" title "{/:Bold 1+ posts", \
-"data_nbsmileys_posteurs.txt" u 4:xtic(1) lw 2 lc rgbcolor "#2ca02c" title "{/:Bold 10+ posts", \
-"data_nbsmileys_posteurs.txt" u 5:xtic(1) lw 2 lc rgbcolor "#d62728" title "{/:Bold 100+ posts", \
-"data_nbsmileys_posteurs.txt" u 6:xtic(1) lw 2 lc rgbcolor "#9467bd" title "{/:Bold 1 000+ posts", \
-"data_nbsmileys_posteurs.txt" u 7:xtic(1) lw 2 lc rgbcolor "#8c564b" title "{/:Bold 10 000+ posts", \
-"data_nbsmileys_posteurs.txt" u 8:xtic(1) lw 2 lc rgbcolor "#e377c2" title "{/:Bold 100 000+ posts", \
+"data_nbsmileys_posteurs.txt" u 3:xtic(1) lw 2 lc rgbcolor "#ff7f0e" title "{/:Bold 1+ post(s)", \
+"data_nbsmileys_posteurs.txt" u 4:xtic(1) lw 2 lc rgbcolor "#2ca02c" title "{/:Bold 11+ posts", \
+"data_nbsmileys_posteurs.txt" u 5:xtic(1) lw 2 lc rgbcolor "#d62728" title "{/:Bold 101+ posts", \
+"data_nbsmileys_posteurs.txt" u 6:xtic(1) lw 2 lc rgbcolor "#9467bd" title "{/:Bold 1 001+ posts", \
+"data_nbsmileys_posteurs.txt" u 7:xtic(1) lw 2 lc rgbcolor "#8c564b" title "{/:Bold 10 001+ posts", \
+"data_nbsmileys_posteurs.txt" u 8:xtic(1) lw 2 lc rgbcolor "#e377c2" title "{/:Bold 100 001+ posts", \
 "data_nbsmileys_posteurs.txt" u 1:(104.75):(boldus($9)) w labels center tc ls 1 boxed title "{/:Bold nb de comptes hfr", \
 
 set output
