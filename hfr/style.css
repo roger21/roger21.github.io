@@ -73,6 +73,7 @@ div.table > table th{
 div.table > table td, div.table > table th{
   padding:2px 10px;
   border:1px solid silver;
+  min-width:100px;
 }
 td img{
   display:block;
