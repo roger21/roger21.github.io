@@ -1,8 +1,8 @@
 # nettoyage des données
 
-#sed -i "s/\"//g" data_year*.txt
-#sed -i "s/,/ /g" data_year*.txt
-#sed -i "1d" data_year*.txt
+#sed -i "s/\"//g" data_creation_lastpost_*.txt
+#sed -i "s/,/ /g" data_creation_lastpost_*.txt
+#sed -i "1d" data_creation_lastpost_*.txt
 #del sed*
 
 
@@ -33,14 +33,15 @@ set label 1 "{/:Bold ajout des comptes\n{/:Bold sans date d'arrivée\n{/:Bold ou 
 set object 2 rect center first 2006.5,25750 size character 33,3.375 front fc "#ffffff" fs solid border lc "#007f00" lw 2
 set label 2 "{/:Bold ajout des comptes avec une\n{/:Bold date de dernier message invalide\n{/:Bold (il n'y a pas de date valide avant 2002)" at 2006.5,30000 center front tc rgbcolor "#007f00" #boxed
 
-plot [2000:2019] "data_dates_creation_lastpost1.txt" u 1:3 w filledcurves x1 lc rgbcolor "#003fbf" notitle, \
-"data_dates_creation_lastpost1.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum", \
-"data_dates_creation_lastpost1.txt" u 1:3 every ::::1 w lines lw 2 lc rgbcolor "#003fbf" dt (2,2) notitle, \
-"data_dates_creation_lastpost1.txt" u 1:4 w lines lw 2 lc rgbcolor "#003fbf" dt (8,8) title "{/:Bold avec au moins un post", \
-"data_dates_creation_lastpost1.txt" u 1:5 every ::::1 w lines lw 2 lc rgbcolor "#003fbf" dt (2,2) notitle, \
-"data_dates_creation_lastpost2.txt" u 1:3 w filledcurves x1 lc rgbcolor "#bf3f3f" notitle, \
-"data_dates_creation_lastpost2.txt" u 1:2 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message", \
-"data_dates_creation_lastpost2.txt" u 1:3 every ::::1 w lines lw 2 lc rgbcolor "#bf3f3f" dt (2,2) notitle
+plot [2000:2019] \
+"data_dates_creation_lastpost_1.txt" u 1:3 w filledcurves x1 lc rgbcolor "#003fbf" notitle, \
+"data_dates_creation_lastpost_1.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum", \
+"data_dates_creation_lastpost_1.txt" u 1:3 every ::::1 w lines lw 2 lc rgbcolor "#003fbf" dt (2,2) notitle, \
+"data_dates_creation_lastpost_1.txt" u 1:4 w lines lw 2 lc rgbcolor "#003fbf" dt (8,8) title "{/:Bold avec au moins un post", \
+"data_dates_creation_lastpost_1.txt" u 1:5 every ::::1 w lines lw 2 lc rgbcolor "#003fbf" dt (2,2) notitle, \
+"data_dates_creation_lastpost_2.txt" u 1:3 w filledcurves x1 lc rgbcolor "#bf3f3f" notitle, \
+"data_dates_creation_lastpost_2.txt" u 1:2 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message", \
+"data_dates_creation_lastpost_2.txt" u 1:3 every ::::1 w lines lw 2 lc rgbcolor "#bf3f3f" dt (2,2) notitle
 set output
 
 

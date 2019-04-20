@@ -1,8 +1,8 @@
 # nettoyage des données
 
-#sed -i "s/\"//g" data_lorenz*.txt
-#sed -i "s/,/ /g" data_lorenz*.txt
-#sed -i "1d" data_lorenz*.txt
+#sed -i "s/\"//g" data_courbes_lorenz_*.txt
+#sed -i "s/,/ /g" data_courbes_lorenz_*.txt
+#sed -i "1d" data_courbes_lorenz_*.txt
 #del sed*
 
 
@@ -45,8 +45,8 @@ set label 6 "{/:Bold  28.65 " at 5,28.65 right  front tc rgbcolor "#007f00" boxe
 # les courbes
 
 plot [-1:101][-2:102] \
-"data_courbes_lorenz_posts1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "{/:Bold pour tous les comptes hfr", \
-"data_courbes_lorenz_posts2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "{/:Bold pour les comptes avec au moins un post"
+"data_courbes_lorenz_posts_1.txt" u ($1 * 100 / 1143580):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#7f00ff" title "{/:Bold pour tous les comptes hfr", \
+"data_courbes_lorenz_posts_2.txt" u ($1 * 100 / 660046):($2 * 100 / 140346602) w lines lw 2 lc rgbcolor "#ff007f" title "{/:Bold pour les comptes avec au moins un post"
 set output
 
 
