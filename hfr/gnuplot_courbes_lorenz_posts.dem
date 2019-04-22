@@ -1,4 +1,4 @@
-# nettoyage des données
+# nettoyage des donnÃ©es
 
 #sed -i "s/\"//g" data_courbes_lorenz_*.txt
 #sed -i "s/,/ /g" data_courbes_lorenz_*.txt
@@ -11,13 +11,14 @@
 unset multiplot
 reset session
 reset
+set encoding utf8
 set terminal svg size 1600,900 dynamic name "hfr_courbes_lorenz_posts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_courbes_lorenz_posts.svg"
 set mxtics 2
 set mytics 2
 set key at 2.5,97.5 top left Left opaque reverse samplen 3 box spacing 1.3 width -5 height .2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
-set title "{/:Bold=18 hfr : les courbes de lorenz de répartition des posts\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set title "{/:Bold=18 hfr : les courbes de lorenz de rÃ©partition des posts\n{/=12 (donnÃ©es collectÃ©es entre le 21 mars 2019 Ã  02:55:05 et le 26 mars 2019 Ã  20:54:41)"
 set xlabel "{/=16 les comptes hfr (en %)" offset 0,0.4
 set ylabel "{/=16 les posts (en %)"
 set xtics 10 offset 0,0.3

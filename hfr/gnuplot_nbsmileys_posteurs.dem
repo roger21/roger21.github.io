@@ -1,4 +1,4 @@
-# nettoyage des données
+# nettoyage des donnÃ©es
 
 #sed -i "s/\"//g" data_nbsmileys_posteurs_*.txt
 #sed -i "s/,/ /g" data_nbsmileys_posteurs_*.txt
@@ -11,9 +11,10 @@
 unset multiplot
 reset session
 reset
+set encoding utf8
 set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs_1" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_nbsmileys_posteurs_1.svg"
-set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 1\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 1\n{/=12(donnÃ©es collectÃ©es entre le 21 mars 2019 Ã  02:55:05 et le 26 mars 2019 Ã  20:54:41)"
 set xtics offset 0,0.3 ("0 smiley" 0, "1 smiley" 1, "2 smileys" 2, "3 smileys" 3, "4 smileys" 4, "5 smileys" 5, \
 "6 smileys" 6, "7 smileys" 7, "8 smileys" 8, "9 smileys" 9, "10 smileys" 10, "11 smileys" 11)
 set style data histogram
@@ -23,7 +24,7 @@ set yrange [0:110]
 set key tc variable
 set style fill solid
 set xlabel "{/=16 les nombres de smileys" offset 0,0.4
-set ylabel "{/=16 les « classes » de posteurs pour un nombre de smileys donné (normalisées en %)"
+set ylabel "{/=16 les Â« classes Â» de posteurs pour un nombre de smileys donnÃ© (normalisÃ©es en %)"
 set ytics 0, 10, 109
 set mytics 2
 set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
@@ -49,9 +50,10 @@ set output
 unset multiplot
 reset session
 reset
+set encoding utf8
 set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs_2" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_nbsmileys_posteurs_2.svg"
-set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 2\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 2\n{/=12(donnÃ©es collectÃ©es entre le 21 mars 2019 Ã  02:55:05 et le 26 mars 2019 Ã  20:54:41)"
 set xtics offset 0,0.3 ("0 post" 0, "1+ post(s)" 1, "11+ posts" 2, "101+ posts" 3, "1 001+ posts" 4, "10 001+ posts" 5, "100 001+ posts" 6)
 set style data histogram
 set style histogram rowstacked
@@ -59,8 +61,8 @@ set boxwidth 0.75
 set yrange [0:110]
 set key tc variable
 set style fill solid
-set xlabel "{/=16 les « classes » de posteurs" offset 0,0.4
-set ylabel "{/=16 les nombres de smileys pour une « classe » de posteur donnée (normalisés en %)"
+set xlabel "{/=16 les Â« classes Â» de posteurs" offset 0,0.4
+set ylabel "{/=16 les nombres de smileys pour une Â« classe Â» de posteur donnÃ©e (normalisÃ©s en %)"
 set ytics 0, 10, 109
 set mytics 2
 set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)

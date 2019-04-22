@@ -1,4 +1,4 @@
-# nettoyage des données
+# nettoyage des donnÃ©es
 
 #sed -i "s/\"//g" data_creation_lastpost_*.txt
 #sed -i "s/,/ /g" data_creation_lastpost_*.txt
@@ -11,10 +11,11 @@
 unset multiplot
 reset session
 reset
+set encoding utf8
 set terminal svg size 1600,900 dynamic name "hfr_dates_creation_lastpost" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_dates_creation_lastpost.svg"
-set title "{/:Bold=18 hfr : les comptes hfr par année des dates d'arrivée sur le forum et des dates du dernier message\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
-set xlabel "{/=16 les années"
+set title "{/:Bold=18 hfr : les comptes hfr par annÃ©e des dates d'arrivÃ©e sur le forum et des dates du dernier message\n{/=12 (donnÃ©es collectÃ©es entre le 21 mars 2019 Ã  02:55:05 et le 26 mars 2019 Ã  20:54:41)"
+set xlabel "{/=16 les annÃ©es"
 set ylabel "{/=16 les comptes hfr"
 set style fill transparent solid 0.4
 set key tc variable
@@ -29,18 +30,18 @@ set arrow 2 from 2000.8125,21500 to 2001,70000 backhead front size character 1.1
 set arrow 3 from 2002.625,22500 to 2004.4,25000 backhead front size character 1.1,25 nofilled lw 2 lc "#007f00"
 
 set object 1 rect center first 2001.5,78750 size character 16.5,4.25 front fc "#ffffff" fs solid border lc "#007f00" lw 2
-set label 1 "{/:Bold ajout des comptes\n{/:Bold sans date d'arrivée\n{/:Bold ou avec une date\n{/:Bold d'arrivée invalide" at 2001.5,85000 center front tc rgbcolor "#007f00" #boxed
+set label 1 "{/:Bold ajout des comptes\n{/:Bold sans date d'arrivÃ©e\n{/:Bold ou avec une date\n{/:Bold d'arrivÃ©e invalide" at 2001.5,85000 center front tc rgbcolor "#007f00" #boxed
 set object 2 rect center first 2006.5,25750 size character 33,3.375 front fc "#ffffff" fs solid border lc "#007f00" lw 2
 set label 2 "{/:Bold ajout des comptes avec une\n{/:Bold date de dernier message invalide\n{/:Bold (il n'y a pas de date valide avant 2002)" at 2006.5,30000 center front tc rgbcolor "#007f00" #boxed
 
 plot [2000:2019] \
 "data_dates_creation_lastpost_1.txt" u 1:3 w filledcurves x1 lc rgbcolor "#003fbf" notitle, \
-"data_dates_creation_lastpost_1.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold années d'arrivée sur le forum", \
+"data_dates_creation_lastpost_1.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold annÃ©es d'arrivÃ©e sur le forum", \
 "data_dates_creation_lastpost_1.txt" u 1:3 every ::::1 w lines lw 2 lc rgbcolor "#003fbf" dt (2,2) notitle, \
 "data_dates_creation_lastpost_1.txt" u 1:4 w lines lw 2 lc rgbcolor "#003fbf" dt (8,8) title "{/:Bold avec au moins un post", \
 "data_dates_creation_lastpost_1.txt" u 1:5 every ::::1 w lines lw 2 lc rgbcolor "#003fbf" dt (2,2) notitle, \
 "data_dates_creation_lastpost_2.txt" u 1:3 w filledcurves x1 lc rgbcolor "#bf3f3f" notitle, \
-"data_dates_creation_lastpost_2.txt" u 1:2 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold années du dernier message", \
+"data_dates_creation_lastpost_2.txt" u 1:2 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold annÃ©es du dernier message", \
 "data_dates_creation_lastpost_2.txt" u 1:3 every ::::1 w lines lw 2 lc rgbcolor "#bf3f3f" dt (2,2) notitle
 set output
 
