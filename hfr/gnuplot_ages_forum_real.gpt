@@ -31,7 +31,7 @@ set xtics 0,1,19 offset 0,0.3
 set ytics 1000
 set xlabel "{/=16 l'age forumesque" offset 0,0.4
 set ylabel "{/=16 les comptes hfr"
-set key at 18.5,3500 center right Left opaque reverse samplen 3 box spacing 1.3 width -6 height .2
+set key at 18.5,3500 center right Left opaque reverse samplen 3 box spacing 1.3 width -5.5 height .2
 
 set arrow 1 from    8,0 to    8,4500 nohead front lw 2 lc "#ff007f" dt (10,7)
 set arrow 2 from 7.79,0 to 7.79,4500 nohead front lw 2 lc "#7f00ff" dt (10,7)
@@ -53,7 +53,7 @@ set ytics 100
 set mxtics 4
 set xlabel "{/=16 l'age renseigné" offset 0,0.4
 set ylabel "{/=16 les comptes hfr"
-set key at 103.75,400 center right Left opaque reverse samplen 3 box spacing 1.3 width -6.5 height .2
+set key at 103.75,400 center right Left opaque reverse samplen 3 box spacing 1.3 width -6 height .2
 
 set arrow 1 from    34,0 to    34,500 nohead front lw 2 lc "#ff007f" dt (10,7)
 set arrow 2 from 35.39,0 to 35.39,500 nohead front lw 2 lc "#7f00ff" dt (10,7)
@@ -78,24 +78,27 @@ unset tics
 unset xlabel
 unset ylabel
 
-set size 0.26,0.26
-set origin 0.6625,0.07
+set size 0.325,0.26
+set origin 0.612,0.074
 set angles degrees
 
 undefine $data
 $data << EOD
-0 0 1 90 -71.3735670590654398 189.3132164704672801 10733 55.17 # renseigné
-0 0 1 -71.3735670590654398 90 9,3132164704672801 8720 44.83 # non renseigné
+0 0 0.95 90 -71.3735670590654398 189.3132164704672801 10733 55.17 # renseigné
+0 0 0.95 -71.3735670590654398 90 9,3132164704672801 8720 44.83 # non renseigné
 EOD
 
 boldus(s) = sprintf("{/:Bold=14 %.2f%%}", s)
 
-set object 1 rect center 0,0 size graph 1,graph 1 behind noclip fc "#ffffff" fs solid noborder
+set object 1 rect center 0,0 size graph 1,graph 1 behind fc "#ffffff" fs solid noborder
 
-set label 1 "{/:Bold=16 age renseigné\n{/:Bold=16 et acceptable" at -1.5,0 center rotate by 90 front tc rgbcolor "#3fbf3f" offset -1.5,0
-set label 2 "{/:Bold=16 age non renseigné\n{/:Bold=16 ou trop foireux" at 1.5,0 center rotate by -90 front tc rgbcolor "#7f7f7f" offset 1.5,0
+set object 2 rect center -1.3,1.15 size character 19,2.2 front fc "#ffffff" fs solid border lc "#3fbf3f" lw 2
+set object 3 rect center 1.3,1.15 size character 19,2.2 front fc "#ffffff" fs solid border lc "#7f7f7f" lw 2
 
-plot [-2:2][-2:2] \
+set label 1 "{/:Bold=16 age renseigné\n{/:Bold=16 et acceptable" at -1.3,1.35 center front tc rgbcolor "#3fbf3f"
+set label 2 "{/:Bold=16 age non renseigné\n{/:Bold=16 ou trop foireux" at 1.3,1.35 center front tc rgbcolor "#7f7f7f"
+
+plot [-2.5:2.5][-2:2] \
 $data every ::::0 u ($1 + (.05 * cos($6))):($2 + (.05 * sin($6))):3:4:5 w circles fc rgbcolor "#3fbf3f" lw 2 title "age renseigné et acceptable", \
 $data skip 1 u ($1 + (.05 * cos($6))):($2 + (.05 * sin($6))):3:4:5 w circles fc rgbcolor "#7f7f7f" lw 2 title "age non renseigné ou trop foireux", \
 $data every ::::0 u ($1 + (.55 * cos($6))):($2 + (.55 * sin($6))):(boldus($8)) w labels tc rgbcolor "#3fbf3f" notitle, \
