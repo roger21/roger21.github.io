@@ -12,7 +12,7 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600,900 dynamic name "hfr_dates_actives_accounts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_dates_actives_accounts_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_dates_active_accounts.svg"
 set multiplot title "{/:Bold=18 hfr : les comptes hfr actifs\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set style fill transparent solid 0.4

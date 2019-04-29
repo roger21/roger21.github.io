@@ -12,7 +12,7 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600,900 dynamic name "hfr_courbes_lorenz_posts" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_courbes_lorenz_posts_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_courbes_lorenz_posts.svg"
 set mxtics 2
 set mytics 2

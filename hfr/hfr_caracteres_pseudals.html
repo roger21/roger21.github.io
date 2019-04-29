@@ -3,7 +3,7 @@
 <head>
   <!-- utf-8: Ω -->
   <meta charset="utf-8">
-  <title>hfr_caracteres_pseudals</title>
+  <title>hfr_caracteres_pseudals_html</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script type="text/javascript" src="sorter.js"></script>
@@ -17,15 +17,17 @@
 <body>
   <!--
 
-- nettoyage avec sed
+- nettoyer avec sed (avant et après le copié / collé)
 
-- ajout de ' class="sortable-onload-show-0 rowstyle-data1"' sur la table
+- ajouter ' class="sortable-onload-show-0 rowstyle-data1"' sur la table
 
-- ajout de la  classe ' sortable-sortBy' sur les th de unicode, UTF-8, caractère et de la classe ' sortable-numeric' sur le th de occurence
+- ajouter la  classe ' sortable-sortBy' sur les th de unicode, UTF-8, caractère et la classe ' sortable-numeric' sur le th de occurence
 
 - remplacer les valeurs du carctère null (9216 2400 9216 14848128 e29080 14845326 42 ␀ 42) par 0 0000 0 0 00 0 0 [space] 0
 
 - et monter la ligne du null en haut
+
+- remplacer les classes data1 et data2 par data
 
   -->
   <div class="table">

@@ -12,7 +12,7 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs_1" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs_1_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_nbsmileys_posteurs_1.svg"
 set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 1\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set xtics offset 0,0.3 ("0 smiley" 0, "1 smiley" 1, "2 smileys" 2, "3 smileys" 3, "4 smileys" 4, "5 smileys" 5, \
@@ -51,7 +51,7 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs_2" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_nbsmileys_posteurs_2_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_nbsmileys_posteurs_2.svg"
 set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 2\n{/=12(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set xtics offset 0,0.3 ("0 post" 0, "1+ post(s)" 1, "11+ posts" 2, "101+ posts" 3, "1 001+ posts" 4, "10 001+ posts" 5, "100 001+ posts" 6)

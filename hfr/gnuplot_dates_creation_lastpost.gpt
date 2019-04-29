@@ -12,7 +12,7 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600,900 dynamic name "hfr_dates_creation_lastpost" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set terminal svg size 1600,900 dynamic name "hfr_dates_creation_lastpost_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_dates_creation_lastpost.svg"
 set title "{/:Bold=18 hfr : les comptes hfr par année des dates d'arrivée sur le forum et des dates du dernier message\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
 set xlabel "{/=16 les années"
