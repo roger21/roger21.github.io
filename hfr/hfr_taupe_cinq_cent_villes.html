@@ -7,16 +7,6 @@
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script type="text/javascript" src="sorter.js"></script>
-  <script type="text/javascript">
-    var sortUtf=fdTableSort.sortNumeric;
-    function sortUtfPrepareData(td, innerText){
-      return td.getAttribute("sortutf");
-    }
-    var sortDays=fdTableSort.sortNumeric;
-    function sortDaysPrepareData(td, innerText){
-      return td.getAttribute("days");
-    }
-  </script>
 </head>
 <body>
   <!--
@@ -25,7 +15,7 @@
 
 - ajouter ' class="sortable-onload-show-0 rowstyle-data1"' sur la table
 
-- ajouter la classe ' sortable-numeric' sur les th de rang et de nombre de comptes hfr et la classe ' sortable-text' sur le th de villes
+- ajouter la classe ' sortable-numeric' sur les th de rang et de nombre de comptes hfr et la classe ' sortable-text' sur le th de ville
 
 - remplacer les classes data1 et data2 par data
 
@@ -35,7 +25,7 @@
     <h3>(données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)</h3>
     <h3>(noms des villes sommairement homogénéisés en minuscules et sans tiret)</h3>
     <table class="sortable-onload-show-0 rowstyle-data1">
-      <tr><th class="data sortable-numeric">rang</th><th class="data sortable-text">villes</th><th class="data sortable-numeric">nombre de comptes hfr</th></tr>
+      <tr><th class="data sortable-numeric">rang</th><th class="data sortable-text">ville</th><th class="data sortable-numeric">nombre de comptes hfr</th></tr>
       <tr class="data"><td style="white-space:nowrap;"><div style="text-align: right">1</div></td><td style="white-space:nowrap;">paris</td><td style="white-space:nowrap;"><div style="text-align: right">57630</div></td></tr>
       <tr class="data"><td style="white-space:nowrap;"><div style="text-align: right">2</div></td><td style="white-space:nowrap;">lyon</td><td style="white-space:nowrap;"><div style="text-align: right">13439</div></td></tr>
       <tr class="data"><td style="white-space:nowrap;"><div style="text-align: right">3</div></td><td style="white-space:nowrap;">toulouse</td><td style="white-space:nowrap;"><div style="text-align: right">10683</div></td></tr>

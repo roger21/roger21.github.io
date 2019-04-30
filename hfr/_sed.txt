@@ -1,7 +1,7 @@
 ﻿pour effacer les tableaux
 -------------------------
 
-sed -i -e "1h;2,$H;$!d;g" -e "s/    <table.*\?>.*    <\/table>/    <table>\n    <\/table>/g" *.html
+sed -i -e "1h;2,$H;$!d;g" -e "s/    <table.*>.*    <\/table>/    <table>\n    <\/table>/g" *.html
 del sed*
 
 
