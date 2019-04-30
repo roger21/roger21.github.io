@@ -3,10 +3,6 @@ html, body, div, hr, h1, table, tr, th, td, img{
   border:0;
   padding:0;
 }
-h3{
-  color:#909090;
-margin-top:
-}
 body{
   color:#303030;
   background-color:white;
@@ -48,6 +44,11 @@ div.table > h1{
 }
 div.table > h3{
   margin:5px 0 0;
+  color:#909090;
+}
+div.table > h3 + h3{
+  margin:20px 0 0;
+  color:#303030;
 }
 div.table > table{
   margin:30px auto;
