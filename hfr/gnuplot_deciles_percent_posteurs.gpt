@@ -14,7 +14,7 @@ reset
 set encoding utf8
 set terminal svg size 1600,900 dynamic name "hfr_deciles_percent_posteurs_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_deciles_percent_posteurs.svg"
-set multiplot layout 1,2 title "{/:Bold=18 hfr : la répartition en déciles du top 1% des posteurs\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set multiplot layout 1,2 title "{/:Bold=18 hfr : la répartition en déciles du top 1% des posteurs\n{/=12 (données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34)"
 set xtics offset 0,0.3 0.1
 set x2tics offset 0,-0.3
 set format y "%.f"

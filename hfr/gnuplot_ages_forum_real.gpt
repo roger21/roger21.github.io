@@ -14,7 +14,7 @@ reset
 set encoding utf8
 set terminal svg size 1600,900 dynamic name "hfr_ages_forum_real_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
 set output "hfr_ages_forum_real.svg"
-set multiplot layout 2,1 title "{/:Bold=18 hfr : l'ages des forumeurs actifs en 2019\n{/=12 (données collectées entre le 21 mars 2019 à 02:55:05 et le 26 mars 2019 à 20:54:41)"
+set multiplot layout 2,1 title "{/:Bold=18 hfr : l'ages des forumeurs actifs en 2019\n{/=12 (données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34)"
 set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
 set key tc variable
 set style fill transparent solid 0.4
