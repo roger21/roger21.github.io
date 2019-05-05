@@ -236,7 +236,7 @@
                 if(span2.firstChild) {
                   span2.removeChild(span2.firstChild)
                 }
-                span2.appendChild(document.createTextNode(len == 1 ? " \u2b07" : " \u2b06"))
+                span2.appendChild(document.createTextNode(len == 1 ? " \u25b2" : " \u25bc"))
               }
             }
           }
@@ -660,7 +660,7 @@
         if(span.firstChild) {
           span.removeChild(span.firstChild)
         }
-        span.appendChild(document.createTextNode(fdTableSort.thNode.className.search(/forwardSort/) != -1 ? " \u2b07" : " \u2b06"))
+        span.appendChild(document.createTextNode(fdTableSort.thNode.className.search(/forwardSort/) != -1 ? " \u25b2" : " \u25bc"))
       }
       if(!dataObj.rowStyle && !dataObj.colStyle && identical) {
         fdTableSort.removeSortActiveClass();

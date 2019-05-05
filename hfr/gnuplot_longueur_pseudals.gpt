@@ -25,7 +25,16 @@ set ytics 20000
 set style fill transparent solid 0.4
 set key tc variable
 
-plot [-1:45][0:200000] "data_longueur_pseudals.txt" w boxes lw 2 lc rgbcolor "#003fbf" title "{/:Bold le nombre de comptes hfr en fonction de la longueur du pseudal"
+set arrow 1 from    8,0 to    8,200000 nohead front lw 2 lc "#ff007f" dt (10,7)
+set arrow 2 from 8.23,0 to 8.23,200000 nohead front lw 2 lc "#7f00ff" dt (10,7)
+
+set label 1 "{/:Bold 8"    at    8,195500 right front tc rgbcolor "#ff007f" offset -.6,0
+set label 2 "{/:Bold 8.23" at 8.23,195500 left  front tc rgbcolor "#7f00ff" offset  .6,0
+
+plot [-1:45][0:200000] "data_longueur_pseudals.txt" w boxes lw 2 lc rgbcolor "#003fbf" title "{/:Bold le nombre de comptes hfr en fonction de la longueur du pseudal", \
+keyentry w lines lw 2 lc rgbcolor "#ff007f" dt (10,7) title "{/:Bold longueur médiane", \
+keyentry w lines lw 2 lc rgbcolor "#7f00ff" dt (10,7) title "{/:Bold longueur moyenne"
+
 set output
 
 

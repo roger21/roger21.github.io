@@ -36,7 +36,7 @@ set key at 18.5,3500 center right Left opaque reverse samplen 3 box spacing 1.3 
 set arrow 1 from    8,0 to    8,4500 nohead front lw 2 lc "#ff007f" dt (10,7)
 set arrow 2 from 7.79,0 to 7.79,4500 nohead front lw 2 lc "#7f00ff" dt (10,7)
 
-set label 1 "{/:Bold 8"    at    8,2750 center rotate front tc rgbcolor "#ff007f" offset 1,0
+set label 1 "{/:Bold 8"    at    8,2750 center rotate front tc rgbcolor "#ff007f" offset  1,0
 set label 2 "{/:Bold 7.79" at 7.79,2750 center rotate front tc rgbcolor "#7f00ff" offset -1,0
 
 plot [-1:20][0:4500] \
@@ -59,7 +59,7 @@ set arrow 1 from    34,0 to    34,500 nohead front lw 2 lc "#ff007f" dt (10,7)
 set arrow 2 from 35.39,0 to 35.39,500 nohead front lw 2 lc "#7f00ff" dt (10,7)
 
 set label 1 "{/:Bold 34"    at    34,175 center rotate front tc rgbcolor "#ff007f" offset -1,0
-set label 2 "{/:Bold 35.39" at 35.39,175 center rotate front tc rgbcolor "#7f00ff" offset 1,0
+set label 2 "{/:Bold 35.39" at 35.39,175 center rotate front tc rgbcolor "#7f00ff" offset  1,0
 
 plot [-1:111][0:500] \
 "data_ages_forum_real_2.txt" u 1:2 w lines lw 2 lc rgbcolor "#3fbf3f" notitle, \
