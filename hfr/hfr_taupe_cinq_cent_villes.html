@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script type="text/javascript" src="sorter.js"></script>
+  <script type="text/javascript">
+    window.addEventListener("load", function(){
+      var th1=document.querySelector("th.data:nth-child(4) > span:nth-child(1)");
+      th1.innerHTML="nombre de comptes hfr<br>actifs en 2019";
+    }, false);
+  </script>
 </head>
 <body>
   <!--
@@ -25,7 +31,7 @@
     <h3>(données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34)</h3>
     <h3>(noms des villes sommairement homogénéisés en minuscules et sans tiret)</h3>
     <table class="sortable-onload-show-0 rowstyle-data1">
-      <tr><th class="data sortable-numeric">rang</th><th class="data sortable-text">ville</th><th class="data sortable-numeric">nombre de comptes hfr</th><th class="data sortable-numeric">nombre de comptes hfr actifs en 2019</th></tr>
+      <tr><th class="data sortable-numeric">rang</th><th class="data sortable-text">ville</th><th class="data sortable-numeric">nombre de comptes hfr</th><th class="data sortable-numeric">nombre de comptes hfr<br>actifs en 2019</th></tr>
       <tr class="data"><td style="white-space:nowrap;"><div style="text-align: right">1</div></td><td style="white-space:nowrap;">paris</td><td style="white-space:nowrap;"><div style="text-align: right">57630</div></td><td style="white-space:nowrap;"><div style="text-align: right">1154</div></td></tr>
       <tr class="data"><td style="white-space:nowrap;"><div style="text-align: right">2</div></td><td style="white-space:nowrap;">lyon</td><td style="white-space:nowrap;"><div style="text-align: right">13439</div></td><td style="white-space:nowrap;"><div style="text-align: right">330</div></td></tr>
       <tr class="data"><td style="white-space:nowrap;"><div style="text-align: right">3</div></td><td style="white-space:nowrap;">toulouse</td><td style="white-space:nowrap;"><div style="text-align: right">10683</div></td><td style="white-space:nowrap;"><div style="text-align: right">290</div></td></tr>
