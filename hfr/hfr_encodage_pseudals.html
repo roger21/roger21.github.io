@@ -17,10 +17,11 @@
       th1.innerHTML="nombre d'octets de<br>plus que de caractères";
       var th2=document.querySelector("th.data:nth-child(9) > span:nth-child(1)");
       th2.innerHTML="dernier post<br>avant la collecte";
+      document.body.classList.remove("loading");
     }, false);
   </script>
 </head>
-<body>
+<body class="loading">
   <!--
 
 - nettoyer avec sed (avant et après le copié / collé)
@@ -34,6 +35,7 @@
 - remplacer les classes data1 et data2 par data
 
   -->
+  <div class="wait"><div class="loading">chargement...</div><div class="sort-active">tri en cours...</div></div>
   <div class="table">
     <h1>hfr : les pseudals les plus encodés</h1>
     <h3>(données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34)</h3>
