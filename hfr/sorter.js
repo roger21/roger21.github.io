@@ -191,7 +191,7 @@
               }
               span1clone = span1.cloneNode(true);
               span1clone.innerHTML = thtext;
-              workArr[c][i].title = "Sort on \u201c" + thtitle.replace("<br>", "") + "\u201d";
+              workArr[c][i].title = "Trier par \u00ab\u00a0" + thtitle.replace("<br>", "") + "\u00a0\u00bb";
               span1clone.onclick = span1clone.onkeydown = workArr[c][i].onclick = fdTableSort.initWrapper;
               workArr[c][i].appendChild(span1clone);
               if(showArrow) {
