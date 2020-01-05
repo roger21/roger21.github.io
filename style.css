@@ -34,6 +34,9 @@ div.index > hr{
   border-style:dashed;
   border-color:#303030;
 }
+div.index > hr.mid{
+  margin:20px calc(100% - 400px) 20px 30px;
+}
 div.table{
   margin:30px 0;
   padding:0;
