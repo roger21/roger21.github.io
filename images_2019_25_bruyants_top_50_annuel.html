@@ -6,6 +6,28 @@
   <title>Topic Images Bruyants 2019 Top 50 Annuel</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript">
+    var timer_color;
+    function color(){
+      let text = this.textContent;
+      window.clearTimeout(timer_color);
+      timer_color = window.setTimeout(function() {
+        document.querySelectorAll("td").forEach((e) => {
+          if(e.cellIndex !== 0 && e.textContent === text){
+            e.style.backgroundColor = "#ffafaf";
+          }else{
+            e.style.backgroundColor = "transparent";          }
+        });
+      }, 500);
+    }
+    window.addEventListener("load", function(){
+      document.querySelectorAll("td").forEach((e) => {
+        if(e.cellIndex !== 0){
+          e.addEventListener("mouseover", color, false);
+        }
+      });
+    }, false);
+  </script>
 </head>
 <body>
   <div class="table">
