@@ -3,7 +3,7 @@
 
 sed -i -e "1h;2,$H;$!d;g" -e "s/    <table>.*    <\/table>/    <table>\n    <\/table>/g" *_2019_*.html
 sed -i -e "s/2018/2019/g" *_2019_*.html
-del sed*
+del   sed*
 
 
 les corrections
