@@ -11,7 +11,10 @@ les corrections
 sed -i -e "1h;2,$H;$!d;g" -e "s/>\n<td/><td/g" *.html
 sed -i -e "s/^<tr/      <tr/g" *.html
 sed -i -e "s/nowrap;\"^>il y a/nowrap;\"><div style=\"text-align: right\">il y a/g" *.html
-sed -i -e "s/jours<\/td/jours<\/div><\/td/g" *.html
+sed -i -e "s/minutes<\/td/minutes<\/div><\/td/g" *.html
+sed -i -e "s/url1/<a href=\"/g" *.html
+sed -i -e "s/url2/\"^>/g" *.html
+sed -i -e "s/url3/<\/a>/g" *.html
 del sed*
 
 
