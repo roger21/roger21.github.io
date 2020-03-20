@@ -4,7 +4,7 @@ if (0) {
 1 - lancer la collecte
 2 - récupérer les données en csv PAGINER !
 
-select * from count_posts --> count_posts_20200317111457.txt
+select * from count_posts --> count_posts_20200320050149.txt
 
 3 - nettoyer le csv
 
@@ -23,8 +23,8 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic name "courbes_posts_20200317111457_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "courbes_posts_20200317111457.svg"
+set terminal svg size 1600, 900 dynamic name "courbes_posts_20200320050149_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "courbes_posts_20200320050149.svg"
 set title "{/:Bold=18 Le nombre de posts sur le topic COVID-19 en fonction du temps\n{/=12 (données collectées le mardi 17 mars 2020 à 11:14:57)"
 set xlabel "{/=16 le temps"
 set ylabel "{/=16 le nombre de posts"
@@ -36,8 +36,8 @@ set ytics 0, 10000
 set mytics 2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
 
-plot [1579474800:1584918000][0:110000] \
-"count_posts_20200317111457.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts"
+plot [1579474800:1584918000][0:130000] \
+"count_posts_20200320050149.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts"
 
 set output
 
