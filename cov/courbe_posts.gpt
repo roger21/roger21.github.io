@@ -1,27 +1,3 @@
-if (0) {
-
-0 - travailler dans bordel
-1 - lancer la collecte
-2 - récupérer les données en csv PAGINER !
-
-SELECT date_part('epoch', date) AS time, count(*) OVER (ORDER BY date, postid) AS posts FROM posts ORDER BY date, postid
---> count_posts_20200320130908.txt
-SELECT date_part('epoch', date) AS time, count(*) OVER (ORDER BY date, postid) AS posts FROM posts WHERE pseudal ilike 'modération' ORDER BY date, postid
---> count_roses_20200320130908.txt
-
-3 - nettoyer les csv
-
-sed -i "s/\"//g" count_*_*.txt
-sed -i "s/,/ /g" count_*_*.txt
-sed -i "1d" count_*_*.txt
-del sed*
-
-4 - lancer ce fichier dans gnuplot
-
-load "courbe_posts.gpt"
-
-}
-
 unset multiplot
 reset session
 reset
