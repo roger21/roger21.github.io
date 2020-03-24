@@ -4,13 +4,16 @@ if (0) {
 1 - lancer la collecte
 2 - récupérer les données en csv PAGINER !
 
-select * from count_posts --> count_posts_20200320050149.txt
+SELECT date_part('epoch', date) AS time, count(*) OVER (ORDER BY date, postid) AS posts FROM posts ORDER BY date, postid
+--> count_posts_20200320130908.txt
+SELECT date_part('epoch', date) AS time, count(*) OVER (ORDER BY date, postid) AS posts FROM posts WHERE pseudal ilike 'modération' ORDER BY date, postid
+--> count_roses_20200320130908.txt
 
-3 - nettoyer le csv
+3 - nettoyer les csv
 
-sed -i "s/\"//g" count_posts_*.txt
-sed -i "s/,/ /g" count_posts_*.txt
-sed -i "1d" count_posts_*.txt
+sed -i "s/\"//g" count_*_*.txt
+sed -i "s/,/ /g" count_*_*.txt
+sed -i "1d" count_*_*.txt
 del sed*
 
 4 - lancer ce fichier dans gnuplot
@@ -23,21 +26,25 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic name "courbes_posts_20200320050149_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "courbes_posts_20200320050149.svg"
-set title "{/:Bold=18 Le nombre de posts sur le topic COVID-19 en fonction du temps\n{/=12 (données collectées le vendredi 20 mars 2020 à 05:01:49)"
-set xlabel "{/=16 le temps"
+set terminal svg size 1600, 900 dynamic name "courbes_posts_20200320130908_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "courbes_posts_20200320130908.svg"
+set title "{/:Bold=18 Le nombre de posts sur le topic COVID-19 en fonction du temps\n{/=14 (données collectées le vendredi 20 mars 2020 à 13:09:08)"
+set xlabel "{/=16 le temps {/=11(poil aux dents)"
 set ylabel "{/=16 le nombre de posts"
-set key at 1579604400, 95000 center left Left opaque reverse samplen 3 box spacing 1.3 width -1.5
-set xtics 1579474800, 604800, 1584918000
-set xtics add ("lun 20/01/2020" 1579474800, "lun 27/01/2020" 1580079600, "lun 03/02/2020" 1580684400, "lun 10/02/2020" 1581289200, "lun 17/02/2020" 1581894000, "lun 24/02/2020" 1582498800, "lun 02/03/2020" 1583103600, "lun 09/03/2020" 1583708400, "lun 16/03/2020" 1584313200, "lun 23/03/2020" 1584918000)
+set y2label "{/=16 le nombre de posts roses"
+set key at 1579608000, 140000 center left Left opaque reverse samplen 3 box spacing 1.3 width -3.1 height .3
+set xtics 1579478400, 604800, 1585526400
+set xtics add ("lun 20/01/2020" 1579478400, "lun 27/01/2020" 1580083200, "lun 03/02/2020" 1580688000, "lun 10/02/2020" 1581292800, "lun 17/02/2020" 1581897600, "lun 24/02/2020" 1582502400, "lun 02/03/2020" 1583107200, "lun 09/03/2020" 1583712000, "lun 16/03/2020" 1584316800, "lun 23/03/2020" 1584921600, "lun 30/03/2020" 1585526400)
 set mxtics 7
 set ytics 0, 10000
 set mytics 2
+set y2tics 0, 20
+set link y2 via y / 500 inverse y * 500
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
 
-plot [1579474800:1584918000][0:130000] \
-"count_posts_20200320050149.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts"
+plot [1579478400:1585526400][0:150000] \
+"count_posts_20200320130908.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts", \
+"count_roses_20200320130908.txt" axes x1y2 w line lw 3 lc rgbcolor "#ff3f7f" dt (1, 1) title "{/:Bold le nombre de posts roses"
 
 set output
 
