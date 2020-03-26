@@ -4,7 +4,7 @@ reset
 set encoding utf8
 set terminal svg size 1600, 900 dynamic name "courbes_posts_20200320130908_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "courbes_posts_20200320130908.svg"
-set title "{/:Bold=18 Le nombre de posts sur le topic COVID-19 en fonction du temps\n{/=14 (données collectées le vendredi 20 mars 2020 à 13:09:08)"
+set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/=14 (données collectées le vendredi 20 mars 2020 à 13:09:08)"
 set xlabel "{/=16 le temps {/=11(poil aux dents)"
 set ylabel "{/=16 le nombre de posts"
 set y2label "{/=16 le nombre de posts roses"
