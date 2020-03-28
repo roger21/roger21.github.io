@@ -2,8 +2,8 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic name "courbes_posts_20200320130908_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "courbes_posts_20200320130908.svg"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "posts_participants_20200320130908_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "posts_participants_20200320130908.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/:Bold=14 (données collectées le vendredi 20 mars 2020 à 13:09:08)"
 set xlabel "{/=16 le temps {/=11(poil aux dents)"
 set ylabel "{/=16 le nombre de posts"
@@ -22,14 +22,48 @@ minus(s) = sprintf("{/:Bold=12 %.f", s)
 bigger(s) = sprintf("{/:Bold=16 %.f", s)
 
 plot [1579478400:1585526400][0:150000] \
-"count_participants_20200320130908.txt" u 1:($2*50) w line lw 2 lc rgbcolor "#3f3fff" title "{/:Bold le nombre de participants", \
+"count_participants_20200320130908.txt" u 1:($2*50) w line lw 2 lc rgbcolor "#7f7fff" title "{/:Bold le nombre de participants", \
 "count_roses_20200320130908.txt" axes x1y2 w line lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses", \
 "count_posts_20200320130908.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts", \
-"count_participants_20200320130908.txt" every 200::99::899 u 1:($2*50):(minus($2)) w labels right tc rgbcolor "#0000ff" point lc rgbcolor "#0000ff" pt 7 ps .5 offset -1.125,.25 notitle, \
-"count_participants_20200320130908.txt" every 200::1099 u 1:($2*50):(minus($2)) w labels left tc rgbcolor "#0000ff" point lc rgbcolor "#0000ff" pt 7 ps .5 offset 0,-.75 notitle, \
-"count_participants_20200320130908.txt" every ::1929::1929 u 1:($2*50):(bigger($2)) w labels left tc rgbcolor "#0000ff" point lc rgbcolor "#0000ff" pt 7 ps 1 offset .5,-.25 notitle, \
+"count_participants_20200320130908.txt" every 200::99::899 u 1:($2*50):(minus($2)) w labels right tc rgbcolor "#3f3fff" point lc rgbcolor "#3f3fff" pt 7 ps .5 offset -1.125,.25 notitle, \
+"count_participants_20200320130908.txt" every 200::1099 u 1:($2*50):(minus($2)) w labels left tc rgbcolor "#3f3fff" point lc rgbcolor "#3f3fff" pt 7 ps .5 offset 0,-.75 notitle, \
+"count_participants_20200320130908.txt" every ::1929::1929 u 1:($2*50):(bigger($2)) w labels left tc rgbcolor "#3f3fff" point lc rgbcolor "#3f3fff" pt 7 ps 1 offset .5,-.25 notitle, \
 "count_roses_20200320130908.txt" every ::173::173 u 1:($2*500):(bigger($2)) w labels left tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps 1 offset .5,-.25 notitle, \
 "count_posts_20200320130908.txt" every ::122192::122192 u 1:2:(bigger($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps 1 offset .5,-.25 notitle
+
+set output
+
+
+unset multiplot
+reset session
+reset
+set encoding utf8
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "posts_participants_per_day_20200320130908_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "posts_participants_per_day_20200320130908.svg"
+set title "{/:Bold=18 Le nombre de posts et de nouveaux participants par jour sur le topic COVID-19\n{/:Bold=14 (données collectées le vendredi 20 mars 2020 à 13:09:08)"
+set xlabel "{/=16 le temps {/=11(poil aux dents)"
+set ylabel "{/=16 le nombre de posts par jour"
+set y2label "{/=16 le nombre de posts roses par jour"
+set key at 1579608000, 13500 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -6.5
+set xtics 1579478400, 604800, 1585526400
+set xtics add ("lun 20/01/2020" 1579478400, "lun 27/01/2020" 1580083200, "lun 03/02/2020" 1580688000, "lun 10/02/2020" 1581292800, "lun 17/02/2020" 1581897600, "lun 24/02/2020" 1582502400, "lun 02/03/2020" 1583107200, "lun 09/03/2020" 1583712000, "lun 16/03/2020" 1584316800, "lun 23/03/2020" 1584921600, "lun 30/03/2020" 1585526400)
+set mxtics 7
+set ytics 0, 1000
+set mytics 2
+set y2tics 0, 2
+set link y2 via y / 500 inverse y * 500
+set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
+set style fill transparent solid 1
+set boxwidth 0.125 relative
+
+
+minus(s) = sprintf("{/=12 %.f", s)
+
+plot [1579478400:1585526400][0:15000] \
+"counts_per_day_20200320130908.txt" u ($1+21600):($4*50) w boxes lc rgbcolor "#7f7fff" title "{/:Bold le nombre de nouveaux participants par jour", \
+"counts_per_day_20200320130908.txt" u ($1):3 axes x1y2 w boxes lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses par jour", \
+"counts_per_day_20200320130908.txt" u ($1-21600):2 w boxes lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts par jour", \
+"counts_per_day_20200320130908.txt" u ($1+21600):($4*50):(minus($4)) w labels center tc rgbcolor "#3f3fff" offset 0,1 notitle
 
 set output
 
