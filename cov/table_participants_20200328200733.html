@@ -13,6 +13,8 @@
       return td.getAttribute("sortby");
     }
     window.addEventListener("load", function(){
+      var th0=document.querySelector("th:nth-child(3) > span:nth-child(1)");
+      th0.innerHTML="nombre de posts<br>sur le topic";
       var th1=document.querySelector("th:nth-child(4) > span:nth-child(1)");
       th1.innerHTML="premier post<br>sur le topic";
       var th2=document.querySelector("th:nth-child(5) > span:nth-child(1)");
@@ -30,7 +32,7 @@
       <tr>
         <th class="sortable-numeric">rang</th>
         <th class="sortable-sortBy">pseudal</th>
-        <th class="sortable-numeric">nombre de posts</th>
+        <th class="sortable-numeric">nombre de posts sur le topic</th>
         <th class="sortable-sortBy">premier post sur le topic</th>
         <th class="sortable-sortBy">dernier post avant la collecte</th>
       </tr>

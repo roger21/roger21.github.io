@@ -152,15 +152,15 @@ gnuplot_svg.hideCoordBox = function(evt) {
 }
 
 gnuplot_svg.toggleCoordBox = function(evt) {
-    var t = gnuplot_svg.getText();
-    if (null != t) {
-	var state = t.getAttribute('visibility');
-	if ('hidden' != state)
-	    state = 'hidden';
-	else
-	    state = 'visible';
-	t.setAttribute('visibility', state);
-    }
+//    var t = gnuplot_svg.getText();
+//    if (null != t) {
+//	var state = t.getAttribute('visibility');
+//	if ('hidden' != state)
+//	    state = 'hidden';
+//	else
+//	    state = 'visible';
+//	t.setAttribute('visibility', state);
+//    }
 }
 
 gnuplot_svg.toggleGrid = function() {
