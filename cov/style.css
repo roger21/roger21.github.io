@@ -129,16 +129,15 @@ div.table > table td img{
   margin:3px auto;
 }
 a{
-  color:#505050;
+  color:#505090;
   text-decoration:none;
   padding:0 4px;
 }
 a:visited{
-  color:#707070;
+  color:#b07070;
   text-decoration:none;
 }
 a:hover, a:visited:hover{
-  color:#909090;
   text-decoration:none;
   background-color:#e7e7f7;
 }
