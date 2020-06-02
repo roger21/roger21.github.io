@@ -6,18 +6,18 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_counts_20200526083701" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_counts_20200526083701.svg"
-set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/:Bold=14 (données collectées le mardi 26 mai 2020 à 8:37:01)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_counts_20200602155756" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_counts_20200602155756.svg"
+set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/:Bold=14 (données collectées le mardi 2 juin 2020 à 15:57:56)"
 set ylabel "{/=16 le nombre de posts"
 set y2label "{/=16 le nombre de posts roses et de participants"
-set key at 1579608000, 295000 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -7
+set key at 1579608000, 320000 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -7
 set xtics 1579478400, 604800
-set xtics add ("lundi\n20/01" 1579478400, "lundi\n27/01" 1580083200, "lundi\n03/02" 1580688000, "lundi\n10/02" 1581292800, "lundi\n17/02" 1581897600, "lundi\n24/02" 1582502400, "lundi\n02/03" 1583107200, "lundi\n09/03" 1583712000, "lundi\n16/03" 1584316800, "lundi\n23/03" 1584921600, "lundi\n30/03" 1585526400, "lundi\n06/04" 1586131200, "lundi\n13/04" 1586736000, "lundi\n20/04" 1587340800, "lundi\n27/04" 1587945600, "lundi\n04/05" 1588550400, "lundi\n11/05" 1589155200, "lundi\n18/05" 1589760000, "lundi\n25/05" 1590364800, "lundi\n01/06" 1590969600)
+set xtics add ("lundi\n20/01" 1579478400, "lundi\n27/01" 1580083200, "lundi\n03/02" 1580688000, "lundi\n10/02" 1581292800, "lundi\n17/02" 1581897600, "lundi\n24/02" 1582502400, "lundi\n02/03" 1583107200, "lundi\n09/03" 1583712000, "lundi\n16/03" 1584316800, "lundi\n23/03" 1584921600, "lundi\n30/03" 1585526400, "lundi\n06/04" 1586131200, "lundi\n13/04" 1586736000, "lundi\n20/04" 1587340800, "lundi\n27/04" 1587945600, "lundi\n04/05" 1588550400, "lundi\n11/05" 1589155200, "lundi\n18/05" 1589760000, "lundi\n25/05" 1590364800, "lundi\n01/06" 1590969600, "lundi\n08/06" 1591574400)
 set mxtics 7
-set ytics 0, 25000
+set ytics 0, 50000
 set mytics 5
-set y2tics 0, 500
+set y2tics 0, 1000
 set link y2 via y / 50 inverse y * 50
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
 
@@ -29,19 +29,19 @@ bigger(s) = sprintf("{/:Bold=16 %.f", s)
 
 set label "{/=12^* les participants ayant posté au cours de la dernière semaine avant la collecte" at screen .99,.02 right
 
-plot [1579478400:1590969600][0:325000] \
-"data_count_participants_active_20200526083701.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f3fff" dt (4, 4) title "{/:Bold le nombre de participants toujours actifs ^*", \
-"data_count_participants_20200526083701.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f5fff" title "{/:Bold le nombre de participants", \
-"data_count_roses_20200526083701.txt" axes x1y2 w line lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses", \
-"data_count_posts_20200526083701.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts", \
-"data_count_participants_20200526083701.txt" every 200::99::899 u 1:2:(minus($2)) axes x1y2 w labels right tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -1.125,.25 notitle, \
-"data_count_participants_20200526083701.txt" every 200::1099 u 1:2:(minus($2)) axes x1y2 w labels left tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset 0,-.75 notitle, \
-"data_count_participants_20200526083701.txt" every ::2507::2507 u 1:2:(bigger($2)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps 1 offset 1.5,.5 notitle, \
-"data_count_participants_active_20200526083701.txt" every 100::99::1099 u 1:2:(minus($2)) axes x1y2 w labels left tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset 0,.25 notitle, \
-"data_count_participants_active_20200526083701.txt" every ::464::464 u 1:2:(bigger($2)) axes x1y2 w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 1.5,.5 notitle, \
-"data_count_roses_20200526083701.txt" every 50::49 u 1:2:(minus($2)) axes x1y2 w labels right tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps .5 offset -1.125,.25 notitle, \
-"data_count_roses_20200526083701.txt" every ::411::411 u 1:2:(bigger($2)) axes x1y2 w labels center tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps 1 offset 1.5,-1.2 notitle, \
-"data_count_posts_20200526083701.txt" every ::314400::314400 u 1:2:(bigger($2)) w labels center tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps 1 offset 1.5,-1.2 notitle
+plot [1579478400:1591574400][0:350000] \
+"data_count_participants_active_20200602155756.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f3fff" dt (4, 4) title "{/:Bold le nombre de participants toujours actifs ^*", \
+"data_count_participants_20200602155756.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f5fff" title "{/:Bold le nombre de participants", \
+"data_count_roses_20200602155756.txt" axes x1y2 w line lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses", \
+"data_count_posts_20200602155756.txt" w line lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts", \
+"data_count_participants_20200602155756.txt" every 200::99::899 u 1:2:(minus($2)) axes x1y2 w labels right tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -1.125,.25 notitle, \
+"data_count_participants_20200602155756.txt" every 200::1099 u 1:2:(minus($2)) axes x1y2 w labels left tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset 0,-.75 notitle, \
+"data_count_participants_20200602155756.txt" every ::2518::2518 u 1:2:(bigger($2)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps 1 offset 1,.5 notitle, \
+"data_count_participants_active_20200602155756.txt" every 100::99::1099 u 1:2:(minus($2)) axes x1y2 w labels left tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset 0,.25 notitle, \
+"data_count_participants_active_20200602155756.txt" every ::431::431 u 1:2:(bigger($2)) axes x1y2 w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 1,.5 notitle, \
+"data_count_roses_20200602155756.txt" every 50::49 u 1:2:(minus($2)) axes x1y2 w labels right tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps .5 offset -1.125,.25 notitle, \
+"data_count_roses_20200602155756.txt" every ::413::413 u 1:2:(bigger($2)) axes x1y2 w labels center tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps 1 offset 1,-1.2 notitle, \
+"data_count_posts_20200602155756.txt" every ::322117::322117 u 1:2:(bigger($2)) w labels center tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps 1 offset 1,-1.2 notitle
 
 set output
 
@@ -52,11 +52,11 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_evol_participants_20200526083701" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_evol_participants_20200526083701.svg"
-set multiplot title "{/:Bold=18 L'évolution du nombre de participants toujours actifs sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 26 mai 2020 à 8:37:01)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_evol_participants_20200602155756" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_evol_participants_20200602155756.svg"
+set multiplot title "{/:Bold=18 L'évolution du nombre de participants toujours actifs sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 2 juin 2020 à 15:57:56)"
 set xtics 1579478400, 604800
-set xtics add ("lundi\n20/01" 1579478400, "lundi\n27/01" 1580083200, "lundi\n03/02" 1580688000, "lundi\n10/02" 1581292800, "lundi\n17/02" 1581897600, "lundi\n24/02" 1582502400, "lundi\n02/03" 1583107200, "lundi\n09/03" 1583712000, "lundi\n16/03" 1584316800, "lundi\n23/03" 1584921600, "lundi\n30/03" 1585526400, "lundi\n06/04" 1586131200, "lundi\n13/04" 1586736000, "lundi\n20/04" 1587340800, "lundi\n27/04" 1587945600, "lundi\n04/05" 1588550400, "lundi\n11/05" 1589155200, "lundi\n18/05" 1589760000, "lundi\n25/05" 1590364800, "lundi\n01/06" 1590969600)
+set xtics add ("lundi\n20/01" 1579478400, "lundi\n27/01" 1580083200, "lundi\n03/02" 1580688000, "lundi\n10/02" 1581292800, "lundi\n17/02" 1581897600, "lundi\n24/02" 1582502400, "lundi\n02/03" 1583107200, "lundi\n09/03" 1583712000, "lundi\n16/03" 1584316800, "lundi\n23/03" 1584921600, "lundi\n30/03" 1585526400, "lundi\n06/04" 1586131200, "lundi\n13/04" 1586736000, "lundi\n20/04" 1587340800, "lundi\n27/04" 1587945600, "lundi\n04/05" 1588550400, "lundi\n11/05" 1589155200, "lundi\n18/05" 1589760000, "lundi\n25/05" 1590364800, "lundi\n01/06" 1590969600, "lundi\n08/06" 1591574400)
 set mxtics 7
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
 set style fill transparent solid .4
@@ -74,14 +74,14 @@ set mytics 5
 set size .99,.559
 set origin 0,.390
 
-plot [1579478400:1590969600][0:3000] \
-"data_evol_participants_20200526083701.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold le nombre de premières participations", \
-"data_evol_participants_20200526083701.txt" u 1:3 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold le nombre de dernières participations ^*", \
-"data_evol_participants_20200526083701.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "{/:Bold le nombre de participants toujours actifs", \
-"data_evol_participants_labels_20200526083701.txt" u 1:2:(minus($2)) w labels right tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps .5 offset -1.125,.25 notitle, \
-"data_evol_participants_labels_20200526083701.txt" u 1:3:(minus($3)) w labels right tc rgbcolor "#bf3f3f" point lc rgbcolor "#bf3f3f" pt 7 ps .5 offset -1.125,.25 notitle, \
-"data_evol_participants_20200526083701.txt" every ::4550::4550 u 1:2:(bigger($2)) w labels center tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps 1 offset 2,.5 notitle, \
-"data_evol_participants_20200526083701.txt" every ::4550::4550 u 1:3:(bigger($3)) w labels center tc rgbcolor "#bf3f3f" point lc rgbcolor "#bf3f3f" pt 7 ps 1 offset 2,.5 notitle
+plot [1579478400:1591574400][0:3000] \
+"data_evol_participants_20200602155756.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold le nombre de premières participations", \
+"data_evol_participants_20200602155756.txt" u 1:3 w lines lw 2 lc rgbcolor "#bf3f3f" title "{/:Bold le nombre de dernières participations ^*", \
+"data_evol_participants_20200602155756.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "{/:Bold le nombre de participants toujours actifs", \
+"data_evol_participants_labels_20200602155756.txt" u 1:2:(minus($2)) w labels right tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps .5 offset -1.125,.25 notitle, \
+"data_evol_participants_labels_20200602155756.txt" u 1:3:(minus($3)) w labels right tc rgbcolor "#bf3f3f" point lc rgbcolor "#bf3f3f" pt 7 ps .5 offset -1.125,.25 notitle, \
+"data_evol_participants_20200602155756.txt" every ::4605::4605 u 1:2:(bigger($2)) w labels center tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps 1 offset 1,.5 notitle, \
+"data_evol_participants_20200602155756.txt" every ::4605::4605 u 1:3:(bigger($3)) w labels center tc rgbcolor "#bf3f3f" point lc rgbcolor "#bf3f3f" pt 7 ps 1 offset 1,.5 notitle
 
 set sample 10000
 set ylabel "{/=16 le nombre de participants toujours actifs"
@@ -92,10 +92,11 @@ set mytics 5
 set size .99,.321
 set origin 0,.06
 
-plot [1579478400:1590969600][0:1500] \
-"data_evol_participants_20200526083701.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#7f3fff" title "{/:Bold le nombre de participants toujours actifs", \
-"data_evol_participants_labels_20200526083701.txt" u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,.25 notitle, \
-"data_evol_participants_20200526083701.txt" every ::4550::4550 u 1:4:(bigger($4)) w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 2,.5 notitle
+plot [1579478400:1591574400][0:1500] \
+"data_evol_participants_20200602155756.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#7f3fff" title "{/:Bold le nombre de participants toujours actifs", \
+"data_evol_participants_labels_20200602155756.txt" every ::::7 u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,.25 notitle, \
+"data_evol_participants_labels_20200602155756.txt" every ::8 u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,-1 notitle, \
+"data_evol_participants_20200602155756.txt" every ::4605::4605 u 1:4:(bigger($4)) w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 1,.5 notitle
 
 unset multiplot
 set output
@@ -107,14 +108,14 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_day_20200526083701" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_activity_per_day_20200526083701.svg"
-set title "{/:Bold=18 L'activité journalière sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 26 mai 2020 à 8:37:01)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_day_20200602155756" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_activity_per_day_20200602155756.svg"
+set title "{/:Bold=18 L'activité journalière sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 2 juin 2020 à 15:57:56)"
 set ylabel "{/=16 le nombre de posts par jour"
 set y2label "{/=16 le nombre de posts roses et de participants par jour"
 set key at 1579608000, 10000 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -6
 set xtics 1579478400, 604800
-set xtics add ("lundi\n20/01" 1579478400, "lundi\n27/01" 1580083200, "lundi\n03/02" 1580688000, "lundi\n10/02" 1581292800, "lundi\n17/02" 1581897600, "lundi\n24/02" 1582502400, "lundi\n02/03" 1583107200, "lundi\n09/03" 1583712000, "lundi\n16/03" 1584316800, "lundi\n23/03" 1584921600, "lundi\n30/03" 1585526400, "lundi\n06/04" 1586131200, "lundi\n13/04" 1586736000, "lundi\n20/04" 1587340800, "lundi\n27/04" 1587945600, "lundi\n04/05" 1588550400, "lundi\n11/05" 1589155200, "lundi\n18/05" 1589760000, "lundi\n25/05" 1590364800)
+set xtics add ("lundi\n20/01" 1579478400, "lundi\n27/01" 1580083200, "lundi\n03/02" 1580688000, "lundi\n10/02" 1581292800, "lundi\n17/02" 1581897600, "lundi\n24/02" 1582502400, "lundi\n02/03" 1583107200, "lundi\n09/03" 1583712000, "lundi\n16/03" 1584316800, "lundi\n23/03" 1584921600, "lundi\n30/03" 1585526400, "lundi\n06/04" 1586131200, "lundi\n13/04" 1586736000, "lundi\n20/04" 1587340800, "lundi\n27/04" 1587945600, "lundi\n04/05" 1588550400, "lundi\n11/05" 1589155200, "lundi\n18/05" 1589760000, "lundi\n25/05" 1590364800, "lundi\n01/06" 1590969600)
 set mxtics 7
 set ytics 0, 1000
 set mytics 2
@@ -129,15 +130,15 @@ set origin 0,.03
 minus(s) = sprintf("{/:Bold=12 %.f", s)
 plus(s) = sprintf("{/:Bold=12 +%.f", s)
 
-plot [1579478400:1590451200][0:11000] \
-"data_activity_per_day_20200526083701.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "{/:Bold le nombre de nouveaux participants par jour", \
-"data_activity_per_day_20200526083701.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "{/:Bold le nombre de participants par jour", \
-"data_activity_per_day_20200526083701.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses par jour", \
-"data_activity_per_day_20200526083701.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts par jour", \
-"data_activity_per_day_20200526083701.txt" every 3::4 u 1:($4-$5):(plus($5)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.5,-1.125 notitle, \
-"data_activity_per_day_20200526083701.txt" every 3::1 u 1:4:(minus($4)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.5,1 notitle, \
-"data_activity_per_day_20200526083701.txt" u 1:($3>9?$3:1/0):(minus($3)) axes x1y2 w labels center tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps .5 offset -.5,.5 notitle, \
-"data_activity_per_day_20200526083701.txt" u 1:($2>10000?$2:1/0):(minus($2)) w labels center tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset -.5,1 notitle
+plot [1579478400:1591056000][0:11000] \
+"data_activity_per_day_20200602155756.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "{/:Bold le nombre de nouveaux participants par jour", \
+"data_activity_per_day_20200602155756.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "{/:Bold le nombre de participants par jour", \
+"data_activity_per_day_20200602155756.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses par jour", \
+"data_activity_per_day_20200602155756.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts par jour", \
+"data_activity_per_day_20200602155756.txt" every 3::4 u 1:($4-$5):(plus($5)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.5,-1.125 notitle, \
+"data_activity_per_day_20200602155756.txt" every 3::1 u 1:4:(minus($4)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.5,1 notitle, \
+"data_activity_per_day_20200602155756.txt" u 1:($3>9?$3:1/0):(minus($3)) axes x1y2 w labels center tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps .5 offset -.5,.5 notitle, \
+"data_activity_per_day_20200602155756.txt" u 1:($2>10000?$2:1/0):(minus($2)) w labels center tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset -.5,1 notitle
 
 set output
 
@@ -148,14 +149,14 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_week_20200526083701" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_activity_per_week_20200526083701.svg"
-set title "{/:Bold=18 L'activité hebdomadaire sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 26 mai 2020 à 8:37:01)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_week_20200602155756" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_activity_per_week_20200602155756.svg"
+set title "{/:Bold=18 L'activité hebdomadaire sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 2 juin 2020 à 15:57:56)"
 set ylabel "{/=16 le nombre de posts par semaine"
 set y2label "{/=16 le nombre de posts roses et de participants par semaine"
 set key at 1579305600, 45000 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -5.5
 set xtics 1579478400, 604800
-set xtics add ("sem. 4\n20/01" 1579478400, "sem. 5\n27/01" 1580083200, "sem. 6\n03/02" 1580688000, "sem. 7\n10/02" 1581292800, "sem. 8\n17/02" 1581897600, "sem. 9\n24/02" 1582502400, "sem. 10\n02/03" 1583107200, "sem. 11\n09/03" 1583712000, "sem. 12\n16/03" 1584316800, "sem. 13\n23/03" 1584921600, "sem. 14\n30/03" 1585526400, "sem. 15\n06/04" 1586131200, "sem. 16\n13/04" 1586736000, "sem. 17\n20/04" 1587340800, "sem. 18\n27/04" 1587945600, "sem. 19\n04/05" 1588550400, "sem. 20\n11/05" 1589155200, "sem. 21\n18/05" 1589760000)
+set xtics add ("sem. 4\n20/01" 1579478400, "sem. 5\n27/01" 1580083200, "sem. 6\n03/02" 1580688000, "sem. 7\n10/02" 1581292800, "sem. 8\n17/02" 1581897600, "sem. 9\n24/02" 1582502400, "sem. 10\n02/03" 1583107200, "sem. 11\n09/03" 1583712000, "sem. 12\n16/03" 1584316800, "sem. 13\n23/03" 1584921600, "sem. 14\n30/03" 1585526400, "sem. 15\n06/04" 1586131200, "sem. 16\n13/04" 1586736000, "sem. 17\n20/04" 1587340800, "sem. 18\n27/04" 1587945600, "sem. 19\n04/05" 1588550400, "sem. 20\n11/05" 1589155200, "sem. 21\n18/05" 1589760000, "sem. 22\n25/05" 1590364800)
 set ytics 0, 10000
 set mytics 5
 set y2tics 0, 500
@@ -169,16 +170,19 @@ set origin 0,.03
 minus(s) = sprintf("{/:Bold=12 %.f", s)
 plus(s) = sprintf("{/:Bold=12 +%.f", s)
 
-plot [1579176000:1590062400][0:50000] \
-"data_activity_per_week_20200526083701.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "{/:Bold le nombre de nouveaux participants par semaine", \
-"data_activity_per_week_20200526083701.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "{/:Bold le nombre de participants par semaine", \
-"data_activity_per_week_20200526083701.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses par semaine", \
-"data_activity_per_week_20200526083701.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts par semaine", \
-"data_activity_per_week_20200526083701.txt" every 1::1 u 1:($4-$5):(plus($5)) axes x1y2 w labels left tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset .3,-.2 notitle, \
-"data_activity_per_week_20200526083701.txt" u 1:4:(minus($4)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.5,1 notitle, \
-"data_activity_per_week_20200526083701.txt" u 1:3:(minus($3)) axes x1y2 w labels center tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps .5 offset -.5,.5 notitle, \
-"data_activity_per_week_20200526083701.txt" u ($1==1580083200?$1:1/0):2:(minus($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset .5,.1 notitle, \
-"data_activity_per_week_20200526083701.txt" u ($1!=1580083200?$1:1/0):2:(minus($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset .5,-.8 notitle
+plot [1579176000:1590667200][0:50000] \
+"data_activity_per_week_20200602155756.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "{/:Bold le nombre de nouveaux participants par semaine", \
+"data_activity_per_week_20200602155756.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "{/:Bold le nombre de participants par semaine", \
+"data_activity_per_week_20200602155756.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "{/:Bold le nombre de posts roses par semaine", \
+"data_activity_per_week_20200602155756.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "{/:Bold le nombre de posts par semaine", \
+"data_activity_per_week_20200602155756.txt" every ::1::7 u 1:($4-$5):(plus($5)) axes x1y2 w labels left tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset .3,-.2 notitle, \
+"data_activity_per_week_20200602155756.txt" every ::8 u 1:($4-$5):(plus($5)) axes x1y2 w labels right tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.3,-.8 notitle, \
+"data_activity_per_week_20200602155756.txt" u 1:4:(minus($4)) axes x1y2 w labels center tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps .5 offset -.5,1 notitle, \
+"data_activity_per_week_20200602155756.txt" u 1:3:(minus($3)) axes x1y2 w labels center tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps .5 offset -.5,.5 notitle, \
+"data_activity_per_week_20200602155756.txt" u ($1==1580083200?$1:1/0):2:(minus($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset .5,.1 notitle, \
+"data_activity_per_week_20200602155756.txt" every ::::7 u ($1!=1580083200?$1:1/0):2:(minus($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset .5,-.8 notitle, \
+"data_activity_per_week_20200602155756.txt" every ::8::16 u ($1!=1580083200?$1:1/0):2:(minus($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset .5,.5 notitle, \
+"data_activity_per_week_20200602155756.txt" every ::17 u ($1!=1580083200?$1:1/0):2:(minus($2)) w labels left tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps .5 offset .5,-.8 notitle
 
 set output
 
