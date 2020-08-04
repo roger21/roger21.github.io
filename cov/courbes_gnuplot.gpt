@@ -11,7 +11,7 @@ set output "graph_counts_20200804023545.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/:Bold=14 (données collectées le mardi 4 août 2020 à 2:35:45)"
 set ylabel "{/=16 le nombre de posts"
 set y2label "{/=16 le nombre de posts roses et de participants"
-set key at 1579608000, 365000 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -7
+set key at 1579910400, 355000 center left Left opaque reverse invert samplen 3 box spacing 1.2 width -7
 set xtics 1579478400, 604800
 set xtics add ("{/=12 lundi\n{/=12 20/01" 1579478400, "{/=12 lundi\n{/=12 27/01" 1580083200, "{/=12 lundi\n{/=12 03/02" 1580688000, "{/=12 lundi\n{/=12 10/02" 1581292800, "{/=12 lundi\n{/=12 17/02" 1581897600, "{/=12 lundi\n{/=12 24/02" 1582502400, "{/=12 lundi\n{/=12 02/03" 1583107200, "{/=12 lundi\n{/=12 09/03" 1583712000, "{/=12 lundi\n{/=12 16/03" 1584316800, "{/=12 lundi\n{/=12 23/03" 1584921600, "{/=12 lundi\n{/=12 30/03" 1585526400, "{/=12 lundi\n{/=12 06/04" 1586131200, "{/=12 lundi\n{/=12 13/04" 1586736000, "{/=12 lundi\n{/=12 20/04" 1587340800, "{/=12 lundi\n{/=12 27/04" 1587945600, "{/=12 lundi\n{/=12 04/05" 1588550400, "{/=12 lundi\n{/=12 11/05" 1589155200, "{/=12 lundi\n{/=12 18/05" 1589760000, "{/=12 lundi\n{/=12 25/05" 1590364800, "{/=12 lundi\n{/=12 01/06" 1590969600, "{/=12 lundi\n{/=12 08/06" 1591574400, "{/=12 lundi\n{/=12 15/06" 1592179200, "{/=12 lundi\n{/=12 22/06" 1592784000, "{/=12 lundi\n{/=12 29/06" 1593388800, "{/=12 lundi\n{/=12 06/07" 1593993600, "{/=12 lundi\n{/=12 13/07" 1594598400, "{/=12 lundi\n{/=12 20/07" 1595203200, "{/=12 lundi\n{/=12 27/07" 1595808000, "{/=12 lundi\n{/=12 03/08" 1596412800, "{/=12 lundi\n{/=12 10/08" 1597017600)
 set ytics 0, 50000
@@ -66,12 +66,12 @@ bigger(s) = sprintf("{/:Bold=16 %.f", s)
 set label "{/=12^* à l'exclusion des dernières participations ayant eu lieu au cours de la dernière semaine avant la collecte" at screen .99,.02 right
 
 set ylabel "{/=16 le nombre de participants"
-set key at 1596888000, 400 center right Left opaque reverse samplen 3 box spacing 1.2 width -7
+set key at 1596715200, 450 center right Left opaque reverse samplen 3 box spacing 1.2 width -7
 set ytics 0, 500
 set mytics 5
 
-set size .99,.559
-set origin 0,.390
+set size .99,.508
+set origin 0,.441
 
 plot [1579478400:1597017600][0:3000] \
 "data_evol_participants_20200804023545.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "{/:Bold le nombre de premières participations", \
@@ -84,17 +84,17 @@ plot [1579478400:1597017600][0:3000] \
 
 set sample 10000
 set ylabel "{/=16 le nombre de participants toujours actifs"
-set key at 1596888000, 1300 center right Left opaque reverse samplen 3 box spacing 1.2 width -7
+set key at 1596715200, 1750 center right Left opaque reverse samplen 3 box spacing 1.2 width -7
 set ytics 0, 500
 set mytics 5
 
-set size .99,.321
+set size .99,.372
 set origin 0,.06
 
-plot [1579478400:1597017600][0:1500] \
+plot [1579478400:1597017600][0:2000] \
 "data_evol_participants_20200804023545.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#7f3fff" title "{/:Bold le nombre de participants toujours actifs", \
-"data_evol_participants_labels_20200804023545.txt" every ::::7 u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,.25 notitle, \
-"data_evol_participants_labels_20200804023545.txt" every ::8 u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,-1 notitle, \
+"data_evol_participants_labels_20200804023545.txt" every ::::8 u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,.25 notitle, \
+"data_evol_participants_labels_20200804023545.txt" every ::9 u 1:4:(minus($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps .5 offset -1.125,-1 notitle, \
 "data_evol_participants_20200804023545.txt" every ::4784::4784 u 1:4:(bigger($4)) w labels center tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 1,.5 notitle
 
 unset multiplot
@@ -112,7 +112,7 @@ set output "graph_activity_per_day_20200804023545.svg"
 set title "{/:Bold=18 L'activité journalière sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 4 août 2020 à 2:35:45)"
 set ylabel "{/=16 le nombre de posts par jour"
 set y2label "{/=16 le nombre de posts roses et de participants par jour"
-set key at 1596326400, 10000 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -6
+set key at 1596110400, 9875 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -6
 set xtics 1579478400, 604800
 set xtics add ("{/=12 lundi\n{/=12 20/01" 1579478400, "{/=12 lundi\n{/=12 27/01" 1580083200, "{/=12 lundi\n{/=12 03/02" 1580688000, "{/=12 lundi\n{/=12 10/02" 1581292800, "{/=12 lundi\n{/=12 17/02" 1581897600, "{/=12 lundi\n{/=12 24/02" 1582502400, "{/=12 lundi\n{/=12 02/03" 1583107200, "{/=12 lundi\n{/=12 09/03" 1583712000, "{/=12 lundi\n{/=12 16/03" 1584316800, "{/=12 lundi\n{/=12 23/03" 1584921600, "{/=12 lundi\n{/=12 30/03" 1585526400, "{/=12 lundi\n{/=12 06/04" 1586131200, "{/=12 lundi\n{/=12 13/04" 1586736000, "{/=12 lundi\n{/=12 20/04" 1587340800, "{/=12 lundi\n{/=12 27/04" 1587945600, "{/=12 lundi\n{/=12 04/05" 1588550400, "{/=12 lundi\n{/=12 11/05" 1589155200, "{/=12 lundi\n{/=12 18/05" 1589760000, "{/=12 lundi\n{/=12 25/05" 1590364800, "{/=12 lundi\n{/=12 01/06" 1590969600, "{/=12 lundi\n{/=12 08/06" 1591574400, "{/=12 lundi\n{/=12 15/06" 1592179200, "{/=12 lundi\n{/=12 22/06" 1592784000, "{/=12 lundi\n{/=12 29/06" 1593388800, "{/=12 lundi\n{/=12 06/07" 1593993600, "{/=12 lundi\n{/=12 13/07" 1594598400, "{/=12 lundi\n{/=12 20/07" 1595203200, "{/=12 lundi\n{/=12 27/07" 1595808000, "{/=12 lundi\n{/=12 03/08" 1596412800)
 set ytics 0, 1000
@@ -152,7 +152,7 @@ set output "graph_activity_per_week_20200804023545.svg"
 set title "{/:Bold=18 L'activité hebdomadaire sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 4 août 2020 à 2:35:45)"
 set ylabel "{/=16 le nombre de posts par semaine"
 set y2label "{/=16 le nombre de posts roses et de participants par semaine"
-set key at 1595894400, 45000 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -5.5
+set key at 1595678400, 45000 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -5.5
 set xtics 1579478400, 604800
 set xtics add ("{/=12 s4\n{/=12 20/01" 1579478400, "{/=12 s5\n{/=12 27/01" 1580083200, "{/=12 s6\n{/=12 03/02" 1580688000, "{/=12 s7\n{/=12 10/02" 1581292800, "{/=12 s8\n{/=12 17/02" 1581897600, "{/=12 s9\n{/=12 24/02" 1582502400, "{/=12 s10\n{/=12 02/03" 1583107200, "{/=12 s11\n{/=12 09/03" 1583712000, "{/=12 s12\n{/=12 16/03" 1584316800, "{/=12 s13\n{/=12 23/03" 1584921600, "{/=12 s14\n{/=12 30/03" 1585526400, "{/=12 s15\n{/=12 06/04" 1586131200, "{/=12 s16\n{/=12 13/04" 1586736000, "{/=12 s17\n{/=12 20/04" 1587340800, "{/=12 s18\n{/=12 27/04" 1587945600, "{/=12 s19\n{/=12 04/05" 1588550400, "{/=12 s20\n{/=12 11/05" 1589155200, "{/=12 s21\n{/=12 18/05" 1589760000, "{/=12 s22\n{/=12 25/05" 1590364800, "{/=12 s23\n{/=12 01/06" 1590969600, "{/=12 s24\n{/=12 08/06" 1591574400, "{/=12 s25\n{/=12 15/06" 1592179200, "{/=12 s26\n{/=12 22/06" 1592784000, "{/=12 s27\n{/=12 29/06" 1593388800, "{/=12 s28\n{/=12 06/07" 1593993600, "{/=12 s29\n{/=12 13/07" 1594598400, "{/=12 s30\n{/=12 20/07" 1595203200, "{/=12 s31\n{/=12 27/07" 1595808000)
 set ytics 0, 10000
