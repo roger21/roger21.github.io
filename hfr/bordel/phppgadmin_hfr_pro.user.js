@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name          phppgadmin bidouilles
+// @name          phppgadmin hfr pro
 // @namespace     roger21.free.fr
-// @icon          http://reho.st/self/4b9dce996c4334f1c5f179c1dc183e0c56484a24.png
+// @icon          data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQAAAABbAUdZAAAALElEQVR42mP4DwQMaMQHg8P8EOLz%2F%2F%2FnIcR%2FOPEZpARGUEH2w2EefgiBxS0ARNpzyS9f0t0AAAAASUVORK5CYII%3D
 // @include       http://192.168.0.5/phppgadmin/sql.php*
 // @grant         none
 // ==/UserScript==
 
-// $Rev: 934 $
+// $Rev: 2052 $
 
 
 // longueur_pseudals
@@ -161,9 +161,8 @@ for(let td of tds){
 // col 0 = rang
 // col 1 = ville
 // col 2 = ville_order
-// col 3 = pseudal_order
-// col 4 = nombre de comptes hfr
-// col 5 = nombre de comptes hfr actifs en 2019
+// col 3 = nombre de comptes hfr
+// col 4 = nombre de comptes hfr actifs en 2019
 
 /*
 var ths=document.querySelectorAll("body > table > tbody > tr > th");

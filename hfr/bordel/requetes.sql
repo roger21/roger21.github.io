@@ -177,12 +177,12 @@ select l2000.y year, l2000.c l2000, lall.c lall from
 (select date_part('year', case when lastpostdate is null or lastpostdate < '2002-01-01' then '2002-01-01' else lastpostdate end) y, count(*) c from p where nbposts > 0 group by y) lall using (y)
 order by year
 -- actifs (cumul creationdate - cumul lastpostdate)
-with data(cy, ly) (select
+with data(cy, ly) as (select
 date_part('year', case when creationdate is null or creationdate < '2000-01-01' then '2000-01-01' else creationdate end) cy,
 date_part('year', case when lastpostdate is null or lastpostdate < '2002-01-01' then '2002-01-01' else lastpostdate end) ly
 from p where nbposts > 0),
-c(y,c) (select cy y, count(*) from data group by y),
-l(y,l) (select ly y, count(*) from data where ly < 2019 group by y)
+c(y,c) as (select cy y, count(*) from data group by y),
+l(y,l) as (select ly y, count(*) from data where ly < 2019 group by y)
 select y, c, l, sum(coalesce(c, 0)) over (order by y asc) cs, sum(coalesce(l, 0)) over (order by y asc) ls,
 sum(coalesce(c, 0) - coalesce(l, 0)) over (order by y asc) "cs - ls" from c left outer join l using (y)
 
