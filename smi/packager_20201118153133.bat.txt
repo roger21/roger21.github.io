@@ -1,0 +1,58 @@
+@echo off
+
+chcp 65001
+
+rmdir /s /q D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+del D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133.7z
+
+md D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+md D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133\img
+
+xcopy /q /v D:\Documents\Devs\www\smi\upd\img\*.png D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133\img
+
+copy D:\Documents\Devs\www\smi\upd\favicon.ico D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+copy D:\Documents\Devs\www\smi\upd\gnuplot_svg.js D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+copy D:\Documents\Devs\www\smi\upd\pager.js D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+copy D:\Documents\Devs\www\smi\upd\sorter.js D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+copy D:\Documents\Devs\www\smi\upd\style.css D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+
+gnuplot D:\Documents\Devs\www\smi\upd\gnuplot_20201118153133.gpt
+
+sed -i "s/<title>graph_cumul_20201118153133<\/title>/<title>des nombres cumul\xc3\xa9s en fonction du temps au mercredi 18 novembre 2020 \xc3\xa0 15:31:33<\/title>/g" graph*_20201118153133.svg
+sed -i "s/<title>graph_year_20201118153133<\/title>/<title>des nombres par an au mercredi 18 novembre 2020 \xc3\xa0 15:31:33<\/title>/g" graph*_20201118153133.svg
+sed -i "s/<title>graph_month_20201118153133<\/title>/<title>des nombres par mois au mercredi 18 novembre 2020 \xc3\xa0 15:31:33<\/title>/g" graph*_20201118153133.svg
+sed -i "s/<title>graph_week_20201118153133<\/title>/<title>des nombres par semaine au mercredi 18 novembre 2020 \xc3\xa0 15:31:33<\/title>/g" graph*_20201118153133.svg
+del sed*
+
+xcopy /q /v D:\Documents\Devs\www\smi\upd\*_20201118153133* D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+copy D:\Documents\Devs\www\smi\upd\index.html D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+
+ren D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133\index.html index_20201118153133.html
+copy D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133\stats_wiki_smileys_20201118153133.html D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133\index.html
+ren D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133\packager_20201118153133.bat packager_20201118153133.bat.txt
+
+cd D:\Documents\Devs\www\smi\upd\_old
+"C:\Program Files\7-Zip\7z.exe" a -t7z stats_wiki_smileys_20201118153133.7z stats_wiki_smileys_20201118153133\ -mx9 -myx9
+cd D:\Documents\Devs\www\smi\upd
+
+rmdir /s /q D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201118153133
+
+del D:\Documents\Devs\gittop\smi_full\*_20201118153133*
+xcopy /q /v D:\Documents\Devs\www\smi\upd\*_20201118153133* D:\Documents\Devs\gittop\smi_full
+copy /y D:\Documents\Devs\www\smi\upd\index.html D:\Documents\Devs\gittop\smi_full
+ren D:\Documents\Devs\gittop\smi_full\packager_20201118153133.bat packager_20201118153133.bat.txt
+
+del D:\Documents\Devs\gittop\smi\*_20201118153133*
+xcopy /q /v D:\Documents\Devs\www\smi\upd\*_20201118153133* D:\Documents\Devs\gittop\smi
+copy /y D:\Documents\Devs\www\smi\upd\index.html D:\Documents\Devs\gittop\smi
+del D:\Documents\Devs\gittop\smi\stats_wiki_smileys_20201118153133.html
+ren D:\Documents\Devs\gittop\smi\stats_wiki_smileys_light_20201118153133.html stats_wiki_smileys_20201118153133.html
+del D:\Documents\Devs\gittop\smi\table_*_20201118153133.html
+ren D:\Documents\Devs\gittop\smi\packager_20201118153133.bat packager_20201118153133.bat.txt
+
+del \\HELLOWORLD\www\smi\upd\*_20201118153133*
+del \\HELLOWORLD\www\smi\upd\index.html
+
+del D:\Documents\Devs\www\smi\upd\index.html
+del D:\Documents\Devs\www\smi\upd\*_20201118153133*
+
