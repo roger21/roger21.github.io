@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>L'activité du topic Luxembourg par an</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+google.load("visualization", "1.0", {"packages":["corechart", "table"]});
+function draw(){
+  var data=new google.visualization.DataTable();
+  data.addColumn("date", "année");
+  data.addColumn("number", "nombre de posts");
+  data.addRows([[new Date("2007-05-30"), 0],
+                [new Date("2007-12-31"), 746],
+                [new Date("2008-12-31"), 569],
+                [new Date("2009-12-31"), 212],
+                [new Date("2010-12-31"), 173],
+                [new Date("2011-12-31"), 266],
+                [new Date("2012-12-31"), 485],
+                [new Date("2013-12-31"), 1171],
+                [new Date("2014-12-31"), 3372],
+                [new Date("2015-12-31"), 2751],
+                [new Date("2016-12-31"), 3921],
+                [new Date("2017-12-31"), 6767],
+                [new Date("2018-12-31"), 6270],
+                [new Date("2019-12-31"), 12341],
+                [new Date("2020-12-31"), 10240],
+                [new Date("2021-06-17"), 5063]]);
+  var table_data=data.clone();
+  table_data.removeRow(0);
+  var options={axisTitlesPosition:"none",
+               colors:["#7d7de8"],
+               legend:{position:"none"},
+               chartArea:{left:"6%", top:"6%", width:"92%", height:"88%"},
+               focusTarget:"category",
+               backgroundColor:"#f8f8f8",
+               lineWidth:1,
+               seriesType:"area",
+               hAxis:{format:"yyyy",
+                      ticks:[new Date("2008-01-01"),
+                             new Date("2009-01-01"),
+                             new Date("2010-01-01"),
+                             new Date("2011-01-01"),
+                             new Date("2012-01-01"),
+                             new Date("2013-01-01"),
+                             new Date("2014-01-01"),
+                             new Date("2015-01-01"),
+                             new Date("2016-01-01"),
+                             new Date("2017-01-01"),
+                             new Date("2018-01-01"),
+                             new Date("2019-01-01"),
+                             new Date("2020-01-01"),
+                             new Date("2021-01-01")],
+                      textStyle:{fontName:"Verdana,Arial,Sans-serif,Helvetica", fontSize:14, bold:true}},
+               vAxis:{minorGridlines:{count:4}, minValue:0,
+                      textStyle:{fontName:"Verdana,Arial,Sans-serif,Helvetica", fontSize:14, bold:true}},
+               tooltip:{textStyle:{fontName:"Verdana,Arial,Sans-serif,Helvetica", fontSize:14, bold:true}}};
+  var date_formatter=new google.visualization.DateFormat({pattern:"yyyy"});
+  date_formatter.format(data, 0);
+  date_formatter.format(table_data, 0);
+  var number_formatter=new google.visualization.NumberFormat({decimalSymbol:",",
+                                                              groupingSymbol:" ",
+                                                              fractionDigits:0});
+  number_formatter.format(data, 1);
+  number_formatter.format(table_data, 1);
+  var graph=new google.visualization.ComboChart(document.getElementById("graph"));
+  graph.draw(data, options);
+  var table=new google.visualization.Table(document.getElementById("table"));
+  table.draw(table_data, {sort:"disable", cssClassNames:{headerRow:"headerRow",
+                                                       tableRow:"tableRow",
+                                                       oddTableRow:"oddTableRow",
+                                                       headerCell:"headerCell",
+                                                       tableCell:"tableCell"}});
+  google.visualization.events.addListener(table, "select", function(){
+    var selection=table.getSelection();
+    selection[0].row+=1;
+    graph.setSelection(selection);
+  });
+  google.visualization.events.addListener(graph, "select", function(){
+    var selection=graph.getSelection();
+    if(!selection[0].row) return;
+    selection[0].row-=1;
+    table.setSelection(selection);
+  });
+}
+google.setOnLoadCallback(draw);
+  </script>
+</head>
+<body class="graph">
+  <h1>L'activité du topic Luxembourg par an</h1>
+  <h3>(données collectées le jeudi 17 juin 2021 à 8:57:37)</h3>
+  <div id="graph"></div>
+  <div id="table"></div>
+</body>
+</html>
