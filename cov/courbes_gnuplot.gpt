@@ -6,13 +6,13 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_counts_20210727104349" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_counts_20210727104349.svg"
-set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/:Bold=14 (données collectées le mardi 27 juillet 2021 à 10:43:49)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_counts_20210803121648" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_counts_20210803121648.svg"
+set title "{/:Bold=18 Le nombre de posts et de participants sur le topic COVID-19 en fonction du temps\n{/:Bold=14 (données collectées le mardi 3 août 2021 à 12:16:48)"
 set ylabel "{/=16 le nombre de posts"
 set y2label "{/=16 le nombre de posts roses et de participants"
 set key at 1580385600, 810000 center left Left opaque reverse samplen 3 box spacing 1.2 width -12.5
-set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/08" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600, "02/08" 1627862400) rotate
+set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/08" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600, "02/08" 1627862400, "09/08" 1628467200) rotate
 set ytics 0, 100000
 set mytics 5
 set y2tics 0, 2000
@@ -27,15 +27,15 @@ bigger(s) = sprintf("{/:Bold=16 %.f", s)
 
 set label "{/=12^* les participants ayant posté au cours de la dernière semaine avant la collecte" at screen .99,.02 right
 
-plot [1579478400:1627862400][0:900000] \
-"data_count_posts_20210727104349.txt" w line lw 2 lc rgbcolor "#ff7f00" title "le nombre de posts", \
-"data_count_roses_20210727104349.txt" axes x1y2 w line lw 2 lc rgbcolor "#3faf3f" title "le nombre de posts roses (sur y2)", \
-"data_count_participants_20210727104349.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f5fff" title "le nombre de participants (sur y2)", \
-"data_count_participants_active_20210727104349.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f3fff" dt (4, 4) title "le nombre de participants toujours actifs (sur y2) ^*", \
-"data_count_posts_20210727104349.txt" every ::790982::790982 u 1:2:(bigger($2)) w labels right tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps 1 offset 0,0.6 notitle, \
-"data_count_roses_20210727104349.txt" every ::752::752 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps 1 offset 0,0.6 notitle, \
-"data_count_participants_20210727104349.txt" every ::3194::3194 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps 1 offset 0,-1.2 notitle, \
-"data_count_participants_active_20210727104349.txt" every ::630::630 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 0,-1.2 notitle
+plot [1579478400:1628467200][0:900000] \
+"data_count_posts_20210803121648.txt" w line lw 2 lc rgbcolor "#ff7f00" title "le nombre de posts", \
+"data_count_roses_20210803121648.txt" axes x1y2 w line lw 2 lc rgbcolor "#3faf3f" title "le nombre de posts roses (sur y2)", \
+"data_count_participants_20210803121648.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f5fff" title "le nombre de participants (sur y2)", \
+"data_count_participants_active_20210803121648.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#7f3fff" dt (4, 4) title "le nombre de participants toujours actifs (sur y2) ^*", \
+"data_count_posts_20210803121648.txt" every ::801463::801463 u 1:2:(bigger($2)) w labels right tc rgbcolor "#ff7f00" point lc rgbcolor "#ff7f00" pt 7 ps 1 offset 0,0.6 notitle, \
+"data_count_roses_20210803121648.txt" every ::767::767 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#3faf3f" point lc rgbcolor "#3faf3f" pt 7 ps 1 offset 0,0.6 notitle, \
+"data_count_participants_20210803121648.txt" every ::3208::3208 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#7f5fff" point lc rgbcolor "#7f5fff" pt 7 ps 1 offset 0,-1.2 notitle, \
+"data_count_participants_active_20210803121648.txt" every ::561::561 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 0,-1.2 notitle
 
 set output
 
@@ -46,10 +46,10 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_evol_participants_20210727104349" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_evol_participants_20210727104349.svg"
-set multiplot title "{/:Bold=18 L'évolution du nombre de participants toujours actifs sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 27 juillet 2021 à 10:43:49)"
-set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/08" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600, "02/08" 1627862400) rotate
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_evol_participants_20210803121648" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_evol_participants_20210803121648.svg"
+set multiplot title "{/:Bold=18 L'évolution du nombre de participants toujours actifs sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 3 août 2021 à 12:16:48)"
+set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/08" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600, "02/08" 1627862400, "09/08" 1628467200) rotate
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
 set style fill transparent solid .4
 
@@ -59,32 +59,32 @@ bigger(s) = sprintf("{/:Bold=16 %.f", s)
 set label "{/=12^* à l'exclusion des dernières participations ayant eu lieu au cours de la dernière semaine avant la collecte" at screen .99,.02 right
 
 set ylabel "{/=16 le nombre de participants"
-set key at 1626955200, 450 center right Left opaque reverse samplen 3 box spacing 1.2 width -10.5
+set key at 1627560000, 450 center right Left opaque reverse samplen 3 box spacing 1.2 width -10.5
 set ytics 0, 500
 set mytics 5
 
 set size .985,.587 # 3.5x + k / k = 41 / x = 156
 set origin .015,.362 # 2x + k + .03 + .06
 
-plot [1579478400:1627862400][0:3500] \
-"data_evol_participants_20210727104349.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "le nombre de premières participations", \
-"data_evol_participants_20210727104349.txt" u 1:3 w lines lw 2 lc rgbcolor "#bf3f3f" title "le nombre de dernières participations ^*", \
-"data_evol_participants_20210727104349.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "le nombre de participants toujours actifs", \
-"data_evol_participants_20210727104349.txt" every ::5758::5758 u 1:2:(bigger($2)) w labels right tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps 1 offset 0,-1.2 notitle, \
-"data_evol_participants_20210727104349.txt" every ::5758::5758 u 1:3:(bigger($3)) w labels right tc rgbcolor "#bf3f3f" point lc rgbcolor "#bf3f3f" pt 7 ps 1 offset 0,-1.2 notitle
+plot [1579478400:1628467200][0:3500] \
+"data_evol_participants_20210803121648.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "le nombre de premières participations", \
+"data_evol_participants_20210803121648.txt" u 1:3 w lines lw 2 lc rgbcolor "#bf3f3f" title "le nombre de dernières participations ^*", \
+"data_evol_participants_20210803121648.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#7f3fff" title "le nombre de participants toujours actifs", \
+"data_evol_participants_20210803121648.txt" every ::5855::5855 u 1:2:(bigger($2)) w labels right tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps 1 offset 0,-1.2 notitle, \
+"data_evol_participants_20210803121648.txt" every ::5855::5855 u 1:3:(bigger($3)) w labels right tc rgbcolor "#bf3f3f" point lc rgbcolor "#bf3f3f" pt 7 ps 1 offset 0,-1.2 notitle
 
 set sample 10000
 set ylabel "{/=16 le nombre de participants toujours actifs"
-set key at 1626955200, 1750 center right Left opaque reverse samplen 3 box spacing 1.2 width -10.5
+set key at 1627560000, 1750 center right Left opaque reverse samplen 3 box spacing 1.2 width -10.5
 set ytics 0, 500
 set mytics 5
 
 set size .985,.353 # 2x + k / k = 41 / x = 156
 set origin .015,.03
 
-plot [1579478400:1627862400][0:2000] \
-"data_evol_participants_20210727104349.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#7f3fff" title "le nombre de participants toujours actifs", \
-"data_evol_participants_20210727104349.txt" every ::5758::5758 u 1:4:(bigger($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 0,-1.2 notitle
+plot [1579478400:1628467200][0:2000] \
+"data_evol_participants_20210803121648.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#7f3fff" title "le nombre de participants toujours actifs", \
+"data_evol_participants_20210803121648.txt" every ::5855::5855 u 1:4:(bigger($4)) w labels right tc rgbcolor "#7f3fff" point lc rgbcolor "#7f3fff" pt 7 ps 1 offset 0,-1.2 notitle
 
 unset multiplot
 set output
@@ -96,13 +96,13 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_day_20210727104349" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_activity_per_day_20210727104349.svg"
-set title "{/:Bold=18 L'activité journalière sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 27 juillet 2021 à 10:43:49)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_day_20210803121648" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_activity_per_day_20210803121648.svg"
+set title "{/:Bold=18 L'activité journalière sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 3 août 2021 à 12:16:48)"
 set ylabel "{/=16 le nombre de posts par jour"
 set y2label "{/=16 le nombre de posts roses et de participants par jour"
-set key at 1626350400, 9875 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -12
-set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/07" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600) rotate
+set key at 1626955200, 9875 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -12
+set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/07" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600, "02/08" 1627862400) rotate
 set ytics 0, 1000
 set mytics 2
 set y2tics 0, 100
@@ -116,11 +116,11 @@ set origin .015,0
 minus(s) = sprintf("{/:Bold=12 %.f", s)
 plus(s) = sprintf("{/:Bold=12 +%.f", s)
 
-plot [1579478400:1627257600][0:11000] \
-"data_activity_per_day_20210727104349.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "le nombre de nouveaux participants par jour (sur y2)", \
-"data_activity_per_day_20210727104349.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "le nombre de participants par jour (sur y2)", \
-"data_activity_per_day_20210727104349.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "le nombre de posts roses par jour (sur y2)", \
-"data_activity_per_day_20210727104349.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "le nombre de posts par jour"
+plot [1579478400:1627862400][0:11000] \
+"data_activity_per_day_20210803121648.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "le nombre de nouveaux participants par jour (sur y2)", \
+"data_activity_per_day_20210803121648.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "le nombre de participants par jour (sur y2)", \
+"data_activity_per_day_20210803121648.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "le nombre de posts roses par jour (sur y2)", \
+"data_activity_per_day_20210803121648.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "le nombre de posts par jour"
 
 set output
 
@@ -131,13 +131,13 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_week_20210727104349" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "graph_activity_per_week_20210727104349.svg"
-set title "{/:Bold=18 L'activité hebdomadaire sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 27 juillet 2021 à 10:43:49)"
+set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_activity_per_week_20210803121648" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "graph_activity_per_week_20210803121648.svg"
+set title "{/:Bold=18 L'activité hebdomadaire sur le topic COVID-19\n{/:Bold=14 (données collectées le mardi 3 août 2021 à 12:16:48)"
 set ylabel "{/=16 le nombre de posts par semaine"
 set y2label "{/=16 le nombre de posts roses et de participants par semaine"
-set key at 1626350400, 45000 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -12
-set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/08" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800) rotate
+set key at 1626955200, 45000 center right Left opaque reverse invert samplen 3 box spacing 1.2 width -12
+set xtics ("20/01" 1579478400, "27/01" 1580083200, "03/02" 1580688000, "10/02" 1581292800, "17/02" 1581897600, "24/02" 1582502400, "02/03" 1583107200, "09/03" 1583712000, "16/03" 1584316800, "23/03" 1584921600, "30/03" 1585526400, "06/04" 1586131200, "13/04" 1586736000, "20/04" 1587340800, "27/04" 1587945600, "04/05" 1588550400, "11/05" 1589155200, "18/05" 1589760000, "25/05" 1590364800, "01/06" 1590969600, "08/06" 1591574400, "15/06" 1592179200, "22/06" 1592784000, "29/06" 1593388800, "06/07" 1593993600, "13/07" 1594598400, "20/07" 1595203200, "27/07" 1595808000, "03/08" 1596412800, "10/08" 1597017600, "17/08" 1597622400, "24/08" 1598227200, "31/08" 1598832000, "07/09" 1599436800, "14/09" 1600041600, "21/09" 1600646400, "28/09" 1601251200, "05/10" 1601856000, "12/10" 1602460800, "19/10" 1603065600, "26/10" 1603670400, "02/11" 1604275200, "09/11" 1604880000, "16/11" 1605484800, "23/11" 1606089600, "30/11" 1606694400, "07/12" 1607299200, "14/12" 1607904000, "21/12" 1608508800, "28/12" 1609113600, "04/01" 1609718400, "11/01" 1610323200, "18/01" 1610928000, "25/01" 1611532800, "01/02" 1612137600, "08/02" 1612742400, "15/02" 1613347200, "22/02" 1613952000, "01/03" 1614556800, "08/03" 1615161600, "15/03" 1615766400, "22/03" 1616371200, "29/03" 1616976000, "05/04" 1617580800, "12/04" 1618185600, "19/04" 1618790400, "26/04" 1619395200, "03/05" 1620000000, "10/05" 1620604800, "17/05" 1621209600, "24/05" 1621814400, "31/05" 1622419200, "07/06" 1623024000, "14/06" 1623628800, "21/06" 1624233600, "28/06" 1624838400, "05/07" 1625443200, "12/07" 1626048000, "19/07" 1626652800, "26/07" 1627257600) rotate
 set ytics 0, 10000
 set mytics 5
 set y2tics 0, 500
@@ -151,11 +151,11 @@ set origin .015,0
 minus(s) = sprintf("{/:Bold=12 %.f", s)
 plus(s) = sprintf("{/:Bold=12 +%.f", s)
 
-plot [1579176000:1626955200][0:50000] \
-"data_activity_per_week_20210727104349.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "le nombre de nouveaux participants par semaine (sur y2)", \
-"data_activity_per_week_20210727104349.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "le nombre de participants par semaine (sur y2)", \
-"data_activity_per_week_20210727104349.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "le nombre de posts roses par semaine (sur y2)", \
-"data_activity_per_week_20210727104349.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "le nombre de posts par semaine"
+plot [1579176000:1627560000][0:50000] \
+"data_activity_per_week_20210803121648.txt" u 1:4:($4-$5) axes x1y2 w filledcurves lw 2 lc rgbcolor "#9f9fff" title "le nombre de nouveaux participants par semaine (sur y2)", \
+"data_activity_per_week_20210803121648.txt" u 1:4 axes x1y2 w lines lw 2 lc rgbcolor "#7f5fff" title "le nombre de participants par semaine (sur y2)", \
+"data_activity_per_week_20210803121648.txt" u 1:3 axes x1y2 w lines lw 2 lc rgbcolor "#3faf3f" title "le nombre de posts roses par semaine (sur y2)", \
+"data_activity_per_week_20210803121648.txt" u 1:2 w lines lw 2 lc rgbcolor "#ff7f00" title "le nombre de posts par semaine"
 
 set output
 
