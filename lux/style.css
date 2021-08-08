@@ -194,3 +194,6 @@ div#table table .tableCell{
   border:1px solid silver;
   white-space:nowrap;
 }
+div#table table .google-visualization-table-tr-sel{
+  background-color:#d8d8f8;
+}
