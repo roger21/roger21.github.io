@@ -9,6 +9,13 @@ body{
   font-family:Verdana,Arial,Sans-serif,Helvetica;
   font-size:14px;
 }
+h1.title{
+  margin:30px;
+  font-size:30px;
+  font-weight:normal;
+  text-align:center;
+  letter-spacing:30px;
+}
 div.index{
   margin:30px;
   border:2px dashed #303030;
