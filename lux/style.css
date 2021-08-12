@@ -1,11 +1,11 @@
-html, body, div, hr, h1, table, tr, th, td, img{
+html, body, h1, div, table, tr, th, td, img{
   margin:0;
   border:0;
   padding:0;
 }
 body{
   color:#303030;
-  background-color:white;
+  background-color:#ffffff;
   font-family:Verdana,Arial,Sans-serif,Helvetica;
   font-size:14px;
 }
@@ -34,8 +34,7 @@ div.section > span{
   display:block;
   margin:5px 30px 10px;
 }
-div.section > a,
-div.section > div.a{
+div.section > a{
   display:block;
   margin:5px 30px;
   align-self:flex-start;
@@ -147,6 +146,22 @@ a:visited{
 a:hover, a:visited:hover{
   text-decoration:none;
   background-color:#e8e8f8;
+}
+b > a.permalink, b > a.permalink:visited{
+  color:#303030;
+  text-decoration:none;
+  background-color:transparent;
+  padding:0;
+}
+b > a.permalink:hover, b > a.permalink:visited:hover{
+  color:#303030;
+  text-decoration:none;
+  background-color:transparent;
+  padding:0 20px 0 0;
+  background-image:url(link.svg);
+  background-repeat:no-repeat;
+  background-position:100% 50%;
+  background-size:auto 11px;
 }
 body.graph{
   text-align:center;
