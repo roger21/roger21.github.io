@@ -1,11 +1,11 @@
-html, body, div, hr, h1, table, tr, th, td, img{
+html, body, h1, div, table, tr, th, td, img{
   margin:0;
   border:0;
   padding:0;
 }
 body{
   color:#303030;
-  background-color:white;
+  background-color:#ffffff;
   font-family:Verdana,Arial,Sans-serif,Helvetica;
   font-size:14px;
 }
@@ -45,13 +45,6 @@ div.index > *:first-child{
 div.index > *:last-child{
   margin-bottom:30px;
 }
-div.index > hr{
-  height:0;
-  margin:20px 30px;
-  border-width:2px 0 0;
-  border-style:dashed;
-  border-color:#303030;
-}
 div.wait{
   position:fixed;
   top:0;
@@ -66,7 +59,7 @@ div.wait{
 }
 div.wait div{
   font-size:89px;
-  color:#d7d7f7;
+  color:#d8d8f8;
   display:none;
 }
 body.loading div.wait,
@@ -95,7 +88,7 @@ div.table > table{
   max-width:calc(100% - 60px);
 }
 div.table > table tr{
-  background-color:#d7d7f7;
+  background-color:#d8d8f8;
 }
 div.table > table tr.data:hover,
 div.table > table tr.data1:hover,
@@ -105,11 +98,11 @@ div.table > table tr.data2:hover{
 }
 div.table > table tr.data,
 div.table > table tr.data1{
-  background-color:#f7f7f7;
+  background-color:#f8f8f8;
 }
 div.table > table tr.data.data2,
 div.table > table tr.data2{
-  background-color:#e7e7f7;
+  background-color:#e8e8f8;
 }
 div.table > table.sort th{
   cursor:pointer;
@@ -146,5 +139,23 @@ a:visited{
 }
 a:hover, a:visited:hover{
   text-decoration:none;
-  background-color:#e7e7f7;
+  background-color:#e8e8f8;
+}
+div.index > b > a.permalink,
+div.index > b > a.permalink:visited{
+  color:#303030;
+  text-decoration:none;
+  background-color:transparent;
+  padding:0;
+}
+div.index > b > a.permalink:hover,
+div.index > b > a.permalink:visited:hover{
+  color:#303030;
+  text-decoration:none;
+  background-color:transparent;
+  padding:0 20px 0 0;
+  background-image:url(link.svg);
+  background-repeat:no-repeat;
+  background-position:100% 50%;
+  background-size:auto 11px;
 }
