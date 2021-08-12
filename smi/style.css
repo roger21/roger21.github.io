@@ -1,4 +1,4 @@
-html, body, div, p, hr, h1, table, tr, th, td, img, ul, li{
+html, body, h1, h3, div, p, table, tr, th, td, img, ul, li{
   margin:0;
   border:0;
   padding:0;
@@ -32,7 +32,7 @@ div.section > b{
   font-weight:bold;
 }
 div.stats > div.section > b{
-  margin:20px 30px 30px;
+  margin:20px 30px;
 }
 div.stats > div.liste{
   margin:30px 30px 30px;
@@ -55,7 +55,9 @@ div.section > a:hover,
 div.section > div.a:hover{
   outline:4px solid rgba(0, 0, 244, .095);
 }
-div.index > div.section:first-child > *:first-child,
+div.index > div.section:first-child{
+  margin-top:10px;
+}
 div.stats > div.section:first-child > *:first-child{
   margin-top:30px;
 }
