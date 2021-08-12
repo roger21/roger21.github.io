@@ -147,13 +147,15 @@ a:hover, a:visited:hover{
   text-decoration:none;
   background-color:#e8e8f8;
 }
-b > a.permalink, b > a.permalink:visited{
+div.section > b > a.permalink,
+div.section > b > a.permalink:visited{
   color:#303030;
   text-decoration:none;
   background-color:transparent;
   padding:0;
 }
-b > a.permalink:hover, b > a.permalink:visited:hover{
+div.section > b > a.permalink:hover,
+div.section > b > a.permalink:visited:hover{
   color:#303030;
   text-decoration:none;
   background-color:transparent;
