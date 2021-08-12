@@ -39,8 +39,8 @@ div.section > a{
   margin:5px 30px;
   align-self:flex-start;
 }
-div.index > div.section:first-child > *:first-child{
-  margin-top:30px;
+div.index > div.section:first-child{
+  margin-top:10px;
 }
 div.index > div.section:last-child > *:last-child{
   margin-bottom:30px;
