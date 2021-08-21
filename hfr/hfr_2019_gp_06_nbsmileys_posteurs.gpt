@@ -1,0 +1,90 @@
+# nettoyage des données
+
+#sed -i "s/\"//g" hfr_2019_dt_nbsmileys_posteurs_*.txt
+#sed -i "s/,/ /g" hfr_2019_dt_nbsmileys_posteurs_*.txt
+#sed -i "1d" hfr_2019_dt_nbsmileys_posteurs_*.txt
+#del sed*
+
+
+# le graph 1
+
+unset multiplot
+reset session
+reset
+set encoding utf8
+set terminal svg size 1600,900 dynamic name "hfr_2019_09_nbsmileys_posteurs_1_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set output "hfr_2019_09_nbsmileys_posteurs_1.svg"
+set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 1\n{/=12 (données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34)"
+set xtics offset 0,0.3 ("0 smiley" 0, "1 smiley" 1, "2 smileys" 2, "3 smileys" 3, "4 smileys" 4, "5 smileys" 5, \
+"6 smileys" 6, "7 smileys" 7, "8 smileys" 8, "9 smileys" 9, "10 smileys" 10, "11 smileys" 11)
+set style data histogram
+set style histogram rowstacked
+set boxwidth 0.75
+set yrange [0:110]
+set key tc variable
+set style fill solid
+set xlabel "{/=16 les nombres de smileys" offset 0,0.4
+set ylabel "{/=16 les « classes » de posteurs pour un nombre de smileys donné (normalisées en %)"
+set ytics 0, 10, 109
+set mytics 2
+set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set key outside Left opaque reverse samplen -2 box spacing 1.4 width -1
+
+boldus(s) = sprintf("{/:Bold=14 %.f}", s)
+
+plot \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 2 lc rgbcolor "#1f77b4" title "{/:Bold 0 post", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 3 lc rgbcolor "#ff7f0e" title "{/:Bold 1+ post(s)", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 4 lc rgbcolor "#2ca02c" title "{/:Bold 11+ posts", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 5 lc rgbcolor "#d62728" title "{/:Bold 101+ posts", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 6 lc rgbcolor "#9467bd" title "{/:Bold 1 001+ posts", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 7 lc rgbcolor "#8c564b" title "{/:Bold 10 001+ posts", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 8 lc rgbcolor "#e377c2" title "{/:Bold 100 001+ posts", \
+"hfr_2019_dt_nbsmileys_posteurs_1.txt" u 1:(104.75):(boldus($9)) w labels center tc rgbcolor "#3f3f3f" boxed title "{/:Bold nb de comptes hfr", \
+
+set output
+
+
+# le graph 2
+
+unset multiplot
+reset session
+reset
+set encoding utf8
+set terminal svg size 1600,900 dynamic name "hfr_2019_10_nbsmileys_posteurs_2_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set output "hfr_2019_10_nbsmileys_posteurs_2.svg"
+set title "{/:Bold=18 hfr : le nombre de smileys dans le profil 2\n{/=12 (données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34)"
+set xtics offset 0,0.3 ("0 post" 0, "1+ post(s)" 1, "11+ posts" 2, "101+ posts" 3, "1 001+ posts" 4, "10 001+ posts" 5, "100 001+ posts" 6)
+set style data histogram
+set style histogram rowstacked
+set boxwidth 0.75
+set yrange [0:110]
+set key tc variable
+set style fill solid
+set xlabel "{/=16 les « classes » de posteurs" offset 0,0.4
+set ylabel "{/=16 les nombres de smileys pour une « classe » de posteur donnée (normalisés en %)"
+set ytics 0, 10, 109
+set mytics 2
+set grid xtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set key outside Left opaque reverse samplen -2 box spacing 1.4 width -1
+
+boldus(s) = sprintf("{/:Bold=14 %.f}", s)
+
+plot \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  2 lc rgbcolor "#e6194b" title "{/:Bold  0 smiley", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  3 lc rgbcolor "#3cb44b" title "{/:Bold  1 smiley", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  4 lc rgbcolor "#ffe119" title "{/:Bold  2 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  5 lc rgbcolor "#4363d8" title "{/:Bold  3 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  6 lc rgbcolor "#f58231" title "{/:Bold  4 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  7 lc rgbcolor "#911eb4" title "{/:Bold  5 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  8 lc rgbcolor "#42d4f4" title "{/:Bold  6 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u  9 lc rgbcolor "#f032e6" title "{/:Bold  7 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u 10 lc rgbcolor "#bfef45" title "{/:Bold  8 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u 11 lc rgbcolor "#fabebe" title "{/:Bold  9 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u 12 lc rgbcolor "#469990" title "{/:Bold 10 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u 13 lc rgbcolor "#e6beff" title "{/:Bold 11 smileys", \
+"hfr_2019_dt_nbsmileys_posteurs_2.txt" u 1:(104.75):(boldus($14)) w labels center tc rgbcolor "#3f3f3f" boxed title "{/:Bold nb de comptes hfr", \
+
+set output
+
+

@@ -1,0 +1,53 @@
+unset multiplot
+reset session
+reset
+set encoding utf8
+load "hfr_2019_gp_01_courbes_lorenz_posts.gpt"
+load "hfr_2019_gp_02_dates_creation_lastpost.gpt"
+load "hfr_2019_gp_03_dates_active_accounts.gpt"
+load "hfr_2019_gp_04_deciles_percent_posteurs.gpt"
+load "hfr_2019_gp_05_longueur_pseudals.gpt"
+load "hfr_2019_gp_06_nbsmileys_posteurs.gpt"
+load "hfr_2019_gp_07_ages_forum_real.gpt"
+load "hfr_2019_gp_08_caracteres_pseudals.gpt"
+load "hfr_2019_gp_09_posts_avatatar_smileys.gpt"
+
+
+#1f77b4
+#ff7f0e
+#2ca02c
+#d62728
+#9467bd
+#8c564b
+#e377c2
+#7f7f7f
+
+
+#2196f3
+#f13447
+#7b1fa2
+#15b777
+#ff803d
+#283593
+#c0ca33
+#d601bd
+#004d40
+#00e5ff
+#9f2c10
+#fdd835
+
+
+#e6194b
+#3cb44b
+#ffe119
+#4363d8
+#f58231
+#911eb4
+#42d4f4
+#f032e6
+#bfef45
+#fabebe
+#469990
+#e6beff
+
+

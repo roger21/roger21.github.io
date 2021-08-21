@@ -1,0 +1,110 @@
+# nettoyage des données
+
+#sed -i "s/\"//g" hfr_2019_dt_ages_forum_real_*.txt
+#sed -i "s/,/ /g" hfr_2019_dt_ages_forum_real_*.txt
+#sed -i "1d" hfr_2019_dt_ages_forum_real_*.txt
+#del sed*
+
+
+# le graph
+
+unset multiplot
+reset session
+reset
+set encoding utf8
+set terminal svg size 1600,900 dynamic name "hfr_2019_13_ages_forum_real_svg" font "Verdana,Arial,Sans-serif,Helvetica,14" background "#ffffff"
+set output "hfr_2019_13_ages_forum_real.svg"
+set multiplot layout 2,1 title "{/:Bold=18 hfr : l'ages des forumeurs actifs en 2019\n{/=12 (données collectées entre le 5 avril 2019 à 19:42:51 et le 12 avril 2019 à 2:48:34 - calcul de l'age au 12/05/2019)"
+set grid xtics mxtics ytics mytics back lc "#3f3f3f" dt (10,10), lc "#7f7f7f" dt (10,10)
+set key tc variable
+set style fill transparent solid 0.4
+set mytics 2
+set format y "%4.f"
+
+boldus(s) = sprintf("{/:Bold %.f}", s)
+minus(s) = sprintf("{/:Bold=12 %.f}", s)
+
+
+# plot 1
+
+set xtics 0,1,19 offset 0,0.3
+set ytics 1000
+set xlabel "{/=16 l'age forumesque" offset 0,0.4
+set ylabel "{/=16 les comptes hfr"
+set key at 19.5,3500 center right Left opaque reverse samplen 3 box spacing 1.3 width -5.5 height .2
+
+set arrow 1 from    8,0 to    8,4500 nohead front lw 2 lc "#ff007f" dt (10,7)
+set arrow 2 from 7.83,0 to 7.83,4500 nohead front lw 2 lc "#7f00ff" dt (10,7)
+
+set label 1 "{/:Bold 8"    at    8,2750 center rotate front tc rgbcolor "#ff007f" offset  1,0
+set label 2 "{/:Bold 7.83" at 7.83,2750 center rotate front tc rgbcolor "#7f00ff" offset -1,0
+
+plot [-1:20][0:4500] \
+"hfr_2019_dt_ages_forum_real_1.txt" u 1:2 w boxes lw 2 lc rgbcolor "#ff7f00" title "{/:Bold age forumesque des forumeurs actifs en 2019", \
+"hfr_2019_dt_ages_forum_real_1.txt" u 1:($2 + 150):(boldus($2)) w labels center tc rgbcolor "#ff7f00" notitle, \
+keyentry w lines lw 2 lc rgbcolor "#7f00ff" dt (10,7) title "{/:Bold age forumesque moyen des forumeurs actifs en 2019", \
+keyentry w lines lw 2 lc rgbcolor "#ff007f" dt (10,7) title "{/:Bold age forumesque médian des forumeurs actifs en 2019"
+
+
+# plot 2
+
+set xtics 0,5,100 offset 0,0.3
+set ytics 100
+set mxtics 5
+set xlabel "{/=16 l'age renseigné" offset 0,0.4
+set ylabel "{/=16 les comptes hfr"
+set key at 97,450 center right Left opaque reverse samplen 3 box spacing 1.3 width -6 height .2
+
+set arrow 1 from    34,0 to    34,550 nohead front lw 2 lc "#ff007f" dt (10,7)
+set arrow 2 from 35.03,0 to 35.03,550 nohead front lw 2 lc "#7f00ff" dt (10,7)
+
+set label 1 "{/:Bold 34"    at    34,175 center rotate front tc rgbcolor "#ff007f" offset -1,0
+set label 2 "{/:Bold 35.03" at 35.03,175 center rotate front tc rgbcolor "#7f00ff" offset  1,0
+
+plot [0:100][0:550] \
+"hfr_2019_dt_ages_forum_real_2.txt" u 1:2 w lines lw 2 lc rgbcolor "#3fbf3f" notitle, \
+"hfr_2019_dt_ages_forum_real_2.txt" u 1:2 w filledcurves x1 lw 2 lc rgbcolor "#3fbf3f" title "{/:Bold age renseigné des forumeurs actifs en 2019", \
+keyentry w lines lw 2 lc rgbcolor "#ff007f" dt (10,7) title "{/:Bold age renseigné médian des forumeurs actifs en 2019", \
+keyentry w lines lw 2 lc rgbcolor "#7f00ff" dt (10,7) title "{/:Bold age renseigné moyen des forumeurs actifs en 2019" #, \
+#"hfr_2019_dt_ages_forum_real_2.txt" u 1:($2 + 25):(minus($2)) w labels left rotate tc rgbcolor "#3fbf3f" notitle
+
+
+# plot 3
+
+unset arrow
+unset label
+unset grid
+unset tics
+unset xlabel
+unset ylabel
+
+set size 0.325,0.26
+set origin 0.6445,0.08
+set angles degrees
+
+undefine $data
+$data << EOD
+0 0 0.95  90 287.1459415000257030 188.5729707500128515 54.76 # renseigné et ok
+0 0 0.95 287.1459415000257030 450 368,5729707500128515 45.24 # pas renseigné ou foireux
+EOD
+
+boldus(s) = sprintf("{/:Bold=14 %.2f%%}", s)
+
+set object 1 rect center 0,0 size graph 1,graph 1 behind fc "#ffffff" fs solid noborder
+
+set object 2 rect center -1.3,-1.15 size character 19,2.2 front fc "#ffffff" fs solid border lc "#3fbf3f" lw 2
+set object 3 rect center 1.3,1.15 size character 19,2.2 front fc "#ffffff" fs solid border lc "#7f7f7f" lw 2
+
+set label 1 "{/:Bold=16 age renseigné et\n{/:Bold=16 acceptable (1-99)" at -1.3,-.95 center front tc rgbcolor "#3fbf3f"
+set label 2 "{/:Bold=16 age non renseigné\n{/:Bold=16 ou trop foireux" at 1.3,1.35 center front tc rgbcolor "#7f7f7f"
+
+plot [-2.5:2.5][-2:2] \
+$data every ::::0 u ($1 + (.05 * cos($6))):($2 + (.05 * sin($6))):3:4:5 w circles fc rgbcolor "#3fbf3f" lw 2 title "age renseigné et acceptable", \
+$data skip 1 u ($1 + (.05 * cos($6))):($2 + (.05 * sin($6))):3:4:5 w circles fc rgbcolor "#7f7f7f" lw 2 title "age non renseigné ou trop foireux", \
+$data every ::::0 u ($1 + (.55 * cos($6))):($2 + (.55 * sin($6))):(boldus($7)) w labels tc rgbcolor "#3fbf3f" notitle, \
+$data skip 1 u ($1 + (.55 * cos($6))):($2 + (.55 * sin($6))):(boldus($7)) w labels tc rgbcolor "#7f7f7f" notitle
+
+unset multiplot
+set output
+
+
