@@ -1,0 +1,19 @@
+* cropper l'image à la taille du tableau
+* enlever la transparence
+* ajouter une bordure de 4px blanc
+* tourner l'image vers la droite (si elle est plus haute que large)
+* dézoomer pour voir toute l'image
+* faire un calque de texte de la taille de l'image en très gros osef
+* écrire le texte en arial heavy (ou autre - arial heavy est très moche - à voir)
+ - en taille multiple de 50, au plus adapté à la taille de l'image
+ - en couleur 7f7f7f
+ - adapter l'espace entre les lignes en multiple de 50 pour ressérer le texte
+* découpage auto du calque texte (perte des info de texte)
+* changer d'outil pour l'outil de déplacement de caque
+* ajouter une bordure de 20px au calque de texte
+* changer la taille du calque à la taille de l'image
+* déplacer le calque exactement sur l'image (utiliser aligner sur les bords du canvas)
+* changer l'opaciter à 15
+* fusioner vers le bas
+* tourner l'image vers la gauche (au besoin)
+* sauver
