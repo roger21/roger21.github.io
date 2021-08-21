@@ -1,0 +1,348 @@
+topic culgé vs. topic images
+============================
+
+
+
+traviller dans bordel
+
+
+
+récupérer les données csv avec des requetes sql dans phppgadmin :
+-----------------------------------------------------------------
+
+
+créer les nouvelles vues cul.reg_posts_2020 et img.reg_posts_2020
+et sauver les structures.sql
+
+
+ATTENTION : cocher "Paginate results" OSEF du tableau, on veut le csv
+
+select * from cul.reg_posts_2014 --> csv_2020_cul_posts_2014.txt
+select * from cul.reg_posts_2015 --> csv_2020_cul_posts_2015.txt
+select * from cul.reg_posts_2016 --> csv_2020_cul_posts_2016.txt
+select * from cul.reg_posts_2017 --> csv_2020_cul_posts_2017.txt
+select * from cul.reg_posts_2018 --> csv_2020_cul_posts_2018.txt
+select * from cul.reg_posts_2019 --> csv_2020_cul_posts_2019.txt
+select * from cul.reg_posts_2020 --> csv_2020_cul_posts_2020.txt
+select * from cul.reg_posts_all  --> csv_2020_cul_posts_all.txt
+select * from img.reg_posts_2014 --> csv_2020_img_posts_2014.txt
+select * from img.reg_posts_2015 --> csv_2020_img_posts_2015.txt
+select * from img.reg_posts_2016 --> csv_2020_img_posts_2016.txt
+select * from img.reg_posts_2017 --> csv_2020_img_posts_2017.txt
+select * from img.reg_posts_2018 --> csv_2020_img_posts_2018.txt
+select * from img.reg_posts_2019 --> csv_2020_img_posts_2019.txt
+select * from img.reg_posts_2020 --> csv_2020_img_posts_2020.txt
+select * from img.reg_posts_all  --> csv_2020_img_posts_all.txt
+select * from img.reg_imgs_all   --> csv_2020_img_imgs_all.txt
+
+avec sed, virer les ", remplacer les "," par des " " et virer la première ligne (les headers) :
+
+sed -i "s/\"//g" csv*.txt
+sed -i "s/,/ /g" csv*.txt
+sed -i "1d" csv*.txt
+del sed*
+
+
+
+lancer gnuplot :
+----------------
+
+
+# initialiser le graph, les titres et de la légende
+
+unset multiplot
+reset session
+reset
+set encoding utf8
+set terminal windows
+clear
+unset grid
+set title "Topic CulGé vs. Topic Images en nombre de posts"
+set xlabel "epoch"
+set ylabel "posts"
+set key left Left opaque reverse samplen 3.4 box spacing 1.3 width -1.5
+
+set size .995,1
+
+
+# comparaison all 2019 / all 2020
+
+# culge
+plot [1250000000:1650000000][0:700000] \
+"csv_2019_cul_posts_all.txt" u 1:2 w lines lw 1 lc rgbcolor "#0000ff" title "culge_all_2019" noenhanced, \
+"csv_2020_cul_posts_all.txt" w lines lw 1 lc rgbcolor "#ff0000" title "culge_all_2020" noenhanced
+
+# images posts
+plot [1200000000:1650000000][0:700000] \
+"csv_2019_img_posts_all.txt" u 1:2 w lines lw 1 lc rgbcolor "#0000ff" title "images_posts_all_2019" noenhanced, \
+"csv_2020_img_posts_all.txt" w lines lw 1 lc rgbcolor "#ff0000" title "images_posts_all_2020" noenhanced
+
+# images imgs
+plot [1200000000:1650000000][0:700000] \
+"csv_2019_img_imgs_all.txt" u 1:2 w lines lw 1 lc rgbcolor "#0000ff" title "images_imgs_all_2019" noenhanced, \
+"csv_2020_img_imgs_all.txt" w lines lw 1 lc rgbcolor "#ff0000" title "images_imgs_all_2020" noenhanced
+
+
+# afficher les données (en décalé de 20000)
+
+plot [1200000000:1650000000][0:700000] \
+"csv_2020_cul_posts_all.txt" w lines lw 1 lc rgbcolor "#007fff" title "culge_all" noenhanced, \
+"csv_2020_cul_posts_2020.txt" u 1:($2+10000) w lines lw 1 lc rgbcolor "#00ffff" title "culge_2020" noenhanced, \
+"csv_2020_img_posts_all.txt" w lines lw 1 lc rgbcolor "#7f00ff" title "images_all" noenhanced, \
+"csv_2020_img_posts_2020.txt" u 1:($2+10000) w lines lw 1 lc rgbcolor "#ff00ff" title "images_2020" noenhanced
+
+
+# afficher les années avec les labels
+
+# les epoch en fonction des dates :
+#SELECT date_part('epoch'::text, x::date), x FROM (values ('2008-01-01'), ('2009-01-01'), ('2010-01-01'), ('2011-01-01'), ('2012-01-01'), ('2013-01-01'), ('2014-01-01'), ('2015-01-01'), ('2016-01-01'), ('2017-01-01'), ('2018-01-01'), ('2019-01-01'), ('2020-01-01'), ('2021-01-01'), ('2022-01-01'), ('2023-01-01'), ('2024-01-01'), ('2025-01-01'), ('2026-01-01'), ('2027-01-01'), ('2028-01-01'), ('2029-01-01'), ('2030-01-01'), ('2031-01-01'), ('2032-01-01'), ('2033-01-01'), ('2034-01-01'), ('2035-01-01')) as t(x)
+#SELECT date_part('epoch'::text, x::date), x FROM (values ('2008-07-01'), ('2009-07-01'), ('2010-07-01'), ('2011-07-01'), ('2012-07-01'), ('2013-07-01'), ('2014-07-01'), ('2015-07-01'), ('2016-07-01'), ('2017-07-01'), ('2018-07-01'), ('2019-07-01'), ('2020-07-01'), ('2021-07-01'), ('2022-07-01'), ('2023-07-01'), ('2024-07-01'), ('2025-07-01'), ('2026-07-01'), ('2027-07-01'), ('2028-07-01'), ('2029-07-01'), ('2030-07-01'), ('2031-07-01'), ('2032-07-01'), ('2033-07-01'), ('2034-07-01'), ('2035-07-01')) as t(x)
+
+set label 1 "2008" at 1214870400,90000 center tc rgbcolor "#00bf00"
+set arrow 1 from 1230768000,0 to 1230768000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 2 "2009" at 1246406400,90000 center tc rgbcolor "#00bf00"
+set arrow 2 from 1262304000,0 to 1262304000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 3 "2010" at 1277942400,90000 center tc rgbcolor "#00bf00"
+set arrow 3 from 1293840000,0 to 1293840000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 4 "2011" at 1309478400,90000 center tc rgbcolor "#00bf00"
+set arrow 4 from 1325376000,0 to 1325376000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 5 "2012" at 1341100800,90000 center tc rgbcolor "#00bf00"
+set arrow 5 from 1356998400,0 to 1356998400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 6 "2013" at 1372636800,90000 center tc rgbcolor "#00bf00"
+set arrow 6 from 1388534400,0 to 1388534400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 7 "2014" at 1404172800,90000 center tc rgbcolor "#00bf00"
+set arrow 7 from 1420070400,0 to 1420070400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 8 "2015" at 1435708800,90000 center tc rgbcolor "#00bf00"
+set arrow 8 from 1451606400,0 to 1451606400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 9 "2016" at 1467331200,90000 center tc rgbcolor "#00bf00"
+set arrow 9 from 1483228800,0 to 1483228800,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 10 "2017" at 1498867200,90000 center tc rgbcolor "#00bf00"
+set arrow 10 from 1514764800,0 to 1514764800,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 11 "2018" at 1530403200,90000 center tc rgbcolor "#00bf00"
+set arrow 11 from 1546300800,0 to 1546300800,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 12 "2019" at 1561939200,90000 center tc rgbcolor "#00bf00"
+set arrow 12 from 1577836800,0 to 1577836800,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 13 "2020" at 1593561600,90000 center tc rgbcolor "#00bf00"
+set arrow 13 from 1609459200,0 to 1609459200,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 14 "2021" at 1625097600,90000 center tc rgbcolor "#00bf00"
+set arrow 14 from 1640995200,0 to 1640995200,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 15 "2022" at 1656633600,90000 center tc rgbcolor "#00bf00"
+set arrow 15 from 1672531200,0 to 1672531200,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 16 "2023" at 1688169600,90000 center tc rgbcolor "#00bf00"
+#set arrow 16 from 1704067200,0 to 1704067200,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 17 "2024" at 1719792000,90000 center tc rgbcolor "#00bf00"
+#set arrow 17 from 1735689600,0 to 1735689600,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 18 "2025" at 1751328000,90000 center tc rgbcolor "#00bf00"
+#set arrow 18 from 1767225600,0 to 1767225600,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 19 "2026" at 1782864000,90000 center tc rgbcolor "#00bf00"
+#set arrow 19 from 1798761600,0 to 1798761600,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 20 "2027" at 1814400000,90000 center tc rgbcolor "#00bf00"
+#set arrow 20 from 1830297600,0 to 1830297600,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 21 "2028" at 1846022400,90000 center tc rgbcolor "#00bf00"
+#set arrow 21 from 1861920000,0 to 1861920000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 22 "2029" at 1877558400,90000 center tc rgbcolor "#00bf00"
+#set arrow 22 from 1893456000,0 to 1893456000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 23 "2030" at 1909094400,90000 center tc rgbcolor "#00bf00"
+#set arrow 23 from 1924992000,0 to 1924992000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 24 "2031" at 1940630400,90000 center tc rgbcolor "#00bf00"
+#set arrow 24 from 1956528000,0 to 1956528000,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 25 "2032" at 1972252800,90000 center tc rgbcolor "#00bf00"
+#set arrow 25 from 1988150400,0 to 1988150400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 26 "2033" at 2003788800,90000 center tc rgbcolor "#00bf00"
+#set arrow 26 from 2019686400,0 to 2019686400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 27 "2034" at 2035324800,90000 center tc rgbcolor "#00bf00"
+#set arrow 27 from 2051222400,0 to 2051222400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+#set label 28 "2035" at 2066860800,90000 center tc rgbcolor "#00bf00"
+#set arrow 28 from 2051222400,0 to 2051222400,700000 nohead lc rgbcolor "#00bf00" dt (20,10)
+
+plot [1200000000:2000000000][0:1000000] \
+"csv_2020_cul_posts_all.txt" w lines lw 1 lc rgbcolor "#007fff" title "culge_all" noenhanced, \
+"csv_2020_cul_posts_2020.txt" u 1:($2+10000) w lines lw 1 lc rgbcolor "#00ffff" title "culge_2020" noenhanced, \
+"csv_2020_img_posts_all.txt" w lines lw 1 lc rgbcolor "#7f00ff" title "images_all" noenhanced, \
+"csv_2020_img_posts_2020.txt" u 1:($2+10000) w lines lw 1 lc rgbcolor "#ff00ff" title "images_2020" noenhanced
+
+
+# faire les reglins (fits) :
+
+set fit limit 1e-30
+reglin_culge_2014(x)=ac14*x+bc14
+fit [1200000000:1650000000] reglin_culge_2014(x) "csv_2020_cul_posts_2014.txt" via ac14,bc14
+reglin_culge_2015(x)=ac15*x+bc15
+fit [1200000000:1650000000] reglin_culge_2015(x) "csv_2020_cul_posts_2015.txt" via ac15,bc15
+reglin_culge_2016(x)=ac16*x+bc16
+fit [1200000000:1650000000] reglin_culge_2016(x) "csv_2020_cul_posts_2016.txt" via ac16,bc16
+reglin_culge_2017(x)=ac17*x+bc17
+fit [1200000000:1650000000] reglin_culge_2017(x) "csv_2020_cul_posts_2017.txt" via ac17,bc17
+reglin_culge_2018(x)=ac18*x+bc18
+fit [1200000000:1650000000] reglin_culge_2018(x) "csv_2020_cul_posts_2018.txt" via ac18,bc18
+reglin_culge_2019(x)=ac19*x+bc19
+fit [1200000000:1650000000] reglin_culge_2019(x) "csv_2020_cul_posts_2019.txt" via ac19,bc19
+reglin_culge_2020(x)=ac20*x+bc20
+fit [1200000000:1650000000] reglin_culge_2020(x) "csv_2020_cul_posts_2020.txt" via ac20,bc20
+reglin_culge_all(x)=aca*x+bca
+fit [1200000000:1650000000] reglin_culge_all(x) "csv_2020_cul_posts_all.txt" via aca,bca
+reglin_images_2014(x)=ai14*x+bi14
+fit [1200000000:1650000000] reglin_images_2014(x) "csv_2020_img_posts_2014.txt" via ai14,bi14
+reglin_images_2015(x)=ai15*x+bi15
+fit [1200000000:1650000000] reglin_images_2015(x) "csv_2020_img_posts_2015.txt" via ai15,bi15
+reglin_images_2016(x)=ai16*x+bi16
+fit [1200000000:1650000000] reglin_images_2016(x) "csv_2020_img_posts_2016.txt" via ai16,bi16
+reglin_images_2017(x)=ai17*x+bi17
+fit [1200000000:1650000000] reglin_images_2017(x) "csv_2020_img_posts_2017.txt" via ai17,bi17
+reglin_images_2018(x)=ai18*x+bi18
+fit [1200000000:1650000000] reglin_images_2018(x) "csv_2020_img_posts_2018.txt" via ai18,bi18
+reglin_images_2019(x)=ai19*x+bi19
+fit [1200000000:1650000000] reglin_images_2019(x) "csv_2020_img_posts_2019.txt" via ai19,bi19
+reglin_images_2020(x)=ai20*x+bi20
+fit [1200000000:1650000000] reglin_images_2020(x) "csv_2020_img_posts_2020.txt" via ai20,bi20
+reglin_images_all(x)=aia*x+bia
+fit [1200000000:1650000000] reglin_images_all(x) "csv_2020_img_posts_all.txt" via aia,bia
+
+
+# afficher les reglins :
+
+plot [1200000000:2000000000][0:1000000] \
+reglin_culge_all(x) ti "reglin_culge_all" noenhanced lc rgbcolor "#ff0000" dt (5,5), \
+reglin_culge_2014(x) ti "reglin_culge_2014" noenhanced lc rgbcolor "#ffbf00", \
+reglin_culge_2015(x) ti "reglin_culge_2015" noenhanced lc rgbcolor "#ff9f00", \
+reglin_culge_2016(x) ti "reglin_culge_2016" noenhanced lc rgbcolor "#ff7f00", \
+reglin_culge_2017(x) ti "reglin_culge_2017" noenhanced lc rgbcolor "#ff3f00", \
+reglin_culge_2018(x) ti "reglin_culge_2018" noenhanced lc rgbcolor "#ff0000", \
+reglin_culge_2019(x) ti "reglin_culge_2019" noenhanced lc rgbcolor "#bf0000", \
+reglin_culge_2020(x) ti "reglin_culge_2020" noenhanced lc rgbcolor "#9f0000", \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+reglin_images_all(x) ti "reglin_images_all" noenhanced lc rgbcolor "#ff0000" dt (5,5), \
+reglin_images_2014(x) ti "reglin_images_2014" noenhanced lc rgbcolor "#ffbf00", \
+reglin_images_2015(x) ti "reglin_images_2015" noenhanced lc rgbcolor "#ff9f00", \
+reglin_images_2016(x) ti "reglin_images_2016" noenhanced lc rgbcolor "#ff7f00", \
+reglin_images_2017(x) ti "reglin_images_2017" noenhanced lc rgbcolor "#ff3f00", \
+reglin_images_2018(x) ti "reglin_images_2018" noenhanced lc rgbcolor "#ff0000", \
+reglin_images_2019(x) ti "reglin_images_2019" noenhanced lc rgbcolor "#bf0000", \
+reglin_images_2020(x) ti "reglin_images_2020" noenhanced lc rgbcolor "#9f0000", \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# afficher les reglins all, 2019 et 2020 :
+
+plot [1200000000:1700000000][0:900000] \
+reglin_culge_all(x) ti "reglin_culge_all" noenhanced lc rgbcolor "#bf0000" dt (6,8), \
+reglin_culge_2019(x) ti "reglin_culge_2019" noenhanced lc rgbcolor "#bf0000" dt (2,4), \
+reglin_culge_2020(x) ti "reglin_culge_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+reglin_images_all(x) ti "reglin_images_all" noenhanced lc rgbcolor "#bf0000" dt (6,8), \
+reglin_images_2019(x) ti "reglin_images_2019" noenhanced lc rgbcolor "#bf0000" dt (2,4), \
+reglin_images_2020(x) ti "reglin_images_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# calcul des intersections :
+
+x_all=(bia-bca)/(aca-aia)
+y_all=reglin_culge_all(x_all)
+x_2014=(bi14-bc14)/(ac14-ai14)
+y_2014=reglin_culge_2014(x_2014)
+x_2015=(bi15-bc15)/(ac15-ai15)
+y_2015=reglin_culge_2015(x_2015)
+x_2016=(bi16-bc16)/(ac16-ai16)
+y_2016=reglin_culge_2016(x_2016)
+x_2017=(bi17-bc17)/(ac17-ai17)
+y_2017=reglin_culge_2017(x_2017)
+x_2018=(bi18-bc18)/(ac18-ai18)
+y_2018=reglin_culge_2018(x_2018)
+x_2019=(bi19-bc19)/(ac19-ai19)
+y_2019=reglin_culge_2019(x_2019)
+x_2020=(bi20-bc20)/(ac20-ai20)
+y_2020=reglin_culge_2020(x_2020)
+print \
+"y_all  : ", y_all, "\n", \
+"y_2014 ; ", y_2014, "\n", \
+"y_2015 ; ", y_2015, "\n", \
+"y_2016 ; ", y_2016, "\n", \
+"y_2017 ; ", y_2017, "\n", \
+"y_2018 ; ", y_2018, "\n", \
+"y_2019 ; ", y_2019, "\n", \
+"y_2020 ; ", y_2020
+print "(", \
+"select 'x_all', to_timestamp(", x_all, ")", " union \n", \
+"select 'x_2014', to_timestamp(", x_2014, ")", " union \n", \
+"select 'x_2015', to_timestamp(", x_2015, ")", " union \n", \
+"select 'x_2016', to_timestamp(", x_2016, ")", " union \n", \
+"select 'x_2017', to_timestamp(", x_2017, ")", " union \n", \
+"select 'x_2018', to_timestamp(", x_2018, ")", " union \n", \
+"select 'x_2019', to_timestamp(", x_2019, ")", " union \n", \
+"select 'x_2020', to_timestamp(", x_2020, ")", \
+") order by 1;"
+
+
+# pour convertir les epoch en date :
+# psql -U matmatah
+# y copier la requète
+# ou phppgadmin
+
+
+#set label 51 "reglin_all\n2024-08-30\n18:47:12" noenhanced at x_all,y_all center tc rgbcolor "#bf0000" point ps 1 pt 7 lc rgbcolor "#bf0000" front offset -6.5,2.7
+
+#set label 52 "reglin_2019\n2020-09-01\n17:09:04" noenhanced at x_2019,y_2019 center tc rgbcolor "#bf0000" point ps 1 pt 7 lc rgbcolor "#bf0000" front offset -6.5,2.7
+#set label 53 "reglin_2020\n2020-08-17\n12:44:36" noenhanced at x_2020,y_2020 center tc rgbcolor "#bf0000" point ps 1 pt 7 lc rgbcolor "#bf0000" front offset 6.5,-0.7
+
+set label 54 "Numou\n2020-08-20\n10:48:40" noenhanced at 1597920520,549999 center tc rgbcolor "#bf0000" point ps 1 pt 7 lc rgbcolor "#bf0000" front offset 6.5,-0.7
+
+
+replot
+
+
+# zoom
+
+plot [1550000000:1650000000][500000:600000] \
+reglin_culge_2019(x) ti "reglin_culge_2019" noenhanced lc rgbcolor "#bf0000" dt (2,4), \
+reglin_culge_2020(x) ti "reglin_culge_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+reglin_images_2019(x) ti "reglin_images_2019" noenhanced lc rgbcolor "#bf0000" dt (2,4), \
+reglin_images_2020(x) ti "reglin_images_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# zoom more
+
+plot [1597500000:1599000000][549500:551500] \
+reglin_culge_2019(x) ti "reglin_culge_2019" noenhanced lc rgbcolor "#bf0000" dt (2,4), \
+reglin_culge_2020(x) ti "reglin_culge_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+reglin_images_2019(x) ti "reglin_images_2019" noenhanced lc rgbcolor "#bf0000" dt (2,4), \
+reglin_images_2020(x) ti "reglin_images_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# zoom encore
+
+plot [1597910000:1597930000][549980:550020] \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# zoom encore encore
+
+plot [1597919000:1597923000][549998:550000] \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# bien
+
+plot [1200000000:1700000000][0:700000] \
+reglin_culge_2020(x) ti "reglin_culge_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_cul_posts_all.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+reglin_images_2020(x) ti "reglin_images_2020" noenhanced lc rgbcolor "#bf0000", \
+"csv_2020_img_posts_all.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# l'image en png
+
+set terminal pngcairo size 1920,1080 fontscale 0.9 dl 4
+set output "gnu_2020_vsimg.png"
+replot
+set output
+set terminal windows
+replot
+
+
