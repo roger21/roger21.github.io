@@ -1,86 +1,30 @@
-html, body, div, hr, h1, table, tr, th, td, img{
+html, body, div{
   margin:0;
   border:0;
   padding:0;
 }
 body{
   color:#303030;
-  background-color:white;
+  background-color:#ffffff;
   font-family:Verdana,Arial,Sans-serif,Helvetica;
-  font-size:14px;
+  font-size:16px;
 }
 div.index{
   margin:30px;
   border:2px dashed #303030;
-  padding:0;
-  display:flex;
-  flex-direction:column;
-}
-div.index > a{
-  display:block;
-  margin:5px 30px;
-  align-self:flex-start;
-}
-div.index > *:first-child{
-  margin-top:30px;
-}
-div.index > *:last-child{
-  margin-bottom:30px;
-}
-div.index > hr{
-  height:0;
-  margin:20px 30px;
-  border-width:2px 0 0;
-  border-style:dashed;
-  border-color:#303030;
-}
-div.index > hr.mid{
-  margin:20px calc(100% - 400px) 20px 30px;
-}
-div.table{
-  margin:30px 0;
-  padding:0;
+  padding:30px;
   text-align:center;
 }
-div.table > h1{
-  margin:30px;
-}
-div.table > table{
-  margin:30px auto;
-  border-collapse:collapse;
-  border-spacing:0;
-  max-width:calc(100% - 60px);
-}
-div.table > table tr{
-  background-color:#d7d7f7;
-}
-div.table > table tr[class]:hover{
-  background-color:#ffdfaf;
-}
-div.table > table tr.data1{
-  background-color:#f7f7f7;
-}
-div.table > table tr.data2{
-  background-color:#e7e7f7;
-}
-div.table > table td, div.table > table th{
-  padding:2px 10px;
-  border:1px solid silver;
-}
-td img{
-  display:block;
-  margin:3px auto;
-}
 a{
-  color:#505050;
+  color:#505090;
   text-decoration:none;
+  padding:0 4px;
 }
 a:visited{
-  color:#707070;
+  color:#b07070;
   text-decoration:none;
 }
 a:hover, a:visited:hover{
-  color:#909090;
   text-decoration:none;
-  background-color:#e7e7f7;
+  background-color:#e8e8f8;
 }
