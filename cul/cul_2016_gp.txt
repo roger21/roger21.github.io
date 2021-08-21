@@ -1,0 +1,139 @@
+topic culgé vs. topic images
+============================
+
+
+
+traviller dans bordel
+
+
+
+récupérer les données csv avec des requetes sql dans phppgadmin :
+-----------------------------------------------------------------
+
+
+ATTENTION : cocher "Paginate results" OSEF du tableau, on veut le csv
+
+select * from cul.reg_posts_2016 --> csv_2016_cul_posts_2016.txt
+select * from cul.reg_posts_all --> csv_2016_cul_posts_all_2016.txt
+select * from img.reg_posts_2016 --> csv_2016_img_posts_2016.txt
+select * from img.reg_posts_all --> csv_2016_img_posts_all_2016.txt
+
+avec sed, virer les ", remplacer les "," par des " " et virer la première ligne (les headers) :
+
+sed -i "s/\"//g" csv*.txt
+sed -i "s/,/ /g" csv*.txt
+sed -i "1d" csv*.txt
+
+
+
+lancer gnuplot :
+----------------
+
+
+# initialiser le graph, les titres et de la légende
+
+reset
+set terminal windows
+clear
+unset grid
+set title "Topic CulGé vs. Topic Images en nombre de posts"
+set xlabel "epoch"
+set ylabel "posts"
+set key left opaque samplen 3.5
+
+
+# afficher les données (en décalé de 20000)
+
+plot [1200000000:1700000000][0:800000] \
+"csv_2016_cul_posts_all_2016.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge_all" noenhanced, \
+"csv_2016_cul_posts_2016.txt" u 1:($2+20000) w lines lw 2 lc rgbcolor "#00ffff" title "culge_2016" noenhanced, \
+"csv_2016_img_posts_all_2016.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images_all" noenhanced, \
+"csv_2016_img_posts_2016.txt" u 1:($2+20000) w lines lw 2 lc rgbcolor "#ff00ff" title "images_2016" noenhanced
+
+
+# afficher les années avec les labels
+
+set label 1 "2008" at 1214953200,550000 center tc rgbcolor "#00bf00"
+set arrow 1 from 1230764400,0 to 1230764400,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 2 "2009" at 1246532400,550000 center tc rgbcolor "#00bf00"
+set arrow 2 from 1262300400,0 to 1262300400,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 3 "2010" at 1278068400,550000 center tc rgbcolor "#00bf00"
+set arrow 3 from 1293836400,0 to 1293836400,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 4 "2011" at 1309604400,550000 center tc rgbcolor "#00bf00"
+set arrow 4 from 1325372400,0 to 1325372400,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 5 "2012" at 1341183600,550000 center tc rgbcolor "#00bf00"
+set arrow 5 from 1356994800,0 to 1356994800,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 6 "2013" at 1372762800,550000 center tc rgbcolor "#00bf00"
+set arrow 6 from 1388530800,0 to 1388530800,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 7 "2014" at 1404298800,550000 center tc rgbcolor "#00bf00"
+set arrow 7 from 1420066800,0 to 1420066800,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 8 "2015" at 1435834800,550000 center tc rgbcolor "#00bf00"
+set arrow 8 from 1451602800,0 to 1451602800,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 9 "2016" at 1467414000,550000 center tc rgbcolor "#00bf00"
+set arrow 9 from 1483225200,0 to 1483225200,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 10 "2017" at 1498993200,550000 center tc rgbcolor "#00bf00"
+set arrow 10 from 1514761200,0 to 1514761200,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 11 "2018" at 1530529200,550000 center tc rgbcolor "#00bf00"
+set arrow 11 from 1546297200,0 to 1546297200,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 12 "2019" at 1562065200,550000 center tc rgbcolor "#00bf00"
+set arrow 12 from 1577833200,0 to 1577833200,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 13 "2020" at 1593644400,550000 center tc rgbcolor "#00bf00"
+set arrow 14 from 1609455600,0 to 1609455600,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 14 "2021" at 1625223600,550000 center tc rgbcolor "#00bf00"
+set arrow 15 from 1640991600,0 to 1640991600,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 15 "2022" at 1656759600,550000 center tc rgbcolor "#00bf00"
+set arrow 16 from 1672527600,0 to 1672527600,800000 nohead lc rgbcolor "#00bf00" dt (20,10)
+set label 16 "2023" at 1688295600,550000 center tc rgbcolor "#00bf00"
+replot
+
+
+# faire les reglins (fits) :
+
+set fit limit 1e-30
+reglin_culge_2016(x)=a1*x+b1
+fit reglin_culge_2016(x) "csv_2016_cul_posts_2016.txt" via a1,b1
+reglin_culge_all(x)=a2*x+b2
+fit reglin_culge_all(x) "csv_2016_cul_posts_all_2016.txt" via a2,b2
+reglin_images_2016(x)=a3*x+b3
+fit reglin_images_2016(x) "csv_2016_img_posts_2016.txt" via a3,b3
+reglin_images_all(x)=a4*x+b4
+fit reglin_images_all(x) "csv_2016_img_posts_all_2016.txt" via a4,b4
+
+
+# afficher les reglins :
+
+plot [1200000000:1700000000][0:800000] \
+reglin_culge_all(x) ti "reglin_culge_all" noenhanced lc rgbcolor "#7f7f7f" dt (5,5), \
+reglin_culge_2016(x) ti "reglin_culge_2016" noenhanced lc rgbcolor "#7f7f7f", \
+"csv_2016_cul_posts_all_2016.txt" w lines lw 2 lc rgbcolor "#007fff" title "culge" noenhanced, \
+reglin_images_all(x) ti "reglin_images_all" noenhanced lc rgbcolor "#7f7f7f" dt (5,5), \
+reglin_images_2016(x) ti "reglin_images_2016" noenhanced lc rgbcolor "#7f7f7f", \
+"csv_2016_img_posts_all_2016.txt" w lines lw 2 lc rgbcolor "#7f00ff" title "images" noenhanced
+
+
+# calcul des intersections :
+
+x_all=(b4-b2)/(a2-a4)
+y_all=reglin_culge_all(x_all)
+x_2016=(b3-b1)/(a1-a3)
+y_2016=reglin_culge_2016(x_2016)
+print x_all, y_all, x_2016, y_2016
+
+
+# convertir les eoch en date local http://www.epochconverter.com/ pour les labels et afficher les intersection
+
+set label 51 "reglin_all\n2020-05-21\n02:26:20" noenhanced at x_all,y_all center tc rgbcolor "#7f7f7f" point ps 1 pt 6 lc rgbcolor "#7f7f7f" front offset -6.5,2.7
+set label 52 "reglin_2016\n2023-01-11\n03:05:14" noenhanced at x_2016,y_2016 center tc rgbcolor "#7f7f7f" point ps 1 pt 6 lc rgbcolor "#7f7f7f" front offset -6.5,2.7
+replot
+
+
+# l'image en png
+
+set terminal pngcairo size 1200,800 fontscale 0.9 dl 4
+set output "gnu_2016_vsimg.png"
+replot
+set output
+set terminal windows
+replot
+
+
