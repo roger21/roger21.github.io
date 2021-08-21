@@ -1,0 +1,266 @@
+les 10K
+=======
+
+récupérer les données avec la requete sql :
+-------------------------------------------
+
+select epoch, page from reg_pages_all
+
+ATTENTION : cocher "Paginer les résultats" OSEF du tableau, on veut le CSV
+
+télécharger les données en CSV
+
+donner un nom super clair au fichier genre 2016_reg_pages_all.txt
+
+virer les " et remplacer les "," par des " "
+
+sed -i "s/\"//g" 2016_reg_pages_all.txt
+sed -i "s/,/ /g" 2016_reg_pages_all.txt
+
+virer les headers (la première ligne)
+
+
+**** faire pareil avec reg_pages_2015 (ou autres années) -> 2016_reg_pages_2015.txt
+
+
+lancer le calcul de reg_lin :
+-----------------------------
+
+cd /home/www/hfr/cul
+
+./reg_pages_all.php
+
+voir les résultats dans reg_pages_all.txt
+
+
+*** faire pareil avec reg_pages_2015.php (ou autres années) -> reg_pages_2015.txt
+
+
+lancer gnuplot :
+----------------
+
+# aller dans le répertoire qui contient les fichiers de données
+
+cd "culge"
+
+# faire les fit pour voir
+
+set fit limit 1e-30
+reg_all(x)=a1*x+b1
+fit reg_all(x) "2016_reg_pages_all.txt" via a1,b1
+reg_2014(x)=a2*x+b2
+fit reg_2014(x) "2016_reg_pages_2014.txt" via a2,b2
+reg_2015(x)=a3*x+b3
+fit reg_2015(x) "2016_reg_pages_2015.txt" via a3,b3
+
+# les titre et divers parametres
+
+reset
+set terminal windows
+clear
+unset grid
+set title "La page 10K du Topic CulGé"
+set xlabel "epoch"
+set ylabel "pages"
+set key left opaque samplen 4
+#set style textbox opaque noborder
+
+# redéfinir les reg_* avec les calculs de reg_lin
+
+reg_all_2015(x)=0.00000251548280157901*x-3234.20968854765611929127
+reg_all_2016(x)=0.00000248367071695700*x-3191.62234761437143154053
+reg_2014(x)=0.00000281326208161045*x-3647.95451031471459593247
+reg_2015(x)=0.00000174642608013568*x-2136.43922888345315610327
+
+# definir les lignes 2014, 2015, 10K avec les labels
+
+set arrow 1 from 1388530800,0 to 1388530800,450 nohead lc rgbcolor "#00ff00" dt (25,5)
+set arrow 2 from 1420066800,0 to 1420066800,450 nohead lc rgbcolor "#00ff00" dt (25,5)
+set arrow 3 from 1451602800,0 to 1451602800,450 nohead lc rgbcolor "#00ff00" dt (25,5)
+set label 1 "2014" at 1404298800,250 center tc rgbcolor "#00ff00"
+set label 2 "2015" at 1435834800,250 center tc rgbcolor "#00ff00"
+set arrow 4 from 1270000000,400 to 1480000000,400 nohead lc rgbcolor "#0000ff" dt (50,2,5,2)
+
+# definir les points d'intersection
+
+#set arrow 5 from 1452359912,0 to 1452359912,450 nohead lc rgbcolor "#ff0000"
+#set arrow 6 from 1438882831,0 to 1438882831,450 nohead lc rgbcolor "#ff0000"
+#set arrow 7 from 1444736448,0 to 1444736448,450 nohead lc rgbcolor "#ff0000"
+#set arrow 8 from 1446094413,0 to 1446094413,450 nohead lc rgbcolor "#ff0000"
+#set label 3 "2015-10-13\n13:40:48" noenhanced at 1444736448,400 center tc rgbcolor "#ff7fbf" point ps 1 pt 2 lc rgbcolor "#ff7fbf" front offset -5.90,1.65 boxed
+#set label 4 "2015-10-29\n05:53:33" noenhanced at 1446094413,400 center tc rgbcolor "#bf7fff" point ps 1 pt 2 lc rgbcolor "#bf7fff" front offset 5.5,1.65 boxed
+#set label 5 "2015-08-06\n19:40:31" noenhanced at 1438882831,400 center tc rgbcolor "#00bfff" point ps 1 pt 2 lc rgbcolor "#00bfff" front offset -5.90,-0.85 boxed
+#set label 6 "2016-01-09\n18:18:32" noenhanced at 1452359912,400 center tc rgbcolor "#ff7f00" point ps 1 pt 2 lc rgbcolor "#ff7f00" front offset 5.5,-0.85 boxed
+set label 3 "2015-10-13\n13:40:48" noenhanced at 1444736448,400 center tc rgbcolor "#ff7fbf" point ps 1 pt 6 lc rgbcolor "#ff7fbf" front offset -7.50,1.95 #boxed
+set label 4 "2015-10-29\n05:53:33" noenhanced at 1446094413,400 center tc rgbcolor "#bf7fff" point ps 1 pt 6 lc rgbcolor "#bf7fff" front offset 7.1,1.95 #boxed
+set label 5 "2015-08-06\n19:40:31" noenhanced at 1438882831,400 center tc rgbcolor "#00bfff" point ps 1 pt 6 lc rgbcolor "#00bfff" front offset -7.50,-1.15 #boxed
+set label 6 "2016-01-09\n18:18:32" noenhanced at 1452359912,400 center tc rgbcolor "#ff7f00" point ps 1 pt 6 lc rgbcolor "#ff7f00" front offset 7.1,-1.15 #boxed
+
+# le plot 10K
+
+#plot [1270000000:1480000000][0:450] reg_all_2016(x) ti "reg_all" noenhanced lw 1 lc rgbcolor "#ff7fff", reg_2014(x) ti "reg_2014" noenhanced lw 1 lc rgbcolor "#00ffbf", reg_2015(x) ti "reg_2015" noenhanced lw 1 lc rgbcolor "#ffbf3f", "2016_reg_pages_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "pages"
+
+plot [1270000000:1480000000][0:450] reg_all_2015(x) ti "reg_all_2015" noenhanced lw 1 lc rgbcolor "#ff7fbf", reg_all_2016(x) ti "reg_all_2016" noenhanced lw 1 lc rgbcolor "#bf7fff", reg_2014(x) ti "reg_2014" noenhanced lw 1 lc rgbcolor "#00ffbf", reg_2015(x) ti "reg_2015" noenhanced lw 1 lc rgbcolor "#ffbf3f", "2016_reg_pages_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "pages"
+
+# le png
+
+set terminal pngcairo size 1000,750 fontscale 0.9 dl 4
+set output "2016_pages__.png"
+replot
+set output
+set terminal windows
+replot
+
+# le plot 10K zoom
+
+set arrow 1 from 1388530800,225 to 1388530800,425
+set arrow 2 from 1420066800,225 to 1420066800,425
+set arrow 3 from 1451602800,225 to 1451602800,425
+set arrow 4 from 1370000000,400 to 1470000000,400
+
+#plot [1370000000:1470000000][225:425] reg_all_2016(x) ti "reg_all" noenhanced lw 1 lc rgbcolor "#ff7fff", reg_2014(x) ti "reg_2014" noenhanced lw 1 lc rgbcolor "#00ffbf", reg_2015(x) ti "reg_2015" noenhanced lw 1 lc rgbcolor "#ffbf3f", "2016_reg_pages_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "pages"
+
+plot [1370000000:1470000000][225:425] reg_all_2015(x) ti "reg_all_2015" noenhanced lw 1 lc rgbcolor "#ff7fbf", reg_all_2016(x) ti "reg_all_2016" noenhanced lw 1 lc rgbcolor "#bf7fff", reg_2014(x) ti "reg_2014" noenhanced lw 1 lc rgbcolor "#00ffbf", reg_2015(x) ti "reg_2015" noenhanced lw 1 lc rgbcolor "#ffbf3f", "2016_reg_pages_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "pages"
+
+# le png
+
+set terminal pngcairo size 1000,750 fontscale 0.9 dl 4
+set output "2016_pages_zoom__.png"
+replot
+set output
+set terminal windows
+replot
+
+
+topic images vs. topic culgé
+============================
+
+récupérer les données avec la requete sql :
+-------------------------------------------
+
+select * from cul.reg_posts_all
+
+ATTENTION : cocher "Paginer les résultats" OSEF du tableau, on veut le CSV
+
+télécharger les données en CSV
+
+donner un nom super clair au fichier genre 2016_cul_reg_posts_all.txt
+
+virer les " et remplacer les "," par des " "
+
+sed -i "s/\"//g" 2016_cul_reg_posts_all.txt
+sed -i "s/,/ /g" 2016_cul_reg_posts_all.txt
+
+virer les headers (la première ligne)
+
+
+**** faire pareil avec reg_posts_2015 (ou autres années) -> 2016_cul_reg_posts_2015.txt
+
+
+**** faire pareil avec les img -> 2016_img_reg_pages_all.txt, 2016_img_reg_posts_2015.txt, ...
+
+
+lancer les calculs de reg_lin :
+-------------------------------
+
+cd /home/www/hfr/cul
+
+./reg_posts_all.php
+
+voir les résultats dans reg_posts_all.txt
+
+
+*** faire pareil avec reg_posts_2015.php (ou autres années) -> reg_posts_2015.txt
+
+
+lancer gnuplot :
+----------------
+
+# aller dans le répertoire qui contient les fichiers de données
+
+cd "culge"
+
+# les titre et divers parametres
+
+reset
+set terminal windows
+clear
+unset grid
+set title "Topic Images vs. Topic CulGé en nombre de posts"
+set xlabel "epoch"
+set ylabel "posts"
+set key left opaque samplen 3.5
+
+# definir les lignes 2014, 2015 avec les labels
+
+set arrow 1 from 1388530800,0 to 1388530800,900000 nohead lc rgbcolor "#00ff00" dt (25,5)
+set arrow 2 from 1420066800,0 to 1420066800,900000 nohead lc rgbcolor "#00ff00" dt (25,5)
+set arrow 3 from 1451602800,0 to 1451602800,900000 nohead lc rgbcolor "#00ff00" dt (25,5)
+set label 1 "2014" at 1404298800,600000 center tc rgbcolor "#00ff00" rotate by 90
+set label 2 "2015" at 1435834800,600000 center tc rgbcolor "#00ff00" rotate by 90
+
+# comparaison des données 2015 et 2016 de cul -> pas de diff (juste 3 posts en moins en 2016)
+
+plot [1280000000:1460000000][0:400000] "2015_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "2015_all" noenhanced,  "2016_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#0000ff" title "2016_all" noenhanced,
+
+# données de cul : all, 2014 et 2015
+
+plot [1280000000:1460000000][0:400000] "2016_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "2016_all" noenhanced, "2016_cul_reg_posts_2014.txt" w lines lw 2 lc rgbcolor "#0000ff" title "2016_2014" noenhanced, "2016_cul_reg_posts_2015.txt" w lines lw 2 lc rgbcolor "#00ff00" title "2016_2015" noenhanced, "2016_cul_reg_posts_all.txt" using 1:($2+10000) w lines lw 1 lc rgbcolor "#ff7f00" title "2016_all++" noenhanced
+
+# données de img : all, 2014 et 2015
+
+plot [1200000000:1460000000][0:500000] "2016_img_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "2016_all" noenhanced, "2016_img_reg_posts_2014.txt" w lines lw 2 lc rgbcolor "#0000ff" title "2016_2014" noenhanced, "2016_img_reg_posts_2015.txt" w lines lw 2 lc rgbcolor "#00ff00" title "2016_2015" noenhanced, "2016_img_reg_posts_all.txt" using 1:($2+10000) w lines lw 1 lc rgbcolor "#ff7f00" title "2016_all++" noenhanced
+
+# données de cul all et img all
+
+plot [1200000000:1460000000][0:500000] "2016_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "cul" noenhanced, "2016_img_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#0000ff" title "img" noenhanced
+
+# données de cul all et img all avec les reg all 2015 et reg all 2016
+
+reg_cul_all_2015(x)=0.00244675368874081735*x-3150577.22430610707181573372
+reg_img_all_2015(x)=0.00196778595304662979*x-2380760.19678894696944222822
+reg_cul_all_2016(x)=0.00242812265379842908*x-3125565.82841489465568425323
+reg_img_all_2016(x)=0.00192349226425208281*x-2323846.63671488815151653289
+
+plot [1200000000:1460000000][0:500000] reg_cul_all_2015(x) ti "reg_cul_all_2015" noenhanced lc rgbcolor "#ff7f7f" dt (5,5), reg_img_all_2015(x) ti "reg_img_all_2015" noenhanced lc rgbcolor "#7f7fff" dt (5,5), reg_cul_all_2016(x) ti "reg_cul_all_2016" noenhanced lc rgbcolor "#ff7f7f", reg_img_all_2016(x) ti "reg_img_all_2016" noenhanced lc rgbcolor "#7f7fff", "2016_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "cul" noenhanced, "2016_img_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#0000ff" title "img" noenhanced
+
+# la même avec un zoom plus large pour avoir l'intersection des reg
+
+plot [1200000000:1650000000][0:900000] reg_cul_all_2015(x) ti "reg_cul_all_2015" noenhanced lc rgbcolor "#ff7f7f" dt (5,5), reg_img_all_2015(x) ti "reg_img_all_2015" noenhanced lc rgbcolor "#7f7fff" dt (5,5), reg_cul_all_2016(x) ti "reg_cul_all_2016" noenhanced lc rgbcolor "#ff7f7f", reg_img_all_2016(x) ti "reg_img_all_2016" noenhanced lc rgbcolor "#7f7fff", "2016_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff0000" title "cul" noenhanced, "2016_img_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#0000ff" title "img" noenhanced
+
+# la même avec les reg 2014 et 2015 de cul et img et des couleurs (...)
+
+reg_cul_2014(x)=0.00281386001722826323*x-3660732.42511901230214862013
+reg_img_2014(x)=0.00153150181715229594*x-1768717.30764963452125555124
+reg_cul_2015(x)=0.00174877521776309081*x-2151820.29306713721789667854
+reg_img_2015(x)=0.00123481380591249102*x-1348671.09435586300723442525
+
+plot [1200000000:1650000000][0:900000] \
+reg_img_all_2015(x) ti "reg_img_all_2015" noenhanced lc rgbcolor "#007fff" dt (1,6), \
+reg_img_all_2016(x) ti "reg_img_all_2016" noenhanced lc rgbcolor "#007fff", \
+reg_img_2014(x) ti "reg_img_2014" noenhanced lc rgbcolor "#ffbf00", \
+reg_img_2015(x) ti "reg_img_2015" noenhanced lc rgbcolor "#bf0000", \
+"2016_img_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#bf00ff" title "img" noenhanced, \
+reg_cul_all_2015(x) ti "reg_cul_all_2015" noenhanced lc rgbcolor "#007fff" dt (1,6), \
+reg_cul_all_2016(x) ti "reg_cul_all_2016" noenhanced lc rgbcolor "#007fff", \
+reg_cul_2014(x) ti "reg_cul_2014" noenhanced lc rgbcolor "#ffbf00", \
+reg_cul_2015(x) ti "reg_cul_2015" noenhanced lc rgbcolor "#bf0000", \
+"2016_cul_reg_posts_all.txt" w lines lw 2 lc rgbcolor "#ff00ff" title "cul" noenhanced
+
+# les labels des points d'intersection
+
+set label 3 "reg_all_2015\n2020-12-06\n09:05:29" noenhanced at 1607241929.14880320539337566428,781947.89453763457852763382 center tc rgbcolor "#007fff" point ps 1 pt 6 lc rgbcolor "#007fff" front offset -6.5,2.7 #boxed
+set label 4 "reg_all_2016\n2020-05-06\n02:39:07" noenhanced at 1588725547.06968356492000582673,732054.66309330645475915319 center tc rgbcolor "#007fff" point ps 1 pt 6 lc rgbcolor "#007fff" front offset 6,-0.85 #boxed
+set label 5 "reg_2014\n2016-10-02\n16:29:42" noenhanced at 1475418582.23177754046044123893,490888.93209859695697386139 center tc rgbcolor "#ffbf00" point ps 1 pt 6 lc rgbcolor "#ffbf00" front offset -6.5,2.7 #boxed
+set label 6 "reg_2015\n2019-07-09\n11:26:35" noenhanced at 1562664395.01636476832860195314,580928.47461823463733952482 center tc rgbcolor "#bf0000" point ps 1 pt 6 lc rgbcolor "#bf0000" front offset 6,-0.85 #boxed
+
+replot
+
+# le png
+
+set terminal pngcairo size 1000,750 fontscale 0.9 dl 4
+set output "2016_posts__.png"
+replot
+set output
+set terminal windows
+replot
