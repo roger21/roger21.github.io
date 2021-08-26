@@ -16,7 +16,7 @@ set encoding utf8
 set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_cumul_20201102025532" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 #set terminal windows
 set output "graph_cumul_20201102025532.svg"
-set title "{/:Bold=18 des nombres cumulés en fonction du temps au lundi 2 novembre 2020 à 2:55:32"
+set title "{/:Bold=18 des nombres cumulés en fonction du temps au lundi 2 novembre 2020 à 02:55:32"
 set xlabel "{/=16 du temps"
 set ylabel "{/=16 des nombres cumulés"
 set y2label "{/=16 des nombres cumulés plus grands (y2)"
@@ -50,7 +50,7 @@ set encoding utf8
 set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_year_20201102025532" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 #set terminal windows
 set output "graph_year_20201102025532.svg"
-set title "{/:Bold=18 des nombres par an au lundi 2 novembre 2020 à 2:55:32"
+set title "{/:Bold=18 des nombres par an au lundi 2 novembre 2020 à 02:55:32"
 set xlabel "{/=16 des ans"
 set ylabel "{/=16 des nombres par an"
 set y2label "{/=16 des nombres par an plus grands (y2)"
@@ -84,7 +84,7 @@ set encoding utf8
 set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_month_20201102025532" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 #set terminal windows
 set output "graph_month_20201102025532.svg"
-set title "{/:Bold=18 des nombres par mois au lundi 2 novembre 2020 à 2:55:32"
+set title "{/:Bold=18 des nombres par mois au lundi 2 novembre 2020 à 02:55:32"
 set xlabel "{/=16 des mois"
 set ylabel "{/=16 des nombres par mois"
 set y2label "{/=16 des nombres par mois plus grands (y2)"
@@ -118,7 +118,7 @@ set encoding utf8
 set terminal svg size 1600, 900 dynamic mouse jsdir "" name "graph_week_20201102025532" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 #set terminal windows
 set output "graph_week_20201102025532.svg"
-set title "{/:Bold=18 des nombres par semaine au lundi 2 novembre 2020 à 2:55:32"
+set title "{/:Bold=18 des nombres par semaine au lundi 2 novembre 2020 à 02:55:32"
 set xlabel "{/=16 des semaines"
 set ylabel "{/=16 des nombres par semaine"
 set y2label "{/=16 des nombres par semaine plus grands (y2)"

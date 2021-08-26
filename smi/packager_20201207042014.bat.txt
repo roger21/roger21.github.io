@@ -18,10 +18,10 @@ copy D:\Documents\Devs\www\smi\upd\style.css D:\Documents\Devs\www\smi\upd\_old\
 
 gnuplot D:\Documents\Devs\www\smi\upd\gnuplot_20201207042014.gpt
 
-sed -i "s/<title>graph_cumul_20201207042014<\/title>/<title>des nombres cumul\xc3\xa9s en fonction du temps au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 4:20:14<\/title>/g" graph*_20201207042014.svg
-sed -i "s/<title>graph_year_20201207042014<\/title>/<title>des nombres par an au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 4:20:14<\/title>/g" graph*_20201207042014.svg
-sed -i "s/<title>graph_month_20201207042014<\/title>/<title>des nombres par mois au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 4:20:14<\/title>/g" graph*_20201207042014.svg
-sed -i "s/<title>graph_week_20201207042014<\/title>/<title>des nombres par semaine au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 4:20:14<\/title>/g" graph*_20201207042014.svg
+sed -i "s/<title>graph_cumul_20201207042014<\/title>/<title>des nombres cumul\xc3\xa9s en fonction du temps au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 04:20:14<\/title>/g" graph*_20201207042014.svg
+sed -i "s/<title>graph_year_20201207042014<\/title>/<title>des nombres par an au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 04:20:14<\/title>/g" graph*_20201207042014.svg
+sed -i "s/<title>graph_month_20201207042014<\/title>/<title>des nombres par mois au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 04:20:14<\/title>/g" graph*_20201207042014.svg
+sed -i "s/<title>graph_week_20201207042014<\/title>/<title>des nombres par semaine au lundi 7 d\xc3\xa9cembre 2020 \xc3\xa0 04:20:14<\/title>/g" graph*_20201207042014.svg
 del sed*
 
 xcopy /q /v D:\Documents\Devs\www\smi\upd\*_20201207042014* D:\Documents\Devs\www\smi\upd\_old\stats_wiki_smileys_20201207042014
