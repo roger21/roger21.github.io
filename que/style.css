@@ -1,4 +1,4 @@
-html, body, h1, div, table, tr, th, td{
+html, body, h1, h3, div, table, tr, th, td, img{
   margin:0;
   border:0;
   padding:0;
@@ -45,6 +45,95 @@ div.index > div.section:first-child{
 div.index > div.section:last-child > *:last-child{
   margin-bottom:30px;
 }
+div.wait{
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  z-index:100;
+  background-color:rgba(48, 48, 48, 0.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+div.wait div{
+  font-size:89px;
+  color:#d8d8f8;
+  display:none;
+}
+body.loading div.wait,
+body.sort-active div.wait{
+  display:flex;
+}
+body.loading div.wait div.loading,
+body.sort-active div.wait div.sort-active{
+  display:block;
+}
+div.table{
+  margin:30px 0;
+  padding:0;
+  text-align:center;
+}
+div.table > h1{
+  margin:30px 0 0;
+}
+div.table > h3{
+  margin:10px 0 0;
+}
+div.table > table{
+  margin:30px auto;
+  border-collapse:collapse;
+  border-spacing:0;
+  max-width:calc(100% - 60px);
+}
+div.table > table tr{
+  background-color:#d8d8f8;
+}
+div.table > table tr.data:hover,
+div.table > table tr.data1:hover,
+div.table > table tr.data.data2:hover,
+div.table > table tr.data2:hover{
+  background-color:#ffdfaf;
+}
+div.table > table tr.data,
+div.table > table tr.data1{
+  background-color:#f8f8f8;
+}
+div.table > table tr.data.data2,
+div.table > table tr.data2{
+  background-color:#e8e8f8;
+}
+div.table > table.sort th{
+  cursor:pointer;
+}
+div.table > table.sort th:hover{
+  opacity:0.7;
+}
+div.table > table td, div.table > table th{
+  border:1px solid silver;
+  min-width:150px;
+}
+div.table > table th{
+  padding:10px;
+}
+div.table > table td{
+  padding:5px 10px;
+  white-space:nowrap;
+}
+div.table > table td.center{
+  text-align:center;
+}
+div.table > table td.right{
+  text-align:right;
+}
+div.table > table td img{
+  vertical-align:text-bottom;
+  padding:4px 0;
+}
+div.table a{
+  display:inline-block;
+}
 a{
   color:#505090;
   text-decoration:none;
@@ -75,34 +164,4 @@ div.section > b > a.permalink:visited:hover{
   background-repeat:no-repeat;
   background-position:100% 50%;
   background-size:auto 11px;
-}
-div.table{
-  margin:30px 0;
-  padding:0;
-  text-align:center;
-}
-div.table > h1{
-  margin:30px;
-}
-div.table > table{
-  margin:30px auto;
-  border-collapse:collapse;
-  border-spacing:0;
-  max-width:calc(100% - 60px);
-}
-div.table > table tr{
-  background-color:#d8d8f8;
-}
-div.table > table tr[class]:hover{
-  background-color:#ffdfaf;
-}
-div.table > table tr.data1{
-  background-color:#f8f8f8;
-}
-div.table > table tr.data2{
-  background-color:#e8e8f8;
-}
-div.table > table td, div.table > table th{
-  padding:2px 10px;
-  border:1px solid silver;
 }
