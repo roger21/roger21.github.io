@@ -90,10 +90,10 @@ div.table > table{
 div.table > table tr{
   background-color:#d8d8f8;
 }
-div.table > table tr.data:hover,
-div.table > table tr.data1:hover,
-div.table > table tr.data.data2:hover,
-div.table > table tr.data2:hover{
+div.table > table tr.data:hover > td,
+div.table > table tr.data1:hover > td,
+div.table > table tr.data.data2:hover > td,
+div.table > table tr.data2:hover > td{
   background-color:#ffdfaf;
 }
 div.table > table tr.data,
@@ -129,6 +129,15 @@ div.table > table td.center{
 }
 div.table > table td.right{
   text-align:right;
+}
+div.table > table td.blue{
+  background-color:#cfcfff;
+}
+div.table > table td.green{
+  background-color:#cfffcf;
+}
+div.table > table td.red{
+  background-color:#ffcfcf;
 }
 div.table > table td img{
   vertical-align:text-bottom;
