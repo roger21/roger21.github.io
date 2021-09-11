@@ -146,6 +146,10 @@ div.table > table td img{
 div.table a{
   display:inline-block;
 }
+div.table span.empty{
+  display:inline-block;
+  padding:0 4px;
+}
 a{
   color:#505090;
   text-decoration:none;
