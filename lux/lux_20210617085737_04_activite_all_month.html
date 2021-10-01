@@ -1,243 +1,316 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <!-- utf-8: Ω -->
   <meta charset="utf-8">
   <title>L'activité du topic Luxembourg par mois</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
-google.load("visualization", "1.0", {"packages":["corechart", "table"], "language":"fr"});
-function draw(){
-  var data=new google.visualization.DataTable();
+google.charts.load("51", {
+  "packages": ["corechart", "table"],
+  "language": "fr"
+});
+function draw() {
+  var data = new google.visualization.DataTable();
   data.addColumn("date", "mois");
   data.addColumn("number", "nombre de posts");
-  data.addRows([[new Date("2007-05-30"), 0],
-                [new Date("2007-05-31"), 19],
-                [new Date("2007-06-30"), 39],
-                [new Date("2007-07-31"), 208],
-                [new Date("2007-08-31"), 79],
-                [new Date("2007-09-30"), 155],
-                [new Date("2007-10-31"), 139],
-                [new Date("2007-11-30"), 58],
-                [new Date("2007-12-31"), 49],
-                [new Date("2008-01-31"), 44],
-                [new Date("2008-02-29"), 25],
-                [new Date("2008-03-31"), 12],
-                [new Date("2008-04-30"), 52],
-                [new Date("2008-05-31"), 58],
-                [new Date("2008-06-30"), 35],
-                [new Date("2008-07-31"), 101],
-                [new Date("2008-08-31"), 97],
-                [new Date("2008-09-30"), 51],
-                [new Date("2008-10-31"), 53],
-                [new Date("2008-11-30"), 27],
-                [new Date("2008-12-31"), 14],
-                [new Date("2009-01-31"), 53],
-                [new Date("2009-02-28"), 68],
-                [new Date("2009-03-31"), 21],
-                [new Date("2009-04-30"), 6],
-                [new Date("2009-05-31"), 8],
-                [new Date("2009-06-30"), 1],
-                [new Date("2009-07-31"), 5],
-                [new Date("2009-08-31"), 13],
-                [new Date("2009-09-30"), 7],
-                [new Date("2009-10-31"), 20],
-                [new Date("2009-11-30"), 10],
-                [new Date("2009-12-31"), 0],
-                [new Date("2010-01-31"), 11],
-                [new Date("2010-02-28"), 4],
-                [new Date("2010-03-31"), 14],
-                [new Date("2010-04-30"), 23],
-                [new Date("2010-05-31"), 2],
-                [new Date("2010-06-30"), 7],
-                [new Date("2010-07-31"), 7],
-                [new Date("2010-08-31"), 8],
-                [new Date("2010-09-30"), 73],
-                [new Date("2010-10-31"), 0],
-                [new Date("2010-11-30"), 21],
-                [new Date("2010-12-31"), 3],
-                [new Date("2011-01-31"), 65],
-                [new Date("2011-02-28"), 16],
-                [new Date("2011-03-31"), 6],
-                [new Date("2011-04-30"), 0],
-                [new Date("2011-05-31"), 0],
-                [new Date("2011-06-30"), 66],
-                [new Date("2011-07-31"), 0],
-                [new Date("2011-08-31"), 28],
-                [new Date("2011-09-30"), 35],
-                [new Date("2011-10-31"), 39],
-                [new Date("2011-11-30"), 4],
-                [new Date("2011-12-31"), 7],
-                [new Date("2012-01-31"), 5],
-                [new Date("2012-02-29"), 44],
-                [new Date("2012-03-31"), 52],
-                [new Date("2012-04-30"), 0],
-                [new Date("2012-05-31"), 47],
-                [new Date("2012-06-30"), 34],
-                [new Date("2012-07-31"), 12],
-                [new Date("2012-08-31"), 51],
-                [new Date("2012-09-30"), 77],
-                [new Date("2012-10-31"), 27],
-                [new Date("2012-11-30"), 117],
-                [new Date("2012-12-31"), 19],
-                [new Date("2013-01-31"), 20],
-                [new Date("2013-02-28"), 102],
-                [new Date("2013-03-31"), 110],
-                [new Date("2013-04-30"), 61],
-                [new Date("2013-05-31"), 146],
-                [new Date("2013-06-30"), 89],
-                [new Date("2013-07-31"), 175],
-                [new Date("2013-08-31"), 160],
-                [new Date("2013-09-30"), 68],
-                [new Date("2013-10-31"), 112],
-                [new Date("2013-11-30"), 59],
-                [new Date("2013-12-31"), 69],
-                [new Date("2014-01-31"), 176],
-                [new Date("2014-02-28"), 283],
-                [new Date("2014-03-31"), 312],
-                [new Date("2014-04-30"), 417],
-                [new Date("2014-05-31"), 320],
-                [new Date("2014-06-30"), 248],
-                [new Date("2014-07-31"), 108],
-                [new Date("2014-08-31"), 425],
-                [new Date("2014-09-30"), 286],
-                [new Date("2014-10-31"), 103],
-                [new Date("2014-11-30"), 430],
-                [new Date("2014-12-31"), 264],
-                [new Date("2015-01-31"), 278],
-                [new Date("2015-02-28"), 124],
-                [new Date("2015-03-31"), 319],
-                [new Date("2015-04-30"), 201],
-                [new Date("2015-05-31"), 366],
-                [new Date("2015-06-30"), 231],
-                [new Date("2015-07-31"), 179],
-                [new Date("2015-08-31"), 164],
-                [new Date("2015-09-30"), 279],
-                [new Date("2015-10-31"), 89],
-                [new Date("2015-11-30"), 311],
-                [new Date("2015-12-31"), 210],
-                [new Date("2016-01-31"), 244],
-                [new Date("2016-02-29"), 116],
-                [new Date("2016-03-31"), 235],
-                [new Date("2016-04-30"), 259],
-                [new Date("2016-05-31"), 227],
-                [new Date("2016-06-30"), 413],
-                [new Date("2016-07-31"), 307],
-                [new Date("2016-08-31"), 347],
-                [new Date("2016-09-30"), 404],
-                [new Date("2016-10-31"), 301],
-                [new Date("2016-11-30"), 435],
-                [new Date("2016-12-31"), 633],
-                [new Date("2017-01-31"), 807],
-                [new Date("2017-02-28"), 873],
-                [new Date("2017-03-31"), 630],
-                [new Date("2017-04-30"), 938],
-                [new Date("2017-05-31"), 489],
-                [new Date("2017-06-30"), 371],
-                [new Date("2017-07-31"), 315],
-                [new Date("2017-08-31"), 304],
-                [new Date("2017-09-30"), 395],
-                [new Date("2017-10-31"), 360],
-                [new Date("2017-11-30"), 678],
-                [new Date("2017-12-31"), 607],
-                [new Date("2018-01-31"), 363],
-                [new Date("2018-02-28"), 238],
-                [new Date("2018-03-31"), 238],
-                [new Date("2018-04-30"), 346],
-                [new Date("2018-05-31"), 274],
-                [new Date("2018-06-30"), 674],
-                [new Date("2018-07-31"), 500],
-                [new Date("2018-08-31"), 619],
-                [new Date("2018-09-30"), 859],
-                [new Date("2018-10-31"), 645],
-                [new Date("2018-11-30"), 808],
-                [new Date("2018-12-31"), 706],
-                [new Date("2019-01-31"), 1042],
-                [new Date("2019-02-28"), 779],
-                [new Date("2019-03-31"), 1444],
-                [new Date("2019-04-30"), 856],
-                [new Date("2019-05-31"), 645],
-                [new Date("2019-06-30"), 1172],
-                [new Date("2019-07-31"), 673],
-                [new Date("2019-08-31"), 808],
-                [new Date("2019-09-30"), 758],
-                [new Date("2019-10-31"), 1385],
-                [new Date("2019-11-30"), 1630],
-                [new Date("2019-12-31"), 1149],
-                [new Date("2020-01-31"), 1608],
-                [new Date("2020-02-29"), 505],
-                [new Date("2020-03-31"), 922],
-                [new Date("2020-04-30"), 485],
-                [new Date("2020-05-31"), 1116],
-                [new Date("2020-06-30"), 915],
-                [new Date("2020-07-31"), 1144],
-                [new Date("2020-08-31"), 512],
-                [new Date("2020-09-30"), 199],
-                [new Date("2020-10-31"), 716],
-                [new Date("2020-11-30"), 1150],
-                [new Date("2020-12-31"), 968],
-                [new Date("2021-01-31"), 1264],
-                [new Date("2021-02-28"), 1017],
-                [new Date("2021-03-31"), 417],
-                [new Date("2021-04-30"), 929],
-                [new Date("2021-05-31"), 695],
-                [new Date("2021-06-17"), 741]]);
-  var table_data=data.clone();
+  data.addRows([
+    [new Date("2007-05-30"), 0],
+    [new Date("2007-05-31"), 19],
+    [new Date("2007-06-30"), 39],
+    [new Date("2007-07-31"), 208],
+    [new Date("2007-08-31"), 79],
+    [new Date("2007-09-30"), 155],
+    [new Date("2007-10-31"), 139],
+    [new Date("2007-11-30"), 58],
+    [new Date("2007-12-31"), 49],
+    [new Date("2008-01-31"), 44],
+    [new Date("2008-02-29"), 25],
+    [new Date("2008-03-31"), 12],
+    [new Date("2008-04-30"), 52],
+    [new Date("2008-05-31"), 58],
+    [new Date("2008-06-30"), 35],
+    [new Date("2008-07-31"), 101],
+    [new Date("2008-08-31"), 97],
+    [new Date("2008-09-30"), 51],
+    [new Date("2008-10-31"), 53],
+    [new Date("2008-11-30"), 27],
+    [new Date("2008-12-31"), 14],
+    [new Date("2009-01-31"), 53],
+    [new Date("2009-02-28"), 68],
+    [new Date("2009-03-31"), 21],
+    [new Date("2009-04-30"), 6],
+    [new Date("2009-05-31"), 8],
+    [new Date("2009-06-30"), 1],
+    [new Date("2009-07-31"), 5],
+    [new Date("2009-08-31"), 13],
+    [new Date("2009-09-30"), 7],
+    [new Date("2009-10-31"), 20],
+    [new Date("2009-11-30"), 10],
+    [new Date("2009-12-31"), 0],
+    [new Date("2010-01-31"), 11],
+    [new Date("2010-02-28"), 4],
+    [new Date("2010-03-31"), 14],
+    [new Date("2010-04-30"), 23],
+    [new Date("2010-05-31"), 2],
+    [new Date("2010-06-30"), 7],
+    [new Date("2010-07-31"), 7],
+    [new Date("2010-08-31"), 8],
+    [new Date("2010-09-30"), 73],
+    [new Date("2010-10-31"), 0],
+    [new Date("2010-11-30"), 21],
+    [new Date("2010-12-31"), 3],
+    [new Date("2011-01-31"), 65],
+    [new Date("2011-02-28"), 16],
+    [new Date("2011-03-31"), 6],
+    [new Date("2011-04-30"), 0],
+    [new Date("2011-05-31"), 0],
+    [new Date("2011-06-30"), 66],
+    [new Date("2011-07-31"), 0],
+    [new Date("2011-08-31"), 28],
+    [new Date("2011-09-30"), 35],
+    [new Date("2011-10-31"), 39],
+    [new Date("2011-11-30"), 4],
+    [new Date("2011-12-31"), 7],
+    [new Date("2012-01-31"), 5],
+    [new Date("2012-02-29"), 44],
+    [new Date("2012-03-31"), 52],
+    [new Date("2012-04-30"), 0],
+    [new Date("2012-05-31"), 47],
+    [new Date("2012-06-30"), 34],
+    [new Date("2012-07-31"), 12],
+    [new Date("2012-08-31"), 51],
+    [new Date("2012-09-30"), 77],
+    [new Date("2012-10-31"), 27],
+    [new Date("2012-11-30"), 117],
+    [new Date("2012-12-31"), 19],
+    [new Date("2013-01-31"), 20],
+    [new Date("2013-02-28"), 102],
+    [new Date("2013-03-31"), 110],
+    [new Date("2013-04-30"), 61],
+    [new Date("2013-05-31"), 146],
+    [new Date("2013-06-30"), 89],
+    [new Date("2013-07-31"), 175],
+    [new Date("2013-08-31"), 160],
+    [new Date("2013-09-30"), 68],
+    [new Date("2013-10-31"), 112],
+    [new Date("2013-11-30"), 59],
+    [new Date("2013-12-31"), 69],
+    [new Date("2014-01-31"), 176],
+    [new Date("2014-02-28"), 283],
+    [new Date("2014-03-31"), 312],
+    [new Date("2014-04-30"), 417],
+    [new Date("2014-05-31"), 320],
+    [new Date("2014-06-30"), 248],
+    [new Date("2014-07-31"), 108],
+    [new Date("2014-08-31"), 425],
+    [new Date("2014-09-30"), 286],
+    [new Date("2014-10-31"), 103],
+    [new Date("2014-11-30"), 430],
+    [new Date("2014-12-31"), 264],
+    [new Date("2015-01-31"), 278],
+    [new Date("2015-02-28"), 124],
+    [new Date("2015-03-31"), 319],
+    [new Date("2015-04-30"), 201],
+    [new Date("2015-05-31"), 366],
+    [new Date("2015-06-30"), 231],
+    [new Date("2015-07-31"), 179],
+    [new Date("2015-08-31"), 164],
+    [new Date("2015-09-30"), 279],
+    [new Date("2015-10-31"), 89],
+    [new Date("2015-11-30"), 311],
+    [new Date("2015-12-31"), 210],
+    [new Date("2016-01-31"), 244],
+    [new Date("2016-02-29"), 116],
+    [new Date("2016-03-31"), 235],
+    [new Date("2016-04-30"), 259],
+    [new Date("2016-05-31"), 227],
+    [new Date("2016-06-30"), 413],
+    [new Date("2016-07-31"), 307],
+    [new Date("2016-08-31"), 347],
+    [new Date("2016-09-30"), 404],
+    [new Date("2016-10-31"), 301],
+    [new Date("2016-11-30"), 435],
+    [new Date("2016-12-31"), 633],
+    [new Date("2017-01-31"), 807],
+    [new Date("2017-02-28"), 873],
+    [new Date("2017-03-31"), 630],
+    [new Date("2017-04-30"), 938],
+    [new Date("2017-05-31"), 489],
+    [new Date("2017-06-30"), 371],
+    [new Date("2017-07-31"), 315],
+    [new Date("2017-08-31"), 304],
+    [new Date("2017-09-30"), 395],
+    [new Date("2017-10-31"), 360],
+    [new Date("2017-11-30"), 678],
+    [new Date("2017-12-31"), 607],
+    [new Date("2018-01-31"), 363],
+    [new Date("2018-02-28"), 238],
+    [new Date("2018-03-31"), 238],
+    [new Date("2018-04-30"), 346],
+    [new Date("2018-05-31"), 274],
+    [new Date("2018-06-30"), 674],
+    [new Date("2018-07-31"), 500],
+    [new Date("2018-08-31"), 619],
+    [new Date("2018-09-30"), 859],
+    [new Date("2018-10-31"), 645],
+    [new Date("2018-11-30"), 808],
+    [new Date("2018-12-31"), 706],
+    [new Date("2019-01-31"), 1042],
+    [new Date("2019-02-28"), 779],
+    [new Date("2019-03-31"), 1444],
+    [new Date("2019-04-30"), 856],
+    [new Date("2019-05-31"), 645],
+    [new Date("2019-06-30"), 1172],
+    [new Date("2019-07-31"), 673],
+    [new Date("2019-08-31"), 808],
+    [new Date("2019-09-30"), 758],
+    [new Date("2019-10-31"), 1385],
+    [new Date("2019-11-30"), 1630],
+    [new Date("2019-12-31"), 1149],
+    [new Date("2020-01-31"), 1608],
+    [new Date("2020-02-29"), 505],
+    [new Date("2020-03-31"), 922],
+    [new Date("2020-04-30"), 485],
+    [new Date("2020-05-31"), 1116],
+    [new Date("2020-06-30"), 915],
+    [new Date("2020-07-31"), 1144],
+    [new Date("2020-08-31"), 512],
+    [new Date("2020-09-30"), 199],
+    [new Date("2020-10-31"), 716],
+    [new Date("2020-11-30"), 1150],
+    [new Date("2020-12-31"), 968],
+    [new Date("2021-01-31"), 1264],
+    [new Date("2021-02-28"), 1017],
+    [new Date("2021-03-31"), 417],
+    [new Date("2021-04-30"), 929],
+    [new Date("2021-05-31"), 695],
+    [new Date("2021-06-17"), 741]
+
+  ]);
+  var table_data = data.clone();
   table_data.removeRow(0);
-  var options={axisTitlesPosition:"none",
-               colors:["#7d7de8"],
-               legend:{position:"none"},
-               chartArea:{left:"6%", top:"6%", width:"92%", height:"88%"},
-               focusTarget:"category",
-               backgroundColor:"#f8f8f8",
-               lineWidth:1,
-               seriesType:"area",
-               hAxis:{format:"yyyy",
-                      ticks:[new Date("2008-01-01"),
-                             new Date("2009-01-01"),
-                             new Date("2010-01-01"),
-                             new Date("2011-01-01"),
-                             new Date("2012-01-01"),
-                             new Date("2013-01-01"),
-                             new Date("2014-01-01"),
-                             new Date("2015-01-01"),
-                             new Date("2016-01-01"),
-                             new Date("2017-01-01"),
-                             new Date("2018-01-01"),
-                             new Date("2019-01-01"),
-                             new Date("2020-01-01"),
-                             new Date("2021-01-01")],
-                      textStyle:{fontName:"Verdana,Arial,Sans-serif,Helvetica", fontSize:14, bold:true}},
-               vAxis:{minorGridlines:{count:4}, minValue:0,
-                      textStyle:{fontName:"Verdana,Arial,Sans-serif,Helvetica", fontSize:14, bold:true}},
-               tooltip:{textStyle:{fontName:"Verdana,Arial,Sans-serif,Helvetica", fontSize:14, bold:true}}};
-  var date_formatter=new google.visualization.DateFormat({pattern:"MMMM yyyy"});
+  var options = {
+    aggregationTarget: "category",
+    animation: {
+      duration: 1000,
+      easing: "inAndOut",
+      startup: true
+    },
+    axisTitlesPosition: "none",
+    backgroundColor: "#f8f8f8",
+    chartArea: {
+      left: "6%",
+      top: "6%",
+      width: "92%",
+      height: "87%"
+    },
+    colors: ["#8e8ef8", "#ff9900", "#109618"],
+    crosshair: {
+      trigger: "both",
+      orientation: "both",
+      color: "#f4947f",
+      opacity: 1,
+      focused: {
+        color: "#ffbf60",
+        opacity: 1
+      }
+    },
+    legend: {
+      position: "none"
+    },
+    focusTarget: "category",
+    fontName: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    lineWidth: 1,
+    isStacked: false,
+    curveType: "none",
+    seriesType: "area",
+    hAxis: {
+      minorGridlines: {
+        count: 11
+      },
+      format: "yyyy",
+      ticks: [
+        new Date("2008-01-01"),
+        new Date("2009-01-01"),
+        new Date("2010-01-01"),
+        new Date("2011-01-01"),
+        new Date("2012-01-01"),
+        new Date("2013-01-01"),
+        new Date("2014-01-01"),
+        new Date("2015-01-01"),
+        new Date("2016-01-01"),
+        new Date("2017-01-01"),
+        new Date("2018-01-01"),
+        new Date("2019-01-01"),
+        new Date("2020-01-01"),
+        new Date("2021-01-01")
+
+      ],
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true
+      }
+    },
+    vAxis: {
+      minorGridlines: {
+        count: 4
+      },
+      minValue: 0,
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true
+      }
+    },
+    tooltip: {
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true
+      }
+    }
+  };
+  var date_formatter = new google.visualization.DateFormat({
+    pattern: "MMMM yyyy"
+  });
   date_formatter.format(data, 0);
   date_formatter.format(table_data, 0);
-  var number_formatter=new google.visualization.NumberFormat({decimalSymbol:",",
-                                                              groupingSymbol:" ",
-                                                              fractionDigits:0});
+  var number_formatter = new google.visualization.NumberFormat({
+    decimalSymbol: ",",
+    groupingSymbol: " ",
+    fractionDigits: 0
+  });
   number_formatter.format(data, 1);
   number_formatter.format(table_data, 1);
-  var graph=new google.visualization.ComboChart(document.getElementById("graph"));
+  var graph = new google.visualization.ComboChart(document.getElementById("graph"));
   graph.draw(data, options);
-  var table=new google.visualization.Table(document.getElementById("table"));
-  table.draw(table_data, {sort:"disable", cssClassNames:{headerRow:"headerRow",
-                                                       tableRow:"tableRow",
-                                                       oddTableRow:"oddTableRow",
-                                                       headerCell:"headerCell",
-                                                       tableCell:"tableCell"}});
-  google.visualization.events.addListener(table, "select", function(){
-    var selection=table.getSelection();
-    selection[0].row+=1;
+  var table = new google.visualization.Table(document.getElementById("table"));
+  table.draw(table_data, {
+    sort: "disable",
+    cssClassNames: {
+      headerRow: "headerRow",
+      tableRow: "tableRow",
+      oddTableRow: "oddTableRow",
+      headerCell: "headerCell",
+      tableCell: "tableCell"
+    }
+  });
+  google.visualization.events.addListener(table, "select", function() {
+    var selection = table.getSelection();
+    if(!selection[0] || !selection[0].row) return;
+    selection[0].row += 1;
     graph.setSelection(selection);
   });
-  google.visualization.events.addListener(graph, "select", function(){
-    var selection=graph.getSelection();
-    if(!selection[0].row) return;
-    selection[0].row-=1;
+  google.visualization.events.addListener(graph, "select", function() {
+    var selection = graph.getSelection();
+    if(!selection[0] || !selection[0].row) return;
+    selection[0].row -= 1;
     table.setSelection(selection);
   });
 }
