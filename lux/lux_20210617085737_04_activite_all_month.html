@@ -9,13 +9,13 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
 google.charts.load("51", {
-  "packages": ["corechart", "table"],
-  "language": "fr"
+  "language": "fr",
+  "packages": ["corechart", "table"]
 });
 function draw() {
   var data = new google.visualization.DataTable();
   data.addColumn("date", "mois");
-  data.addColumn("number", "nombre de posts");
+  data.addColumn("number", "posts");
   data.addRows([
     [new Date("2007-05-30"), 0],
     [new Date("2007-05-31"), 19],
@@ -209,31 +209,34 @@ function draw() {
     },
     colors: ["#8e8ef8", "#ff9900", "#109618"],
     crosshair: {
-      trigger: "both",
-      orientation: "both",
-      color: "#f4947f",
-      opacity: 1,
       focused: {
         color: "#ffbf60",
         opacity: 1
-      }
+      },
+      orientation: "both",
+      selected: {
+        color: "#f4947f",
+        opacity: 1
+      },
+      trigger: "both"
     },
-    legend: {
-      position: "none"
-    },
+    curveType: "none",
+    enableInteractivity: true,
     focusTarget: "category",
     fontName: "Verdana,Arial,Sans-serif,Helvetica",
     fontSize: 14,
     forceIFrame: false,
-    lineWidth: 1,
-    isStacked: false,
-    curveType: "none",
-    seriesType: "area",
     hAxis: {
-      minorGridlines: {
-        count: 11
-      },
+      direction: 1,
       format: "yyyy",
+      logScale: false,
+      textPosition: "out",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      },
       ticks: [
         new Date("2008-01-01"),
         new Date("2009-01-01"),
@@ -250,29 +253,41 @@ function draw() {
         new Date("2020-01-01"),
         new Date("2021-01-01")
 
-      ],
+      ]
+    },
+    interpolateNulls: false,
+    isStacked: false,
+    legend: {
+      position: "none"
+    },
+    lineWidth: 1,
+    orientation: "horizontal",
+    pointsVisible: false,
+    reverseCategories: false,
+    selectionMode: "single",
+    seriesType: "area",
+    tooltip: {
+      ignoreBounds: false,
+      isHtml: false,
+      showColorCode: true,
       textStyle: {
         fontName: "Verdana,Arial,Sans-serif,Helvetica",
         fontSize: 14,
-        bold: true
-      }
+        bold: true,
+        italic: false
+      },
+      trigger: "focus"
     },
     vAxis: {
-      minorGridlines: {
-        count: 4
-      },
+      direction: 1,
+      logScale: false,
       minValue: 0,
+      textPosition: "out",
       textStyle: {
         fontName: "Verdana,Arial,Sans-serif,Helvetica",
         fontSize: 14,
-        bold: true
-      }
-    },
-    tooltip: {
-      textStyle: {
-        fontName: "Verdana,Arial,Sans-serif,Helvetica",
-        fontSize: 14,
-        bold: true
+        bold: true,
+        italic: false
       }
     }
   };
