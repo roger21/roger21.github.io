@@ -16,7 +16,7 @@ function draw() {
   var data = new google.visualization.DataTable();
   data.addColumn("date", "mois");
   data.addColumn("number", "posts");
-  data.addRows([
+  var data_values = [
     [new Date(2007, 4, 30, 11, 12, 58), 0],
     [new Date(2007, 4, 31, 23, 59, 59), 19],
     [new Date(2007, 5, 30, 23, 59, 59), 39],
@@ -188,9 +188,30 @@ function draw() {
     [new Date(2021, 3, 30, 23, 59, 59), 929],
     [new Date(2021, 4, 31, 23, 59, 59), 695],
     [new Date(2021, 5, 17, 8, 57, 37), 741]
-  ]);
+  ];
+  data.addRows(data_values);
   var table_data = data.clone();
   table_data.removeRow(0);
+  var ticks = [
+    new Date("2007-01-01"),
+    new Date("2008-01-01"),
+    new Date("2009-01-01"),
+    new Date("2010-01-01"),
+    new Date("2011-01-01"),
+    new Date("2012-01-01"),
+    new Date("2013-01-01"),
+    new Date("2014-01-01"),
+    new Date("2015-01-01"),
+    new Date("2016-01-01"),
+    new Date("2017-01-01"),
+    new Date("2018-01-01"),
+    new Date("2019-01-01"),
+    new Date("2020-01-01"),
+    new Date("2021-01-01")
+  ];
+  while(ticks[0] < data_values[0][0]) {
+    ticks.shift();
+  }
   var options = {
     aggregationTarget: "category",
     animation: {
@@ -236,22 +257,7 @@ function draw() {
         bold: true,
         italic: false
       },
-      ticks: [
-        new Date("2008-01-01"),
-        new Date("2009-01-01"),
-        new Date("2010-01-01"),
-        new Date("2011-01-01"),
-        new Date("2012-01-01"),
-        new Date("2013-01-01"),
-        new Date("2014-01-01"),
-        new Date("2015-01-01"),
-        new Date("2016-01-01"),
-        new Date("2017-01-01"),
-        new Date("2018-01-01"),
-        new Date("2019-01-01"),
-        new Date("2020-01-01"),
-        new Date("2021-01-01")
-      ]
+      ticks: ticks
     },
     interpolateNulls: false,
     isStacked: false,
