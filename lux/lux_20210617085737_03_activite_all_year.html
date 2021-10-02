@@ -17,22 +17,22 @@ function draw() {
   data.addColumn("date", "année");
   data.addColumn("number", "posts");
   data.addRows([
-    [new Date("2007-05-30"), 0],
-    [new Date("2007-12-31"), 746],
-    [new Date("2008-12-31"), 569],
-    [new Date("2009-12-31"), 212],
-    [new Date("2010-12-31"), 173],
-    [new Date("2011-12-31"), 266],
-    [new Date("2012-12-31"), 485],
-    [new Date("2013-12-31"), 1171],
-    [new Date("2014-12-31"), 3372],
-    [new Date("2015-12-31"), 2751],
-    [new Date("2016-12-31"), 3921],
-    [new Date("2017-12-31"), 6767],
-    [new Date("2018-12-31"), 6270],
-    [new Date("2019-12-31"), 12341],
-    [new Date("2020-12-31"), 10240],
-    [new Date("2021-06-17"), 5063]
+    [new Date(2007, 4, 30, 11, 12, 58), 0],
+    [new Date(2007, 11, 31, 23, 59, 59), 746],
+    [new Date(2008, 11, 31, 23, 59, 59), 569],
+    [new Date(2009, 11, 31, 23, 59, 59), 212],
+    [new Date(2010, 11, 31, 23, 59, 59), 173],
+    [new Date(2011, 11, 31, 23, 59, 59), 266],
+    [new Date(2012, 11, 31, 23, 59, 59), 485],
+    [new Date(2013, 11, 31, 23, 59, 59), 1171],
+    [new Date(2014, 11, 31, 23, 59, 59), 3372],
+    [new Date(2015, 11, 31, 23, 59, 59), 2751],
+    [new Date(2016, 11, 31, 23, 59, 59), 3921],
+    [new Date(2017, 11, 31, 23, 59, 59), 6767],
+    [new Date(2018, 11, 31, 23, 59, 59), 6270],
+    [new Date(2019, 11, 31, 23, 59, 59), 12341],
+    [new Date(2020, 11, 31, 23, 59, 59), 10240],
+    [new Date(2021, 5, 17, 8, 57, 37), 5063]
   ]);
   var table_data = data.clone();
   table_data.removeRow(0);
@@ -123,6 +123,7 @@ function draw() {
     },
     vAxis: {
       direction: 1,
+      format: "#,###",
       logScale: false,
       minValue: 0,
       textPosition: "out",
@@ -161,13 +162,21 @@ function draw() {
   });
   google.visualization.events.addListener(table, "select", function() {
     var selection = table.getSelection();
-    if(!selection[0] || !selection[0].row) return;
+    if(typeof selection[0] === "undefined" || typeof selection[0].row === "undefined") {
+      graph.setSelection();
+      table.setSelection();
+      return;
+    }
     selection[0].row += 1;
     graph.setSelection(selection);
   });
   google.visualization.events.addListener(graph, "select", function() {
     var selection = graph.getSelection();
-    if(!selection[0] || !selection[0].row) return;
+    if(typeof selection[0] === "undefined" || typeof selection[0].row === "undefined") {
+      graph.setSelection();
+      table.setSelection();
+      return;
+    }
     selection[0].row -= 1;
     table.setSelection(selection);
   });
