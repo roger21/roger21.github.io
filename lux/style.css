@@ -174,6 +174,7 @@ div.section > b > a.permalink:visited:hover{
 }
 body.graph{
   text-align:center;
+  overflow-y:scroll;
 }
 body.graph > h1{
   margin:30px 0 0;
@@ -187,9 +188,33 @@ div#graph{
   margin:30px;
   border:1px solid silver;
 }
+div#switcher.link{
+  margin:4px;
+  padding:2px;
+  cursor:default;
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  top:0;
+  right:0;
+  z-index:1000;
+  display:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-image:url(chart_lignes.svg);
+}
+div#switcher.link.barres{
+  background-image:url(chart_barres.svg);
+}
+div#switcher.link.active{
+  cursor:pointer;
+}
+div#switcher.link.active:hover{
+  background-color:#e8e8f8;
+}
 div#table{
-  height:auto;
-  width:auto;
   margin:30px;
 }
 div#table > div:first-child{
@@ -199,7 +224,9 @@ div#table table{
   border-collapse:collapse;
   width:100%;
 }
-div#table table .headerRow, div#table table .tableRow, div#table table .oddTableRow{
+div#table table .headerRow,
+div#table table .tableRow,
+div#table table .oddTableRow{
   font-family:Verdana,Arial,Sans-serif,Helvetica;
   font-size:14px;
 }
@@ -213,18 +240,23 @@ div#table table .tableRow{
 div#table table .oddTableRow{
   background-color:#e8e8f8;
 }
-div#table table .tableRow:hover, div#table table .oddTableRow:hover{
+div#table table .hoverTableRow{
   background-color:#ffdfaf;
 }
 div#table table .headerCell{
   padding:10px;
   border:1px solid silver;
+  white-space:nowrap;
+  cursor:pointer;
+}
+div#table table .headerCell span{
+  color:#303030;
 }
 div#table table .tableCell{
   padding:5px 10px;
   border:1px solid silver;
   white-space:nowrap;
 }
-div#table table .google-visualization-table-tr-sel{
+div#table table .selectedTableRow{
   background-color:#f5c4b8;
 }
