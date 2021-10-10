@@ -203,10 +203,10 @@ div#switcher.link{
   background-position:center;
   background-repeat:no-repeat;
   background-size:30px;
-  background-image:url(chart_lignes.svg);
+  background-image:url(chartg.svg);
 }
 div#switcher.link.barres{
-  background-image:url(chart_barres.svg);
+  background-image:url(chartb.svg);
 }
 div#switcher.link.active{
   cursor:pointer;
