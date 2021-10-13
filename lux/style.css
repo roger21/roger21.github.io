@@ -244,6 +244,12 @@ div#switcher.link.active{
 div#switcher.link.active:hover{
   background-color:#e8e8f8;
 }
+body.treemap div.tooltip{
+  color:#303030;
+  background-color:#ffffaf;
+  border:1px solid #303030;
+  padding:5px 10px;
+}
 div#table{
   margin:30px;
 }

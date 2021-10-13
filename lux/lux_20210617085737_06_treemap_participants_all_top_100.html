@@ -145,15 +145,19 @@ function onload() {
     noColor: "#cfcfff",
     noHighlightColor: "#ffdfaf",
     showScale: false,
-    showTooltips: true
+    showTooltips: true,
+    generateTooltip: tooltip
   };
-  var formater_number = new google.visualization.NumberFormat({
-    decimalSymbol: ",",
-    groupingSymbol: " ",
-    fractionDigits: 0
-  });
-  formater_number.format(data_treemap, 2);
-  formater_number.format(data_treemap, 3);
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else if(value > 0) return "+" + formater.format(value);
+    else return formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + formater.format(data_treemap.getValue(row, 2)) + ")</div>";
+  }
   var div_treemap = document.querySelector("div#treemap");
   var treemap = new google.visualization.TreeMap(div_treemap);
   treemap.draw(data_treemap, options_treemap);
