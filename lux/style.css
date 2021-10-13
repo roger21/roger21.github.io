@@ -90,10 +90,10 @@ div.table > table{
 div.table > table tr{
   background-color:#d8d8f8;
 }
-div.table > table tr.data:hover,
-div.table > table tr.data1:hover,
-div.table > table tr.data.data2:hover,
-div.table > table tr.data2:hover{
+div.table > table tr.data:hover > td,
+div.table > table tr.data1:hover > td,
+div.table > table tr.data.data2:hover > td,
+div.table > table tr.data2:hover > td{
   background-color:#ffdfaf;
 }
 div.table > table tr.data,
@@ -129,6 +129,15 @@ div.table > table td.center{
 }
 div.table > table td.right{
   text-align:right;
+}
+div.table > table td.blue{
+  background-color:#cfcfff;
+}
+div.table > table td.green{
+  background-color:#cfffcf;
+}
+div.table > table td.red{
+  background-color:#ffcfcf;
 }
 div.table > table td img{
   vertical-align:text-bottom;
@@ -172,14 +181,30 @@ div.section > b > a.permalink:visited:hover{
   background-position:100% 50%;
   background-size:auto 11px;
 }
-body.graph{
+div.section > a.graph,
+div.section > a.table{
+  padding:0 4px 0 24px;
+  background-image:url(dotg.svg);
+  background-repeat:no-repeat;
+  background-position:4px 50%;
+  background-size:auto 11px;
+}
+div.section > a.table{
+  background-image:url(dotb.svg);
+}
+body.graph,
+body.treemap{
   text-align:center;
+}
+body.graph{
   overflow-y:scroll;
 }
-body.graph > h1{
+body.graph > h1,
+body.treemap > h1{
   margin:30px 0 0;
 }
-body.graph > h3{
+body.graph > h3,
+body.treemap > h3{
   margin:10px 0 0;
 }
 div#graph{
@@ -187,6 +212,11 @@ div#graph{
   width:auto;
   margin:30px;
   border:1px solid silver;
+}
+div#treemap{
+  height:750px;
+  width:auto;
+  margin:30px 20px 25px;
 }
 div#switcher.link{
   margin:4px;
