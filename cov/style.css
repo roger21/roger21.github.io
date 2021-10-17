@@ -19,6 +19,8 @@ h1.title{
 div.index{
   margin:30px;
   border:2px dashed #303030;
+}
+div.index{
   display:flex;
   flex-direction:column;
 }
@@ -191,8 +193,117 @@ div.index > a.table{
 div.index > a.table{
   background-image:url(dotb.svg);
 }
+body.graph,
+body.treemap{
+  text-align:center;
+}
+body.graph{
+  overflow-y:scroll;
+}
+body.graph > h1,
+body.treemap > h1{
+  margin:30px 0 0;
+}
+body.graph > h3,
+body.treemap > h3{
+  margin:10px 0 0;
+}
 h1 > span.days90{
   background-color:#c8ffc8;
   padding:0 5px;
   margin:0 -5px;
+}
+h1 > span.alltime{
+  background-color:#ffff80;
+  padding:0 5px;
+  margin:0 -5px;
+}
+div#graph{
+  height:750px;
+  width:auto;
+  margin:30px;
+  border:1px solid silver;
+}
+div#treemap{
+  height:750px;
+  width:auto;
+  margin:30px 20px 25px;
+}
+div#switcher.link{
+  margin:4px;
+  padding:2px;
+  cursor:default;
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  top:0;
+  right:0;
+  z-index:1000;
+  display:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-image:url(chartg.svg);
+}
+div#switcher.link.barres{
+  background-image:url(chartb.svg);
+}
+div#switcher.link.active{
+  cursor:pointer;
+}
+div#switcher.link.active:hover{
+  background-color:#e8e8f8;
+}
+body.treemap div.tooltip{
+  color:#303030;
+  background-color:#ffffaf;
+  border:1px solid #303030;
+  padding:5px 10px;
+}
+div#table{
+  margin:30px;
+}
+div#table > div:first-child{
+  width:100%;
+}
+div#table table{
+  border-collapse:collapse;
+  width:100%;
+}
+div#table table .headerRow,
+div#table table .tableRow,
+div#table table .oddTableRow{
+  font-family:Verdana,Arial,Sans-serif,Helvetica;
+  font-size:14px;
+}
+div#table table .headerRow{
+  font-weight:bold;
+  background-color:#d8d8f8;
+}
+div#table table .tableRow{
+  background-color:#f8f8f8;
+}
+div#table table .oddTableRow{
+  background-color:#e8e8f8;
+}
+div#table table .hoverTableRow{
+  background-color:#ffdfaf;
+}
+div#table table .headerCell{
+  padding:10px;
+  border:1px solid silver;
+  white-space:nowrap;
+  cursor:pointer;
+}
+div#table table .headerCell span{
+  color:#303030;
+}
+div#table table .tableCell{
+  padding:5px 10px;
+  border:1px solid silver;
+  white-space:nowrap;
+}
+div#table table .selectedTableRow{
+  background-color:#f5c4b8;
 }

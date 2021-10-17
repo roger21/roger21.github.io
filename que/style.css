@@ -207,6 +207,11 @@ body.graph > h3,
 body.treemap > h3{
   margin:10px 0 0;
 }
+h1 > span.days90{
+  background-color:#c8ffc8;
+  padding:0 5px;
+  margin:0 -5px;
+}
 h1 > span.alltime{
   background-color:#ffff80;
   padding:0 5px;
