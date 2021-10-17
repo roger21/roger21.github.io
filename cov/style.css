@@ -19,7 +19,6 @@ h1.title{
 div.index{
   margin:30px;
   border:2px dashed #303030;
-  padding:0;
   display:flex;
   flex-direction:column;
 }
@@ -90,10 +89,10 @@ div.table > table{
 div.table > table tr{
   background-color:#d8d8f8;
 }
-div.table > table tr.data:hover,
-div.table > table tr.data1:hover,
-div.table > table tr.data.data2:hover,
-div.table > table tr.data2:hover{
+div.table > table tr.data:hover > td,
+div.table > table tr.data1:hover > td,
+div.table > table tr.data.data2:hover > td,
+div.table > table tr.data2:hover > td{
   background-color:#ffdfaf;
 }
 div.table > table tr.data,
@@ -114,6 +113,9 @@ div.table > table td, div.table > table th{
   border:1px solid silver;
   min-width:150px;
 }
+div.table > table td.small, div.table > table th.small{
+  min-width:100px;
+}
 div.table > table th{
   padding:10px;
 }
@@ -127,12 +129,25 @@ div.table > table td.center{
 div.table > table td.right{
   text-align:right;
 }
+div.table > table td.blue{
+  background-color:#cfcfff;
+}
+div.table > table td.green{
+  background-color:#cfffcf;
+}
+div.table > table td.red{
+  background-color:#ffcfcf;
+}
 div.table > table td img{
   vertical-align:text-bottom;
   padding:4px 0;
 }
 div.table a{
   display:inline-block;
+}
+div.table span.empty{
+  display:inline-block;
+  padding:0 4px;
 }
 a{
   color:#505090;
@@ -164,4 +179,20 @@ div.index > b > a.permalink:visited:hover{
   background-repeat:no-repeat;
   background-position:100% 50%;
   background-size:auto 11px;
+}
+div.index > a.graph,
+div.index > a.table{
+  padding:0 4px 0 24px;
+  background-image:url(dotg.svg);
+  background-repeat:no-repeat;
+  background-position:4px 50%;
+  background-size:auto 11px;
+}
+div.index > a.table{
+  background-image:url(dotb.svg);
+}
+h1 > span.days90{
+  background-color:#b0ffb0;
+  padding:0 5px;
+  margin:0 -5px;
 }
