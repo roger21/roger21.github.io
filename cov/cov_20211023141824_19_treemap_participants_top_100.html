@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants du topic COVID-19 (top 100) au samedi 23 octobre 2021 à 14:18:24</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0],
+    ["tous les autres", "participants", 406262, 0],
+    ["Tolor", "participants", 20414, 0],
+    ["PinkFloyd31", "participants", 16059, 0],
+    ["orodreths", "participants", 12487, 0],
+    ["TheBigO", "participants", 11704, 0],
+    ["mlon", "participants", 11444, 0],
+    ["Tammuz", "participants", 11053, 0],
+    ["boumbo", "participants", 11019, 0],
+    ["Ernestor", "participants", 10364, 0],
+    ["Profil supprimé", "participants", 9851, 0],
+    ["daouar", "participants", 9510, 0],
+    ["Theomede", "participants", 8296, 0],
+    ["RaKaCHa", "participants", 8131, 0],
+    ["Tuxerman12", "participants", 7908, 0],
+    ["Killall-9", "participants", 7106, 0],
+    ["epsiloneridani", "participants", 6694, 0],
+    ["Sebwap", "participants", 6554, 0],
+    ["La Monne", "participants", 6105, 0],
+    ["The NBoc", "participants", 6085, 0],
+    ["MikeSab21", "participants", 6061, 0],
+    ["Pistache52", "participants", 5932, 0],
+    ["It_Connexion", "participants", 5931, 0],
+    ["Olivie", "participants", 5809, 0],
+    ["Chips", "participants", 5708, 0],
+    ["cd5", "participants", 5627, 0],
+    ["Backbone-", "participants", 5451, 0],
+    ["danifilth", "participants", 5056, 0],
+    ["Grumms", "participants", 4989, 0],
+    ["sausalito75", "participants", 4898, 0],
+    ["gimly the knight", "participants", 4778, 0],
+    ["CAMPEDEL", "participants", 4744, 0],
+    ["iVador", "participants", 4681, 0],
+    ["totsukaba", "participants", 4667, 0],
+    ["nakata", "participants", 4649, 0],
+    ["morb", "participants", 4369, 0],
+    ["[Toine]", "participants", 4369, 0],
+    ["Moihey", "participants", 4318, 0],
+    ["Ibo_Simon", "participants", 4239, 0],
+    ["Kalymereau", "participants", 4153, 0],
+    ["Hermes le Messager", "participants", 4014, 0],
+    ["Roupillon", "participants", 3922, 0],
+    ["Exocet911", "participants", 3883, 0],
+    ["Sicromoft", "participants", 3764, 0],
+    ["ddlabraguette", "participants", 3630, 0],
+    ["M300A", "participants", 3534, 0],
+    ["super_pourri", "participants", 3518, 0],
+    ["Sticki", "participants", 3512, 0],
+    ["fred_div91", "participants", 3438, 0],
+    ["Lagoon57", "participants", 3433, 0],
+    ["pik3", "participants", 3335, 0],
+    ["Marcel Pitou", "participants", 3310, 0],
+    ["Zamblabla", "participants", 3200, 0],
+    ["edwoud", "participants", 3173, 0],
+    ["Eife", "participants", 3119, 0],
+    ["esomeprazol", "participants", 3099, 0],
+    ["arthas77", "participants", 3078, 0],
+    ["jamere", "participants", 3070, 0],
+    ["pascaldeuxzero", "participants", 3034, 0],
+    ["coke15", "participants", 3018, 0],
+    ["Natopsi", "participants", 3014, 0],
+    ["AzR3L", "participants", 3002, 0],
+    ["kropotchnikov", "participants", 2941, 0],
+    ["John Oldman", "participants", 2885, 0],
+    ["xilebo", "participants", 2857, 0],
+    ["karaya", "participants", 2846, 0],
+    ["Blaq", "participants", 2844, 0],
+    ["verdoux", "participants", 2805, 0],
+    ["radioactif", "participants", 2733, 0],
+    ["Didd", "participants", 2717, 0],
+    ["lonely", "participants", 2690, 0],
+    ["Z_cool", "participants", 2669, 0],
+    ["maugani", "participants", 2647, 0],
+    ["Ali-Pacha", "participants", 2643, 0],
+    ["_synapse_", "participants", 2615, 0],
+    ["PlayTime", "participants", 2580, 0],
+    ["newbie_master", "participants", 2543, 0],
+    ["Trifon_Ivanov", "participants", 2447, 0],
+    ["ftikai", "participants", 2413, 0],
+    ["boulgakov", "participants", 2363, 0],
+    ["dopador", "participants", 2340, 0],
+    ["gsans", "participants", 2338, 0],
+    ["noddemix", "participants", 2336, 0],
+    ["Rasthor", "participants", 2326, 0],
+    ["Gilou75", "participants", 2313, 0],
+    ["olive127", "participants", 2298, 0],
+    ["hka-ta", "participants", 2285, 0],
+    ["leroimerlinbis", "participants", 2194, 0],
+    ["Kupfer", "participants", 2189, 0],
+    ["M_D_C", "participants", 2161, 0],
+    ["helmuth", "participants", 2153, 0],
+    ["Laska-", "participants", 2144, 0],
+    ["Lennyslash", "participants", 2133, 0],
+    ["hungryman", "participants", 2078, 0],
+    ["radio comptoir", "participants", 2064, 0],
+    ["Mobilis In Mobile", "participants", 2062, 0],
+    ["viniw", "participants", 2015, 0],
+    ["coria974", "participants", 2004, 0],
+    ["Jahaa_sv", "participants", 1983, 0],
+    ["baliste_titan", "participants", 1979, 0],
+    ["mauvlam", "participants", 1973, 0],
+    ["StanzeFlasche", "participants", 1971, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + formater.format(data_treemap.getValue(row, 2)) + ")</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants du topic COVID-19 (top 100)</h1>
+  <h3>(données collectées le samedi 23 octobre 2021 à 14:18:24)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

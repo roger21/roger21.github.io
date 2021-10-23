@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"  standalone="no"?>
+<svg  onload="if (typeof(gnuplot_svg)!='undefined') gnuplot_svg.Init(evt)" 
+ viewBox="0 0 1920 1080"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>L'activité du topic COVID-19 par semaine au samedi 23 octobre 2021 à 14:18:24</title>
+<desc>Produced by GNUPLOT 5.2 patchlevel 8 </desc>
+
+<script type="text/javascript" > <![CDATA[
+// Javascript routines for interaction with SVG documents produced by 
+// gnuplot's SVG terminal driver.
+
+// Find your root SVG element
+var svg = document.querySelector('svg');
+
+// Create an SVGPoint for future math
+var pt = svg.createSVGPoint();
+
+// Get point in global SVG space
+function cursorPoint(evt){
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+
+var gnuplot_svg = { };
+
+gnuplot_svg.version = "17 February 2017";
+
+gnuplot_svg.SVGDoc = null;
+gnuplot_svg.SVGRoot = null;
+
+gnuplot_svg.Init = function(e)
+{
+   gnuplot_svg.SVGDoc = e.target.ownerDocument;
+   gnuplot_svg.SVGRoot = gnuplot_svg.SVGDoc.documentElement;
+   gnuplot_svg.axisdate = new Date();
+}
+
+gnuplot_svg.toggleVisibility = function(evt, targetId)
+{
+   var newTarget = evt.target;
+   if (targetId)
+      newTarget = gnuplot_svg.SVGDoc.getElementById(targetId);
+
+   var newValue = newTarget.getAttributeNS(null, 'visibility')
+
+   if ('hidden' != newValue)
+      newValue = 'hidden';
+   else
+      newValue = 'visible';
+
+   newTarget.setAttributeNS(null, 'visibility', newValue);
+
+   if (targetId) {
+      newTarget = gnuplot_svg.SVGDoc.getElementById(targetId.concat("_keyentry"));
+      if (newTarget)
+         newTarget.setAttributeNS(null, 'style',
+		newValue == 'hidden' ? 'filter:url(#greybox)' : 'none');
+   }
+
+   evt.preventDefault();
+   evt.stopPropagation();
+}
+
+// Mouse tracking echos coordinates to a floating text box
+
+gnuplot_svg.getText = function() {
+	return(document.getElementById("coord_text"));
+}
+
+gnuplot_svg.updateCoordBox = function(t, evt) {
+    /* 
+     * Apply screen CTM transformation to the evt screenX and screenY to get 
+     * coordinates in SVG coordinate space.  Use scaling parameters stored in
+     * the plot document by gnuplot to convert further into plot coordinates.
+     * Then position the floating text box using the SVG coordinates.
+     */
+    var m = document.documentElement.getScreenCTM();
+    var p = document.documentElement.createSVGPoint(); 
+    var loc = cursorPoint(evt);
+    p.x = loc.x;
+    p.y = loc.y;
+    var label_x, label_y;
+
+    // Allow for scrollbar position (Firefox, others?)
+    if (typeof evt.pageX != 'undefined') {
+        p.x = evt.pageX; p.y = evt.pageY; 
+    }
+    t.setAttribute("x", p.x);
+    t.setAttribute("y", p.y);
+   
+    var plotcoord = gnuplot_svg.mouse2plot(p.x,p.y);
+
+    if (gnuplot_svg.plot_timeaxis_x == "DMS" || gnuplot_svg.plot_timeaxis_y == "DMS") {
+	if (gnuplot_svg.plot_timeaxis_x == "DMS")
+	    label_x = gnuplot_svg.convert_to_DMS(x);
+	else
+	    label_x = plotcoord.x.toFixed(2);
+	if (gnuplot_svg.plot_timeaxis_y == "DMS")
+	    label_y = gnuplot_svg.convert_to_DMS(y);
+	else
+	    label_y = plotcoord.y.toFixed(2);
+
+    } else if (gnuplot_svg.polar_mode) {
+	polar = gnuplot_svg.convert_to_polar(plotcoord.x,plotcoord.y);
+	label_x = "ang= " + polar.ang.toPrecision(4);
+	label_y = "R= " + polar.r.toPrecision(4);
+
+    } else if (gnuplot_svg.plot_timeaxis_x == "Date") {
+	gnuplot_svg.axisdate.setTime(1000. * plotcoord.x);
+	var year = gnuplot_svg.axisdate.getUTCFullYear();
+	var month = gnuplot_svg.axisdate.getUTCMonth();
+	var date = gnuplot_svg.axisdate.getUTCDate();
+	label_x = (" " + date).slice (-2) + "/"
+		+ ("0" + (month+1)).slice (-2) + "/"
+		+ year;
+	label_y = plotcoord.y.toFixed(2);
+    } else if (gnuplot_svg.plot_timeaxis_x == "Time") {
+	gnuplot_svg.axisdate.setTime(1000. * plotcoord.x);
+	var hour = gnuplot_svg.axisdate.getUTCHours();
+	var minute = gnuplot_svg.axisdate.getUTCMinutes();
+	var second = gnuplot_svg.axisdate.getUTCSeconds();
+	label_x = ("0" + hour).slice (-2) + ":" 
+		+ ("0" + minute).slice (-2) + ":"
+		+ ("0" + second).slice (-2);
+	label_y = plotcoord.y.toFixed(2);
+    } else if (gnuplot_svg.plot_timeaxis_x == "DateTime") {
+	gnuplot_svg.axisdate.setTime(1000. * plotcoord.x);
+	label_x = gnuplot_svg.axisdate.toUTCString();
+	label_y = plotcoord.y.toFixed(2);
+    } else {
+	label_x = plotcoord.x.toFixed(2);
+	label_y = plotcoord.y.toFixed(2);
+    }
+
+    while (null != t.firstChild) {
+    	t.removeChild(t.firstChild);
+    }
+    var textNode = document.createTextNode(".  "+label_x+" "+label_y);
+    t.appendChild(textNode);
+}
+
+gnuplot_svg.showCoordBox = function(evt) {
+    var t = gnuplot_svg.getText();
+    if (null != t) {
+    	t.setAttribute("visibility", "visible");
+    	gnuplot_svg.updateCoordBox(t, evt);
+    }
+}
+
+gnuplot_svg.moveCoordBox = function(evt) {
+    var t = gnuplot_svg.getText();
+    if (null != t)
+    	gnuplot_svg.updateCoordBox(t, evt);
+}
+
+gnuplot_svg.hideCoordBox = function(evt) {
+    var t = gnuplot_svg.getText();
+    if (null != t)
+    	t.setAttribute("visibility", "hidden");
+}
+
+gnuplot_svg.toggleCoordBox = function(evt) {
+    var t = gnuplot_svg.getText();
+    if (null != t) {
+	var state = t.getAttribute('visibility');
+	if ('hidden' != state)
+	    state = 'hidden';
+	else
+	    state = 'visible';
+	t.setAttribute('visibility', state);
+    }
+}
+
+gnuplot_svg.toggleGrid = function() {
+    if (!gnuplot_svg.SVGDoc.getElementsByClassName) // Old browsers
+	return;
+    var grid = gnuplot_svg.SVGDoc.getElementsByClassName('gridline');
+    for (var i=0; i<grid.length; i++) {
+	var state = grid[i].getAttribute('visibility');
+	grid[i].setAttribute('visibility', (state == 'hidden') ? 'visible' : 'hidden');
+    }
+}
+
+gnuplot_svg.showHypertext = function(evt, mouseovertext)
+{
+    var lines = mouseovertext.split('\n');
+
+    // If text starts with "image:" process it as an xlinked bitmap
+    if (lines[0].substring(0,5) == "image") {
+	var nameindex = lines[0].indexOf(":");
+	if (nameindex > 0) {
+	    gnuplot_svg.showHyperimage(evt, lines[0]);
+	    lines[0] = lines[0].slice(nameindex+1);
+	}
+    }
+
+    var loc = cursorPoint(evt);
+    var anchor_x = loc.x;
+    var anchor_y = loc.y;
+	
+    var hypertextbox = document.getElementById("hypertextbox")
+    hypertextbox.setAttributeNS(null,"x",anchor_x+10);
+    hypertextbox.setAttributeNS(null,"y",anchor_y+4);
+    hypertextbox.setAttributeNS(null,"visibility","visible");
+
+    var hypertext = document.getElementById("hypertext")
+    hypertext.setAttributeNS(null,"x",anchor_x+14);
+    hypertext.setAttributeNS(null,"y",anchor_y+18);
+    hypertext.setAttributeNS(null,"visibility","visible");
+
+    var height = 2+16*lines.length;
+    hypertextbox.setAttributeNS(null,"height",height);
+    var length = hypertext.getComputedTextLength();
+    hypertextbox.setAttributeNS(null,"width",length+8);
+
+    // bounce off frame bottom
+    if (anchor_y > gnuplot_svg.plot_ybot + 16 - height) {
+	anchor_y -= height;
+	hypertextbox.setAttributeNS(null,"y",anchor_y+4);
+	hypertext.setAttributeNS(null,"y",anchor_y+18);
+    }
+
+    while (null != hypertext.firstChild) {
+        hypertext.removeChild(hypertext.firstChild);
+    }
+
+    var textNode = document.createTextNode(lines[0]);
+
+    if (lines.length <= 1) {
+	hypertext.appendChild(textNode);
+    } else {
+	xmlns="http://www.w3.org/2000/svg";
+	var tspan_element = document.createElementNS(xmlns, "tspan");
+	tspan_element.appendChild(textNode);
+	hypertext.appendChild(tspan_element);
+	length = tspan_element.getComputedTextLength();
+	var ll = length;
+
+	for (var l=1; l<lines.length; l++) {
+	    var tspan_element = document.createElementNS(xmlns, "tspan");
+	    tspan_element.setAttributeNS(null,"dy", 16);
+	    textNode = document.createTextNode(lines[l]);
+	    tspan_element.appendChild(textNode);
+	    hypertext.appendChild(tspan_element);
+
+	    ll = tspan_element.getComputedTextLength();
+	    if (length < ll) length = ll;
+	}
+	hypertextbox.setAttributeNS(null,"width",length+8);
+    }
+
+    // bounce off right edge
+    if (anchor_x > gnuplot_svg.plot_xmax + 14 - length) {
+	anchor_x -= length;
+	hypertextbox.setAttributeNS(null,"x",anchor_x+10);
+	hypertext.setAttributeNS(null,"x",anchor_x+14);
+    }
+
+    // left-justify multiline text
+    var tspan_element = hypertext.firstChild;
+    while (tspan_element) {
+	tspan_element.setAttributeNS(null,"x",anchor_x+14);
+	tspan_element = tspan_element.nextElementSibling;
+    }
+
+}
+
+gnuplot_svg.hideHypertext = function ()
+{
+    var hypertextbox = document.getElementById("hypertextbox")
+    var hypertext = document.getElementById("hypertext")
+    var hyperimage = document.getElementById("hyperimage")
+    hypertextbox.setAttributeNS(null,"visibility","hidden");
+    hypertext.setAttributeNS(null,"visibility","hidden");
+    hyperimage.setAttributeNS(null,"visibility","hidden");
+}
+
+gnuplot_svg.showHyperimage = function(evt, linktext)
+{
+    var loc = cursorPoint(evt);
+    var anchor_x = loc.x;
+    var anchor_y = loc.y;
+    // Allow for scrollbar position (Firefox, others?)
+    if (typeof evt.pageX != 'undefined') {
+        anchor_x = evt.pageX; anchor_y = evt.pageY; 
+    }
+
+    var hyperimage = document.getElementById("hyperimage")
+    hyperimage.setAttributeNS(null,"x",anchor_x);
+    hyperimage.setAttributeNS(null,"y",anchor_y);
+    hyperimage.setAttributeNS(null,"visibility","visible");
+
+    // Pick up height and width from "image(width,height):name"
+    var width = hyperimage.getAttributeNS(null,"width");
+    var height = hyperimage.getAttributeNS(null,"height");
+    if (linktext.charAt(5) == "(") {
+	width = parseInt(linktext.slice(6));
+	height = parseInt(linktext.slice(linktext.indexOf(",") + 1));
+	hyperimage.setAttributeNS(null,"width",width);
+	hyperimage.setAttributeNS(null,"height",height);
+	hyperimage.setAttributeNS(null,"preserveAspectRatio","none");
+    }
+
+    // bounce off frame bottom and right
+    if (anchor_y > gnuplot_svg.plot_ybot + 50 - height)
+	hyperimage.setAttributeNS(null,"y",20 + anchor_y-height);
+    if (anchor_x > gnuplot_svg.plot_xmax + 150 - width)
+	hyperimage.setAttributeNS(null,"x",10 + anchor_x-width);
+
+    // attach image URL as a link
+    linktext = linktext.slice(linktext.indexOf(":") + 1);
+    var xlinkns = "http://www.w3.org/1999/xlink";
+    hyperimage.setAttributeNS(xlinkns,"xlink:href",linktext);
+}
+
+// Convert from svg panel mouse coordinates to the coordinate
+// system of the gnuplot figure
+gnuplot_svg.mouse2plot = function(mousex,mousey) {
+    var plotcoord = new Object;
+    var plotx = mousex - gnuplot_svg.plot_xmin;
+    var ploty = mousey - gnuplot_svg.plot_ybot;
+    var x,y;
+
+    if (gnuplot_svg.plot_logaxis_x != 0) {
+	x = Math.log(gnuplot_svg.plot_axis_xmax)
+	  - Math.log(gnuplot_svg.plot_axis_xmin);
+	x = x * (plotx / (gnuplot_svg.plot_xmax - gnuplot_svg.plot_xmin))
+	  + Math.log(gnuplot_svg.plot_axis_xmin);
+	x = Math.exp(x);
+    } else {
+	x = gnuplot_svg.plot_axis_xmin + (plotx / (gnuplot_svg.plot_xmax-gnuplot_svg.plot_xmin)) * (gnuplot_svg.plot_axis_xmax - gnuplot_svg.plot_axis_xmin);
+    }
+
+    if (gnuplot_svg.plot_logaxis_y != 0) {
+	y = Math.log(gnuplot_svg.plot_axis_ymax)
+	  - Math.log(gnuplot_svg.plot_axis_ymin);
+	y = y * (ploty / (gnuplot_svg.plot_ytop - gnuplot_svg.plot_ybot))
+	  + Math.log(gnuplot_svg.plot_axis_ymin);
+	y = Math.exp(y);
+    } else {
+	y = gnuplot_svg.plot_axis_ymin + (ploty / (gnuplot_svg.plot_ytop-gnuplot_svg.plot_ybot)) * (gnuplot_svg.plot_axis_ymax - gnuplot_svg.plot_axis_ymin);
+    }
+
+    plotcoord.x = x;
+    plotcoord.y = y;
+    return plotcoord;
+}
+
+gnuplot_svg.convert_to_polar = function (x,y)
+{
+    polar = new Object;
+    var phi, r;
+    phi = Math.atan2(y,x);
+    if (gnuplot_svg.plot_logaxis_r) 
+        r = Math.exp( (x/Math.cos(phi) + Math.log(gnuplot_svg.plot_axis_rmin)/Math.LN10) * Math.LN10);
+    else if (gnuplot_svg.plot_axis_rmin > gnuplot_svg.plot_axis_rmax)
+        r = gnuplot_svg.plot_axis_rmin - x/Math.cos(phi);
+    else
+        r = gnuplot_svg.plot_axis_rmin + x/Math.cos(phi);
+    phi = phi * (180./Math.PI);
+    if (gnuplot_svg.polar_sense < 0)
+	phi = -phi;
+    if (gnuplot_svg.polar_theta0 != undefined)
+	phi = phi + gnuplot_svg.polar_theta0;
+    if (phi > 180.)
+	phi = phi - 360.;
+    polar.r = r;
+    polar.ang = phi;
+    return polar;
+}
+
+gnuplot_svg.convert_to_DMS = function (x)
+{
+    var dms = {d:0, m:0, s:0};
+    var deg = Math.abs(x);
+    dms.d = Math.floor(deg);
+    dms.m = Math.floor((deg - dms.d) * 60.);
+    dms.s = Math.floor((deg - dms.d) * 3600. - dms.m * 60.);
+    fmt = ((x<0)?"-":" ")
+        + dms.d.toFixed(0) + "°"
+	+ dms.m.toFixed(0) + "\""
+	+ dms.s.toFixed(0) + "'";
+    return fmt;
+}
+]]>
+</script>
+
+<!-- Tie mousing to entire bounding box of the plot -->
+<rect x="0" y="0" width="1920" height="1080" fill="#ffffff" stroke="black" stroke-width="1"
+onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox(evt)"/>
+
+<!-- Also track mouse when it is on a plot element -->
+<g id="gnuplot_canvas" onclick="gnuplot_svg.toggleCoordBox(evt)" onmousemove="gnuplot_svg.moveCoordBox(evt)">
+
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.190' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.190' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.190' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.190' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.190' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.190' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.190' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.190' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='#FFFFFF' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,981.4 L1811.6,981.4  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,981.4 L133.0,981.4 M1811.6,981.4 L1801.1,981.4  '/>	<g transform="translate(112.8,986.0)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M122.5,891.7 L1811.6,891.7  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,891.7 L127.7,891.7 M1811.6,891.7 L1806.4,891.7  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,801.9 L1811.6,801.9  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,801.9 L133.0,801.9 M1811.6,801.9 L1801.1,801.9  '/>	<g transform="translate(112.8,806.5)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >10000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M122.5,712.2 L1811.6,712.2  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,712.2 L127.7,712.2 M1811.6,712.2 L1806.4,712.2  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,622.5 L1811.6,622.5  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,622.5 L133.0,622.5 M1811.6,622.5 L1801.1,622.5  '/>	<g transform="translate(112.8,627.1)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >20000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M122.5,532.7 L1811.6,532.7  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,532.7 L127.7,532.7 M1811.6,532.7 L1806.4,532.7  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,443.0 L1811.6,443.0  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,443.0 L133.0,443.0 M1811.6,443.0 L1801.1,443.0  '/>	<g transform="translate(112.8,447.6)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >30000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M122.5,353.3 L1811.6,353.3  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,353.3 L127.7,353.3 M1811.6,353.3 L1806.4,353.3  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,263.6 L1811.6,263.6  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,263.6 L133.0,263.6 M1811.6,263.6 L1801.1,263.6  '/>	<g transform="translate(112.8,268.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >40000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M122.5,173.8 L1273.9,173.8 M1769.4,173.8 L1811.6,173.8  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,173.8 L127.7,173.8 M1811.6,173.8 L1806.4,173.8  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,84.1 L1811.6,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,84.1 L133.0,84.1 M1811.6,84.1 L1801.1,84.1  '/>	<g transform="translate(112.8,88.7)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >50000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M122.5,981.4 L122.5,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,981.4 L122.5,970.9 M122.5,84.1 L122.5,94.6  '/>	<g transform="translate(127.0,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jan 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M200.7,981.4 L200.7,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M200.7,981.4 L200.7,970.9 M200.7,84.1 L200.7,94.6  '/>	<g transform="translate(205.2,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >feb 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M273.8,981.4 L273.8,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M273.8,981.4 L273.8,970.9 M273.8,84.1 L273.8,94.6  '/>	<g transform="translate(278.3,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >mar 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M351.9,981.4 L351.9,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M351.9,981.4 L351.9,970.9 M351.9,84.1 L351.9,94.6  '/>	<g transform="translate(356.4,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >apr 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M427.5,981.4 L427.5,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M427.5,981.4 L427.5,970.9 M427.5,84.1 L427.5,94.6  '/>	<g transform="translate(432.0,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >may 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M505.7,981.4 L505.7,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M505.7,981.4 L505.7,970.9 M505.7,84.1 L505.7,94.6  '/>	<g transform="translate(510.2,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jun 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M581.3,981.4 L581.3,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M581.3,981.4 L581.3,970.9 M581.3,84.1 L581.3,94.6  '/>	<g transform="translate(585.8,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jul 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M659.5,981.4 L659.5,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M659.5,981.4 L659.5,970.9 M659.5,84.1 L659.5,94.6  '/>	<g transform="translate(664.0,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >aug 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M737.6,981.4 L737.6,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M737.6,981.4 L737.6,970.9 M737.6,84.1 L737.6,94.6  '/>	<g transform="translate(742.1,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >sep 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M813.3,981.4 L813.3,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M813.3,981.4 L813.3,970.9 M813.3,84.1 L813.3,94.6  '/>	<g transform="translate(817.8,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >oct 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M891.4,981.4 L891.4,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M891.4,981.4 L891.4,970.9 M891.4,84.1 L891.4,94.6  '/>	<g transform="translate(895.9,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >nov 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M967.1,981.4 L967.1,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M967.1,981.4 L967.1,970.9 M967.1,84.1 L967.1,94.6  '/>	<g transform="translate(971.6,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >dec 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1045.2,981.4 L1045.2,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1045.2,981.4 L1045.2,970.9 M1045.2,84.1 L1045.2,94.6  '/>	<g transform="translate(1049.7,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jan 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1123.4,981.4 L1123.4,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1123.4,981.4 L1123.4,970.9 M1123.4,84.1 L1123.4,94.6  '/>	<g transform="translate(1127.9,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >feb 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1193.9,981.4 L1193.9,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1193.9,981.4 L1193.9,970.9 M1193.9,84.1 L1193.9,94.6  '/>	<g transform="translate(1198.4,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >mar 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1272.1,981.4 L1272.1,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1272.1,981.4 L1272.1,970.9 M1272.1,84.1 L1272.1,94.6  '/>	<g transform="translate(1276.6,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >apr 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1347.7,981.4 L1347.7,233.4 M1347.7,120.0 L1347.7,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1347.7,981.4 L1347.7,970.9 M1347.7,84.1 L1347.7,94.6  '/>	<g transform="translate(1352.2,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >may 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1425.9,981.4 L1425.9,233.4 M1425.9,120.0 L1425.9,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1425.9,981.4 L1425.9,970.9 M1425.9,84.1 L1425.9,94.6  '/>	<g transform="translate(1430.4,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jun 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1501.5,981.4 L1501.5,233.4 M1501.5,120.0 L1501.5,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1501.5,981.4 L1501.5,970.9 M1501.5,84.1 L1501.5,94.6  '/>	<g transform="translate(1506.0,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jul 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1579.7,981.4 L1579.7,233.4 M1579.7,120.0 L1579.7,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1579.7,981.4 L1579.7,970.9 M1579.7,84.1 L1579.7,94.6  '/>	<g transform="translate(1584.2,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >aug 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1657.8,981.4 L1657.8,233.4 M1657.8,120.0 L1657.8,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1657.8,981.4 L1657.8,970.9 M1657.8,84.1 L1657.8,94.6  '/>	<g transform="translate(1662.3,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >sep 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1733.4,981.4 L1733.4,233.4 M1733.4,120.0 L1733.4,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1733.4,981.4 L1733.4,970.9 M1733.4,84.1 L1733.4,94.6  '/>	<g transform="translate(1737.9,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >oct 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1811.6,981.4 L1811.6,84.1  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,981.4 L1811.6,970.9 M1811.6,84.1 L1811.6,94.6  '/>	<g transform="translate(1816.1,991.1) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >nov 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,981.4 L1801.1,981.4  '/>	<g transform="translate(1821.3,986.0)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,801.9 L1801.1,801.9  '/>	<g transform="translate(1821.3,806.5)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >500</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,622.5 L1801.1,622.5  '/>	<g transform="translate(1821.3,627.1)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >1000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,443.0 L1801.1,443.0  '/>	<g transform="translate(1821.3,447.6)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >1500</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,263.6 L1801.1,263.6  '/>	<g transform="translate(1821.3,268.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >2000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1811.6,84.1 L1801.1,84.1  '/>	<g transform="translate(1821.3,88.7)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >2500</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,84.1 L122.5,981.4 L1811.6,981.4 L1811.6,84.1 L122.5,84.1 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(51.0,532.8) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-size="16.0">le nombre de posts par semaine</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1884.8,532.8) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-size="16.0">le nombre de posts roses et de participants par semaine</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(967.0,36.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-weight="bold"  font-size="18.0">L'activité du topic COVID-19 par semaine</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+	</g>
+	<g transform="translate(967.0,57.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-weight="bold" >(données collectées le samedi 23 octobre 2021 à 14:18:24)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1273.9,233.4 L1273.9,120.0 L1769.4,120.0 L1769.4,233.4 L1273.9,233.4 Z  '/></g>
+	<g id="cov_20211023141824_04_activite_week_plot_1" ><title>le nombre de posts par semaine</title>
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(255, 127,   0)'  d='M170.4,943.9 L188.0,859.5 L205.7,919.1 L223.3,925.1 L241.0,941.2 L258.6,765.6 L276.3,603.6 L293.9,278.7
+		L311.6,148.5 L329.2,356.8 L346.9,505.7 L364.5,539.7 L382.2,557.0 L399.8,689.2 L417.5,681.1 L435.1,699.8
+		L452.8,800.2 L470.4,864.7 L488.1,841.5 L505.7,884.9 L523.3,927.0 L541.0,928.2 L558.6,914.7 L576.3,946.3
+		L593.9,923.3 L611.6,898.5 L629.2,911.8 L646.9,905.2 L664.5,894.7 L682.2,884.0 L699.8,871.3 L717.5,867.5
+		L735.1,891.1 L752.8,830.9 L770.4,842.7 L788.1,814.0 L805.7,868.6 L823.4,854.5 L841.0,748.1 L858.6,786.0
+		L876.3,538.3 L893.9,803.1 L911.6,795.8 L929.2,859.7 L946.9,875.6 L964.5,870.8 L982.2,842.7 L999.8,845.1
+		L1017.5,854.4 L1035.1,788.5 L1052.8,807.4 L1070.4,784.0 L1088.1,782.3 L1105.7,730.8 L1123.4,829.4 L1141.0,856.4
+		L1158.6,868.6 L1176.3,818.5 L1193.9,830.6 L1211.6,846.5 L1229.2,716.3 L1246.9,781.3 L1264.5,753.4 L1282.2,831.2
+		L1299.8,846.0 L1317.5,866.3 L1335.1,838.0 L1352.8,852.2 L1370.4,856.5 L1388.1,872.2 L1405.7,901.1 L1423.4,927.0
+		L1441.0,915.7 L1458.7,909.6 L1476.3,923.6 L1493.9,874.7 L1511.6,837.1 L1529.2,657.4 L1546.9,713.5 L1564.5,785.0
+		L1582.2,796.2 L1599.8,810.0 L1617.5,841.8 L1635.1,854.6 L1652.8,887.5 L1670.4,904.5 L1688.1,911.0 L1705.7,923.9
+		L1723.4,941.9 L1741.0,948.1 L1758.7,937.3 L1776.3,948.7  '/></g>
+	</g>
+	<g id="cov_20211023141824_04_activite_week_plot_2" ><title>le nombre de posts roses par semaine (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63, 175,  63)'  d='M170.4,980.7 L188.0,975.3 L205.7,978.5 L223.3,978.5 L241.0,979.6 L258.6,972.4 L276.3,972.4 L293.9,971.4
+		L311.6,951.3 L329.2,962.0 L346.9,972.4 L364.5,972.1 L382.2,967.0 L399.8,972.8 L417.5,977.5 L435.1,976.7
+		L452.8,977.8 L470.4,980.0 L488.1,979.6 L505.7,980.3 L523.3,981.4 L541.0,980.7 L558.6,981.4 L576.3,980.7
+		L593.9,980.3 L611.6,979.6 L629.2,980.7 L646.9,981.0 L664.5,979.2 L682.2,979.2 L699.8,979.2 L717.5,980.7
+		L735.1,980.3 L752.8,979.2 L770.4,978.9 L788.1,980.3 L805.7,980.0 L823.4,980.0 L841.0,978.9 L858.6,980.0
+		L876.3,977.5 L893.9,978.2 L911.6,980.7 L929.2,978.2 L946.9,979.6 L964.5,980.7 L982.2,978.2 L999.8,975.7
+		L1017.5,977.5 L1035.1,977.8 L1052.8,978.9 L1070.4,978.2 L1088.1,977.8 L1105.7,978.2 L1123.4,979.2 L1141.0,978.9
+		L1158.6,980.0 L1176.3,979.6 L1193.9,978.5 L1211.6,978.9 L1229.2,979.2 L1246.9,978.2 L1264.5,980.7 L1282.2,980.3
+		L1299.8,980.7 L1317.5,981.4 L1335.1,978.2 L1352.8,978.2 L1370.4,980.7 L1388.1,981.4 L1405.7,980.3 L1423.4,981.0
+		L1441.0,979.2 L1458.7,980.3 L1476.3,981.4 L1493.9,977.8 L1511.6,978.5 L1529.2,975.3 L1546.9,976.7 L1564.5,976.4
+		L1582.2,972.8 L1599.8,976.7 L1617.5,979.2 L1635.1,976.7 L1652.8,979.6 L1670.4,978.9 L1688.1,977.5 L1705.7,976.4
+		L1723.4,979.2 L1741.0,980.7 L1758.7,980.3 L1776.3,981.4  '/></g>
+	</g>
+	<g id="cov_20211023141824_04_activite_week_plot_3" ><title>le nombre de participants par semaine (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(127,  95, 255)'  d='M170.4,898.5 L188.0,868.0 L205.7,888.8 L223.3,898.5 L241.0,903.9 L258.6,774.7 L276.3,708.6 L293.9,532.7
+		L311.6,423.6 L329.2,534.2 L346.9,591.3 L364.5,629.3 L382.2,637.9 L399.8,707.5 L417.5,712.6 L435.1,731.2
+		L452.8,764.6 L470.4,813.8 L488.1,820.2 L505.7,854.3 L523.3,871.6 L541.0,874.8 L558.6,860.8 L576.3,893.1
+		L593.9,870.9 L611.6,854.0 L629.2,855.8 L646.9,865.5 L664.5,860.4 L682.2,850.0 L699.8,847.5 L717.5,835.7
+		L735.1,846.1 L752.8,825.3 L770.4,838.9 L788.1,810.2 L805.7,832.1 L823.4,832.4 L841.0,781.5 L858.6,787.6
+		L876.3,667.3 L893.9,767.1 L911.6,784.4 L929.2,824.6 L946.9,830.7 L964.5,849.0 L982.2,828.5 L999.8,827.8
+		L1017.5,828.5 L1035.1,811.6 L1052.8,804.5 L1070.4,787.6 L1088.1,796.9 L1105.7,770.7 L1123.4,810.6 L1141.0,831.7
+		L1158.6,843.6 L1176.3,830.3 L1193.9,827.8 L1211.6,834.6 L1229.2,760.3 L1246.9,797.3 L1264.5,756.0 L1282.2,812.3
+		L1299.8,828.9 L1317.5,840.0 L1335.1,820.6 L1352.8,818.5 L1370.4,829.2 L1388.1,832.1 L1405.7,853.6 L1423.4,858.3
+		L1441.0,873.4 L1458.7,861.2 L1476.3,865.8 L1493.9,852.2 L1511.6,815.6 L1529.2,701.8 L1546.9,756.7 L1564.5,771.1
+		L1582.2,779.7 L1599.8,798.0 L1617.5,802.7 L1635.1,823.8 L1652.8,827.4 L1670.4,849.3 L1688.1,846.1 L1705.7,869.8
+		L1723.4,885.2 L1741.0,891.0 L1758.7,885.9 L1776.3,901.7  '/></g>
+	</g>
+	<g id="cov_20211023141824_04_activite_week_plot_4" ><title>le nombre de nouveaux participants par semaine (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '170.4,898.5 188.0,868.0 205.7,888.8 223.3,898.5 241.0,903.9 258.6,774.7 276.3,708.6 293.9,532.7 311.6,423.6 329.2,534.2 346.9,591.3 364.5,629.3 382.2,637.9 399.8,707.5 417.5,712.6 435.1,731.2
+452.8,764.6 470.4,813.8 488.1,820.2 505.7,854.3 523.3,871.6 541.0,874.8 558.6,860.8 576.3,893.1 593.9,870.9 611.6,854.0 629.2,855.8 646.9,865.5 664.5,860.4 682.2,850.0 699.8,847.5 717.5,835.7
+735.1,846.1 752.8,825.3 770.4,838.9 788.1,810.2 805.7,832.1 823.4,832.4 841.0,781.5 858.6,787.6 876.3,667.3 893.9,767.1 911.6,784.4 929.2,824.6 946.9,830.7 964.5,849.0 982.2,828.5 999.8,827.8
+1017.5,828.5 1035.1,811.6 1052.8,804.5 1070.4,787.6 1088.1,796.9 1105.7,770.7 1123.4,810.6 1141.0,831.7 1158.6,843.6 1176.3,830.3 1193.9,827.8 1211.6,834.6 1229.2,760.3 1246.9,797.3 1264.5,756.0 1282.2,812.3
+1299.8,828.9 1317.5,840.0 1335.1,820.6 1352.8,818.5 1370.4,829.2 1388.1,832.1 1405.7,853.6 1423.4,858.3 1441.0,873.4 1458.7,861.2 1476.3,865.8 1493.9,852.2 1511.6,815.6 1529.2,701.8 1546.9,756.7 1564.5,771.1
+1582.2,779.7 1599.8,798.0 1617.5,802.7 1635.1,823.8 1652.8,827.4 1670.4,849.3 1688.1,846.1 1705.7,869.8 1723.4,885.2 1741.0,891.0 1758.7,885.9 1776.3,901.7 1758.7,886.6 1741.0,891.3 1723.4,885.9 1705.7,872.3
+1688.1,849.3 1670.4,851.5 1652.8,830.7 1635.1,828.1 1617.5,806.6 1599.8,804.1 1582.2,786.5 1564.5,776.8 1546.9,767.1 1529.2,725.1 1511.6,821.0 1493.9,855.4 1476.3,868.7 1458.7,863.0 1441.0,875.5 1423.4,860.4
+1405.7,856.1 1388.1,837.8 1370.4,837.1 1352.8,821.7 1335.1,823.5 1317.5,841.1 1299.8,831.4 1282.2,815.9 1264.5,760.7 1246.9,799.4 1229.2,766.4 1211.6,838.9 1193.9,830.7 1176.3,831.4 1158.6,845.7 1141.0,834.6
+1123.4,813.1 1105.7,775.0 1088.1,800.9 1070.4,792.6 1052.8,809.1 1035.1,816.3 1017.5,830.3 999.8,831.4 982.2,832.1 964.5,852.9 946.9,831.4 929.2,827.8 911.6,789.4 893.9,772.1 876.3,689.2 858.6,794.4
+841.0,790.5 823.4,835.7 805.7,835.3 788.1,815.6 770.4,842.1 752.8,829.6 735.1,851.1 717.5,841.1 699.8,851.5 682.2,854.0 664.5,863.3 646.9,868.0 629.2,858.3 611.6,855.8 593.9,872.3 576.3,894.2
+558.6,863.7 541.0,875.5 523.3,871.9 505.7,855.8 488.1,824.2 470.4,818.1 452.8,769.6 435.1,739.1 417.5,721.2 399.8,719.7 382.2,660.9 364.5,651.6 346.9,617.5 329.2,592.3 311.6,598.8 293.9,712.6
+276.3,800.5 258.6,866.5 241.0,913.9 223.3,911.1 205.7,908.5 188.0,921.8 170.4,981.4 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1776.3,901.7 1776.3,901.7 1776.3,901.7 '/>
+	</g>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = '#FFFFFF' points = '1273.9,233.4 1769.4,233.4 1769.4,120.0 1273.9,120.0 '/>
+	</g>
+<g fill="none" color="#FFFFFF" stroke="#FFFFFF" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1273.9,233.4 L1273.9,120.0 L1769.4,120.0 L1769.4,233.4 L1273.9,233.4 Z  '/></g>
+	<g id="cov_20211023141824_04_activite_week_plot_1" ><title>le nombre de posts par semaine</title>
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20211023141824_04_activite_week_plot_1_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211023141824_04_activite_week_plot_1')">
+	<g transform="translate(1332.9,143.5)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de posts par semaine</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(255, 127,   0)'  d='M1283.6,138.9 L1323.2,138.9  '/>	</g>
+</g>
+	</g>
+	<g id="cov_20211023141824_04_activite_week_plot_2" ><title>le nombre de posts roses par semaine (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20211023141824_04_activite_week_plot_2_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211023141824_04_activite_week_plot_2')">
+	<g transform="translate(1332.9,168.7)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de posts roses par semaine (sur y2)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63, 175,  63)'  d='M1283.6,164.1 L1323.2,164.1  '/>	</g>
+</g>
+	</g>
+	<g id="cov_20211023141824_04_activite_week_plot_3" ><title>le nombre de participants par semaine (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20211023141824_04_activite_week_plot_3_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211023141824_04_activite_week_plot_3')">
+	<g transform="translate(1332.9,193.9)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de participants par semaine (sur y2)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(127,  95, 255)'  d='M1283.6,189.3 L1323.2,189.3  '/>	</g>
+</g>
+	</g>
+	<g id="cov_20211023141824_04_activite_week_plot_4" ><title>le nombre de nouveaux participants par semaine (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20211023141824_04_activite_week_plot_4_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211023141824_04_activite_week_plot_4')">
+	<g transform="translate(1332.9,219.1)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de nouveaux participants par semaine (sur y2)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1283.6,219.7 1323.2,219.7 1323.2,209.2 1283.6,209.2 '/>
+	</g>
+	</g>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M122.5,84.1 L122.5,981.4 L1811.6,981.4 L1811.6,84.1 L122.5,84.1 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+
+<script type="text/javascript"><![CDATA[
+// plot boundaries and axis scaling information for mousing 
+gnuplot_svg.plot_term_xmax = 1920;
+gnuplot_svg.plot_term_ymax = 1080;
+gnuplot_svg.plot_xmin = 122.5;
+gnuplot_svg.plot_xmax = 1811.6;
+gnuplot_svg.plot_ybot = 981.4;
+gnuplot_svg.plot_ytop = 84.1;
+gnuplot_svg.plot_width = 1689.1;
+gnuplot_svg.plot_height = 897.3;
+gnuplot_svg.plot_axis_ymin = 0;
+gnuplot_svg.plot_axis_ymax = 50000;
+gnuplot_svg.polar_mode = false;
+gnuplot_svg.plot_axis_x2min = "none"
+gnuplot_svg.plot_axis_y2min = 0;
+gnuplot_svg.plot_axis_y2max = 2500;
+gnuplot_svg.plot_logaxis_x = 0;
+gnuplot_svg.plot_logaxis_y = 0;
+gnuplot_svg.plot_axis_xmin = 1577836800.000;
+gnuplot_svg.plot_axis_xmax = 1635724800.000;
+gnuplot_svg.plot_timeaxis_x = "DateTime";
+gnuplot_svg.plot_timeaxis_y = "";
+]]>
+</script>
+</g>
+
+  <text id="coord_text" text-anchor="start" pointer-events="none"
+  font-size="12" font-family="Arial"
+  visibility="hidden"> </text>
+
+  <rect id="hypertextbox" class="hypertextbox" pointer-events="none"
+  fill="white" stroke="black" opacity="0.8"
+  height="16" visibility="hidden" />
+
+  <text id="hypertext" class="hypertext" pointer-events="none"
+  font-size="12" font-family="Arial"
+  visibility="hidden"> </text>
+
+  <image id="hyperimage" class="hyperimage" pointer-events="none"
+  fill="white" stroke="black" opacity="0.8"
+  height="200" width="300" visibility="hidden" />
+
+  <image x='10' y='1054' width='16' height='16' 
+    xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABmJLR0QA/wD/AP+gvaeTAAAAM0lEQVQokWP8//8/AymACc5iZGQkyEDRQCwgyUn///9nhGtgZISy8TBGnTSCnMRIavIGAGPTWfVV7DcfAAAAAElFTkSuQmCC'
+    onclick='gnuplot_svg.toggleGrid();'/>
+</svg>
+
