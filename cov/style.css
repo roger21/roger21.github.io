@@ -111,11 +111,13 @@ div.table > table.sort th{
 div.table > table.sort th:hover{
   opacity:0.7;
 }
-div.table > table td, div.table > table th{
+div.table > table th,
+div.table > table td{
   border:1px solid silver;
   min-width:150px;
 }
-div.table > table td.small, div.table > table th.small{
+div.table > table th.small,
+div.table > table td.small{
   min-width:100px;
 }
 div.table > table th{
@@ -150,6 +152,10 @@ div.table a{
 div.table span.empty{
   display:inline-block;
   padding:0 4px;
+}
+div.table > table.auto th,
+div.table > table.auto td {
+  min-width:unset;
 }
 a{
   color:#505090;
