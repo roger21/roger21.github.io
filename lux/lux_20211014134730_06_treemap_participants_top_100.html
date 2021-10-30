@@ -151,7 +151,7 @@ function onload() {
   var formater = new Intl.NumberFormat("fr-FR");
   function tooltip(row, size, value) {
     return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
-      " (" + formater.format(data_treemap.getValue(row, 2)) + ")</div>";
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts</div>";
   }
   var div_treemap = document.querySelector("div#treemap");
   var treemap = new google.visualization.TreeMap(div_treemap);
