@@ -13,6 +13,8 @@
       return td.getAttribute("sortby");
     }
     window.addEventListener("load", function(){
+      var th0=document.querySelector("th:nth-child(6) > span:nth-child(1)");
+      th0.innerHTML="posts<br>sur 90 jours";
       document.body.classList.remove("loading");
     }, false);
   </script>
@@ -29,7 +31,7 @@
         <th class="sortable-sortBy">quotes</th>
         <th class="sortable-sortBy">date</th>
         <th class="sortable-sortBy">pseudal</th>
-        <th class="sortable-sortBy">posts sur 90 jours</th>
+        <th class="sortable-sortBy">posts<br>sur 90 jours</th>
       </tr>
       <tr class="data">
        <td class="right" sortby="461">461</td>
