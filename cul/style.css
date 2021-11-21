@@ -260,6 +260,32 @@ div#switcher.link.active{
 div#switcher.link.active:hover{
   background-color:#e8e8f8;
 }
+div#zoomio.link{
+  margin:4px;
+  padding:2px;
+  cursor:default;
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  top:0;
+  right:46px;
+  z-index:1000;
+  display:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-image:url(zoomo.svg);
+}
+div#zoomio.link.zoomi{
+  background-image:url(zoomi.svg);
+}
+div#zoomio.link.active{
+  cursor:pointer;
+}
+div#zoomio.link.active:hover{
+  background-color:#e8e8f8;
+}
 body.treemap div.tooltip{
   color:#303030;
   background-color:#ffffaf;
