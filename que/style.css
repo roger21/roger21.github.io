@@ -90,10 +90,16 @@ div.table > table{
 div.table > table tr{
   background-color:#d8d8f8;
 }
-div.table > table tr.data:hover > td,
-div.table > table tr.data1:hover > td,
-div.table > table tr.data.data2:hover > td,
-div.table > table tr.data2:hover > td{
+div.table > table:not(.smaller) tr.data:hover > td,
+div.table > table:not(.smaller) tr.data1:hover > td,
+div.table > table:not(.smaller) tr.data.data2:hover > td,
+div.table > table:not(.smaller) tr.data2:hover > td{
+  background-color:#ffdfaf;
+}
+div.table > table.smaller tr.data:hover,
+div.table > table.smaller tr.data1:hover,
+div.table > table.smaller tr.data.data2:hover,
+div.table > table.smaller tr.data2:hover{
   background-color:#ffdfaf;
 }
 div.table > table tr.data,
@@ -118,6 +124,18 @@ div.table > table td{
 div.table > table th.small,
 div.table > table td.small{
   min-width:100px;
+}
+div.table > table th.smaller,
+div.table > table td.smaller{
+  min-width:50px;
+}
+div.table > table td.smaller > a,
+div.table > table td.smaller > span{
+  display:inline-block;
+  text-overflow:ellipsis;
+  font-size:10px;
+  overflow:hidden;
+  max-width:75px;
 }
 div.table > table th{
   padding:10px;
@@ -258,6 +276,32 @@ div#switcher.link.active{
   cursor:pointer;
 }
 div#switcher.link.active:hover{
+  background-color:#e8e8f8;
+}
+div#zoomio.link{
+  margin:4px;
+  padding:2px;
+  cursor:default;
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  top:0;
+  right:46px;
+  z-index:1000;
+  display:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-image:url(zoomo.svg);
+}
+div#zoomio.link.zoomi{
+  background-image:url(zoomi.svg);
+}
+div#zoomio.link.active{
+  cursor:pointer;
+}
+div#zoomio.link.active:hover{
   background-color:#e8e8f8;
 }
 body.treemap div.tooltip{
