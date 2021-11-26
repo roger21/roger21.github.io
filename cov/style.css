@@ -138,6 +138,10 @@ div.table > table td.smaller > span{
   overflow:hidden;
   max-width:75px;
 }
+div.table > table.s90 td.smaller > a,
+div.table > table.s90 td.smaller > span{
+  max-width:90px;
+}
 div.table > table th{
   padding:10px;
 }
