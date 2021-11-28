@@ -1,4 +1,4 @@
-html, body, h1, div, table, tr, th, td, img{
+html, body, h1, h3, div, table, tr, th, td, img{
   margin:0;
   border:0;
   padding:0;
@@ -90,10 +90,16 @@ div.table > table{
 div.table > table tr{
   background-color:#d8d8f8;
 }
-div.table > table tr.data:hover,
-div.table > table tr.data1:hover,
-div.table > table tr.data.data2:hover,
-div.table > table tr.data2:hover{
+div.table > table:not(.smaller) tr.data:hover > td,
+div.table > table:not(.smaller) tr.data1:hover > td,
+div.table > table:not(.smaller) tr.data.data2:hover > td,
+div.table > table:not(.smaller) tr.data2:hover > td{
+  background-color:#ffdfaf;
+}
+div.table > table.smaller tr.data:hover,
+div.table > table.smaller tr.data1:hover,
+div.table > table.smaller tr.data.data2:hover,
+div.table > table.smaller tr.data2:hover{
   background-color:#ffdfaf;
 }
 div.table > table tr.data,
@@ -110,9 +116,34 @@ div.table > table.sort th{
 div.table > table.sort th:hover{
   opacity:0.7;
 }
-div.table > table td, div.table > table th{
+div.table > table th,
+div.table > table td{
   border:1px solid silver;
   min-width:150px;
+}
+div.table > table th.small,
+div.table > table td.small{
+  min-width:100px;
+}
+div.table > table th.smaller,
+div.table > table td.smaller{
+  min-width:50px;
+}
+div.table > table td.smaller > a,
+div.table > table td.smaller > span{
+  display:inline-block;
+  text-overflow:ellipsis;
+  font-size:10px;
+  overflow:hidden;
+  max-width:75px;
+}
+div.table > table.s90 td.smaller > a,
+div.table > table.s90 td.smaller > span{
+  max-width:90px;
+}
+div.table > table.s50 td.smaller > a,
+div.table > table.s50 td.smaller > span{
+  max-width:50px;
 }
 div.table > table th{
   padding:10px;
@@ -127,12 +158,29 @@ div.table > table td.center{
 div.table > table td.right{
   text-align:right;
 }
+div.table > table td.blue{
+  background-color:#cfcfff;
+}
+div.table > table td.green{
+  background-color:#cfffcf;
+}
+div.table > table td.red{
+  background-color:#ffcfcf;
+}
 div.table > table td img{
   vertical-align:text-bottom;
   padding:4px 0;
 }
 div.table a{
   display:inline-block;
+}
+div.table span.empty{
+  display:inline-block;
+  padding:0 4px;
+}
+div.table > table.auto th,
+div.table > table.auto td {
+  min-width:unset;
 }
 a{
   color:#505090;
@@ -164,4 +212,155 @@ div.section > b > a.permalink:visited:hover{
   background-repeat:no-repeat;
   background-position:100% 50%;
   background-size:auto 11px;
+}
+div.section > a.graph,
+div.section > a.table{
+  padding:0 4px 0 24px;
+  background-image:url(dotg.svg);
+  background-repeat:no-repeat;
+  background-position:4px 50%;
+  background-size:auto 11px;
+}
+div.section > a.table{
+  background-image:url(dotb.svg);
+}
+body.graph,
+body.treemap{
+  text-align:center;
+}
+body.graph{
+  overflow-y:scroll;
+}
+body.graph > h1,
+body.treemap > h1{
+  margin:30px 0 0;
+}
+body.graph > h3,
+body.treemap > h3{
+  margin:10px 0 0;
+}
+h1 > span.days90{
+  background-color:#c8ffc8;
+  padding:0 5px;
+  margin:0 -5px;
+}
+h1 > span.alltime{
+  background-color:#ffff80;
+  padding:0 5px;
+  margin:0 -5px;
+}
+div#graph{
+  height:750px;
+  width:auto;
+  margin:30px;
+  border:1px solid silver;
+}
+div#treemap{
+  height:750px;
+  width:auto;
+  margin:30px 20px 25px;
+}
+div#switcher.link{
+  margin:4px;
+  padding:2px;
+  cursor:default;
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  top:0;
+  right:0;
+  z-index:1000;
+  display:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-image:url(chartg.svg);
+}
+div#switcher.link.barres{
+  background-image:url(chartb.svg);
+}
+div#switcher.link.active{
+  cursor:pointer;
+}
+div#switcher.link.active:hover{
+  background-color:#e8e8f8;
+}
+div#zoomio.link{
+  margin:4px;
+  padding:2px;
+  cursor:default;
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  top:0;
+  right:46px;
+  z-index:1000;
+  display:none;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-image:url(zoomo.svg);
+}
+div#zoomio.link.zoomi{
+  background-image:url(zoomi.svg);
+}
+div#zoomio.link.active{
+  cursor:pointer;
+}
+div#zoomio.link.active:hover{
+  background-color:#e8e8f8;
+}
+body.treemap div.tooltip{
+  color:#303030;
+  background-color:#ffffaf;
+  border:1px solid #303030;
+  padding:5px 10px;
+}
+div#table{
+  margin:30px;
+}
+div#table > div:first-child{
+  width:100%;
+}
+div#table table{
+  border-collapse:collapse;
+  width:100%;
+}
+div#table table .headerRow,
+div#table table .tableRow,
+div#table table .oddTableRow{
+  font-family:Verdana,Arial,Sans-serif,Helvetica;
+  font-size:14px;
+}
+div#table table .headerRow{
+  font-weight:bold;
+  background-color:#d8d8f8;
+}
+div#table table .tableRow{
+  background-color:#f8f8f8;
+}
+div#table table .oddTableRow{
+  background-color:#e8e8f8;
+}
+div#table table .hoverTableRow{
+  background-color:#ffdfaf;
+}
+div#table table .headerCell{
+  padding:10px;
+  border:1px solid silver;
+  white-space:nowrap;
+  cursor:pointer;
+}
+div#table table .headerCell span{
+  color:#303030;
+}
+div#table table .tableCell{
+  padding:5px 10px;
+  border:1px solid silver;
+  white-space:nowrap;
+}
+div#table table .selectedTableRow{
+  background-color:#f5c4b8;
 }
