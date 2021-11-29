@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des posteurs 2020 du topic images (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -2627 * -1;
+  }
+  if(value > 0) {
+    return value / 703;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posteurs");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "images");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["WATT1000", "posteurs", 7133, normalize(703), 703],
+    ["viniw", "posteurs", 4183, normalize(-32), -32],
+    ["Pavese69", "posteurs", 1411, normalize(-1385), -1385],
+    ["tous les autres", "posteurs", 1268, normalize(-178), -178],
+    ["sidela", "posteurs", 976, normalize(-232), -232],
+    ["Xaja", "posteurs", 596, normalize(-2627), -2627],
+    ["XXZZXX", "posteurs", 556, normalize(-23), -23],
+    ["Absolument Fabuleux", "posteurs", 510, normalize(269), 269],
+    ["Scoinscoin", "posteurs", 453, normalize(-445), -445],
+    ["jlkyt", "posteurs", 429, normalize(81), 81],
+    ["goomi32", "posteurs", 408, normalize(-272), -272],
+    ["moggbomber", "posteurs", 362, normalize(-244), -244],
+    ["Profil supprimé", "posteurs", 292, normalize(47), 47],
+    ["sire de Botcor", "posteurs", 232, normalize(60), 60],
+    ["Fork Bomb", "posteurs", 172, normalize(-39), -39],
+    ["lilicite", "posteurs", 170, normalize(164), 164],
+    ["Nanaki", "posteurs", 148, normalize(78), 78],
+    ["BrisChri", "posteurs", 129, normalize(50), 50],
+    ["jluc", "posteurs", 128, normalize(72), 72],
+    ["Majax691", "posteurs", 109, normalize(24), 24],
+    ["roger21", "posteurs", 107, normalize(94), 94],
+    ["Epsylon80", "posteurs", 104, normalize(-727), -727],
+    ["mosk", "posteurs", 93, normalize(52), 52],
+    ["banditoz", "posteurs", 84, normalize(62), 62],
+    ["eeeinstein", "posteurs", 77, normalize(-4), -4],
+    ["johnclaude", "posteurs", 76, normalize(46), 46],
+    ["Blast3r", "posteurs", 73, normalize(46), 46],
+    ["nedurb", "posteurs", 66, normalize(48), 48],
+    ["Harrrrg", "posteurs", 62, normalize(39), 39],
+    ["biezdomny", "posteurs", 60, normalize(48), 48],
+    ["midnaite", "posteurs", 56, normalize(23), 23],
+    ["gammer-fr", "posteurs", 54, normalize(-3), -3],
+    ["coaltrans", "posteurs", 53, normalize(52), 52],
+    ["maurice chevallier", "posteurs", 53, normalize(15), 15],
+    ["foul", "posteurs", 46, normalize(21), 21],
+    ["edwoud", "posteurs", 39, normalize(20), 20],
+    ["Firecracker", "posteurs", 39, normalize(-22), -22],
+    ["doy", "posteurs", 38, normalize(26), 26],
+    ["Z_cool", "posteurs", 38, normalize(19), 19],
+    ["houckaye", "posteurs", 36, normalize(-4), -4],
+    ["Mercius", "posteurs", 36, normalize(24), 24],
+    ["XaTriX", "posteurs", 36, normalize(13), 13],
+    ["IsKor", "posteurs", 35, normalize(16), 16],
+    ["macbeth", "posteurs", 35, normalize(11), 11],
+    ["masterroshi", "posteurs", 35, normalize(-57), -57],
+    ["edhelas", "posteurs", 34, normalize(13), 13],
+    ["freewind", "posteurs", 33, normalize(3), 3],
+    ["fandegaston", "posteurs", 32, normalize(27), 27],
+    ["Fouge", "posteurs", 32, normalize(23), 23],
+    ["crazy_c0vv", "posteurs", 31, normalize(31), 31],
+    ["darxmurf", "posteurs", 31, normalize(-5), -5],
+    ["HumanRAGE", "posteurs", 31, normalize(17), 17],
+    ["prplt", "posteurs", 31, normalize(0), null],
+    ["Space", "posteurs", 31, normalize(-27), -27],
+    ["vincenmar", "posteurs", 31, normalize(27), 27],
+    ["Berceker United", "posteurs", 30, normalize(-30), -30],
+    ["cartemere", "posteurs", 29, normalize(21), 21],
+    ["jb18v", "posteurs", 28, normalize(0), null],
+    ["Mac Gyver 974", "posteurs", 28, normalize(1), 1],
+    ["Vince-100", "posteurs", 26, normalize(-14), -14],
+    ["kouz8", "posteurs", 25, normalize(15), 15],
+    ["H00d", "posteurs", 24, normalize(13), 13],
+    ["Dakans", "posteurs", 23, normalize(-4), -4],
+    ["berlo", "posteurs", 22, normalize(-1), -1],
+    ["Fred Warrah", "posteurs", 22, normalize(13), 13],
+    ["Kalymereau", "posteurs", 22, normalize(-9), -9],
+    ["kiveu", "posteurs", 22, normalize(-35), -35],
+    ["man-x69", "posteurs", 22, normalize(13), 13],
+    ["wizard560", "posteurs", 22, normalize(-12), -12],
+    ["Gracchus13", "posteurs", 21, normalize(20), 20],
+    ["SanPe'", "posteurs", 21, normalize(12), 12],
+    ["TheMiz", "posteurs", 21, normalize(10), 10],
+    ["arkrom", "posteurs", 20, normalize(5), 5],
+    ["cashless", "posteurs", 20, normalize(18), 18],
+    ["ClioWilliams", "posteurs", 20, normalize(0), null],
+    ["davidgag", "posteurs", 20, normalize(17), 17],
+    ["jubeat", "posteurs", 20, normalize(4), 4],
+    ["Baggers", "posteurs", 19, normalize(17), 17],
+    ["Jaxom31", "posteurs", 19, normalize(14), 14],
+    ["CAMPEDEL", "posteurs", 18, normalize(1), 1],
+    ["Doc Konaii", "posteurs", 18, normalize(16), 16],
+    ["helmuth", "posteurs", 18, normalize(-7), -7],
+    ["Stukka", "posteurs", 18, normalize(-18), -18],
+    ["deltavega", "posteurs", 17, normalize(15), 15],
+    ["Fr4p", "posteurs", 17, normalize(0), 0],
+    ["Bezedach", "posteurs", 16, normalize(1), 1],
+    ["Heeks", "posteurs", 16, normalize(4), 4],
+    ["MasonAge", "posteurs", 16, normalize(-9), -9],
+    ["_TiFooN_", "posteurs", 16, normalize(2), 2],
+    ["kiwi6", "posteurs", 15, normalize(-38), -38],
+    ["le quincailler", "posteurs", 14, normalize(10), 10],
+    ["mlon", "posteurs", 14, normalize(6), 6],
+    ["PierrotLeDingue", "posteurs", 14, normalize(14), 14],
+    ["usma16", "posteurs", 14, normalize(9), 9],
+    ["Gilgamesh d'Uruk", "posteurs", 13, normalize(13), 13],
+    ["SCEtoAUX", "posteurs", 13, normalize(5), 5],
+    ["teepodavignon", "posteurs", 13, normalize(-7), -7],
+    ["duck69", "posteurs", 12, normalize(-12), -12],
+    ["pimouss74", "posteurs", 12, normalize(0), null],
+    ["saint quentin", "posteurs", 12, normalize(0), null],
+    ["zcoold", "posteurs", 12, normalize(-8), -8]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " images" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des posteurs 2020 du topic images (top 100)</h1>
+  <h3>(données collectées le dimamche 24 octobre 2021 à 15:10:09)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

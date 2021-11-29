@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap all time 2020 du topic culture générale (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posts");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["tous les autres all time", "posteurs", 102128, 0, 0],
+    ["Sgt-D", "posteurs", 28684, 0, 0],
+    ["Toxin", "posteurs", 25853, 0, 0],
+    ["Profil supprimé", "posteurs", 20070, 0, 0],
+    ["MantaFahrer", "posteurs", 19876, 0, 0],
+    ["RaKaCHa", "posteurs", 14192, 0, 0],
+    ["Mercius", "posteurs", 12621, 0, 0],
+    ["rafioul2", "posteurs", 12201, 0, 0],
+    ["ixemul", "posteurs", 11903, 0, 0],
+    ["Gottorp", "posteurs", 11194, 0, 0],
+    ["Aardpeer", "posteurs", 11179, 0, 0],
+    ["PierrotLeDingue", "posteurs", 9900, 0, 0],
+    ["Tillow", "posteurs", 9141, 0, 0],
+    ["niju", "posteurs", 8584, 0, 0],
+    ["brittanywow", "posteurs", 8555, 0, 0],
+    ["cd5", "posteurs", 8251, 0, 0],
+    ["roger21", "posteurs", 7848, 0, 0],
+    ["Grumms", "posteurs", 7833, 0, 0],
+    ["vave", "posteurs", 7708, 0, 0],
+    ["FLeFou", "posteurs", 7683, 0, 0],
+    ["Outremanche", "posteurs", 7315, 0, 0],
+    ["Bob2024", "posteurs", 6898, 0, 0],
+    ["Matrick69", "posteurs", 6455, 0, 0],
+    ["Lobster", "posteurs", 6454, 0, 0],
+    ["Daphne", "posteurs", 5960, 0, 0],
+    ["cisco1", "posteurs", 5822, 0, 0],
+    ["ganfoud", "posteurs", 5788, 0, 0],
+    ["biezdomny", "posteurs", 5186, 0, 0],
+    ["macgawel", "posteurs", 5123, 0, 0],
+    ["BrisChri", "posteurs", 4897, 0, 0],
+    ["NightEye", "posteurs", 4828, 0, 0],
+    ["karaya", "posteurs", 4675, 0, 0],
+    ["falaenthor", "posteurs", 4570, 0, 0],
+    ["TheCreator", "posteurs", 4172, 0, 0],
+    ["Hadock31", "posteurs", 4120, 0, 0],
+    ["minouz12", "posteurs", 3936, 0, 0],
+    ["stipey", "posteurs", 3914, 0, 0],
+    ["kaffeine", "posteurs", 3890, 0, 0],
+    ["Perceval_De_Galles", "posteurs", 3801, 0, 0],
+    ["Grumly132", "posteurs", 3766, 0, 0],
+    ["E-Nyar", "posteurs", 3701, 0, 0],
+    ["meuniere", "posteurs", 3459, 0, 0],
+    ["Taiche", "posteurs", 3249, 0, 0],
+    ["sire de Botcor", "posteurs", 3128, 0, 0],
+    ["Jaxom31", "posteurs", 2801, 0, 0],
+    ["paco fpg", "posteurs", 2788, 0, 0],
+    ["magtim_fr", "posteurs", 2765, 0, 0],
+    ["data error", "posteurs", 2683, 0, 0],
+    ["vinzomatik", "posteurs", 2673, 0, 0],
+    ["bn_a_lunettes", "posteurs", 2647, 0, 0],
+    ["rhadamenthos", "posteurs", 2640, 0, 0],
+    ["southparty", "posteurs", 2582, 0, 0],
+    ["djigaille", "posteurs", 2552, 0, 0],
+    ["babylone83", "posteurs", 2478, 0, 0],
+    ["kikafars", "posteurs", 2477, 0, 0],
+    ["Dolores", "posteurs", 2421, 0, 0],
+    ["Nanab", "posteurs", 2370, 0, 0],
+    ["_Sylvain", "posteurs", 2323, 0, 0],
+    ["laureka", "posteurs", 2225, 0, 0],
+    ["nightbringer57", "posteurs", 2164, 0, 0],
+    ["alberich", "posteurs", 2077, 0, 0],
+    ["mlon", "posteurs", 2069, 0, 0],
+    ["kalkaoual", "posteurs", 2025, 0, 0],
+    ["Welkin", "posteurs", 1928, 0, 0],
+    ["mixoumix", "posteurs", 1916, 0, 0],
+    ["Fender", "posteurs", 1898, 0, 0],
+    ["tinkywinky", "posteurs", 1835, 0, 0],
+    ["Pablo Escrobarbe", "posteurs", 1788, 0, 0],
+    ["L'HdT", "posteurs", 1769, 0, 0],
+    ["Cougy", "posteurs", 1752, 0, 0],
+    ["philibear", "posteurs", 1725, 0, 0],
+    ["sid sidious", "posteurs", 1677, 0, 0],
+    ["Alci", "posteurs", 1661, 0, 0],
+    ["silkr", "posteurs", 1655, 0, 0],
+    ["stiffler", "posteurs", 1650, 0, 0],
+    ["glun", "posteurs", 1614, 0, 0],
+    ["rheo", "posteurs", 1563, 0, 0],
+    ["Numou", "posteurs", 1552, 0, 0],
+    ["-louve-", "posteurs", 1528, 0, 0],
+    ["kiveu", "posteurs", 1458, 0, 0],
+    ["Bresse", "posteurs", 1407, 0, 0],
+    ["akanico", "posteurs", 1399, 0, 0],
+    ["gilou", "posteurs", 1392, 0, 0],
+    ["cytrouille", "posteurs", 1389, 0, 0],
+    ["toum_toum", "posteurs", 1386, 0, 0],
+    ["Elegy_Wilde", "posteurs", 1371, 0, 0],
+    ["Baudeflo", "posteurs", 1340, 0, 0],
+    ["Grith", "posteurs", 1326, 0, 0],
+    ["Mihirung_", "posteurs", 1289, 0, 0],
+    ["Meve", "posteurs", 1284, 0, 0],
+    ["cHacAL31", "posteurs", 1215, 0, 0],
+    ["le_gribouri", "posteurs", 1211, 0, 0],
+    ["pilou92", "posteurs", 1206, 0, 0],
+    ["Herbert de Vaucanson", "posteurs", 1121, 0, 0],
+    ["k_raf", "posteurs", 1115, 0, 0],
+    ["TenjO TengE", "posteurs", 1066, 0, 0],
+    ["zephiel", "posteurs", 1050, 0, 0],
+    ["TrakT", "posteurs", 1044, 0, 0],
+    ["Eifersucht91", "posteurs", 1011, 0, 0],
+    ["louchinho", "posteurs", 999, 0, 0],
+    ["Drepanon", "posteurs", 992, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap <span class="alltime">all time</span> 2020 du topic culture générale (top 100)</h1>
+  <h3>(données collectées le samedi 20 novembre 2021 à 19:36:42)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

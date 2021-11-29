@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des curieux 2020 du topic des questions (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -92 * -1;
+  }
+  if(value > 0) {
+    return value / 66;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "curieux");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "questions");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["curieux", null, 0, 0, 0],
+    ["tous les autres", "curieux", 811, normalize(25), 25],
+    ["Profil supprimé", "curieux", 260, normalize(17), 17],
+    ["potemkin", "curieux", 230, normalize(61), 61],
+    ["babylone83", "curieux", 224, normalize(19), 19],
+    ["Herbert de Vaucanson", "curieux", 190, normalize(53), 53],
+    ["Dolores", "curieux", 153, normalize(42), 42],
+    ["XaTriX", "curieux", 134, normalize(-11), -11],
+    ["PierrotLeDingue", "curieux", 133, normalize(48), 48],
+    ["altered", "curieux", 117, normalize(-92), -92],
+    ["fredo3", "curieux", 109, normalize(46), 46],
+    ["moonblood", "curieux", 107, normalize(26), 26],
+    ["jonas", "curieux", 99, normalize(-11), -11],
+    ["TheCreator", "curieux", 92, normalize(34), 34],
+    ["Hegemonie", "curieux", 88, normalize(66), 66],
+    ["uisto", "curieux", 80, normalize(-11), -11],
+    ["gsx33", "curieux", 79, normalize(47), 47],
+    ["canarvador", "curieux", 72, normalize(43), 43],
+    ["barnabe", "curieux", 67, normalize(29), 29],
+    ["kiveu", "curieux", 58, normalize(15), 15],
+    ["Aardpeer", "curieux", 55, normalize(-13), -13],
+    ["WATT1000", "curieux", 55, normalize(-43), -43],
+    ["rheo", "curieux", 53, normalize(-4), -4],
+    ["stefaninho", "curieux", 53, normalize(-7), -7],
+    ["Poogz", "curieux", 52, normalize(0), 0],
+    ["Cell Nucleus", "curieux", 47, normalize(25), 25],
+    ["giHefca", "curieux", 47, normalize(47), 47],
+    ["lilicite", "curieux", 47, normalize(15), 15],
+    ["Garcia_h", "curieux", 45, normalize(-6), -6],
+    ["playgeek", "curieux", 45, normalize(-58), -58],
+    ["GAS", "curieux", 44, normalize(18), 18],
+    ["ObsydianKenobi", "curieux", 44, normalize(-6), -6],
+    ["true-wiwi", "curieux", 44, normalize(16), 16],
+    ["Critias", "curieux", 43, normalize(-42), -42],
+    ["pwarlk", "curieux", 43, normalize(0), null],
+    ["sadicologue", "curieux", 43, normalize(5), 5],
+    ["ganfoud", "curieux", 41, normalize(7), 7],
+    ["garath_", "curieux", 41, normalize(5), 5],
+    ["axklaus", "curieux", 40, normalize(-12), -12],
+    ["biezdomny", "curieux", 40, normalize(37), 37],
+    ["saebalyon", "curieux", 36, normalize(-9), -9],
+    ["Daphne", "curieux", 35, normalize(-19), -19],
+    ["Slops", "curieux", 35, normalize(23), 23],
+    ["GladiaS", "curieux", 33, normalize(0), null],
+    ["Saytreza", "curieux", 33, normalize(22), 22],
+    ["Malodor", "curieux", 32, normalize(-33), -33],
+    ["Poly", "curieux", 32, normalize(-22), -22],
+    ["protect_me", "curieux", 32, normalize(16), 16],
+    ["igor1984", "curieux", 31, normalize(27), 27],
+    ["HumanRAGE", "curieux", 29, normalize(-7), -7],
+    ["jupiter39", "curieux", 29, normalize(-10), -10],
+    ["Stellina90", "curieux", 29, normalize(0), null],
+    ["toto29620", "curieux", 28, normalize(9), 9],
+    ["Pascalo974", "curieux", 26, normalize(17), 17],
+    ["cd5", "curieux", 25, normalize(-35), -35],
+    ["niku", "curieux", 25, normalize(1), 1],
+    ["Moundir", "curieux", 24, normalize(23), 23],
+    ["ouf", "curieux", 24, normalize(0), null],
+    ["Red Face", "curieux", 24, normalize(0), null],
+    ["syzygie", "curieux", 23, normalize(-34), -34],
+    ["Koupaly", "curieux", 22, normalize(0), null],
+    ["philibear", "curieux", 22, normalize(17), 17],
+    ["tarpan66", "curieux", 22, normalize(0), 0],
+    ["raclette 74", "curieux", 21, normalize(7), 7],
+    ["Tillow", "curieux", 21, normalize(20), 20],
+    ["Jaxom31", "curieux", 20, normalize(11), 11],
+    ["_OttO_", "curieux", 20, normalize(15), 15],
+    ["Vini", "curieux", 20, normalize(17), 17],
+    ["Yun", "curieux", 20, normalize(11), 11],
+    ["Lugz", "curieux", 18, normalize(-8), -8],
+    ["paprika", "curieux", 18, normalize(-10), -10],
+    ["Tilk-SG1", "curieux", 18, normalize(10), 10],
+    ["Zboss", "curieux", 18, normalize(6), 6],
+    ["nucl3arfl0", "curieux", 17, normalize(8), 8],
+    ["Smull", "curieux", 17, normalize(0), null],
+    ["Aslan117", "curieux", 16, normalize(0), null],
+    ["bossajojo", "curieux", 16, normalize(-20), -20],
+    ["Eifersucht91", "curieux", 16, normalize(16), 16],
+    ["La Monne", "curieux", 16, normalize(-7), -7],
+    ["gmund", "curieux", 15, normalize(13), 13],
+    ["Heartquake", "curieux", 15, normalize(7), 7],
+    ["Heeks", "curieux", 15, normalize(5), 5],
+    ["intersigne", "curieux", 15, normalize(5), 5],
+    ["keke boum boum", "curieux", 15, normalize(-5), -5],
+    ["mxpx", "curieux", 15, normalize(12), 12],
+    ["50kmh", "curieux", 14, normalize(-10), -10],
+    ["Darya", "curieux", 14, normalize(10), 10],
+    ["mauvlam", "curieux", 14, normalize(7), 7],
+    ["PressurE", "curieux", 14, normalize(7), 7],
+    ["SirAnneau", "curieux", 14, normalize(4), 4],
+    ["doy", "curieux", 13, normalize(-10), -10],
+    ["sergent_miyagi", "curieux", 13, normalize(0), null],
+    ["Zamblabla", "curieux", 13, normalize(-41), -41],
+    ["efyliae", "curieux", 12, normalize(4), 4],
+    ["Fisheyes", "curieux", 12, normalize(5), 5],
+    ["Marco Paulo", "curieux", 12, normalize(-83), -83],
+    ["Pascal_974", "curieux", 12, normalize(1), 1],
+    ["viniw", "curieux", 12, normalize(6), 6],
+    ["eclaireur", "curieux", 11, normalize(2), 2],
+    ["Faluja", "curieux", 11, normalize(1), 1],
+    ["Ivy gu", "curieux", 11, normalize(6), 6],
+    ["le quincailler", "curieux", 11, normalize(-3), -3]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " questions" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des curieux 2020 du topic des questions (top 100)</h1>
+  <h3>(données collectées le dimamche 17 octobre 2021 à 08:13:53)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

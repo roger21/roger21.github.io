@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2020 du topic infos insos (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 44933, 0, 0],
+    ["Profil supprimé", "participants", 6265, 0, 0],
+    ["Herbert de Vaucanson", "participants", 2053, 0, 0],
+    ["Sgt-D", "participants", 2023, 0, 0],
+    ["saebalyon", "participants", 1818, 0, 0],
+    ["CAMPEDEL", "participants", 1794, 0, 0],
+    ["teepodavignon", "participants", 1754, 0, 0],
+    ["chatoo", "participants", 1747, 0, 0],
+    ["Kalymereau", "participants", 1584, 0, 0],
+    ["Jambier", "participants", 1515, 0, 0],
+    ["HumanRAGE", "participants", 1475, 0, 0],
+    ["_tchip_", "participants", 1456, 0, 0],
+    ["XaTriX", "participants", 1256, 0, 0],
+    ["-JLL-", "participants", 1244, 0, 0],
+    ["PierrotLeDingue", "participants", 1233, 0, 0],
+    ["angellus2", "participants", 1212, 0, 0],
+    ["TheCreator", "participants", 1167, 0, 0],
+    ["maouuu", "participants", 1128, 0, 0],
+    ["thoulisse_bernard", "participants", 1062, 0, 0],
+    ["nakata", "participants", 1044, 0, 0],
+    ["cd5", "participants", 1035, 0, 0],
+    ["Yun", "participants", 1023, 0, 0],
+    ["crainquebille", "participants", 946, 0, 0],
+    ["no_gods", "participants", 903, 0, 0],
+    ["vinzomatik", "participants", 899, 0, 0],
+    ["ujina", "participants", 870, 0, 0],
+    ["totoz", "participants", 869, 0, 0],
+    ["BrisChri", "participants", 784, 0, 0],
+    ["nightbringer57", "participants", 781, 0, 0],
+    ["uisto", "participants", 740, 0, 0],
+    ["darage", "participants", 736, 0, 0],
+    ["Sebastien", "participants", 734, 0, 0],
+    ["drdude", "participants", 717, 0, 0],
+    ["viniw", "participants", 706, 0, 0],
+    ["Dkiller", "participants", 704, 0, 0],
+    ["Tillow", "participants", 699, 0, 0],
+    ["abakuk", "participants", 698, 0, 0],
+    ["Natopsi", "participants", 688, 0, 0],
+    ["_TiFooN_", "participants", 677, 0, 0],
+    ["moonboots", "participants", 669, 0, 0],
+    ["freeza01", "participants", 663, 0, 0],
+    ["Baggers", "participants", 648, 0, 0],
+    ["mbl", "participants", 647, 0, 0],
+    ["babylone83", "participants", 636, 0, 0],
+    ["Gonzoide", "participants", 634, 0, 0],
+    ["mlon", "participants", 634, 0, 0],
+    ["Marco Paulo", "participants", 624, 0, 0],
+    ["Lobster", "participants", 581, 0, 0],
+    ["Tammuz", "participants", 556, 0, 0],
+    ["Zamblabla", "participants", 550, 0, 0],
+    ["eeeinstein", "participants", 545, 0, 0],
+    ["Hadock31", "participants", 532, 0, 0],
+    ["gougoul07", "participants", 524, 0, 0],
+    ["altered", "participants", 496, 0, 0],
+    ["Tangrim", "participants", 494, 0, 0],
+    ["DarkHorse", "participants", 484, 0, 0],
+    ["snaluori1", "participants", 479, 0, 0],
+    ["vave", "participants", 466, 0, 0],
+    ["bobdumas", "participants", 464, 0, 0],
+    ["canard rouge", "participants", 454, 0, 0],
+    ["ZINZINPHOBE", "participants", 445, 0, 0],
+    ["ticaribou", "participants", 443, 0, 0],
+    ["Pupoul", "participants", 430, 0, 0],
+    ["Babouchka", "participants", 423, 0, 0],
+    ["midnaite", "participants", 423, 0, 0],
+    ["seba1492", "participants", 407, 0, 0],
+    ["TenjO TengE", "participants", 404, 0, 0],
+    ["pilef", "participants", 399, 0, 0],
+    ["Proute2000", "participants", 398, 0, 0],
+    ["MrFreeze", "participants", 389, 0, 0],
+    ["Coq", "participants", 380, 0, 0],
+    ["ParadoX", "participants", 375, 0, 0],
+    ["Cougy", "participants", 370, 0, 0],
+    ["freewind", "participants", 370, 0, 0],
+    ["Zoreil", "participants", 369, 0, 0],
+    ["zephiel", "participants", 365, 0, 0],
+    ["Dr Hardlove", "participants", 362, 0, 0],
+    ["PrAdAr", "participants", 358, 0, 0],
+    ["k_raf", "participants", 356, 0, 0],
+    ["ijk_reference", "participants", 353, 0, 0],
+    ["Olivie", "participants", 351, 0, 0],
+    ["durandal2", "participants", 342, 0, 0],
+    ["garath_", "participants", 342, 0, 0],
+    ["Grumly132", "participants", 340, 0, 0],
+    ["M4vrick", "participants", 339, 0, 0],
+    ["Larry_Golade", "participants", 332, 0, 0],
+    ["Born Dead", "participants", 326, 0, 0],
+    ["tourtour", "participants", 325, 0, 0],
+    ["stefaninho", "participants", 324, 0, 0],
+    ["Space", "participants", 321, 0, 0],
+    ["SirAnneau", "participants", 316, 0, 0],
+    ["the veggie boy", "participants", 300, 0, 0],
+    ["fafarex", "participants", 293, 0, 0],
+    ["arthas77", "participants", 289, 0, 0],
+    ["P0L0", "participants", 284, 0, 0],
+    ["Ill Nino", "participants", 282, 0, 0],
+    ["zesheriff", "participants", 278, 0, 0],
+    ["Anteus", "participants", 277, 0, 0],
+    ["christell1986", "participants", 275, 0, 0],
+    ["brittanywow", "participants", 274, 0, 0],
+    ["roscocoltran", "participants", 271, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2020 du topic infos insos (top 100)</h1>
+  <h3>(données collectées le samedi 27 novembre 2021 à 17:05:14)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

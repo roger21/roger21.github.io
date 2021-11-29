@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des contributeurs 2020 du topic des questions (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -218 * -1;
+  }
+  if(value > 0) {
+    return value / 253;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "contributeurs");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["contributeurs", null, 0, 0, 0],
+    ["tous les autres", "contributeurs", 1847, normalize(48), 48],
+    ["Profil supprimé", "contributeurs", 801, normalize(-19), -19],
+    ["babylone83", "contributeurs", 628, normalize(138), 138],
+    ["Herbert de Vaucanson", "contributeurs", 613, normalize(253), 253],
+    ["Dolores", "contributeurs", 473, normalize(154), 154],
+    ["PierrotLeDingue", "contributeurs", 471, normalize(181), 181],
+    ["XaTriX", "contributeurs", 416, normalize(133), 133],
+    ["TheCreator", "contributeurs", 402, normalize(148), 148],
+    ["moonblood", "contributeurs", 341, normalize(81), 81],
+    ["potemkin", "contributeurs", 340, normalize(41), 41],
+    ["Poogz", "contributeurs", 338, normalize(-15), -15],
+    ["ObsydianKenobi", "contributeurs", 318, normalize(114), 114],
+    ["altered", "contributeurs", 315, normalize(-157), -157],
+    ["Hegemonie", "contributeurs", 302, normalize(227), 227],
+    ["gsx33", "contributeurs", 299, normalize(153), 153],
+    ["uisto", "contributeurs", 291, normalize(102), 102],
+    ["true-wiwi", "contributeurs", 253, normalize(108), 108],
+    ["stefaninho", "contributeurs", 243, normalize(-130), -130],
+    ["kiveu", "contributeurs", 229, normalize(-9), -9],
+    ["Aardpeer", "contributeurs", 226, normalize(41), 41],
+    ["barnabe", "contributeurs", 224, normalize(67), 67],
+    ["jonas", "contributeurs", 218, normalize(10), 10],
+    ["GAS", "contributeurs", 196, normalize(70), 70],
+    ["fredo3", "contributeurs", 187, normalize(102), 102],
+    ["WATT1000", "contributeurs", 181, normalize(-63), -63],
+    ["giHefca", "contributeurs", 165, normalize(163), 163],
+    ["rheo", "contributeurs", 161, normalize(-130), -130],
+    ["Tillow", "contributeurs", 156, normalize(144), 144],
+    ["sadicologue", "contributeurs", 155, normalize(-19), -19],
+    ["La Monne", "contributeurs", 152, normalize(-19), -19],
+    ["garath_", "contributeurs", 149, normalize(43), 43],
+    ["biezdomny", "contributeurs", 138, normalize(130), 130],
+    ["raclette 74", "contributeurs", 138, normalize(37), 37],
+    ["HumanRAGE", "contributeurs", 134, normalize(-12), -12],
+    ["Daphne", "contributeurs", 131, normalize(-67), -67],
+    ["Jaxom31", "contributeurs", 129, normalize(82), 82],
+    ["canarvador", "contributeurs", 128, normalize(72), 72],
+    ["efyliae", "contributeurs", 119, normalize(65), 65],
+    ["axklaus", "contributeurs", 107, normalize(-72), -72],
+    ["pwarlk", "contributeurs", 106, normalize(0), null],
+    ["Garcia_h", "contributeurs", 102, normalize(-14), -14],
+    ["Malodor", "contributeurs", 96, normalize(-70), -70],
+    ["Poly", "contributeurs", 95, normalize(-36), -36],
+    ["cd5", "contributeurs", 87, normalize(-183), -183],
+    ["viniw", "contributeurs", 87, normalize(17), 17],
+    ["Stellina90", "contributeurs", 85, normalize(0), null],
+    ["Pascalo974", "contributeurs", 83, normalize(48), 48],
+    ["Cell Nucleus", "contributeurs", 81, normalize(37), 37],
+    ["mxpx", "contributeurs", 81, normalize(78), 78],
+    ["saebalyon", "contributeurs", 81, normalize(-69), -69],
+    ["Slops", "contributeurs", 81, normalize(71), 71],
+    ["Red Face", "contributeurs", 80, normalize(0), null],
+    ["Critias", "contributeurs", 75, normalize(-40), -40],
+    ["paprika", "contributeurs", 73, normalize(-34), -34],
+    ["tarpan66", "contributeurs", 72, normalize(10), 10],
+    ["GladiaS", "contributeurs", 69, normalize(0), null],
+    ["ganfoud", "contributeurs", 67, normalize(22), 22],
+    ["Heartquake", "contributeurs", 66, normalize(19), 19],
+    ["Agressive Perfector", "contributeurs", 65, normalize(36), 36],
+    ["lilicite", "contributeurs", 64, normalize(20), 20],
+    ["niku", "contributeurs", 63, normalize(28), 28],
+    ["ouf", "contributeurs", 61, normalize(0), null],
+    ["gmund", "contributeurs", 55, normalize(50), 50],
+    ["playgeek", "contributeurs", 55, normalize(-125), -125],
+    ["Saytreza", "contributeurs", 54, normalize(37), 37],
+    ["intersigne", "contributeurs", 53, normalize(-20), -20],
+    ["le quincailler", "contributeurs", 53, normalize(-5), -5],
+    ["protect_me", "contributeurs", 52, normalize(24), 24],
+    ["syzygie", "contributeurs", 50, normalize(-81), -81],
+    ["Ninou1680", "contributeurs", 49, normalize(0), null],
+    ["doy", "contributeurs", 48, normalize(-18), -18],
+    ["Heeks", "contributeurs", 48, normalize(14), 14],
+    ["igor1984", "contributeurs", 48, normalize(43), 43],
+    ["Marco Paulo", "contributeurs", 48, normalize(-218), -218],
+    ["keke boum boum", "contributeurs", 47, normalize(-10), -10],
+    ["toto29620", "contributeurs", 46, normalize(-3), -3],
+    ["Wolfman", "contributeurs", 46, normalize(-32), -32],
+    ["philibear", "contributeurs", 45, normalize(34), 34],
+    ["PressurE", "contributeurs", 45, normalize(22), 22],
+    ["Eifersucht91", "contributeurs", 44, normalize(43), 43],
+    ["Tilk-SG1", "contributeurs", 44, normalize(27), 27],
+    ["_OttO_", "contributeurs", 43, normalize(23), 23],
+    ["Vini", "contributeurs", 42, normalize(38), 38],
+    ["Dandu", "contributeurs", 41, normalize(3), 3],
+    ["Koupaly", "contributeurs", 41, normalize(0), null],
+    ["zuf", "contributeurs", 39, normalize(0), null],
+    ["brittanywow", "contributeurs", 37, normalize(26), 26],
+    ["jupiter39", "contributeurs", 36, normalize(1), 1],
+    ["Grubnatz", "contributeurs", 35, normalize(-42), -42],
+    ["SirAnneau", "contributeurs", 34, normalize(27), 27],
+    ["Ivy gu", "contributeurs", 33, normalize(16), 16],
+    ["mauvlam", "contributeurs", 32, normalize(13), 13],
+    ["gurucinta", "contributeurs", 31, normalize(4), 4],
+    ["meorpheus", "contributeurs", 31, normalize(0), null],
+    ["Omar Cheifrai", "contributeurs", 31, normalize(3), 3],
+    ["blacksad", "contributeurs", 30, normalize(-14), -14],
+    ["jimbofarrar", "contributeurs", 29, normalize(8), 8],
+    ["nucl3arfl0", "contributeurs", 28, normalize(7), 7],
+    ["RaKaCHa", "contributeurs", 28, normalize(24), 24],
+    ["Yobi", "contributeurs", 28, normalize(-76), -76],
+    ["Irmada", "contributeurs", 27, normalize(6), 6]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des contributeurs 2020 du topic des questions (top 100)</h1>
+  <h3>(données collectées le dimamche 17 octobre 2021 à 08:13:53)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
