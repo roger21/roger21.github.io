@@ -214,7 +214,8 @@ div.section > b > a.permalink:visited:hover{
   background-size:auto 11px;
 }
 div.section > a.graph,
-div.section > a.table{
+div.section > a.table,
+div.section > a.liste{
   padding:0 4px 0 24px;
   background-image:url(dotg.svg);
   background-repeat:no-repeat;
@@ -223,6 +224,9 @@ div.section > a.table{
 }
 div.section > a.table{
   background-image:url(dotb.svg);
+}
+div.section > a.liste{
+  background-image:url(dots.svg);
 }
 body.graph,
 body.treemap{
