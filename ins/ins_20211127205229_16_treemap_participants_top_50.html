@@ -3,7 +3,7 @@
 <head>
   <!-- utf-8: Ω -->
   <meta charset="utf-8">
-  <title>La treemap des participants 2020 du topic insomniaks (top 100)</title>
+  <title>La treemap des participants 2020 du topic insomniaks (top 50)</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -38,6 +38,7 @@ function onload() {
     ["Eife", "participants", 393, normalize(377), 377],
     ["viriatus", "participants", 297, normalize(171), 171],
     ["PetitJean", "participants", 283, normalize(282), 282],
+    ["tous les autres", "participants", 241, normalize(-96), -96],
     ["mauvlam", "participants", 217, normalize(53), 53],
     ["altered", "participants", 208, normalize(-110), -110],
     ["armageddindon", "participants", 198, normalize(-768), -768],
@@ -63,7 +64,6 @@ function onload() {
     ["theomede", "participants", 44, normalize(36), 36],
     ["XXZZXX", "participants", 43, normalize(25), 25],
     ["Harriet Oleson", "participants", 40, normalize(-31), -31],
-    ["tous les autres", "participants", 40, normalize(-20), -20],
     ["TrakT", "participants", 36, normalize(0), null],
     ["axklaus", "participants", 32, normalize(24), 24],
     ["totoz", "participants", 31, normalize(-16), -16],
@@ -80,57 +80,7 @@ function onload() {
     ["Tristou", "participants", 14, normalize(-15), -15],
     ["Grubnatz", "participants", 13, normalize(-140), -140],
     ["Dzama", "participants", 12, normalize(11), 11],
-    ["feudor2", "participants", 10, normalize(5), 5],
-    ["playgeek", "participants", 10, normalize(-15), -15],
-    ["blackmantha", "participants", 8, normalize(4), 4],
-    ["vandread", "participants", 8, normalize(0), null],
-    ["Zyzz", "participants", 8, normalize(-2), -2],
-    ["clarius", "participants", 7, normalize(-23), -23],
-    ["coppin", "participants", 7, normalize(0), null],
-    ["Rayaki", "participants", 7, normalize(0), null],
-    ["SamPegase", "participants", 7, normalize(0), null],
-    ["Drfunkenstein", "participants", 6, normalize(3), 3],
-    ["Thermostat 6", "participants", 6, normalize(-6), -6],
-    ["Derek De Lint", "participants", 5, normalize(1), 1],
-    ["Franchies", "participants", 5, normalize(0), null],
-    ["FUX_huhu", "participants", 5, normalize(0), null],
-    ["mikamika", "participants", 5, normalize(0), null],
-    ["mimychatmiaou", "participants", 5, normalize(0), null],
-    ["yngwie", "participants", 5, normalize(1), 1],
-    ["yourtlh", "participants", 5, normalize(0), null],
-    ["anapivirtua", "participants", 4, normalize(-31), -31],
-    ["Connemrara", "participants", 4, normalize(0), null],
-    ["hecube", "participants", 4, normalize(3), 3],
-    ["MiXane", "participants", 4, normalize(0), null],
-    ["orvalon", "participants", 4, normalize(0), null],
-    ["Philibear", "participants", 4, normalize(3), 3],
-    ["Random Dude", "participants", 4, normalize(2), 2],
-    ["tuxerman12", "participants", 4, normalize(-1), -1],
-    ["Alfa J", "participants", 3, normalize(0), null],
-    ["Bobox", "participants", 3, normalize(-3), -3],
-    ["CoyoteErable", "participants", 3, normalize(-50), -50],
-    ["crepator4", "participants", 3, normalize(2), 2],
-    ["glun", "participants", 3, normalize(0), null],
-    ["iso9001", "participants", 3, normalize(2), 2],
-    ["loulou le marlou", "participants", 3, normalize(0), null],
-    ["major95", "participants", 3, normalize(-65), -65],
-    ["naglefourbe", "participants", 3, normalize(1), 1],
-    ["Sicromoft", "participants", 3, normalize(-1), -1],
-    ["DaddyFatSax", "participants", 2, normalize(-6), -6],
-    ["Djeng0", "participants", 2, normalize(0), 0],
-    ["Dkiller", "participants", 2, normalize(0), null],
-    ["- Erik Von Hartmann", "participants", 2, normalize(-93), -93],
-    ["faston", "participants", 2, normalize(0), null],
-    ["fiston", "participants", 2, normalize(0), null],
-    ["Hodor", "participants", 2, normalize(1), 1],
-    ["ibrahim54", "participants", 2, normalize(0), null],
-    ["john_tgv", "participants", 2, normalize(-1), -1],
-    ["kostaar", "participants", 2, normalize(0), null],
-    ["Laska-", "participants", 2, normalize(0), null],
-    ["lobotommy", "participants", 2, normalize(0), null],
-    ["meriadeck", "participants", 2, normalize(0), null],
-    ["mongolia78", "participants", 2, normalize(0), null],
-    ["multimmy", "participants", 2, normalize(-8), -8]
+    ["feudor2", "participants", 10, normalize(5), 5]
   ];
   data_treemap.addRows(data_treemap_values);
   var options_treemap = {
@@ -178,7 +128,7 @@ google.charts.setOnLoadCallback(onload);
   </script>
 </head>
 <body class="treemap">
-  <h1>La treemap des participants 2020 du topic insomniaks (top 100)</h1>
+  <h1>La treemap des participants 2020 du topic insomniaks (top 50)</h1>
   <h3>(données collectées le samedi 27 novembre 2021 à 20:52:29)</h3>
   <div id="treemap"></div>
 </body>
