@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2020 du bistrot photonum (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Profil supprimé", "participants", 170591, 0, 0],
+    ["Poogz", "participants", 120680, 0, 0],
+    ["tous les autres all time", "participants", 109556, 0, 0],
+    ["Delantera", "participants", 106059, 0, 0],
+    ["randolf", "participants", 75439, 0, 0],
+    ["Toxin", "participants", 66559, 0, 0],
+    ["Anakronik", "participants", 65687, 0, 0],
+    ["cd5", "participants", 58693, 0, 0],
+    ["Belgianman", "participants", 46501, 0, 0],
+    ["Goldos", "participants", 46281, 0, 0],
+    ["infrarouge", "participants", 45431, 0, 0],
+    ["bobor", "participants", 45138, 0, 0],
+    ["le vrai rdu", "participants", 45134, 0, 0],
+    ["Cygne_d_Etang", "participants", 44899, 0, 0],
+    ["gregosv", "participants", 43678, 0, 0],
+    ["le_6tron", "participants", 42565, 0, 0],
+    ["Lycos5", "participants", 41579, 0, 0],
+    ["Cver1", "participants", 36088, 0, 0],
+    ["Nicky_rr", "participants", 32110, 0, 0],
+    ["Naxos", "participants", 27853, 0, 0],
+    ["fegafomatos", "participants", 26675, 0, 0],
+    ["joulpouille", "participants", 25474, 0, 0],
+    ["bricocoman", "participants", 23755, 0, 0],
+    ["Dawen", "participants", 21978, 0, 0],
+    ["Dafiiiiid", "participants", 21915, 0, 0],
+    ["Opendtc", "participants", 19654, 0, 0],
+    ["carbon38", "participants", 18867, 0, 0],
+    ["gysmovoile", "participants", 18345, 0, 0],
+    ["Micmax", "participants", 17813, 0, 0],
+    ["Bastian", "participants", 17482, 0, 0],
+    ["zim_zum63", "participants", 16377, 0, 0],
+    ["fanou", "participants", 16117, 0, 0],
+    ["qunqun", "participants", 14780, 0, 0],
+    ["Wo0chY", "participants", 14468, 0, 0],
+    ["Gnub", "participants", 14257, 0, 0],
+    ["dju ju", "participants", 13662, 0, 0],
+    ["CHubaca", "participants", 13283, 0, 0],
+    ["Landolfi", "participants", 13153, 0, 0],
+    ["chocolathe", "participants", 12812, 0, 0],
+    ["djudju14", "participants", 11806, 0, 0],
+    ["Fdd_fr", "participants", 10894, 0, 0],
+    ["krysalia", "participants", 10343, 0, 0],
+    ["aozora", "participants", 10188, 0, 0],
+    ["ricoco", "participants", 9351, 0, 0],
+    ["GAS", "participants", 9321, 0, 0],
+    ["hell'sangels", "participants", 9225, 0, 0],
+    ["Mako__O", "participants", 8719, 0, 0],
+    ["pouvrem", "participants", 8551, 0, 0],
+    ["le-poulpe", "participants", 8505, 0, 0],
+    ["maverick10", "participants", 8401, 0, 0],
+    ["Anathema", "participants", 8282, 0, 0],
+    ["oMs7", "participants", 7473, 0, 0],
+    ["rouliano34", "participants", 6666, 0, 0],
+    ["sat 08", "participants", 6543, 0, 0],
+    ["sirthomaslipton", "participants", 6257, 0, 0],
+    ["yoann_2004", "participants", 6066, 0, 0],
+    ["yantzy", "participants", 5523, 0, 0],
+    ["Kezakel", "participants", 5414, 0, 0],
+    ["moshnride", "participants", 5075, 0, 0],
+    ["krokoh", "participants", 4891, 0, 0],
+    ["raph77", "participants", 4871, 0, 0],
+    ["pekbull", "participants", 4830, 0, 0],
+    ["Zygonyx", "participants", 4776, 0, 0],
+    ["bartaban", "participants", 4655, 0, 0],
+    ["flu1", "participants", 4376, 0, 0],
+    ["kosss", "participants", 4246, 0, 0],
+    ["c e t r i o", "participants", 4153, 0, 0],
+    ["Arkanner", "participants", 4072, 0, 0],
+    ["ArnO_62", "participants", 4009, 0, 0],
+    ["JeanY", "participants", 3933, 0, 0],
+    ["sirolimus", "participants", 3878, 0, 0],
+    ["cesy", "participants", 3869, 0, 0],
+    ["Arn0", "participants", 3836, 0, 0],
+    ["darxmurf", "participants", 3836, 0, 0],
+    ["Novocaine_80", "participants", 3801, 0, 0],
+    ["tr3nt", "participants", 3765, 0, 0],
+    ["jaguargorgone", "participants", 3739, 0, 0],
+    ["am7", "participants", 3696, 0, 0],
+    ["djalex", "participants", 3681, 0, 0],
+    ["Leica", "participants", 3640, 0, 0],
+    ["cyd125", "participants", 3570, 0, 0],
+    ["Berkut", "participants", 3559, 0, 0],
+    ["cinocks", "participants", 3428, 0, 0],
+    ["tnt37", "participants", 3266, 0, 0],
+    ["cooltwan", "participants", 3079, 0, 0],
+    ["adamckiewicz", "participants", 3070, 0, 0],
+    ["jakes", "participants", 2956, 0, 0],
+    ["pin", "participants", 2885, 0, 0],
+    ["ilium", "participants", 2851, 0, 0],
+    ["denio", "participants", 2758, 0, 0],
+    ["Phenom", "participants", 2755, 0, 0],
+    ["ezzz", "participants", 2698, 0, 0],
+    ["diamond2", "participants", 2688, 0, 0],
+    ["isa1ko", "participants", 2652, 0, 0],
+    ["flo'r", "participants", 2510, 0, 0],
+    ["Groody", "participants", 2489, 0, 0],
+    ["el muchacho", "participants", 2481, 0, 0],
+    ["100DKonnait", "participants", 2434, 0, 0],
+    ["Bordel", "participants", 2411, 0, 0],
+    ["seb613", "participants", 2406, 0, 0],
+    ["Brik", "participants", 2263, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2020 du bistrot photonum (top 100)</h1>
+  <h3>(données collectées le samedi 25 décembre 2021 à 20:37:43)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

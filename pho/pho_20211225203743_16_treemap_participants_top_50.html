@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2020 du bistrot photonum (top 50)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -736 * -1;
+  }
+  if(value > 0) {
+    return value / 364;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Poogz", "participants", 2371, normalize(294), 294],
+    ["Toxin", "participants", 1138, normalize(83), 83],
+    ["Anakronik", "participants", 1097, normalize(-708), -708],
+    ["Bordel", "participants", 1019, normalize(364), 364],
+    ["Cygne_d_Etang", "participants", 887, normalize(109), 109],
+    ["fegafomatos", "participants", 815, normalize(320), 320],
+    ["cd5", "participants", 731, normalize(-321), -321],
+    ["bobor", "participants", 723, normalize(-314), -314],
+    ["c e t r i o", "participants", 601, normalize(78), 78],
+    ["Delantera", "participants", 579, normalize(301), 301],
+    ["ilium", "participants", 530, normalize(204), 204],
+    ["oMs7", "participants", 502, normalize(179), 179],
+    ["Naxos", "participants", 491, normalize(-11), -11],
+    ["Nicky_rr", "participants", 433, normalize(-211), -211],
+    ["randolf", "participants", 372, normalize(-736), -736],
+    ["Zygonyx", "participants", 302, normalize(-572), -572],
+    ["infrarouge", "participants", 277, normalize(29), 29],
+    ["BrisChri", "participants", 216, normalize(144), 144],
+    ["Opendtc", "participants", 160, normalize(-313), -313],
+    ["Landolfi", "participants", 154, normalize(-7), -7],
+    ["le-poulpe", "participants", 150, normalize(40), 40],
+    ["gregosv", "participants", 140, normalize(-253), -253],
+    ["joulpouille", "participants", 123, normalize(-49), -49],
+    ["Goldos", "participants", 107, normalize(-54), -54],
+    ["Irradiami d'Amore", "participants", 89, normalize(-90), -90],
+    ["antilop", "participants", 80, normalize(-89), -89],
+    ["Faluja", "participants", 71, normalize(0), null],
+    ["sat 08", "participants", 65, normalize(58), 58],
+    ["cartemere", "participants", 54, normalize(0), null],
+    ["Fdd_fr", "participants", 47, normalize(43), 43],
+    ["tous les autres", "participants", 38, normalize(-32), -32],
+    ["carbon38", "participants", 35, normalize(-13), -13],
+    ["db__", "participants", 30, normalize(14), 14],
+    ["Profil supprimé", "participants", 25, normalize(23), 23],
+    ["zim_zum63", "participants", 25, normalize(19), 19],
+    ["darxmurf", "participants", 22, normalize(-119), -119],
+    ["Gnub", "participants", 15, normalize(0), 0],
+    ["Mauju", "participants", 10, normalize(0), null],
+    ["Novocaine_80", "participants", 10, normalize(0), null],
+    ["miaow30", "participants", 9, normalize(8), 8],
+    ["rappa", "participants", 9, normalize(0), null],
+    ["mouillotte", "participants", 6, normalize(0), null],
+    ["aozora", "participants", 5, normalize(0), null],
+    ["Gabii", "participants", 5, normalize(0), null],
+    ["Zenono", "participants", 5, normalize(0), null],
+    ["alpseb", "participants", 4, normalize(3), 3],
+    ["langmc", "participants", 4, normalize(2), 2],
+    ["Mme Michu", "participants", 4, normalize(0), null],
+    ["robind75", "participants", 4, normalize(0), null],
+    ["fanou", "participants", 3, normalize(0), null],
+    ["gmund", "participants", 3, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2020 du bistrot photonum (top 50)</h1>
+  <h3>(données collectées le samedi 25 décembre 2021 à 20:37:43)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
