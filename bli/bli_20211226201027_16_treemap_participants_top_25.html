@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2020 du topic blind test (top 25)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -210 * -1;
+  }
+  if(value > 0) {
+    return value / 18;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres", "participants", , normalize(0), null],
+    ["mikekine", "participants", 201, normalize(-179), -179],
+    ["demars", "participants", 130, normalize(-71), -71],
+    ["RandallBoggs", "participants", 99, normalize(-84), -84],
+    ["mimipunkchou", "participants", 98, normalize(-210), -210],
+    ["krusty le clown", "participants", 55, normalize(-98), -98],
+    ["Daphne", "participants", 53, normalize(-29), -29],
+    ["Cr@po", "participants", 23, normalize(18), 18],
+    ["petitebrunette1", "participants", 23, normalize(0), 0],
+    ["louyseiz", "participants", 21, normalize(-1), -1],
+    ["Timoonn", "participants", 9, normalize(-1), -1],
+    ["PetitJean", "participants", 7, normalize(-60), -60],
+    ["Gravedigger_1", "participants", 5, normalize(0), null],
+    ["Logistico", "participants", 5, normalize(-8), -8],
+    ["Profil supprimé", "participants", 5, normalize(-31), -31],
+    ["Herbert de Vaucanson", "participants", 3, normalize(0), null],
+    ["pilou92", "participants", 3, normalize(-4), -4],
+    ["bondurant2001", "participants", 2, normalize(0), null],
+    ["captain gouyou", "participants", 2, normalize(-14), -14],
+    ["Sooshi", "participants", 2, normalize(0), null],
+    ["adslalex", "participants", 1, normalize(0), null],
+    ["Ahkayaqua", "participants", 1, normalize(-29), -29],
+    ["Frank_Jeager", "participants", 1, normalize(0), 0],
+    ["korner368", "participants", 1, normalize(0), 0],
+    ["lechewal", "participants", 1, normalize(-5), -5],
+    ["moonblood", "participants", 1, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2020 du topic blind test (top 25)</h1>
+  <h3>(données collectées le dimamche 26 décembre 2021 à 20:10:27)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
