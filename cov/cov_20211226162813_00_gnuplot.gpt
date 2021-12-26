@@ -6,9 +6,9 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_01_counts" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "cov_20211226162813_01_counts.svg"
-set title "{/:Bold=18 Le nombre de posts et de participants du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
+set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_01_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cov_20211226162813_01_counts_all.svg"
+set title "{/:Bold=18 Le nombre de posts et de participants all time du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
 set ylabel "{/=16 le nombre de posts"
 set y2label "{/=16 le nombre de posts roses et de participants"
 set key at graph .025, graph .96 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
@@ -47,9 +47,9 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_02_evol" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "cov_20211226162813_02_evol.svg"
-set multiplot title "{/:Bold=18 L'évolution du nombre de participants du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
+set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_02_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cov_20211226162813_02_evol_all.svg"
+set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
 set xtics ("dec 2019" 1575158400, "jan 2020" 1577836800, "feb 2020" 1580515200, "mar 2020" 1583020800, "apr 2020" 1585699200, "may 2020" 1588291200, "jun 2020" 1590969600, "jul 2020" 1593561600, "aug 2020" 1596240000, "sep 2020" 1598918400, "oct 2020" 1601510400, "nov 2020" 1604188800, "dec 2020" 1606780800, "jan 2021" 1609459200, "feb 2021" 1612137600, "mar 2021" 1614556800, "apr 2021" 1617235200, "may 2021" 1619827200, "jun 2021" 1622505600, "jul 2021" 1625097600, "aug 2021" 1627776000, "sep 2021" 1630454400, "oct 2021" 1633046400, "nov 2021" 1635724800, "dec 2021" 1638316800, "jan 2022" 1640995200, "feb 2022" 1643673600) rotate
 set ytics 0, 1000
 set mytics 2
@@ -95,9 +95,9 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_03_activite_month" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "cov_20211226162813_03_activite_month.svg"
-set title "{/:Bold=18 L'activité du topic COVID-19 par mois\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
+set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_03_activite_all_month" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cov_20211226162813_03_activite_all_month.svg"
+set title "{/:Bold=18 L'activité all time par mois du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
 set ylabel "{/=16 le nombre de posts par mois"
 set y2label "{/=16 le nombre de posts roses et de participants par mois"
 set key at graph .975, graph .96 top right Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10
@@ -133,9 +133,9 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_04_activite_week" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "cov_20211226162813_04_activite_week.svg"
-set title "{/:Bold=18 L'activité du topic COVID-19 par semaine\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
+set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_04_activite_all_week" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cov_20211226162813_04_activite_all_week.svg"
+set title "{/:Bold=18 L'activité all time par semaine du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
 set ylabel "{/=16 le nombre de posts par semaine"
 set y2label "{/=16 le nombre de posts roses et de participants par semaine"
 set key at graph .975, graph .96 top right Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10
@@ -171,9 +171,9 @@ unset multiplot
 reset session
 reset
 set encoding utf8
-set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_05_activite_day" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
-set output "cov_20211226162813_05_activite_day.svg"
-set title "{/:Bold=18 L'activité du topic COVID-19 par jour\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
+set terminal svg size 1920, 1080 dynamic mouse standalone name "cov_20211226162813_05_activite_all_day" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cov_20211226162813_05_activite_all_day.svg"
+set title "{/:Bold=18 L'activité all time par jour du topic COVID-19\n{/:Bold=14 (données collectées le dimamche 26 décembre 2021 à 16:28:13)"
 set ylabel "{/=16 le nombre de posts par jour"
 set y2label "{/=16 le nombre de posts roses et de participants par jour"
 set key at graph .975, graph .96 top right Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10

@@ -5,7 +5,7 @@
  xmlns:xlink="http://www.w3.org/1999/xlink"
 >
 
-<title>L'activité du topic COVID-19 par jour au dimamche 26 décembre 2021 à 16:28:13</title>
+<title>L'activité all time par jour du topic COVID-19 au dimamche 26 décembre 2021 à 16:28:13</title>
 <desc>Produced by GNUPLOT 5.2 patchlevel 8 </desc>
 
 <script type="text/javascript" > <![CDATA[
@@ -939,7 +939,7 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(967.0,36.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
-		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-weight="bold"  font-size="18.0">L'activité du topic COVID-19 par jour</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-weight="bold"  font-size="18.0">L'activité all time par jour du topic COVID-19</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
 	</g>
 	<g transform="translate(967.0,57.2)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
 		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica"  font-weight="bold" >(données collectées le dimamche 26 décembre 2021 à 16:28:13)</tspan></text>
@@ -949,7 +949,7 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M1303.0,233.4 L1303.0,120.0 L1769.4,120.0 L1769.4,233.4 L1303.0,233.4 Z  '/></g>
-	<g id="cov_20211226162813_05_activite_day_plot_1" ><title>le nombre de posts par jour</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_1" ><title>le nombre de posts par jour</title>
 <g fill="none" color="#FFFFFF" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -1043,7 +1043,7 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 		L1776.9,887.3 L1779.3,889.0 L1781.6,890.6 L1783.9,880.4 L1786.2,854.7 L1788.5,851.6 L1790.8,850.4 L1793.1,908.6
 		L1795.4,923.7 L1797.7,936.8  '/></g>
 	</g>
-	<g id="cov_20211226162813_05_activite_day_plot_2" ><title>le nombre de posts roses par jour (sur y2)</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_2" ><title>le nombre de posts roses par jour (sur y2)</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='rgb( 63, 175,  63)'  d='M168.7,981.4 L171.0,981.4 L173.3,981.4 L175.6,981.4 L178.0,979.9 L180.3,981.4 L182.6,980.7 L184.9,978.4
 		L187.2,978.4 L189.5,979.2 L191.8,979.9 L194.1,979.2 L196.4,981.4 L198.8,979.2 L201.1,979.9 L203.4,980.7
@@ -1135,7 +1135,7 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 		L1776.9,971.7 L1779.3,977.7 L1781.6,978.4 L1783.9,978.4 L1786.2,980.7 L1788.5,976.9 L1790.8,977.7 L1793.1,979.9
 		L1795.4,980.7 L1797.7,980.7  '/></g>
 	</g>
-	<g id="cov_20211226162813_05_activite_day_plot_3" ><title>le nombre de participants par jour (sur y2)</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_3" ><title>le nombre de participants par jour (sur y2)</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='rgb(127,  95, 255)'  d='M168.7,968.7 L171.0,969.4 L173.3,953.0 L175.6,897.7 L178.0,873.0 L180.3,899.1 L182.6,877.5 L184.9,872.2
 		L187.2,867.0 L189.5,864.0 L191.8,876.0 L194.1,898.4 L196.4,907.4 L198.8,892.4 L201.1,897.7 L203.4,902.1
@@ -1227,7 +1227,7 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 		L1776.9,837.1 L1779.3,831.1 L1781.6,826.6 L1783.9,797.5 L1786.2,800.4 L1788.5,788.5 L1790.8,808.7 L1793.1,834.1
 		L1795.4,858.0 L1797.7,879.7  '/></g>
 	</g>
-	<g id="cov_20211226162813_05_activite_day_plot_4" ><title>le nombre de nouveaux participants par jour (sur y2)</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_4" ><title>le nombre de nouveaux participants par jour (sur y2)</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g stroke='none' shape-rendering='crispEdges'>
 		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '168.7,968.7 171.0,969.4 173.3,953.0 175.6,897.7 178.0,873.0 180.3,899.1 182.6,877.5 184.9,872.2 187.2,867.0 189.5,864.0 191.8,876.0 194.1,898.4 196.4,907.4 198.8,892.4 201.1,897.7 203.4,902.1
@@ -1504,11 +1504,11 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M1303.0,233.4 L1303.0,120.0 L1769.4,120.0 L1769.4,233.4 L1303.0,233.4 Z  '/></g>
-	<g id="cov_20211226162813_05_activite_day_plot_1" ><title>le nombre de posts par jour</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_1" ><title>le nombre de posts par jour</title>
 <g fill="none" color="#FFFFFF" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<g id="cov_20211226162813_05_activite_day_plot_1_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_day_plot_1')">
+	<g id="cov_20211226162813_05_activite_all_day_plot_1_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_all_day_plot_1')">
 	<g transform="translate(1362.0,143.5)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
 		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de posts par jour</tspan></text>
 	</g>
@@ -1517,9 +1517,9 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 	<path stroke='rgb(255, 127,   0)'  d='M1312.7,138.9 L1352.3,138.9  '/>	</g>
 </g>
 	</g>
-	<g id="cov_20211226162813_05_activite_day_plot_2" ><title>le nombre de posts roses par jour (sur y2)</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_2" ><title>le nombre de posts roses par jour (sur y2)</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<g id="cov_20211226162813_05_activite_day_plot_2_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_day_plot_2')">
+	<g id="cov_20211226162813_05_activite_all_day_plot_2_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_all_day_plot_2')">
 	<g transform="translate(1362.0,168.7)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
 		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de posts roses par jour (sur y2)</tspan></text>
 	</g>
@@ -1528,9 +1528,9 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 	<path stroke='rgb( 63, 175,  63)'  d='M1312.7,164.1 L1352.3,164.1  '/>	</g>
 </g>
 	</g>
-	<g id="cov_20211226162813_05_activite_day_plot_3" ><title>le nombre de participants par jour (sur y2)</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_3" ><title>le nombre de participants par jour (sur y2)</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<g id="cov_20211226162813_05_activite_day_plot_3_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_day_plot_3')">
+	<g id="cov_20211226162813_05_activite_all_day_plot_3_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_all_day_plot_3')">
 	<g transform="translate(1362.0,193.9)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
 		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de participants par jour (sur y2)</tspan></text>
 	</g>
@@ -1539,9 +1539,9 @@ onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox
 	<path stroke='rgb(127,  95, 255)'  d='M1312.7,189.3 L1352.3,189.3  '/>	</g>
 </g>
 	</g>
-	<g id="cov_20211226162813_05_activite_day_plot_4" ><title>le nombre de nouveaux participants par jour (sur y2)</title>
+	<g id="cov_20211226162813_05_activite_all_day_plot_4" ><title>le nombre de nouveaux participants par jour (sur y2)</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<g id="cov_20211226162813_05_activite_day_plot_4_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_day_plot_4')">
+	<g id="cov_20211226162813_05_activite_all_day_plot_4_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20211226162813_05_activite_all_day_plot_4')">
 	<g transform="translate(1362.0,219.1)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
 		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de nouveaux participants par jour (sur y2)</tspan></text>
 	</g>
