@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des bruyants 2021 du topic images (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -42 * -1;
+  }
+  if(value > 0) {
+    return value / 680;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "bruyants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "bruits");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["bruyants", null, 0, 0, 0],
+    ["tous les autres bruyants", "bruyants", 2664, normalize(680), 680],
+    ["flyingchair", "bruyants", 285, normalize(183), 183],
+    ["deltavega", "bruyants", 262, normalize(103), 103],
+    ["XaTriX", "bruyants", 259, normalize(166), 166],
+    ["data error", "bruyants", 215, normalize(194), 194],
+    ["fantome de bap", "bruyants", 189, normalize(150), 150],
+    ["machin_", "bruyants", 179, normalize(171), 171],
+    ["CAMPEDEL", "bruyants", 162, normalize(74), 74],
+    ["HumanRAGE", "bruyants", 135, normalize(81), 81],
+    ["gloinfred", "bruyants", 134, normalize(0), null],
+    ["giorkal", "bruyants", 132, normalize(91), 91],
+    ["Harrrrg", "bruyants", 128, normalize(27), 27],
+    ["midnaite", "bruyants", 123, normalize(26), 26],
+    ["teepodavignon", "bruyants", 123, normalize(66), 66],
+    ["Jaxom31", "bruyants", 119, normalize(63), 63],
+    ["Philibear", "bruyants", 113, normalize(46), 46],
+    ["Profil supprimé", "bruyants", 113, normalize(20), 20],
+    ["ObsydianKenobi", "bruyants", 112, normalize(27), 27],
+    ["Cuistot", "bruyants", 111, normalize(51), 51],
+    ["Jambier", "bruyants", 108, normalize(30), 30],
+    ["ClioWilliams", "bruyants", 103, normalize(39), 39],
+    ["garath_", "bruyants", 96, normalize(66), 66],
+    ["_tchip_", "bruyants", 89, normalize(-4), -4],
+    ["maurice chevallier", "bruyants", 82, normalize(31), 31],
+    ["babylone83", "bruyants", 81, normalize(28), 28],
+    ["Emzy", "bruyants", 74, normalize(35), 35],
+    ["Z_cool", "bruyants", 71, normalize(-17), -17],
+    ["Perceval_De_Galles", "bruyants", 68, normalize(39), 39],
+    ["RykM", "bruyants", 65, normalize(40), 40],
+    ["foul", "bruyants", 63, normalize(48), 48],
+    ["Pascalo974", "bruyants", 61, normalize(43), 43],
+    ["privacy", "bruyants", 60, normalize(50), 50],
+    ["-JLL-", "bruyants", 57, normalize(35), 35],
+    ["blackmantha", "bruyants", 56, normalize(8), 8],
+    ["coppin", "bruyants", 56, normalize(49), 49],
+    ["orion0101", "bruyants", 56, normalize(0), null],
+    ["BrisChri", "bruyants", 55, normalize(0), null],
+    ["cocacolalight", "bruyants", 55, normalize(49), 49],
+    ["sadicologue", "bruyants", 55, normalize(14), 14],
+    ["DrDooM", "bruyants", 54, normalize(20), 20],
+    ["carlos rey", "bruyants", 52, normalize(0), null],
+    ["rheo", "bruyants", 52, normalize(22), 22],
+    ["freewind", "bruyants", 51, normalize(44), 44],
+    ["Eberhart", "bruyants", 49, normalize(35), 35],
+    ["Ill Nino", "bruyants", 49, normalize(0), null],
+    ["chienBlanc", "bruyants", 48, normalize(42), 42],
+    ["newbie_master", "bruyants", 48, normalize(9), 9],
+    ["_OttO_", "bruyants", 48, normalize(44), 44],
+    ["Kirvel", "bruyants", 47, normalize(36), 36],
+    ["mbl", "bruyants", 47, normalize(15), 15],
+    ["Aardpeer", "bruyants", 46, normalize(6), 6],
+    ["Billy54", "bruyants", 46, normalize(0), null],
+    ["Marco Paulo", "bruyants", 46, normalize(-6), -6],
+    ["Negro", "bruyants", 46, normalize(22), 22],
+    ["PierrotLeDingue", "bruyants", 46, normalize(35), 35],
+    ["Derek De Lint", "bruyants", 45, normalize(20), 20],
+    ["no_gods", "bruyants", 45, normalize(12), 12],
+    ["Modération", "bruyants", 44, normalize(15), 15],
+    ["racsoft1", "bruyants", 44, normalize(27), 27],
+    ["dark oopa", "bruyants", 42, normalize(2), 2],
+    ["SirAnneau", "bruyants", 42, normalize(0), null],
+    ["TheMiz", "bruyants", 42, normalize(-39), -39],
+    ["edhelas", "bruyants", 41, normalize(19), 19],
+    ["k_raf", "bruyants", 41, normalize(15), 15],
+    ["Mercius", "bruyants", 40, normalize(-25), -25],
+    ["it_connexion", "bruyants", 39, normalize(0), null],
+    ["bobdumas", "bruyants", 38, normalize(31), 31],
+    ["Konovalov", "bruyants", 37, normalize(10), 10],
+    ["Darth Carotte", "bruyants", 36, normalize(-42), -42],
+    ["nedurb", "bruyants", 36, normalize(0), null],
+    ["Tangrim", "bruyants", 35, normalize(-18), -18],
+    ["Blast3r", "bruyants", 34, normalize(30), 30],
+    ["jix", "bruyants", 34, normalize(24), 24],
+    ["rz1", "bruyants", 34, normalize(-15), -15],
+    ["Gravedigger_1", "bruyants", 33, normalize(21), 21],
+    ["Marcel Pitou", "bruyants", 33, normalize(24), 24],
+    ["didin19", "bruyants", 31, normalize(19), 19],
+    ["Gonzoide", "bruyants", 31, normalize(10), 10],
+    ["clemlegrand", "bruyants", 30, normalize(-9), -9],
+    ["darxmurf", "bruyants", 30, normalize(-5), -5],
+    ["moquette", "bruyants", 30, normalize(13), 13],
+    ["Mit-113", "bruyants", 29, normalize(26), 26],
+    ["n0naud", "bruyants", 29, normalize(22), 22],
+    ["teraoctet", "bruyants", 29, normalize(20), 20],
+    ["Till Lindemann", "bruyants", 28, normalize(11), 11],
+    ["RaKaCHa", "bruyants", 27, normalize(15), 15],
+    ["WATT1000", "bruyants", 27, normalize(0), null],
+    ["Fred Warrah", "bruyants", 26, normalize(3), 3],
+    ["M4vrick", "bruyants", 26, normalize(16), 16],
+    ["pilou92", "bruyants", 26, normalize(25), 25],
+    ["ddlabraguette", "bruyants", 25, normalize(0), null],
+    ["Gilou75", "bruyants", 25, normalize(7), 7],
+    ["Winpoks", "bruyants", 25, normalize(11), 11],
+    ["gimmeshelter", "bruyants", 24, normalize(-26), -26],
+    ["glun", "bruyants", 24, normalize(-1), -1],
+    ["roger21", "bruyants", 24, normalize(0), null],
+    ["Sebastien", "bruyants", 24, normalize(0), null],
+    ["tails38", "bruyants", 24, normalize(16), 16],
+    ["the real nerdz", "bruyants", 24, normalize(13), 13],
+    ["DayWalker II", "bruyants", 23, normalize(-6), -6],
+    ["harold_finch", "bruyants", 23, normalize(-17), -17]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#ffcfcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#cfffcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " bruits" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des bruyants 2021 du topic images (top 100)</h1>
+  <h3>(données collectées le samedi 8 janvier 2022 à 06:28:03)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
