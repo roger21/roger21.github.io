@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap 2021 du topic culture générale (top 50)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -2634 * -1;
+  }
+  if(value > 0) {
+    return value / 704;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posts");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["Mercius", "posteurs", 2217, normalize(-2634), -2634],
+    ["Eifersucht91", "posteurs", 1506, normalize(704), 704],
+    ["PierrotLeDingue", "posteurs", 1029, normalize(-909), -909],
+    ["Aardpeer", "posteurs", 953, normalize(-329), -329],
+    ["Dolores", "posteurs", 887, normalize(-299), -299],
+    ["Gottorp", "posteurs", 885, normalize(-582), -582],
+    ["roger21", "posteurs", 797, normalize(-182), -182],
+    ["brittanywow", "posteurs", 706, normalize(-364), -364],
+    ["Jourdhui", "posteurs", 687, normalize(0), null],
+    ["onaya", "posteurs", 630, normalize(0), null],
+    ["Hegemonie", "posteurs", 618, normalize(-100), -100],
+    ["louchinho", "posteurs", 524, normalize(-397), -397],
+    ["tous les autres", "posteurs", 520, normalize(-1379), -1379],
+    ["Daphne", "posteurs", 515, normalize(-642), -642],
+    ["rafioul2", "posteurs", 495, normalize(-1057), -1057],
+    ["ganfoud", "posteurs", 484, normalize(110), 110],
+    ["Jaxom31", "posteurs", 446, normalize(159), 159],
+    ["360no2", "posteurs", 433, normalize(0), null],
+    ["Numou", "posteurs", 409, normalize(-657), -657],
+    ["macgawel", "posteurs", 404, normalize(-126), -126],
+    ["gilou", "posteurs", 392, normalize(0), null],
+    ["k_raf", "posteurs", 297, normalize(-116), -116],
+    ["TheCreator", "posteurs", 259, normalize(-180), -180],
+    ["Floom", "posteurs", 256, normalize(-22), -22],
+    ["qwazer", "posteurs", 212, normalize(43), 43],
+    ["ledauphinois", "posteurs", 209, normalize(138), 138],
+    ["babylone83", "posteurs", 201, normalize(-282), -282],
+    ["Pims_UTT", "posteurs", 185, normalize(139), 139],
+    ["sire de Botcor", "posteurs", 185, normalize(0), null],
+    ["FordPrefect", "posteurs", 143, normalize(41), 41],
+    ["Ainex", "posteurs", 142, normalize(-627), -627],
+    ["vrolok", "posteurs", 137, normalize(79), 79],
+    ["toum_toum", "posteurs", 133, normalize(-840), -840],
+    ["Toxin", "posteurs", 132, normalize(-141), -141],
+    ["Profil supprimé", "posteurs", 125, normalize(56), 56],
+    ["meuniere", "posteurs", 117, normalize(-403), -403],
+    ["pilou92", "posteurs", 106, normalize(10), 10],
+    ["Philibear", "posteurs", 92, normalize(-157), -157],
+    ["le_gribouri", "posteurs", 86, normalize(-968), -968],
+    ["BrisChri", "posteurs", 85, normalize(49), 49],
+    ["falaenthor", "posteurs", 79, normalize(-243), -243],
+    ["shamshir", "posteurs", 78, normalize(-152), -152],
+    ["Tillow", "posteurs", 57, normalize(0), null],
+    ["peter709", "posteurs", 53, normalize(52), 52],
+    ["kaffeine", "posteurs", 51, normalize(-118), -118],
+    ["Pablo Escrobarbe", "posteurs", 47, normalize(-301), -301],
+    ["lak", "posteurs", 44, normalize(0), null],
+    ["kamibus", "posteurs", 41, normalize(16), 16],
+    ["Charleston", "posteurs", 39, normalize(35), 35],
+    ["Herbert de Vaucanson", "posteurs", 37, normalize(3), 3],
+    ["midgar59", "posteurs", 37, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap 2021 du topic culture générale (top 50)</h1>
+  <h3>(données collectées le samedi 8 janvier 2022 à 03:23:16)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
