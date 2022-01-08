@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2021 du topic insomniaks (top 50)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -1390 * -1;
+  }
+  if(value > 0) {
+    return value / 79;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Nowa", "participants", 505, normalize(-656), -656],
+    ["zog79", "participants", 378, normalize(-963), -963],
+    ["poutrella", "participants", 373, normalize(-588), -588],
+    ["armageddindon", "participants", 277, normalize(79), 79],
+    ["viriatus", "participants", 234, normalize(-63), -63],
+    ["Rem82", "participants", 216, normalize(-202), -202],
+    ["mouss_diouf", "participants", 157, normalize(21), 21],
+    ["euphorbe", "participants", 135, normalize(-1390), -1390],
+    ["simius_computus", "participants", 126, normalize(36), 36],
+    ["shamshir", "participants", 122, normalize(63), 63],
+    ["LePcFou", "participants", 97, normalize(0), 0],
+    ["PetitJean", "participants", 92, normalize(-191), -191],
+    ["lilicite", "participants", 81, normalize(10), 10],
+    ["tous les autres", "participants", 62, normalize(-169), -169],
+    ["keke boum boum", "participants", 60, normalize(-111), -111],
+    ["TheMiz", "participants", 60, normalize(12), 12],
+    ["totoz", "participants", 60, normalize(29), 29],
+    ["altered", "participants", 58, normalize(-150), -150],
+    ["coppin", "participants", 53, normalize(46), 46],
+    ["kyouray", "participants", 53, normalize(-25), -25],
+    ["axklaus", "participants", 34, normalize(2), 2],
+    ["kAizOr", "participants", 29, normalize(0), null],
+    ["roger21", "participants", 28, normalize(-34), -34],
+    ["Talladega", "participants", 27, normalize(26), 26],
+    ["Eife", "participants", 24, normalize(-369), -369],
+    ["did_you_f---_my_wife", "participants", 23, normalize(-89), -89],
+    ["mauvlam", "participants", 23, normalize(-194), -194],
+    ["niku", "participants", 23, normalize(5), 5],
+    ["vandread", "participants", 22, normalize(14), 14],
+    ["dazouille", "participants", 14, normalize(-102), -102],
+    ["faston", "participants", 14, normalize(12), 12],
+    ["Marcel Pitou", "participants", 12, normalize(-3), -3],
+    ["ddlabraguette", "participants", 11, normalize(0), null],
+    ["grand_pere_castor", "participants", 10, normalize(-9), -9],
+    ["Hilaire Janvier", "participants", 8, normalize(-11), -11],
+    ["yourtlh", "participants", 8, normalize(3), 3],
+    ["XXZZXX", "participants", 7, normalize(-36), -36],
+    ["Irmada", "participants", 6, normalize(-96), -96],
+    ["kikidonc", "participants", 6, normalize(-10), -10],
+    ["lebreton56", "participants", 6, normalize(0), null],
+    ["ledauphinois", "participants", 5, normalize(0), null],
+    ["loupie94", "participants", 5, normalize(-20), -20],
+    ["Elbarto", "participants", 4, normalize(0), null],
+    ["Exocet911", "participants", 4, normalize(3), 3],
+    ["mikamika", "participants", 4, normalize(-1), -1],
+    ["morrissey59lille", "participants", 4, normalize(-60), -60],
+    ["yngwie", "participants", 4, normalize(-1), -1],
+    ["ClioWilliams", "participants", 3, normalize(-62), -62],
+    ["Fantome", "participants", 3, normalize(0), null],
+    ["Franchies", "participants", 3, normalize(-2), -2],
+    ["Garcia_h", "participants", 3, normalize(2), 2]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2021 du topic insomniaks (top 50)</h1>
+  <h3>(données collectées le samedi 8 janvier 2022 à 07:22:03)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

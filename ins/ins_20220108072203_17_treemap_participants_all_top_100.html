@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2021 du topic insomniaks (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 341710, 0, 0],
+    ["Profil supprimé", "participants", 132284, 0, 0],
+    ["Nowa", "participants", 69890, 0, 0],
+    ["totoz", "participants", 50792, 0, 0],
+    ["Ramasse-Miettes", "participants", 34864, 0, 0],
+    ["PsykOoO", "participants", 25449, 0, 0],
+    ["CharlesT", "participants", 20958, 0, 0],
+    ["Witzard", "participants", 19315, 0, 0],
+    ["HumanRAGE", "participants", 17166, 0, 0],
+    ["JacenX", "participants", 16696, 0, 0],
+    ["kyouray", "participants", 16526, 0, 0],
+    ["Talladega", "participants", 16503, 0, 0],
+    ["vandread", "participants", 15950, 0, 0],
+    ["poutrella", "participants", 15626, 0, 0],
+    ["qidemoule", "participants", 15072, 0, 0],
+    ["daaadou", "participants", 14730, 0, 0],
+    ["Mak Fouente", "participants", 14160, 0, 0],
+    ["Tolor", "participants", 12601, 0, 0],
+    ["XaTriX", "participants", 11979, 0, 0],
+    ["eraser17", "participants", 10994, 0, 0],
+    ["Roland de Gilead", "participants", 10879, 0, 0],
+    ["Thermostat 6", "participants", 10752, 0, 0],
+    ["Tristou", "participants", 10598, 0, 0],
+    ["AngX", "participants", 10556, 0, 0],
+    ["Magicpanda", "participants", 10411, 0, 0],
+    ["Azrail", "participants", 10034, 0, 0],
+    ["Grubnatz", "participants", 9791, 0, 0],
+    ["Nico [PPC]", "participants", 9629, 0, 0],
+    ["meriadeck", "participants", 9374, 0, 0],
+    ["archange_redemption", "participants", 9328, 0, 0],
+    ["DaddyFatSax", "participants", 9167, 0, 0],
+    ["klemton", "participants", 9133, 0, 0],
+    ["H@wk", "participants", 9018, 0, 0],
+    ["anapivirtua", "participants", 8957, 0, 0],
+    ["sadistyk", "participants", 8940, 0, 0],
+    ["Iryngael", "participants", 8873, 0, 0],
+    ["double clic", "participants", 8837, 0, 0],
+    ["lxl ihsahn lxl", "participants", 8581, 0, 0],
+    ["vitriol_drinker", "participants", 8554, 0, 0],
+    ["galwhen", "participants", 8526, 0, 0],
+    ["ZePRiNCE", "participants", 8459, 0, 0],
+    ["zog79", "participants", 8448, 0, 0],
+    ["Bobox", "participants", 8374, 0, 0],
+    ["667", "participants", 8227, 0, 0],
+    ["the_rainmaker", "participants", 8226, 0, 0],
+    ["-neon-", "participants", 8043, 0, 0],
+    ["potemkin", "participants", 7492, 0, 0],
+    ["zed[pocketsworld]", "participants", 7334, 0, 0],
+    ["tet2neu", "participants", 7102, 0, 0],
+    ["Abstro", "participants", 6796, 0, 0],
+    ["Rockstopper", "participants", 6711, 0, 0],
+    ["amdvsintel", "participants", 6527, 0, 0],
+    ["euphorbe", "participants", 6393, 0, 0],
+    ["BlinkGT", "participants", 6158, 0, 0],
+    ["Sharen Morgan", "participants", 6068, 0, 0],
+    ["RykM", "participants", 6056, 0, 0],
+    ["hellypse", "participants", 5764, 0, 0],
+    ["Obdal", "participants", 5611, 0, 0],
+    ["btbw03", "participants", 5601, 0, 0],
+    ["JFKen", "participants", 5312, 0, 0],
+    ["pinguin007", "participants", 5259, 0, 0],
+    ["Venividivicious", "participants", 5241, 0, 0],
+    ["Cpowa", "participants", 5118, 0, 0],
+    ["zeuartisan", "participants", 4923, 0, 0],
+    ["Otan beauval", "participants", 4894, 0, 0],
+    ["knahos", "participants", 4871, 0, 0],
+    ["syr01", "participants", 4866, 0, 0],
+    ["bulezebu", "participants", 4811, 0, 0],
+    ["simouu", "participants", 4698, 0, 0],
+    ["jessyjames", "participants", 4530, 0, 0],
+    ["Us socom 2", "participants", 4370, 0, 0],
+    ["GenyaB", "participants", 4241, 0, 0],
+    ["avo", "participants", 3939, 0, 0],
+    ["Ben_be", "participants", 3914, 0, 0],
+    ["nightbringer57", "participants", 3906, 0, 0],
+    ["Dolores", "participants", 3824, 0, 0],
+    ["simius_computus", "participants", 3785, 0, 0],
+    ["Kewyn", "participants", 3761, 0, 0],
+    ["Bidoo-One Kenobi", "participants", 3647, 0, 0],
+    ["the_warrior", "participants", 3644, 0, 0],
+    ["Neo_XP", "participants", 3608, 0, 0],
+    ["kAizOr", "participants", 3517, 0, 0],
+    ["fat dog", "participants", 3512, 0, 0],
+    ["GoldAdvance", "participants", 3397, 0, 0],
+    ["sir_lune", "participants", 3374, 0, 0],
+    ["FLo14", "participants", 3372, 0, 0],
+    ["Jesse James", "participants", 3310, 0, 0],
+    ["Spirousorus", "participants", 3228, 0, 0],
+    ["shadowdim", "participants", 3206, 0, 0],
+    ["tgrx", "participants", 3196, 0, 0],
+    ["nicooldu64", "participants", 3165, 0, 0],
+    ["Terminapor", "participants", 3159, 0, 0],
+    ["la_salace", "participants", 3131, 0, 0],
+    ["morb", "participants", 3081, 0, 0],
+    ["Xeen", "participants", 2946, 0, 0],
+    ["SolidShark", "participants", 2845, 0, 0],
+    ["lunabulle", "participants", 2834, 0, 0],
+    ["-- Kizer --", "participants", 2780, 0, 0],
+    ["ichigo 1090", "participants", 2656, 0, 0],
+    ["justhynbrydhou", "participants", 2580, 0, 0],
+    ["Werras", "participants", 2575, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2021 du topic insomniaks (top 100)</h1>
+  <h3>(données collectées le samedi 8 janvier 2022 à 07:22:03)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
