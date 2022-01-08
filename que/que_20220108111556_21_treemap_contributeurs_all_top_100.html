@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des contributeurs all time 2021 du topic des questions (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "contributeurs");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["contributeurs", null, 0, 0, 0],
+    ["tous les autres all time", "contributeurs", 174782, 0, 0],
+    ["Profil supprimé", "contributeurs", 70189, 0, 0],
+    ["Herbert de Vaucanson", "contributeurs", 15114, 0, 0],
+    ["potemkin", "contributeurs", 12523, 0, 0],
+    ["Thordax", "contributeurs", 11884, 0, 0],
+    ["Dolores", "contributeurs", 8658, 0, 0],
+    ["BaF - FlOp", "contributeurs", 6561, 0, 0],
+    ["Riot", "contributeurs", 6472, 0, 0],
+    ["barnabe", "contributeurs", 6334, 0, 0],
+    ["XaTriX", "contributeurs", 6279, 0, 0],
+    ["Poogz", "contributeurs", 6049, 0, 0],
+    ["cytrouille", "contributeurs", 5921, 0, 0],
+    ["TheCreator", "contributeurs", 5495, 0, 0],
+    ["cd5", "contributeurs", 5217, 0, 0],
+    ["babylone83", "contributeurs", 5176, 0, 0],
+    ["ObsydianKenobi", "contributeurs", 5085, 0, 0],
+    ["Otan beauval", "contributeurs", 4736, 0, 0],
+    ["Dj YeLL", "contributeurs", 4533, 0, 0],
+    ["snaluori1", "contributeurs", 4409, 0, 0],
+    ["Aardpeer", "contributeurs", 4151, 0, 0],
+    ["Tillow", "contributeurs", 4130, 0, 0],
+    ["yo_play", "contributeurs", 4084, 0, 0],
+    ["Faluja", "contributeurs", 4018, 0, 0],
+    ["jonas", "contributeurs", 3962, 0, 0],
+    ["Mihirung_", "contributeurs", 3841, 0, 0],
+    ["nightbringer57", "contributeurs", 3745, 0, 0],
+    ["D_omi", "contributeurs", 3743, 0, 0],
+    ["MantaFahrer", "contributeurs", 3516, 0, 0],
+    ["theredled", "contributeurs", 3317, 0, 0],
+    ["Iryngael", "contributeurs", 3241, 0, 0],
+    ["stefaninho", "contributeurs", 3224, 0, 0],
+    ["P_erf_ide", "contributeurs", 3199, 0, 0],
+    ["canarvador", "contributeurs", 2885, 0, 0],
+    ["The Diamond Geezer", "contributeurs", 2864, 0, 0],
+    ["Eddy_", "contributeurs", 2639, 0, 0],
+    ["Sharen Morgan", "contributeurs", 2590, 0, 0],
+    ["La Monne", "contributeurs", 2551, 0, 0],
+    ["Poly", "contributeurs", 2480, 0, 0],
+    ["Kalymereau", "contributeurs", 2334, 0, 0],
+    ["rheo", "contributeurs", 2327, 0, 0],
+    ["Daphne", "contributeurs", 2294, 0, 0],
+    ["Anteus", "contributeurs", 2283, 0, 0],
+    ["Elmoricq", "contributeurs", 2197, 0, 0],
+    ["yoak", "contributeurs", 2181, 0, 0],
+    ["TenjO TengE", "contributeurs", 2167, 0, 0],
+    ["Olivie", "contributeurs", 2040, 0, 0],
+    ["Max Evans", "contributeurs", 1989, 0, 0],
+    ["benji123", "contributeurs", 1987, 0, 0],
+    ["gurb44", "contributeurs", 1874, 0, 0],
+    ["wedgeant", "contributeurs", 1864, 0, 0],
+    ["Cuistot", "contributeurs", 1819, 0, 0],
+    ["Cougy", "contributeurs", 1769, 0, 0],
+    ["BrisChri", "contributeurs", 1752, 0, 0],
+    ["Domi9999", "contributeurs", 1751, 0, 0],
+    ["Gugus2000", "contributeurs", 1747, 0, 0],
+    ["Atropos", "contributeurs", 1733, 0, 0],
+    ["angellus2", "contributeurs", 1691, 0, 0],
+    ["true-wiwi", "contributeurs", 1673, 0, 0],
+    ["Proute2000", "contributeurs", 1627, 0, 0],
+    ["Timoonn", "contributeurs", 1613, 0, 0],
+    ["moonblood", "contributeurs", 1572, 0, 0],
+    ["Dafiiiiid", "contributeurs", 1545, 0, 0],
+    ["$temp", "contributeurs", 1506, 0, 0],
+    ["Dr House", "contributeurs", 1499, 0, 0],
+    ["Marco Paulo", "contributeurs", 1487, 0, 0],
+    ["Saytreza", "contributeurs", 1477, 0, 0],
+    ["vave", "contributeurs", 1476, 0, 0],
+    ["Arrgghh", "contributeurs", 1464, 0, 0],
+    ["blaq", "contributeurs", 1463, 0, 0],
+    ["hephaestos", "contributeurs", 1437, 0, 0],
+    ["kiveu", "contributeurs", 1417, 0, 0],
+    ["Temperance", "contributeurs", 1409, 0, 0],
+    ["JFKen", "contributeurs", 1387, 0, 0],
+    ["Thermostat 6", "contributeurs", 1380, 0, 0],
+    ["popeye0", "contributeurs", 1367, 0, 0],
+    ["Sgt-D", "contributeurs", 1335, 0, 0],
+    ["daaadou", "contributeurs", 1296, 0, 0],
+    ["Lugz", "contributeurs", 1235, 0, 0],
+    ["PierrotLeDingue", "contributeurs", 1232, 0, 0],
+    ["HumanRAGE", "contributeurs", 1222, 0, 0],
+    ["fredo3", "contributeurs", 1216, 0, 0],
+    ["Mario_", "contributeurs", 1204, 0, 0],
+    ["Cirdan Sindar", "contributeurs", 1188, 0, 0],
+    ["biezdomny", "contributeurs", 1177, 0, 0],
+    ["Ptit loup", "contributeurs", 1175, 0, 0],
+    ["Vini", "contributeurs", 1164, 0, 0],
+    ["igor1984", "contributeurs", 1155, 0, 0],
+    ["gougoul07", "contributeurs", 1152, 0, 0],
+    ["Kilyn", "contributeurs", 1139, 0, 0],
+    ["roger21", "contributeurs", 1133, 0, 0],
+    ["Kortex@HFR", "contributeurs", 1125, 0, 0],
+    ["SirAnneau", "contributeurs", 1099, 0, 0],
+    ["WATT1000", "contributeurs", 1093, 0, 0],
+    ["ZePRiNCE", "contributeurs", 1076, 0, 0],
+    ["poutrella", "contributeurs", 1069, 0, 0],
+    ["giHefca", "contributeurs", 1052, 0, 0],
+    ["GAS", "contributeurs", 1032, 0, 0],
+    ["akanico", "contributeurs", 1009, 0, 0],
+    ["raph0ux", "contributeurs", 984, 0, 0],
+    ["cHacAL31", "contributeurs", 975, 0, 0],
+    ["l0g4n", "contributeurs", 968, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des contributeurs <span class="alltime">all time</span> 2021 du topic des questions (top 100)</h1>
+  <h3>(données collectées le samedi 8 janvier 2022 à 11:15:56)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
