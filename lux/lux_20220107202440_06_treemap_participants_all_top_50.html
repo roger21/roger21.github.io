@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time du topic Luxembourg (top 50) au vendredi 7 janvier 2022 à 20:24:40</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0],
+    ["Profil supprimé", "participants", 6276, 0],
+    ["glandoll", "participants", 4904, 0],
+    ["didier1809", "participants", 4550, 0],
+    ["tous les autres", "participants", 4109, 0],
+    ["eclaireur", "participants", 4078, 0],
+    ["Flaie", "participants", 2981, 0],
+    ["skmblake", "participants", 2510, 0],
+    ["R-jac", "participants", 2107, 0],
+    ["-luxboy-", "participants", 2059, 0],
+    ["Leskipper", "participants", 2037, 0],
+    ["M300A", "participants", 1802, 0],
+    ["speedboyz30", "participants", 1758, 0],
+    ["ynorsa", "participants", 1735, 0],
+    ["galaxnordist", "participants", 1649, 0],
+    ["Luckan", "participants", 1380, 0],
+    ["hfrfc", "participants", 1189, 0],
+    ["dante2002", "participants", 1000, 0],
+    ["Iryngael", "participants", 998, 0],
+    ["Slay", "participants", 961, 0],
+    ["Deadlock", "participants", 927, 0],
+    ["Roude Leiw", "participants", 878, 0],
+    ["Iv4ndi", "participants", 842, 0],
+    ["Geddons", "participants", 832, 0],
+    ["H00d", "participants", 713, 0],
+    ["Schoumy_", "participants", 606, 0],
+    ["emegamanu", "participants", 566, 0],
+    ["Gonzoide", "participants", 550, 0],
+    ["Bagdarion", "participants", 491, 0],
+    ["dk3nt", "participants", 422, 0],
+    ["SplitForm", "participants", 419, 0],
+    ["malo62", "participants", 409, 0],
+    ["mimychatmiaou", "participants", 323, 0],
+    ["erness", "participants", 318, 0],
+    ["Antoine Doinel", "participants", 281, 0],
+    ["dajay", "participants", 271, 0],
+    ["popol_55", "participants", 244, 0],
+    ["Qingdan", "participants", 236, 0],
+    ["latruffe", "participants", 219, 0],
+    ["-solal-", "participants", 212, 0],
+    ["darkangel", "participants", 206, 0],
+    ["Uhustick", "participants", 205, 0],
+    ["qisope", "participants", 204, 0],
+    ["karma up", "participants", 185, 0],
+    ["Talisker", "participants", 166, 0],
+    ["shalazyr", "participants", 165, 0],
+    ["mealin", "participants", 159, 0],
+    ["Follow Me", "participants", 158, 0],
+    ["Microminus", "participants", 116, 0],
+    ["SashaG", "participants", 105, 0],
+    ["Zeplusoif", "participants", 99, 0],
+    ["jest13", "participants", 94, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> du topic Luxembourg (top 50)</h1>
+  <h3>(données collectées le vendredi 7 janvier 2022 à 20:24:40)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
