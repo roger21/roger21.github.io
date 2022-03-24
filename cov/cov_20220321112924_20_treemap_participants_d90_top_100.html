@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants sur 90 jours du topic COVID-19 (top 100) au lundi 21 mars 2022 à 11:29:24</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0],
+    ["tous les autres sur 90 jours", "participants", 21418, 0],
+    ["Sebwap", "participants", 2555, 0],
+    ["Tolor", "participants", 1946, 0],
+    ["Htan", "participants", 1868, 0],
+    ["orodreths", "participants", 1774, 0],
+    ["Lesluckys", "participants", 1641, 0],
+    ["Olivie", "participants", 1353, 0],
+    ["It_Connexion", "participants", 1225, 0],
+    ["Exocet911", "participants", 1019, 0],
+    ["tuxerman12", "participants", 1008, 0],
+    ["boumbo", "participants", 1006, 0],
+    ["Tammuz", "participants", 978, 0],
+    ["cd5", "participants", 951, 0],
+    ["Pistache52", "participants", 817, 0],
+    ["PinkFloyd31", "participants", 764, 0],
+    ["Rhadamenthos", "participants", 740, 0],
+    ["CAMPEDEL", "participants", 721, 0],
+    ["daouar", "participants", 703, 0],
+    ["maugani", "participants", 692, 0],
+    ["iVador", "participants", 681, 0],
+    ["gsans", "participants", 600, 0],
+    ["M300A", "participants", 598, 0],
+    ["AzR3L", "participants", 580, 0],
+    ["Sicromoft", "participants", 578, 0],
+    ["Roupillon", "participants", 576, 0],
+    ["Theomede", "participants", 573, 0],
+    ["lonely", "participants", 572, 0],
+    ["memaster", "participants", 559, 0],
+    ["sowhat4", "participants", 557, 0],
+    ["Moihey", "participants", 544, 0],
+    ["Marcel Pitou", "participants", 534, 0],
+    ["loupie94", "participants", 510, 0],
+    ["Ernestor", "participants", 496, 0],
+    ["Geeck0", "participants", 489, 0],
+    ["Black_Panther", "participants", 487, 0],
+    ["Ms 45", "participants", 472, 0],
+    ["sausalito75", "participants", 445, 0],
+    ["Lagoon57", "participants", 430, 0],
+    ["buggy2680", "participants", 425, 0],
+    ["boulgakov", "participants", 420, 0],
+    ["ddlabraguette", "participants", 419, 0],
+    ["Z_cool", "participants", 410, 0],
+    ["panchopa", "participants", 397, 0],
+    ["The NBoc", "participants", 396, 0],
+    ["Anonymouse", "participants", 392, 0],
+    ["helmuth", "participants", 387, 0],
+    ["jamere", "participants", 361, 0],
+    ["nakata", "participants", 360, 0],
+    ["Gilou75", "participants", 352, 0],
+    ["canardeur", "participants", 346, 0],
+    ["La Monne", "participants", 345, 0],
+    ["hyenal1", "participants", 338, 0],
+    ["totsukaba", "participants", 337, 0],
+    ["danifilth", "participants", 332, 0],
+    ["pascaldeuxzero", "participants", 330, 0],
+    ["epsiloneridani", "participants", 317, 0],
+    ["M_D_C", "participants", 305, 0],
+    ["karaya", "participants", 301, 0],
+    ["kremlin biceps", "participants", 301, 0],
+    ["Darth Carotte", "participants", 296, 0],
+    ["Eife", "participants", 296, 0],
+    ["Fraudulent", "participants", 291, 0],
+    ["NeoDc", "participants", 291, 0],
+    ["Evacuation", "participants", 287, 0],
+    ["chienBlanc", "participants", 283, 0],
+    ["kropotchnikov", "participants", 277, 0],
+    ["Grumms", "participants", 274, 0],
+    ["Esiuol", "participants", 273, 0],
+    ["teepodavignon", "participants", 271, 0],
+    ["Didd", "participants", 269, 0],
+    ["yggy", "participants", 268, 0],
+    ["mlon", "participants", 261, 0],
+    ["xilebo", "participants", 259, 0],
+    ["Smelly Jelly", "participants", 254, 0],
+    ["lionel_13", "participants", 248, 0],
+    ["Faramir", "participants", 245, 0],
+    ["Scarymovie", "participants", 245, 0],
+    ["Blue_Everest", "participants", 242, 0],
+    ["Gottorp", "participants", 241, 0],
+    ["apokrif", "participants", 238, 0],
+    ["Chips", "participants", 236, 0],
+    ["RaKaCHa", "participants", 223, 0],
+    ["the anakin", "participants", 222, 0],
+    ["the real nerdz", "participants", 221, 0],
+    ["mickey51", "participants", 216, 0],
+    ["XaTriX", "participants", 216, 0],
+    ["olive127", "participants", 215, 0],
+    ["Lennyslash", "participants", 211, 0],
+    ["vieri32", "participants", 201, 0],
+    ["Grubnatz", "participants", 198, 0],
+    ["Ashman", "participants", 197, 0],
+    ["norilor", "participants", 194, 0],
+    ["Kalymereau", "participants", 192, 0],
+    ["gabegie", "participants", 191, 0],
+    ["PlayTime", "participants", 188, 0],
+    ["Rayaki", "participants", 186, 0],
+    ["super_pourri", "participants", 184, 0],
+    ["viniw", "participants", 184, 0],
+    ["radio comptoir", "participants", 177, 0],
+    ["edwoud", "participants", 176, 0],
+    ["manuel-lv", "participants", 176, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="days90">sur 90 jours</span> du topic COVID-19 (top 100)</h1>
+  <h3>(données collectées le lundi 21 mars 2022 à 11:29:24)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

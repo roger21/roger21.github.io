@@ -5,6 +5,7 @@
 unset multiplot
 reset session
 reset
+set locale "french"
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic mouse standalone name "foo_20220108035310_41_foot_versus_covid" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "foo_20220108035310_41_foot_versus_covid.svg"
@@ -14,7 +15,7 @@ set xtics ("2006" 1136073600, "2007" 1167609600, "2008" 1199145600, "2009" 12307
 set ytics 0, 500000
 set mytics 2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
-set format y "%.0f"
+set format y "%'.0f"
 set xdata time
 set timefmt "%s"
 set format x "%F %T"

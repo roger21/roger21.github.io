@@ -5,6 +5,7 @@
 unset multiplot
 reset session
 reset
+set locale "french"
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic mouse standalone name "cul_20220108032316_12_course_image" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20220108032316_12_course_image.svg"
@@ -14,7 +15,7 @@ set xtics ("2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 12938
 set ytics 0, 100000
 set mytics 2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
-set format y "%.0f"
+set format y "%'.0f"
 set xdata time
 set timefmt "%s"
 set format x "%F %T"
@@ -43,6 +44,7 @@ set output
 unset multiplot
 reset session
 reset
+set locale "french"
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic mouse standalone name "cul_20220108032316_13_course_image_zoom" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20220108032316_13_course_image_zoom.svg"
@@ -52,7 +54,7 @@ set xtics ("2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 12938
 set ytics 0, 50000
 set mytics 2
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
-set format y "%.0f"
+set format y "%'.0f"
 set xdata time
 set timefmt "%s"
 set format x "%F %T"

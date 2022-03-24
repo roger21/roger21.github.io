@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time du topic Zemmour (top 100) au lundi 21 mars 2022 à 12:10:41</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0],
+    ["tous les autres", "participants", 45204, 0],
+    ["Ernestor", "participants", 5964, 0],
+    ["Profil supprimé", "participants", 5067, 0],
+    ["Cuistot", "participants", 4412, 0],
+    ["donut78", "participants", 4112, 0],
+    ["_Makaveli_", "participants", 3545, 0],
+    ["la lampe", "participants", 3012, 0],
+    ["fiscalisator", "participants", 2687, 0],
+    ["fred_div91", "participants", 2520, 0],
+    ["babyboy4", "participants", 2432, 0],
+    ["armageddindon", "participants", 2431, 0],
+    ["moggbomber", "participants", 2407, 0],
+    ["ledenez", "participants", 2300, 0],
+    ["andhar", "participants", 2256, 0],
+    ["pesos", "participants", 2210, 0],
+    ["marocaindu82", "participants", 2200, 0],
+    ["Fender", "participants", 2088, 0],
+    ["super_pourri", "participants", 2069, 0],
+    ["kiveu", "participants", 1712, 0],
+    ["sillage276", "participants", 1695, 0],
+    ["Coroners", "participants", 1653, 0],
+    ["The NBoc", "participants", 1597, 0],
+    ["Tammuz", "participants", 1587, 0],
+    ["walkersjh", "participants", 1528, 0],
+    ["Nikechow", "participants", 1494, 0],
+    ["Kami", "participants", 1492, 0],
+    ["broddok27", "participants", 1491, 0],
+    ["La Monne", "participants", 1441, 0],
+    ["t_faz", "participants", 1408, 0],
+    ["kronekenbc", "participants", 1369, 0],
+    ["varlocke", "participants", 1369, 0],
+    ["Sticki", "participants", 1311, 0],
+    ["azymantiop", "participants", 1269, 0],
+    ["Backbone-", "participants", 1227, 0],
+    ["dopador", "participants", 1227, 0],
+    ["UYSCUTI", "participants", 1220, 0],
+    ["Raspa", "participants", 1205, 0],
+    ["Gunman24", "participants", 1195, 0],
+    ["Mujol", "participants", 1184, 0],
+    ["Gottorp", "participants", 1173, 0],
+    ["maouuu", "participants", 1167, 0],
+    ["Lyrks", "participants", 1146, 0],
+    ["kriloner", "participants", 1135, 0],
+    ["apokrif", "participants", 1120, 0],
+    ["Xamoth", "participants", 1109, 0],
+    ["gromarik", "participants", 1017, 0],
+    ["buscape30", "participants", 1010, 0],
+    ["Grumms", "participants", 1010, 0],
+    ["brown paper bag", "participants", 967, 0],
+    ["schezario", "participants", 966, 0],
+    ["Roupillon", "participants", 962, 0],
+    ["icumblood", "participants", 920, 0],
+    ["skmblake", "participants", 901, 0],
+    ["poutrella", "participants", 892, 0],
+    ["doum", "participants", 888, 0],
+    ["RaKaCHa", "participants", 879, 0],
+    ["TarzouilleLP", "participants", 870, 0],
+    ["alien64", "participants", 825, 0],
+    ["p'tet'ben", "participants", 822, 0],
+    ["StefSamy", "participants", 821, 0],
+    ["Theomede", "participants", 818, 0],
+    ["l'helleno-chretien", "participants", 796, 0],
+    ["Bordel", "participants", 756, 0],
+    ["choufarci", "participants", 756, 0],
+    ["El Dood", "participants", 744, 0],
+    ["Publius Pertinax", "participants", 730, 0],
+    ["Esiuol", "participants", 727, 0],
+    ["snakesolid2", "participants", 717, 0],
+    ["jydi75", "participants", 707, 0],
+    ["Flaie", "participants", 693, 0],
+    ["morb", "participants", 689, 0],
+    ["1000Trees", "participants", 679, 0],
+    ["maurice chevallier", "participants", 678, 0],
+    ["arngrimlechauve", "participants", 665, 0],
+    ["Lesluckys", "participants", 664, 0],
+    ["Jambier", "participants", 660, 0],
+    ["Brad Pitt", "participants", 648, 0],
+    ["hyenal1", "participants", 630, 0],
+    ["OTH", "participants", 630, 0],
+    ["Olivie", "participants", 622, 0],
+    ["tekel", "participants", 610, 0],
+    ["panda_man", "participants", 607, 0],
+    ["asmomo", "participants", 604, 0],
+    ["TrakT", "participants", 597, 0],
+    ["epsiloneridani", "participants", 585, 0],
+    ["loulou le marlou", "participants", 585, 0],
+    ["valentinvtl", "participants", 569, 0],
+    ["verdoux", "participants", 554, 0],
+    ["teepodavignon", "participants", 535, 0],
+    ["docmaboul", "participants", 532, 0],
+    ["Cliff Barnes", "participants", 519, 0],
+    ["Scrypt", "participants", 500, 0],
+    ["jakes", "participants", 497, 0],
+    ["deadpool", "participants", 495, 0],
+    ["carlos rey", "participants", 493, 0],
+    ["Gazette", "participants", 489, 0],
+    ["ElPedro", "participants", 486, 0],
+    ["sidela", "participants", 483, 0],
+    ["Jahaa_sv", "participants", 481, 0],
+    ["michel mouillart", "participants", 481, 0],
+    ["Pistache52", "participants", 481, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> du topic Zemmour (top 100)</h1>
+  <h3>(données collectées le lundi 21 mars 2022 à 12:10:41)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
