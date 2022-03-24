@@ -1,6 +1,6 @@
 
 
-# Le nombre de posts foot versus covid-19
+# Le nombre de posts foot vs covid
 
 unset multiplot
 reset session
@@ -50,6 +50,56 @@ reglin_foot(x) lw 2 lc rgbcolor "#00bf7f" title "tendance 2021 du topic foot", \
 reglin_covid_all(x) lw 2 lc rgbcolor "#ff00bf" title "tendance globale du topic COVID-19", \
 reglin_covid(x) lw 2 lc rgbcolor "#bf007f" title "tendance 2021 du topic COVID-19", \
 "foo_20220108035310_00_data_count_posts_covid.txt" u 1:2 w line lw 2 lc rgbcolor "#7f00ff" title "posts all time du topic COVID-19"
+
+set output
+
+
+# Le nombre de posts foot vs world
+
+unset multiplot
+reset session
+reset
+set locale "french"
+set encoding utf8
+set terminal svg size 1920, 1080 dynamic mouse standalone name "foo_20220108035310_42_foot_versus_world" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "foo_20220108035310_42_foot_versus_world.svg"
+set title "{/:Bold=18 Le topic foot versus the world en nombre de posts en 2021\n{/:Bold=14 (données collectées le samedi 8 janvier 2022 à 03:53:10)"
+set key at graph .04, graph .95 top left Left opaque reverse invert samplen 3 box spacing 1.4 width -5
+set xtics ("2003" 1041379200, "2004" 1072915200, "2005" 1104537600, "2006" 1136073600, "2007" 1167609600, "2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 1293840000, "2012" 1325376000, "2013" 1356998400, "2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200) rotate
+set ytics 0, 400000
+set mytics 2
+set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
+set format y "%'.0f"
+set xdata time
+set timefmt "%s"
+set format x "%F %T"
+set mouse mouseformat "DateTime"
+
+set size .985,1
+set origin .015,0
+
+bigger(s) = sprintf("{/:Bold=16 %.f", s)
+
+set xrange [1041379200:1688169600]
+set yrange [0:2800000]
+
+plot [1041379200:1688169600][0:2800000] \
+"foo_20220108035310_00_data_count_posts_ukraine.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f032e6" title "posts all time du topic Ukraine", \
+"foo_20220108035310_00_data_count_posts_zemmour.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#42d4f4" title "posts all time du topic Zemmour", \
+"foo_20220108035310_00_data_count_posts_images.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#911eb4" title "posts all time du topic images", \
+"foo_20220108035310_00_data_count_posts_covid.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f58231" title "posts all time du topic COVID-19", \
+"foo_20220108035310_00_data_count_posts_insomniaks.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#4363d8" title "posts all time du topic insomniaks", \
+"foo_20220108035310_00_data_count_posts_gsnalf.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#ffe119" title "posts all time du topic GSNALF", \
+"foo_20220108035310_00_data_count_posts_photonum.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#3cb44b" title "posts all time du bistrot photonum", \
+"foo_20220108035310_00_data_count_posts_foot.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#e6194B" title "posts all time du topic foot", \
+"foo_20220108035310_00_data_count_posts_ukraine.txt" every ::140567::140567 u 1:2:(bigger($2)) w labels left tc rgbcolor "#f032e6" point lc rgbcolor "#f032e6" pt 7 ps 1 offset .6,-1.2 notitle, \
+"foo_20220108035310_00_data_count_posts_zemmour.txt" every ::172381::172381 u 1:2:(bigger($2)) w labels left tc rgbcolor "#42d4f4" point lc rgbcolor "#42d4f4" pt 7 ps 1 offset .6,.6 notitle, \
+"foo_20220108035310_00_data_count_posts_images.txt" every ::578320::578320 u 1:2:(bigger($2)) w labels left tc rgbcolor "#911eb4" point lc rgbcolor "#911eb4" pt 7 ps 1 offset .6,.6 notitle, \
+"foo_20220108035310_00_data_count_posts_covid.txt" every ::967711::967711 u 1:2:(bigger($2)) w labels left tc rgbcolor "#f58231" point lc rgbcolor "#f58231" pt 7 ps 1 offset .6,.6 notitle, \
+"foo_20220108035310_00_data_count_posts_insomniaks.txt" every ::1355618::1355618 u 1:2:(bigger($2)) w labels left tc rgbcolor "#4363d8" point lc rgbcolor "#4363d8" pt 7 ps 1 offset .6,.6 notitle, \
+"foo_20220108035310_00_data_count_posts_gsnalf.txt" every ::1932975::1932975 u 1:2:(bigger($2)) w labels left tc rgbcolor "#ffe119" point lc rgbcolor "#ffe119" pt 7 ps 1 offset .6,-1.2 notitle, \
+"foo_20220108035310_00_data_count_posts_photonum.txt" every ::1933338::1933338 u 1:2:(bigger($2)) w labels left tc rgbcolor "#3cb44b" point lc rgbcolor "#3cb44b" pt 7 ps 1 offset .6,.6 notitle, \
+"foo_20220108035310_00_data_count_posts_foot.txt" every ::2595645::2595645 u 1:2:(bigger($2)) w labels left tc rgbcolor "#e6194B" point lc rgbcolor "#e6194B" pt 7 ps 1 offset .6,.6 notitle
 
 set output
 
