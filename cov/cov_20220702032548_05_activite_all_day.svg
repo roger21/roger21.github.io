@@ -1,0 +1,2316 @@
+<?xml version="1.0" encoding="utf-8"  standalone="no"?>
+<svg  onload="if (typeof(gnuplot_svg)!='undefined') gnuplot_svg.Init(evt)" 
+ viewBox="0 0 1920 1080"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>L'activité all time par jour du topic COVID-19 au samedi 2 juillet 2022 à 03:25:48</title>
+<desc>Produced by GNUPLOT 5.4 patchlevel 1 </desc>
+
+<script type="text/javascript" > <![CDATA[
+// From:	Marko Karjalainen <markokarjalainen@kolumbus.fi>
+// Date:	27 Aug 2018
+// Experimental gnuplot plugin for svg
+//
+// All svg elements on page get own gnuplot plugin attached by js, so no conflict with global variables.
+//
+// Javascript variables are read from second script tag and converted to json for import to plugin.
+// Inline events are removed from xml and new ones are attached with addEventListener function.
+// Inline events should be removed from xml and xml should have better id/class names to attach events from js.
+//
+// Improved mouseover text and image handling
+//   content changed to xml only if it really changed and bouncing is calculated once.
+//
+// Convert functions are same as before, maybe renamed better.
+//
+// Javascript routines for mouse and keyboard interaction with
+// SVG documents produced by gnuplot SVG terminal driver.
+
+// TODO do not create inline events to svg and give id or classes for getting elements
+// TODO make own svg layer x/y range sized for coordinates?
+
+if (window) {
+    window.addEventListener('load', function () {
+        // Find svg elements
+        var svg = document.querySelectorAll('svg');
+        for (var i = 0; i < svg.length; i++) {
+            // Init plugin
+            if (!svg[i].gnuplot) {
+                // Check if gnuplot generated svg
+                if(svg[i].getElementById('gnuplot_canvas')){
+                    svg[i].gnuplot = new gnuplot_svg(svg[i]);
+                }
+            }
+        }
+    });
+}
+
+gnuplot_svg = function (svgElement) {
+
+    var version = '09 April 2019';
+
+    var settings = {};
+
+    var viewBoxResetValue = [];
+
+    var drag = {
+        'enabled': false,
+        'offset': { 'x': 0, 'y': 0 },
+        'change': svgElement.createSVGPoint(),
+        'timeout': null
+    };
+
+    var coordinateText = {
+        'enabled': false,
+        'element': svgElement.getElementById('coord_text')
+    };
+
+    var popoverContainer = {
+        'element': null,
+        'content': null,
+    };
+
+    var popoverImage = {
+        'element': null,
+        'content': null,
+        'width': 300,
+        'height': 200,
+        'defaultWidth': 300,
+        'defaultHeight': 200,
+    };
+
+    var popoverText = {
+        'element': null,
+        'content': null,
+        'width': 11,
+        'height': 16,
+        'defaultWidth': 11,
+        'defaultHeight': 16,
+    };
+
+    var point = svgElement.createSVGPoint();
+
+    var axisDate = new Date();
+
+    var gridEnabled = false;
+
+    // Get plot boundaries and axis scaling information for mousing from current object script tag
+    // TODO add these to svg xml custom attribute for reading(json format)
+    var parseSettings = function () {
+        var script = svgElement.querySelectorAll('script');
+        if (script && script[1]) {
+            var scriptText = script[1].firstChild.nodeValue;
+            // Remove inline comments
+            scriptText = scriptText.replace(/^\s*\/\/.*\n/g, '');
+            // Change prefix to "
+            scriptText = scriptText.replace(/gnuplot_svg\./g, '"');
+            // Change = to " :
+            scriptText = scriptText.replace(/ = /g, '" : ');
+            // Change line endings to comma
+            scriptText = scriptText.replace(/;\n|\n/g, ',');
+            // Remove last comma
+            scriptText = scriptText.replace(/,+$/, '');
+            // Parse as json string
+            settings = JSON.parse("{\n" + scriptText + "\n}");
+        }
+    };
+
+    // Add interactive events
+    var addEvents = function () {
+        var i;
+
+        // Get keyentry elements
+        var toggleVisibility = svgElement.querySelectorAll('g[id$="_keyentry"]');
+        for (i = 0; i < toggleVisibility.length; i++) {
+            // ------- Remove inline events
+            toggleVisibility[i].removeAttribute('onclick');
+            // -------
+
+            // Add keyentry event to toggle visibility
+            toggleVisibility[i].addEventListener('click', key.bind(null, toggleVisibility[i].getAttribute('id'), null));
+        }
+
+        // ------- Remove inline events from bounding box
+        var boundingBox = svgElement.querySelector('rect[onclick^="gnuplot_svg.toggleCoordBox"]');
+        if (boundingBox) {
+            boundingBox.removeAttribute('onclick');
+            boundingBox.removeAttribute('onmousemove');
+        }
+        // ------- Remove inline events from canvas
+        var canvas = svgElement.getElementById('gnuplot_canvas');
+        if (canvas) {
+            canvas.removeAttribute('onclick');
+            canvas.removeAttribute('onmousemove');
+        }
+        // -------
+
+        // Get grid image
+        var toggleGrid = svgElement.querySelector('image[onclick^="gnuplot_svg.toggleGrid"]');
+        if (toggleGrid) {
+            // ------- Remove inline events
+            toggleGrid.removeAttribute('onclick');
+            // -------
+
+            // Add Toggle grid image event
+            toggleGrid.addEventListener('click', function (evt) {
+                grid();
+                evt.preventDefault();
+                evt.stopPropagation();
+            });
+        }
+
+        // Get hypertexts
+        var hyperText = svgElement.querySelectorAll('g[onmousemove^="gnuplot_svg.showHypertext"]');
+
+        // Set view element variables
+        if (hyperText.length) {
+            popoverContainer.element = svgElement.getElementById('hypertextbox');
+            popoverText.element = svgElement.getElementById('hypertext');
+            popoverImage.element = svgElement.getElementById('hyperimage');
+            popoverImage.defaultWidth = popoverImage.element.getAttribute('width');
+            popoverImage.defaultHeight = popoverImage.element.getAttribute('height');
+        }
+
+        for (i = 0; i < hyperText.length; i++) {
+            // Get text from attr uggly way, svg has empty title element
+            var text = hyperText[i].getAttribute('onmousemove').substr(31).slice(0, -2);
+
+            // ------- Remove inline events
+            hyperText[i].removeAttribute('onmousemove');
+            hyperText[i].removeAttribute('onmouseout');
+            // -------
+
+            // Add event
+            hyperText[i].addEventListener('mousemove', popover.bind(null, text, true));
+            hyperText[i].addEventListener('mouseout', popover.bind(null, null, false));
+        }
+
+        // Toggle coordinates visibility on left click on boundingBox element
+        svgElement.addEventListener('click', function (evt) {
+            if (!drag.enabled) {
+                // TODO check if inside data area, own layer for this is needed?
+                coordinate();
+                setCoordinateLabel(evt);
+            }
+        });
+
+        // Save move start position, enable drag after delay
+        svgElement.addEventListener('mousedown', function (evt) {
+
+            drag.offset = { 'x': evt.clientX, 'y': evt.clientY };
+
+            // Delay for moving, so not move accidentally if only click
+            drag.timeout = setTimeout(function () {
+                drag.enabled = true;
+            }, 250);
+
+            // Cancel draggable
+            evt.stopPropagation();
+            evt.preventDefault();
+            return false;
+        });
+
+        // Disable drag
+        svgElement.addEventListener('mouseup', function (evt) {
+            drag.enabled = false;
+            clearTimeout(drag.timeout);
+        });
+
+        // Mouse move
+        svgElement.addEventListener('mousemove', function (evt) {
+
+            // Drag svg element
+            if (evt.buttons == 1 && drag.enabled) {
+
+                // Position change
+                drag.change.x = evt.clientX - drag.offset.x;
+                drag.change.y = evt.clientY - drag.offset.y;
+
+                // Set current mouse position
+                drag.offset.x = evt.clientX;
+                drag.offset.y = evt.clientY;
+
+                // Convert to svg position
+                drag.change.matrixTransform(svgElement.getScreenCTM().inverse());
+
+                var viewBoxValues = getViewBox();
+
+                viewBoxValues[0] -= drag.change.x;
+                viewBoxValues[1] -= drag.change.y;
+
+                setViewBox(viewBoxValues);
+            }
+
+            // View coordinates on mousemove over svg element
+            if (coordinateText.enabled) {
+                // TODO check if inside data area, own layer for this is needed?
+                setCoordinateLabel(evt);
+            }
+
+        });
+
+        // Zoom with wheel
+        svgElement.addEventListener('wheel', function (evt) {
+            // x or y scroll zoom both axels
+            var delta = Math.max(-1, Math.min(1, (evt.deltaY || evt.deltaX)));
+
+            if (delta > 0) {
+                setViewBox(zoom('in'));
+            }
+            else {
+                setViewBox(zoom('out'));
+            }
+
+            // Disable scroll the entire webpage
+            evt.stopPropagation();
+            evt.preventDefault();
+            return false;
+        });
+
+        // Reset on right click or hold tap
+        svgElement.addEventListener('contextmenu', function (evt) {
+
+            setViewBox(viewBoxResetValue);
+
+            // Disable native context menu
+            evt.stopPropagation();
+            evt.preventDefault();
+            return false;
+        });
+
+        // Keyboard actions, old svg version not support key events so must listen window
+        window.addEventListener('keydown', function (evt) {
+
+            // Not capture event from inputs
+            // body = svg inline in page, svg = plain svg file, window = delegated events to object
+            if (evt.target.nodeName != 'BODY' && evt.target.nodeName != 'svg' && evt.target != window) {
+                return true;
+            }
+
+            var viewBoxValues = [];
+
+            switch (evt.key) {
+                // Move, Edge sends without Arrow word
+                case 'ArrowLeft':
+                case 'Left':
+                case 'ArrowRight':
+                case 'Right':
+                case 'ArrowUp':
+                case 'Up':
+                case 'ArrowDown':
+                case 'Down':
+                    viewBoxValues = pan(evt.key.replace('Arrow', '').toLowerCase());
+                    break;
+                // Zoom in
+                case '+':
+                case 'Add':
+                    viewBoxValues = zoom('in');
+                    break;
+                // Zoom out
+                case '-':
+                case 'Subtract':
+                    viewBoxValues = zoom('out');
+                    break;
+                // Reset
+                case 'Home':
+                    viewBoxValues = viewBoxResetValue;
+                    break;
+                // Toggle grid
+                case '#':
+                    grid();
+                    break;
+            }
+
+            if (viewBoxValues.length) {
+                setViewBox(viewBoxValues);
+            }
+        });
+    };
+
+    // Get svg viewbox details
+    var getViewBox = function () {
+        var viewBoxValues = svgElement.getAttribute('viewBox').split(' ');
+        viewBoxValues[0] = parseFloat(viewBoxValues[0]);
+        viewBoxValues[1] = parseFloat(viewBoxValues[1]);
+        viewBoxValues[2] = parseFloat(viewBoxValues[2]);
+        viewBoxValues[3] = parseFloat(viewBoxValues[3]);
+        return viewBoxValues;
+    };
+
+    // Set svg viewbox details
+    var setViewBox = function (viewBoxValues) {
+        svgElement.setAttribute('viewBox', viewBoxValues.join(' '));
+    };
+
+    // Set coordinate label position and text
+    var setCoordinateLabel = function (evt) {
+        var position = convertDOMToSVG({ 'x': evt.clientX, 'y': evt.clientY });
+
+        // Set coordinate label position
+        coordinateText.element.setAttribute('x', position.x);
+        coordinateText.element.setAttribute('y', position.y);
+
+        // Convert svg position to plot coordinates
+        var plotcoord = convertSVGToPlot(position);
+
+        // Parse label to view
+        var label = parseCoordinateLabel(plotcoord);
+
+        // Set coordinate label text
+        coordinateText.element.textContent = label.x + ' ' + label.y;
+    };
+
+    // Convert position DOM to SVG
+    var convertDOMToSVG = function (position) {
+        point.x = position.x;
+        point.y = position.y;
+        return point.matrixTransform(svgElement.getScreenCTM().inverse());
+    };
+
+    // Convert position SVG to Plot
+    var convertSVGToPlot = function (position) {
+        var plotcoord = {};
+        var plotx = position.x - settings.plot_xmin;
+        var ploty = position.y - settings.plot_ybot;
+        var x, y;
+
+        if (settings.plot_logaxis_x !== 0) {
+            x = Math.log(settings.plot_axis_xmax)
+                - Math.log(settings.plot_axis_xmin);
+            x = x * (plotx / (settings.plot_xmax - settings.plot_xmin))
+                + Math.log(settings.plot_axis_xmin);
+            x = Math.exp(x);
+        } else {
+            x = settings.plot_axis_xmin + (plotx / (settings.plot_xmax - settings.plot_xmin)) * (settings.plot_axis_xmax - settings.plot_axis_xmin);
+        }
+
+        if (settings.plot_logaxis_y !== 0) {
+            y = Math.log(settings.plot_axis_ymax)
+                - Math.log(settings.plot_axis_ymin);
+            y = y * (ploty / (settings.plot_ytop - settings.plot_ybot))
+                + Math.log(settings.plot_axis_ymin);
+            y = Math.exp(y);
+        } else {
+            y = settings.plot_axis_ymin + (ploty / (settings.plot_ytop - settings.plot_ybot)) * (settings.plot_axis_ymax - settings.plot_axis_ymin);
+        }
+
+        plotcoord.x = x;
+        plotcoord.y = y;
+        return plotcoord;
+    };
+
+    // Parse plot x/y values to label
+    var parseCoordinateLabel = function (plotcoord) {
+        var label = { 'x': 0, 'y': 0 };
+
+        if (settings.plot_timeaxis_x == 'DMS' || settings.plot_timeaxis_y == 'DMS') {
+            if (settings.plot_timeaxis_x == 'DMS') {
+                label.x = convertToDMS(plotcoord.x);
+            }
+            else {
+                label.x = plotcoord.x.toFixed(2);
+            }
+
+            if (settings.plot_timeaxis_y == 'DMS') {
+                label.y = convertToDMS(plotcoord.y);
+            }
+            else {
+                label.y = plotcoord.y.toFixed(2);
+            }
+
+        } else if (settings.polar_mode) {
+            polar = convertToPolar(plotcoord.x, plotcoord.y);
+            label.x = 'ang= ' + polar.ang.toPrecision(4);
+            label.y = 'R= ' + polar.r.toPrecision(4);
+
+        } else if (settings.plot_timeaxis_x == 'Date') {
+            axisDate.setTime(1000 * plotcoord.x);
+            var year = axisDate.getUTCFullYear();
+            var month = axisDate.getUTCMonth();
+            var date = axisDate.getUTCDate();
+            label.x = (' ' + date).slice(-2) + '/' + ('0' + (month + 1)).slice(-2) + '/' + year;
+            label.y = plotcoord.y.toFixed(2);
+        } else if (settings.plot_timeaxis_x == 'Time') {
+            axisDate.setTime(1000 * plotcoord.x);
+            var hour = axisDate.getUTCHours();
+            var minute = axisDate.getUTCMinutes();
+            var second = axisDate.getUTCSeconds();
+            label.x = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
+            label.y = plotcoord.y.toFixed(2);
+        } else if (settings.plot_timeaxis_x == 'DateTime') {
+            axisDate.setTime(1000 * plotcoord.x);
+            label.x = axisDate.toUTCString();
+            label.y = plotcoord.y.toFixed(2);
+        } else {
+            label.x = plotcoord.x.toFixed(2);
+            label.y = plotcoord.y.toFixed(2);
+        }
+
+        return label;
+    };
+
+    // Convert position to Polar
+    var convertToPolar = function (x, y) {
+        polar = {};
+        var phi, r;
+        phi = Math.atan2(y, x);
+        if (settings.plot_logaxis_r) {
+            r = Math.exp((x / Math.cos(phi) + Math.log(settings.plot_axis_rmin) / Math.LN10) * Math.LN10);
+        }
+        else if (settings.plot_axis_rmin > settings.plot_axis_rmax) {
+            r = settings.plot_axis_rmin - x / Math.cos(phi);
+        } else {
+            r = settings.plot_axis_rmin + x / Math.cos(phi);
+        }
+        phi = phi * (180 / Math.PI);
+        if (settings.polar_sense < 0) {
+            phi = -phi;
+        }
+        if (settings.polar_theta0 !== undefined) {
+            phi = phi + settings.polar_theta0;
+        }
+        if (phi > 180) { phi = phi - 360; }
+        polar.r = r;
+        polar.ang = phi;
+        return polar;
+    };
+
+    // Convert position to DMS
+    var convertToDMS = function (x) {
+        var dms = { d: 0, m: 0, s: 0 };
+        var deg = Math.abs(x);
+        dms.d = Math.floor(deg);
+        dms.m = Math.floor((deg - dms.d) * 60);
+        dms.s = Math.floor((deg - dms.d) * 3600 - dms.m * 60);
+        fmt = ((x < 0) ? '-' : ' ') + dms.d.toFixed(0) + '°' + dms.m.toFixed(0) + '"' + dms.s.toFixed(0) + "'";
+        return fmt;
+    };
+
+    // Set popover text to show
+    var setPopoverText = function (content) {
+
+        // Minimum length
+        popoverText.width = popoverText.defaultWidth;
+
+        // Remove old texts
+        while (null !== popoverText.element.firstChild) {
+            popoverText.element.removeChild(popoverText.element.firstChild);
+        }
+
+        var lines = content.split(/\n|\\n/g);
+
+        // Single line
+        if (lines.length <= 1) {
+            popoverText.element.textContent = content;
+            popoverText.width = popoverText.element.getComputedTextLength() + 8;
+        }
+        // Multiple lines
+        else {
+            var lineWidth = 0;
+            var tspanElement;
+
+            for (var l = 0; l < lines.length; l++) {
+                tspanElement = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                // Y relative position
+                if (l > 0) {
+                    tspanElement.setAttribute('dy', popoverText.defaultHeight);
+                }
+                // Append text
+                tspanElement.appendChild(document.createTextNode(lines[l]));
+                popoverText.element.appendChild(tspanElement);
+
+                // Max line width
+                lineWidth = tspanElement.getComputedTextLength() + 8;
+                if (popoverText.width < lineWidth) {
+                    popoverText.width = lineWidth;
+                }
+            }
+        }
+
+        // Box Height
+        popoverText.height = 2 + popoverText.defaultHeight * lines.length;
+        popoverContainer.element.setAttribute('height', popoverText.height);
+
+        // Box Width
+        popoverContainer.element.setAttribute('width', popoverText.width);
+    };
+
+    // Set popover image to show
+    var setPopoverImage = function (content) {
+
+        // Set default image size
+        popoverImage.width = popoverImage.defaultWidth;
+        popoverImage.height = popoverImage.defaultHeight;
+
+        // Pick up height and width from image(width,height):name
+        if (content.charAt(5) == '(') {
+            popoverImage.width = parseInt(content.slice(6));
+            popoverImage.height = parseInt(content.slice(content.indexOf(',') + 1));
+        }
+
+        popoverImage.element.setAttribute('width', popoverImage.width);
+        popoverImage.element.setAttribute('height', popoverImage.height);
+        popoverImage.element.setAttribute('preserveAspectRatio', 'none');
+
+        // attach image URL as a link
+        content = content.slice(content.indexOf(':') + 1);
+        popoverImage.element.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', content);
+    };
+
+    // Show popover text in given position
+    var showPopoverText = function (position) {
+        var domRect = svgElement.getBoundingClientRect();
+        domRect = convertDOMToSVG({'x': domRect.right, 'y': domRect.bottom });
+
+        // bounce off frame bottom
+        if (position.y + popoverText.height + 16 > domRect.y) {
+            position.y = domRect.y - popoverText.height - 16;
+        }
+
+        // bounce off right edge
+        if (position.x + popoverText.width + 14 > domRect.x) {
+            position.x = domRect.x - popoverText.width - 14;
+        }
+
+        // Change Box position
+        popoverContainer.element.setAttribute('x', position.x + 10);
+        popoverContainer.element.setAttribute('y', position.y + 4);
+        popoverContainer.element.setAttribute('visibility', 'visible');
+
+        // Change Text position
+        popoverText.element.setAttribute('x', position.x + 14);
+        popoverText.element.setAttribute('y', position.y + 18);
+        popoverText.element.setAttribute('visibility', 'visible');
+
+        // Change multiline text position
+        var tspan = popoverText.element.querySelectorAll('tspan');
+        for (var i = 0; i < tspan.length; i++) {
+            tspan[i].setAttribute('x', position.x + 14);
+        }
+
+        // Font properties
+        if (settings.hypertext_fontFamily != null)
+            popoverText.element.setAttribute('font-family', settings.hypertext_fontFamily);
+        if (settings.hypertext_fontStyle != null)
+            popoverText.element.setAttribute('font-style', settings.hypertext_fontStyle);
+        if (settings.hypertext_fontWeight != null)
+            popoverText.element.setAttribute('font-weight', settings.hypertext_fontWeight);
+        if (settings.hypertext_fontSize > 0)
+            popoverText.element.setAttribute('font-size', settings.hypertext_fontSize);
+    };
+
+    // Show popover image in given position
+    var showPopoverImage = function (position) {
+        var domRect = svgElement.getBoundingClientRect();
+        domRect = convertDOMToSVG({'x': domRect.right, 'y': domRect.bottom });
+
+        // bounce off frame bottom
+        if (position.y + popoverImage.height + 16 > domRect.y) {
+            position.y = domRect.y - popoverImage.height - 16;
+        }
+
+        // bounce off right edge
+        if (position.x + popoverImage.width + 14 > domRect.x) {
+            position.x = domRect.x - popoverImage.width - 14;
+        }
+
+        popoverImage.element.setAttribute('x', position.x);
+        popoverImage.element.setAttribute('y', position.y);
+        popoverImage.element.setAttribute('visibility', 'visible');
+    };
+
+    // Hide all popovers
+    var hidePopover = function () {
+        popoverContainer.element.setAttribute('visibility', 'hidden');
+        popoverText.element.setAttribute('visibility', 'hidden');
+        popoverImage.element.setAttribute('visibility', 'hidden');
+    };
+
+    // Zoom svg inside viewbox
+    var zoom = function (direction) {
+        var zoomRate = 1.1;
+        var viewBoxValues = getViewBox();
+
+        var widthBefore = viewBoxValues[2];
+        var heightBefore = viewBoxValues[3];
+
+        if (direction == 'in') {
+            viewBoxValues[2] /= zoomRate;
+            viewBoxValues[3] /= zoomRate;
+            // Pan to center
+            viewBoxValues[0] -= (viewBoxValues[2] - widthBefore) / 2;
+            viewBoxValues[1] -= (viewBoxValues[3] - heightBefore) / 2;
+        }
+        else if (direction == 'out') {
+            viewBoxValues[2] *= zoomRate;
+            viewBoxValues[3] *= zoomRate;
+            // Pan to center
+            viewBoxValues[0] += (widthBefore - viewBoxValues[2]) / 2;
+            viewBoxValues[1] += (heightBefore - viewBoxValues[3]) / 2;
+        }
+
+        return viewBoxValues;
+    };
+
+    // Pan svg inside viewbox
+    var pan = function (direction) {
+        var panRate = 10;
+        var viewBoxValues = getViewBox();
+
+        switch (direction) {
+            case 'left':
+                viewBoxValues[0] += panRate;
+                break;
+            case 'right':
+                viewBoxValues[0] -= panRate;
+                break;
+            case 'up':
+                viewBoxValues[1] += panRate;
+                break;
+            case 'down':
+                viewBoxValues[1] -= panRate;
+                break;
+        }
+
+        return viewBoxValues;
+    };
+
+    // Toggle key and chart on/off or set manually to wanted
+    var key = function (id, set, evt) {
+        var visibility = null;
+
+        // Chart element
+        var chartElement = svgElement.getElementById(id.replace('_keyentry', ''));
+        if (chartElement) {
+            // Set on/off
+            if (set === true || set === false) {
+                visibility = set ? 'visible' : 'hidden';
+            }
+            // Toggle
+            else {
+                visibility = chartElement.getAttribute('visibility') == 'hidden' ? 'visible' : 'hidden';
+            }
+            chartElement.setAttribute('visibility', visibility);
+        }
+
+        // Key element
+        var keyElement = svgElement.getElementById(id);
+        if (keyElement && visibility) {
+            keyElement.setAttribute('style', visibility == 'hidden' ? 'filter:url(#greybox)' : 'none');
+        }
+
+        if (evt !== undefined) {
+            evt.stopPropagation();
+            evt.preventDefault();
+        }
+    };
+
+    // Toggle coordinates on/off or set manually to wanted
+    var coordinate = function (set) {
+        if (coordinateText.element) {
+            // Set on/off
+            if (set === true || set === false) {
+                coordinateText.enabled = set;
+            }
+            // Toggle
+            else {
+                coordinateText.enabled = coordinateText.element.getAttribute('visibility') == 'hidden' ? true : false;
+            }
+            coordinateText.element.setAttribute('visibility', coordinateText.enabled ? 'visible' : 'hidden');
+        }
+    };
+
+    // Toggle grid on/off or set manually to wanted
+    var grid = function (set) {
+        var grid = svgElement.getElementsByClassName('gridline');
+
+        // Set on/off
+        if (set === true || set === false) {
+            gridEnabled = set;
+        }
+        // Toggle, get state from first element
+        else if (grid.length) {
+            gridEnabled = grid[0].getAttribute('visibility') == 'hidden' ? true : false;
+        }
+
+        for (i = 0; i < grid.length; i++) {
+            grid[i].setAttribute('visibility', gridEnabled ? 'visible' : 'hidden');
+        }
+    };
+
+    // Show popover text or image
+    var popover = function (content, set, evt) {
+
+        // Hide popover
+        if (set === false) {
+            hidePopover();
+
+            if (evt !== undefined) {
+                evt.stopPropagation();
+                evt.preventDefault();
+            }
+
+            return;
+        }
+
+        var position = null;
+
+        // Change content only if changed
+        if (popoverContainer.content != content) {
+
+            // Set current text
+            popoverContainer.content = content;
+
+            popoverImage.content = '';
+            popoverText.content = content;
+
+            // If text starts with image: process it as an xlinked bitmap
+            if (content.substring(0, 5) == 'image') {
+                var lines = content.split(/\n|\\n/g);
+                var nameindex = lines[0].indexOf(':');
+                if (nameindex > 0) {
+                    popoverImage.content = lines.shift();
+                    popoverText.content = '';
+
+                    // Additional text lines
+                    if (lines !== undefined && lines.length > 0) {
+                        popoverText.content = lines.join('\n');
+                    }
+                }
+            }
+
+            // Set image content
+            if(popoverImage.content){
+                setPopoverImage(popoverImage.content);
+            }
+
+            // Set text content
+            if(popoverText.content){
+                setPopoverText(popoverText.content);
+            }
+        }
+
+        if(popoverImage.content || popoverText.content){
+            position = convertDOMToSVG({'x': evt.clientX, 'y': evt.clientY });
+        }
+
+        // Show popover image on mouse position
+        if(popoverImage.content){
+            showPopoverImage(position);
+        }
+
+        // Show popover on mouse position
+        if(popoverText.content){
+            showPopoverText(position);
+        }
+
+        if (evt !== undefined) {
+            evt.stopPropagation();
+            evt.preventDefault();
+        }
+    };
+
+    // Parse plot settings
+    parseSettings();
+
+    // viewBox initial position and size
+    viewBoxResetValue = getViewBox();
+
+    // Set focusable for event focusing, not work on old svg version
+    svgElement.setAttribute('focusable', true);
+
+    // Disable native draggable
+    svgElement.setAttribute('draggable', false);
+
+    // Add events
+    addEvents();
+
+    // Return functions to outside use
+    return {
+        zoom: function (direction) {
+            setViewBox(zoom(direction));
+            return this;
+        },
+        pan: function (direction) {
+            setViewBox(pan(direction));
+            return this;
+        },
+        reset: function () {
+            setViewBox(viewBoxResetValue);
+            return this;
+        },
+        key: function (id, set) {
+            key(id, set);
+            return this;
+        },
+        coordinate: function (set) {
+            coordinate(set);
+            return this;
+        },
+        grid: function (set) {
+            grid(set);
+            return this;
+        }
+    };
+};
+
+// Old init function, remove when svg inline events removed
+gnuplot_svg.Init = function() { };
+]]>
+</script>
+
+<!-- Tie mousing to entire bounding box of the plot -->
+<rect x="0" y="0" width="1920" height="1080" fill="#ffffff" stroke="black" stroke-width="1"
+onclick="gnuplot_svg.toggleCoordBox(evt)"  onmousemove="gnuplot_svg.moveCoordBox(evt)"/>
+
+<!-- Also track mouse when it is on a plot element -->
+<g id="gnuplot_canvas" onclick="gnuplot_svg.toggleCoordBox(evt)" onmousemove="gnuplot_svg.moveCoordBox(evt)">
+
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.190' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.190' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.190' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.190' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.190' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.190' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.190' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.190' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='#FFFFFF' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="#FFFFFF" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,980.68 L1810.88,980.68  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,980.68 L133.72,980.68 M1810.88,980.68 L1800.38,980.68  '/>	<g transform="translate(113.43,985.23)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M123.22,905.96 L1810.88,905.96  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,905.96 L128.47,905.96 M1810.88,905.96 L1805.63,905.96  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,831.23 L1810.88,831.23  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,831.23 L133.72,831.23 M1810.88,831.23 L1800.38,831.23  '/>	<g transform="translate(113.43,835.78)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >2000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M123.22,756.51 L1810.88,756.51  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,756.51 L128.47,756.51 M1810.88,756.51 L1805.63,756.51  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,681.79 L1810.88,681.79  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,681.79 L133.72,681.79 M1810.88,681.79 L1800.38,681.79  '/>	<g transform="translate(113.43,686.34)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >4000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M123.22,607.07 L1810.88,607.07  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,607.07 L128.47,607.07 M1810.88,607.07 L1805.63,607.07  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,532.34 L1810.88,532.34  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,532.34 L133.72,532.34 M1810.88,532.34 L1800.38,532.34  '/>	<g transform="translate(113.43,536.89)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >6000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M123.22,457.62 L1810.88,457.62  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,457.62 L128.47,457.62 M1810.88,457.62 L1805.63,457.62  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,382.90 L1810.88,382.90  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,382.90 L133.72,382.90 M1810.88,382.90 L1800.38,382.90  '/>	<g transform="translate(113.43,387.45)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >8000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M123.22,308.18 L1810.88,308.18  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,308.18 L128.47,308.18 M1810.88,308.18 L1805.63,308.18  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,233.45 L1810.88,233.45  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,233.45 L133.72,233.45 M1810.88,233.45 L1800.38,233.45  '/>	<g transform="translate(113.43,238.00)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >10000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(159, 159, 159)' stroke-dasharray='2,4' class="gridline"  d='M123.22,158.73 L1298.06,158.73 M1768.69,158.73 L1810.88,158.73  '/></g>
+<g fill="none" color="gray" stroke="rgb(159, 159, 159)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,158.73 L128.47,158.73 M1810.88,158.73 L1805.63,158.73  '/></g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,84.01 L1810.88,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,84.01 L133.72,84.01 M1810.88,84.01 L1800.38,84.01  '/>	<g transform="translate(113.43,88.56)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >12000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M123.22,980.68 L123.22,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,980.68 L123.22,970.18 M123.22,84.01 L123.22,94.51  '/>	<g transform="translate(127.77,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jan 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M178.70,980.68 L178.70,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M178.70,980.68 L178.70,970.18 M178.70,84.01 L178.70,94.51  '/>	<g transform="translate(183.25,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >feb 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M230.60,980.68 L230.60,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M230.60,980.68 L230.60,970.18 M230.60,84.01 L230.60,94.51  '/>	<g transform="translate(235.15,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >mar 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M286.08,980.68 L286.08,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M286.08,980.68 L286.08,970.18 M286.08,84.01 L286.08,94.51  '/>	<g transform="translate(290.63,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >apr 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M339.77,980.68 L339.77,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M339.77,980.68 L339.77,970.18 M339.77,84.01 L339.77,94.51  '/>	<g transform="translate(344.32,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >may 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M395.25,980.68 L395.25,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M395.25,980.68 L395.25,970.18 M395.25,84.01 L395.25,94.51  '/>	<g transform="translate(399.80,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jun 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M448.94,980.68 L448.94,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M448.94,980.68 L448.94,970.18 M448.94,84.01 L448.94,94.51  '/>	<g transform="translate(453.49,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jul 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M504.42,980.68 L504.42,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M504.42,980.68 L504.42,970.18 M504.42,84.01 L504.42,94.51  '/>	<g transform="translate(508.97,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >aug 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M559.90,980.68 L559.90,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M559.90,980.68 L559.90,970.18 M559.90,84.01 L559.90,94.51  '/>	<g transform="translate(564.45,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >sep 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M613.59,980.68 L613.59,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M613.59,980.68 L613.59,970.18 M613.59,84.01 L613.59,94.51  '/>	<g transform="translate(618.14,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >oct 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M669.07,980.68 L669.07,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M669.07,980.68 L669.07,970.18 M669.07,84.01 L669.07,94.51  '/>	<g transform="translate(673.62,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >nov 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M722.76,980.68 L722.76,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M722.76,980.68 L722.76,970.18 M722.76,84.01 L722.76,94.51  '/>	<g transform="translate(727.31,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >dec 2020</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M778.24,980.68 L778.24,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M778.24,980.68 L778.24,970.18 M778.24,84.01 L778.24,94.51  '/>	<g transform="translate(782.79,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jan 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M833.72,980.68 L833.72,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M833.72,980.68 L833.72,970.18 M833.72,84.01 L833.72,94.51  '/>	<g transform="translate(838.27,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >feb 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M883.83,980.68 L883.83,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M883.83,980.68 L883.83,970.18 M883.83,84.01 L883.83,94.51  '/>	<g transform="translate(888.38,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >mar 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M939.31,980.68 L939.31,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M939.31,980.68 L939.31,970.18 M939.31,84.01 L939.31,94.51  '/>	<g transform="translate(943.86,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >apr 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M993.00,980.68 L993.00,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M993.00,980.68 L993.00,970.18 M993.00,84.01 L993.00,94.51  '/>	<g transform="translate(997.55,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >may 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1048.48,980.68 L1048.48,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1048.48,980.68 L1048.48,970.18 M1048.48,84.01 L1048.48,94.51  '/>	<g transform="translate(1053.03,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jun 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1102.17,980.68 L1102.17,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1102.17,980.68 L1102.17,970.18 M1102.17,84.01 L1102.17,94.51  '/>	<g transform="translate(1106.72,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jul 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1157.65,980.68 L1157.65,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1157.65,980.68 L1157.65,970.18 M1157.65,84.01 L1157.65,94.51  '/>	<g transform="translate(1162.20,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >aug 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1213.13,980.68 L1213.13,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1213.13,980.68 L1213.13,970.18 M1213.13,84.01 L1213.13,94.51  '/>	<g transform="translate(1217.68,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >sep 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1266.82,980.68 L1266.82,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1266.82,980.68 L1266.82,970.18 M1266.82,84.01 L1266.82,94.51  '/>	<g transform="translate(1271.37,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >oct 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1322.30,980.68 L1322.30,233.28 M1322.30,119.88 L1322.30,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1322.30,980.68 L1322.30,970.18 M1322.30,84.01 L1322.30,94.51  '/>	<g transform="translate(1326.85,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >nov 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1375.99,980.68 L1375.99,233.28 M1375.99,119.88 L1375.99,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1375.99,980.68 L1375.99,970.18 M1375.99,84.01 L1375.99,94.51  '/>	<g transform="translate(1380.54,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >dec 2021</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1431.47,980.68 L1431.47,233.28 M1431.47,119.88 L1431.47,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1431.47,980.68 L1431.47,970.18 M1431.47,84.01 L1431.47,94.51  '/>	<g transform="translate(1436.02,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jan 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1486.95,980.68 L1486.95,233.28 M1486.95,119.88 L1486.95,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1486.95,980.68 L1486.95,970.18 M1486.95,84.01 L1486.95,94.51  '/>	<g transform="translate(1491.50,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >feb 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1537.06,980.68 L1537.06,233.28 M1537.06,119.88 L1537.06,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1537.06,980.68 L1537.06,970.18 M1537.06,84.01 L1537.06,94.51  '/>	<g transform="translate(1541.61,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >mar 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1592.54,980.68 L1592.54,233.28 M1592.54,119.88 L1592.54,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1592.54,980.68 L1592.54,970.18 M1592.54,84.01 L1592.54,94.51  '/>	<g transform="translate(1597.09,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >apr 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1646.23,980.68 L1646.23,233.28 M1646.23,119.88 L1646.23,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1646.23,980.68 L1646.23,970.18 M1646.23,84.01 L1646.23,94.51  '/>	<g transform="translate(1650.78,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >may 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1701.71,980.68 L1701.71,233.28 M1701.71,119.88 L1701.71,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1701.71,980.68 L1701.71,970.18 M1701.71,84.01 L1701.71,94.51  '/>	<g transform="translate(1706.26,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jun 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1755.40,980.68 L1755.40,233.28 M1755.40,119.88 L1755.40,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1755.40,980.68 L1755.40,970.18 M1755.40,84.01 L1755.40,94.51  '/>	<g transform="translate(1759.95,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >jul 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="gray" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63,  63,  63)' stroke-dasharray='2,4' class="gridline"  d='M1810.88,980.68 L1810.88,84.01  '/></g>
+<g fill="none" color="gray" stroke="rgb( 63,  63,  63)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,980.68 L1810.88,970.18 M1810.88,84.01 L1810.88,94.51  '/>	<g transform="translate(1815.43,990.47) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="end">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >aug 2022</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,980.68 L1800.38,980.68  '/>	<g transform="translate(1820.67,985.23)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,831.23 L1800.38,831.23  '/>	<g transform="translate(1820.67,835.78)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >200</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,681.79 L1800.38,681.79  '/>	<g transform="translate(1820.67,686.34)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >400</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,532.34 L1800.38,532.34  '/>	<g transform="translate(1820.67,536.89)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >600</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,382.90 L1800.38,382.90  '/>	<g transform="translate(1820.67,387.45)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >800</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,233.45 L1800.38,233.45  '/>	<g transform="translate(1820.67,238.00)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >1000</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1810.88,84.01 L1800.38,84.01  '/>	<g transform="translate(1820.67,88.56)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >1200</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,84.01 L123.22,980.68 L1810.88,980.68 L1810.88,84.01 L123.22,84.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(51.18,532.35) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana"  font-size="16.0">le nombre de posts par jour</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1884.67,532.35) rotate(270)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana"  font-size="16.0">le nombre de posts roses et de participants par jour</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1298.06,233.28 L1298.06,119.88 L1768.69,119.88 L1768.69,233.28 L1298.06,233.28 Z  '/></g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_1" ><title>le nombre de posts par jour</title>
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(255, 127,   0)'  d='M159.01,978.89 L160.80,979.04 L162.59,970.74 L164.38,933.68 L166.17,930.39 L167.96,935.40 L169.75,908.80 L171.54,889.44
+		L173.33,891.98 L175.12,895.80 L176.91,895.12 L178.70,933.38 L180.49,942.57 L182.28,933.68 L184.07,934.65 L185.86,944.81
+		L187.65,954.68 L189.44,944.29 L191.23,940.33 L193.02,952.88 L194.81,939.96 L196.60,942.27 L198.39,948.55 L200.18,923.67
+		L201.97,964.17 L203.76,952.43 L205.54,959.38 L207.33,962.82 L209.12,961.10 L210.91,962.97 L212.70,962.67 L214.49,965.74
+		L216.28,952.73 L218.07,929.35 L219.86,905.51 L221.65,900.50 L223.44,851.48 L225.23,840.35 L227.02,804.86 L228.81,831.98
+		L230.60,831.91 L232.39,794.55 L234.18,782.59 L235.97,797.24 L237.76,720.72 L239.55,697.26 L241.34,770.26 L243.13,736.41
+		L244.92,723.41 L246.71,719.82 L248.50,707.49 L250.29,493.27 L252.08,542.51 L253.87,462.78 L255.66,294.95 L257.45,226.66
+		L259.24,441.26 L261.02,525.32 L262.81,566.79 L264.60,575.16 L266.39,551.62 L268.18,543.70 L269.97,464.42 L271.76,592.80
+		L273.55,623.28 L275.34,717.28 L277.13,659.30 L278.92,625.00 L280.71,583.90 L282.50,679.85 L284.29,690.16 L286.08,684.33
+		L287.87,702.34 L289.66,685.68 L291.45,749.56 L293.24,692.92 L295.03,665.28 L296.82,661.32 L298.61,682.46 L300.40,706.67
+		L302.19,757.11 L303.98,770.11 L305.77,785.43 L307.56,611.40 L309.35,706.30 L311.14,746.65 L312.93,748.82 L314.71,773.40
+		L316.50,792.01 L318.29,719.15 L320.08,822.72 L321.87,797.54 L323.66,764.43 L325.45,780.72 L327.24,827.20 L329.03,846.78
+		L330.82,808.82 L332.61,814.87 L334.40,692.70 L336.19,804.71 L337.98,823.61 L339.77,833.18 L341.56,836.17 L343.35,809.64
+		L345.14,795.74 L346.93,835.42 L348.72,830.49 L350.51,766.53 L352.30,850.36 L354.09,833.70 L355.88,780.20 L357.67,785.06
+		L359.46,856.27 L361.25,855.22 L363.04,878.91 L364.83,890.64 L366.62,922.55 L368.40,921.72 L370.19,890.71 L371.98,909.17
+		L373.77,913.06 L375.56,897.07 L377.35,915.82 L379.14,924.19 L380.93,929.64 L382.72,900.13 L384.51,896.02 L386.30,904.61
+		L388.09,837.96 L389.88,893.03 L391.67,938.76 L393.46,911.86 L395.25,943.39 L397.04,900.58 L398.83,900.73 L400.62,923.89
+		L402.41,905.43 L404.20,937.94 L405.99,950.94 L407.78,942.57 L409.57,950.34 L411.36,951.76 L413.15,952.58 L414.94,953.11
+		L416.73,955.65 L418.52,932.48 L420.31,948.25 L422.10,944.22 L423.88,950.34 L425.67,954.38 L427.46,943.39 L429.25,951.54
+		L431.04,951.31 L432.83,938.84 L434.62,951.39 L436.41,906.26 L438.20,935.25 L439.99,943.09 L441.78,950.34 L443.57,962.00
+		L445.36,960.43 L447.15,953.11 L448.94,958.41 L450.73,957.81 L452.52,968.95 L454.31,961.25 L456.10,958.56 L457.89,961.48
+		L459.68,942.50 L461.47,943.54 L463.26,929.64 L465.05,947.58 L466.84,959.46 L468.63,938.76 L470.42,945.41 L472.21,924.26
+		L474.00,919.78 L475.79,930.02 L477.57,919.26 L479.36,950.72 L481.15,930.02 L482.94,909.39 L484.73,938.69 L486.52,943.92
+		L488.31,941.45 L490.10,949.97 L491.89,945.34 L493.68,946.08 L495.47,940.11 L497.26,923.82 L499.05,932.93 L500.84,937.94
+		L502.63,930.02 L504.42,945.49 L506.21,937.04 L508.00,906.33 L509.79,914.92 L511.58,941.15 L513.37,926.43 L515.16,944.51
+		L516.95,940.63 L518.74,929.87 L520.53,913.06 L522.32,915.52 L524.11,928.60 L525.90,918.81 L527.69,918.14 L529.48,938.46
+		L531.27,926.66 L533.05,906.26 L534.84,908.42 L536.63,901.85 L538.42,908.57 L540.21,905.06 L542.00,937.86 L543.79,938.39
+		L545.58,935.92 L547.37,934.43 L549.16,921.20 L550.95,867.92 L552.74,877.34 L554.53,921.87 L556.32,932.11 L558.11,913.36
+		L559.90,901.03 L561.69,924.19 L563.48,943.47 L565.27,925.83 L567.06,942.50 L568.85,938.39 L570.64,901.85 L572.43,902.52
+		L574.22,888.02 L576.01,865.61 L577.80,834.30 L579.59,918.44 L581.38,927.78 L583.17,860.53 L584.96,889.37 L586.74,886.90
+		L588.53,888.17 L590.32,900.50 L592.11,932.04 L593.90,929.87 L595.69,905.66 L597.48,925.01 L599.27,817.78 L601.06,800.30
+		L602.85,865.53 L604.64,939.06 L606.43,915.90 L608.22,888.47 L610.01,910.81 L611.80,915.82 L613.59,878.53 L615.38,922.55
+		L617.17,940.03 L618.96,938.98 L620.75,886.01 L622.54,893.25 L624.33,909.69 L626.12,906.56 L627.91,895.50 L629.70,930.39
+		L631.49,916.27 L633.28,867.40 L635.07,834.75 L636.86,742.61 L638.65,767.12 L640.43,859.85 L642.22,920.38 L644.01,916.64
+		L645.80,908.95 L647.59,889.37 L649.38,872.78 L651.17,831.31 L652.96,843.79 L654.75,860.30 L656.54,846.85 L658.33,780.87
+		L660.12,686.20 L661.91,499.47 L663.70,674.69 L665.49,751.80 L667.28,824.44 L669.07,813.53 L670.86,821.45 L672.65,851.93
+		L674.44,903.72 L676.23,884.44 L678.02,882.35 L679.81,910.89 L681.60,877.79 L683.39,849.99 L685.18,875.55 L686.97,870.61
+		L688.76,858.66 L690.55,862.99 L692.34,902.52 L694.13,876.44 L695.91,889.67 L697.70,880.63 L699.49,894.00 L701.28,905.88
+		L703.07,924.56 L704.86,942.50 L706.65,922.62 L708.44,918.96 L710.23,877.64 L712.02,903.72 L713.81,932.04 L715.60,929.27
+		L717.39,927.93 L719.18,936.97 L720.97,923.74 L722.76,915.22 L724.55,918.06 L726.34,923.29 L728.13,883.91 L729.92,915.90
+		L731.71,927.25 L733.50,843.34 L735.29,889.14 L737.08,912.23 L738.87,871.59 L740.66,906.56 L742.45,949.07 L744.24,919.63
+		L746.03,913.28 L747.82,908.12 L749.60,902.89 L751.39,866.28 L753.18,915.90 L754.97,911.11 L756.76,883.47 L758.55,904.16
+		L760.34,868.90 L762.13,916.57 L763.92,933.38 L765.71,935.62 L767.50,889.29 L769.29,896.84 L771.08,871.66 L772.87,846.63
+		L774.66,821.82 L776.45,870.76 L778.24,888.70 L780.03,887.35 L781.82,878.68 L783.61,850.07 L785.40,842.74 L787.19,879.51
+		L788.98,873.68 L790.77,880.85 L792.56,906.78 L794.35,911.86 L796.14,870.17 L797.93,878.68 L799.72,847.08 L801.51,814.27
+		L803.30,853.80 L805.08,894.15 L806.87,889.07 L808.66,859.78 L810.45,881.60 L812.24,877.34 L814.03,855.45 L815.82,843.41
+		L817.61,896.77 L819.40,826.23 L821.19,820.62 L822.98,846.48 L824.77,829.82 L826.56,813.75 L828.35,767.12 L830.14,877.26
+		L831.93,867.55 L833.72,882.64 L835.51,848.65 L837.30,911.94 L839.09,849.62 L840.88,902.22 L842.67,923.82 L844.46,913.73
+		L846.25,895.20 L848.04,903.87 L849.83,898.26 L851.62,902.45 L853.41,907.38 L855.20,909.02 L856.99,928.22 L858.77,911.86
+		L860.56,906.70 L862.35,909.25 L864.14,929.35 L865.93,878.31 L867.72,929.42 L869.51,930.09 L871.30,868.97 L873.09,890.12
+		L874.88,883.84 L876.67,852.53 L878.46,876.97 L880.25,920.38 L882.04,894.00 L883.83,894.97 L885.62,874.87 L887.41,883.69
+		L889.20,864.79 L890.99,886.23 L892.78,914.10 L894.57,918.36 L896.36,909.77 L898.15,909.25 L899.94,907.15 L901.73,885.78
+		L903.52,878.61 L905.31,908.42 L907.10,905.51 L908.89,828.92 L910.68,831.76 L912.47,829.37 L914.25,700.99 L916.04,825.26
+		L917.83,858.06 L919.62,889.82 L921.41,865.46 L923.20,867.10 L924.99,843.12 L926.78,845.28 L928.57,862.17 L930.36,876.07
+		L932.15,874.72 L933.94,880.78 L935.73,842.97 L937.52,671.33 L939.31,854.40 L941.10,853.13 L942.89,909.99 L944.68,908.50
+		L946.47,889.29 L948.26,869.19 L950.05,876.74 L951.84,904.84 L953.63,892.51 L955.42,912.61 L957.21,900.28 L959.00,904.91
+		L960.79,873.23 L962.58,876.22 L964.37,896.32 L966.16,901.10 L967.94,915.15 L969.73,935.32 L971.52,912.91 L973.31,922.92
+		L975.10,886.01 L976.89,899.53 L978.68,922.17 L980.47,936.59 L982.26,908.50 L984.05,895.72 L985.84,870.84 L987.63,901.18
+		L989.42,880.93 L991.21,884.81 L993.00,921.43 L994.79,916.49 L996.58,885.11 L998.37,865.91 L1000.16,887.80 L1001.95,870.31
+		L1003.74,937.27 L1005.53,933.75 L1007.32,949.97 L1009.11,932.78 L1010.90,895.80 L1012.69,862.77 L1014.48,917.76 L1016.27,917.99
+		L1018.06,909.54 L1019.85,910.67 L1021.63,905.51 L1023.42,913.36 L1025.21,864.71 L1027.00,922.10 L1028.79,926.58 L1030.58,938.46
+		L1032.37,941.38 L1034.16,919.63 L1035.95,921.80 L1037.74,901.70 L1039.53,931.89 L1041.32,941.53 L1043.11,957.29 L1044.90,956.77
+		L1046.69,940.63 L1048.48,946.01 L1050.27,943.02 L1052.06,947.28 L1053.85,944.66 L1055.64,960.43 L1057.43,956.47 L1059.22,944.96
+		L1061.01,937.42 L1062.80,941.82 L1064.59,928.15 L1066.38,942.72 L1068.17,950.42 L1069.96,945.78 L1071.75,938.24 L1073.54,942.12
+		L1075.33,894.30 L1077.11,937.86 L1078.90,935.70 L1080.69,959.16 L1082.48,958.26 L1084.27,950.57 L1086.06,948.33 L1087.85,939.88
+		L1089.64,940.40 L1091.43,942.20 L1093.22,953.33 L1095.01,949.74 L1096.80,914.92 L1098.59,905.51 L1100.38,916.19 L1102.17,918.74
+		L1103.96,914.03 L1105.75,926.28 L1107.54,929.72 L1109.33,877.86 L1111.12,897.66 L1112.91,897.51 L1114.70,887.35 L1116.49,893.25
+		L1118.28,922.02 L1120.07,910.67 L1121.86,735.96 L1123.65,672.97 L1125.44,795.67 L1127.23,820.03 L1129.02,842.22 L1130.80,861.95
+		L1132.59,817.71 L1134.38,807.92 L1136.17,839.90 L1137.96,811.28 L1139.75,807.70 L1141.54,840.35 L1143.33,829.82 L1145.12,827.50
+		L1146.91,856.94 L1148.70,839.08 L1150.49,862.02 L1152.28,830.26 L1154.07,861.95 L1155.86,897.59 L1157.65,903.04 L1159.44,885.86
+		L1161.23,876.67 L1163.02,845.36 L1164.81,859.33 L1166.60,862.39 L1168.39,879.36 L1170.18,897.59 L1171.97,855.00 L1173.76,860.60
+		L1175.55,882.87 L1177.34,862.62 L1179.13,868.97 L1180.92,916.49 L1182.71,925.09 L1184.50,914.85 L1186.28,882.94 L1188.07,881.45
+		L1189.86,894.08 L1191.65,914.40 L1193.44,896.32 L1195.23,912.91 L1197.02,888.32 L1198.81,870.61 L1200.60,883.02 L1202.39,916.94
+		L1204.18,931.66 L1205.97,940.26 L1207.76,922.84 L1209.55,908.87 L1211.34,911.41 L1213.13,937.42 L1214.92,935.85 L1216.71,927.70
+		L1218.50,941.53 L1220.29,915.30 L1222.08,942.42 L1223.87,937.64 L1225.66,929.57 L1227.45,941.75 L1229.24,911.26 L1231.03,951.61
+		L1232.82,942.50 L1234.61,930.09 L1236.40,931.81 L1238.19,938.76 L1239.97,939.21 L1241.76,932.63 L1243.55,953.33 L1245.34,953.63
+		L1247.13,937.49 L1248.92,928.82 L1250.71,939.66 L1252.50,953.11 L1254.29,954.53 L1256.08,963.05 L1257.87,955.27 L1259.66,952.21
+		L1261.45,943.09 L1263.24,953.26 L1265.03,954.38 L1266.82,965.59 L1268.61,968.65 L1270.40,969.17 L1272.19,955.65 L1273.98,943.09
+		L1275.77,962.67 L1277.56,966.56 L1279.35,966.48 L1281.14,969.77 L1282.93,964.32 L1284.72,962.37 L1286.51,962.07 L1288.30,957.14
+		L1290.09,967.75 L1291.88,929.94 L1293.67,946.98 L1295.45,956.54 L1297.24,956.47 L1299.03,958.86 L1300.82,951.16 L1302.61,953.33
+		L1304.40,952.36 L1306.19,972.46 L1307.98,961.48 L1309.77,961.33 L1311.56,956.25 L1313.35,938.09 L1315.14,959.76 L1316.93,956.99
+		L1318.72,957.67 L1320.51,957.14 L1322.30,970.67 L1324.09,965.36 L1325.88,950.49 L1327.67,952.06 L1329.46,948.47 L1331.25,958.56
+		L1333.04,966.78 L1334.83,960.13 L1336.62,896.62 L1338.41,940.03 L1340.20,958.49 L1341.99,925.46 L1343.78,954.60 L1345.57,956.47
+		L1347.36,928.00 L1349.14,934.05 L1350.93,934.35 L1352.72,927.70 L1354.51,899.76 L1356.30,948.10 L1358.09,947.13 L1359.88,926.95
+		L1361.67,904.54 L1363.46,881.90 L1365.25,822.27 L1367.04,855.89 L1368.83,895.42 L1370.62,911.86 L1372.41,912.68 L1374.20,895.65
+		L1375.99,898.11 L1377.78,881.37 L1379.57,889.29 L1381.36,934.58 L1383.15,933.90 L1384.94,880.85 L1386.73,914.48 L1388.52,891.61
+		L1390.31,927.33 L1392.10,933.01 L1393.89,937.94 L1395.68,947.05 L1397.47,929.87 L1399.26,894.52 L1401.05,871.44 L1402.83,892.66
+		L1404.62,886.68 L1406.41,888.32 L1408.20,889.97 L1409.99,879.73 L1411.78,854.03 L1413.57,850.96 L1415.36,849.77 L1417.15,907.90
+		L1418.94,923.07 L1420.73,863.59 L1422.52,797.31 L1424.31,811.81 L1426.10,757.19 L1427.89,813.82 L1429.68,847.60 L1431.47,893.18
+		L1433.26,850.44 L1435.05,815.99 L1436.84,787.97 L1438.63,725.65 L1440.42,818.68 L1442.21,830.56 L1444.00,858.88 L1445.79,890.27
+		L1447.58,861.65 L1449.37,869.72 L1451.16,884.51 L1452.95,881.22 L1454.74,909.92 L1456.53,929.94 L1458.31,921.20 L1460.10,900.88
+		L1461.89,894.38 L1463.68,895.35 L1465.47,896.32 L1467.26,894.38 L1469.05,948.33 L1470.84,946.31 L1472.63,928.82 L1474.42,915.00
+		L1476.21,918.88 L1478.00,916.79 L1479.79,935.70 L1481.58,935.47 L1483.37,950.57 L1485.16,935.10 L1486.95,935.40 L1488.74,936.89
+		L1490.53,924.41 L1492.32,955.27 L1494.11,955.87 L1495.90,965.81 L1497.69,945.41 L1499.48,943.69 L1501.27,935.55 L1503.06,951.46
+		L1504.85,941.15 L1506.64,957.74 L1508.43,963.57 L1510.22,952.81 L1512.00,943.77 L1513.79,951.02 L1515.58,954.45 L1517.37,951.09
+		L1519.16,974.03 L1520.95,974.18 L1522.74,969.17 L1524.53,965.96 L1526.32,970.14 L1528.11,972.91 L1529.90,969.10 L1531.69,974.40
+		L1533.48,976.42 L1535.27,975.15 L1537.06,975.45 L1538.85,973.73 L1540.64,952.06 L1542.43,969.02 L1544.22,976.42 L1546.01,969.77
+		L1547.80,971.71 L1549.59,969.70 L1551.38,969.10 L1553.17,969.25 L1554.96,966.71 L1556.75,971.34 L1558.54,964.32 L1560.33,943.17
+		L1562.12,957.67 L1563.91,964.61 L1565.70,963.27 L1567.48,968.28 L1569.27,968.87 L1571.06,969.99 L1572.85,974.18 L1574.64,959.53
+		L1576.43,967.83 L1578.22,962.07 L1580.01,967.45 L1581.80,972.83 L1583.59,977.54 L1585.38,966.03 L1587.17,967.08 L1588.96,965.59
+		L1590.75,967.16 L1592.54,969.25 L1594.33,976.72 L1596.12,976.57 L1597.91,972.91 L1599.70,969.25 L1601.49,974.93 L1603.28,973.06
+		L1605.07,973.58 L1606.86,972.39 L1608.65,974.48 L1610.44,976.35 L1612.23,972.91 L1614.02,973.21 L1615.81,976.57 L1617.60,977.77
+		L1619.39,974.40 L1621.17,976.12 L1622.96,977.02 L1624.75,957.81 L1626.54,974.70 L1628.33,974.70 L1630.12,974.78 L1631.91,974.40
+		L1633.70,973.36 L1635.49,975.82 L1637.28,963.05 L1639.07,972.46 L1640.86,978.29 L1642.65,974.70 L1644.44,974.40 L1646.23,977.84
+		L1648.02,977.54 L1649.81,975.08 L1651.60,975.45 L1653.39,975.52 L1655.18,973.73 L1656.97,976.27 L1658.76,975.67 L1660.55,972.98
+		L1662.34,966.56 L1664.13,967.60 L1665.92,967.16 L1667.71,969.47 L1669.50,976.57 L1671.29,976.27 L1673.08,963.64 L1674.86,969.17
+		L1676.65,972.76 L1678.44,968.50 L1680.23,970.89 L1682.02,976.27 L1683.81,977.62 L1685.60,977.24 L1687.39,977.47 L1689.18,976.79
+		L1690.97,978.51 L1692.76,978.21 L1694.55,977.84 L1696.34,974.70 L1698.13,971.94 L1699.92,975.37 L1701.71,970.67 L1703.50,976.79
+		L1705.29,973.95 L1707.08,977.62 L1708.87,974.85 L1710.66,975.60 L1712.45,976.12 L1714.24,972.54 L1716.03,972.09 L1717.82,973.73
+		L1719.61,975.75 L1721.40,976.50 L1723.19,975.45 L1724.98,976.12 L1726.77,976.20 L1728.56,974.25 L1730.34,977.32 L1732.13,978.96
+		L1733.92,978.96 L1735.71,976.42 L1737.50,977.39 L1739.29,975.75 L1741.08,975.15 L1742.87,972.54 L1744.66,977.24 L1746.45,975.15
+		L1748.24,960.36 L1750.03,953.93 L1751.82,961.03 L1753.61,960.21 L1755.40,960.95 L1757.19,980.08  '/></g>
+	</g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_2" ><title>le nombre de posts roses par jour (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63, 175,  63)'  d='M159.01,980.68 L160.80,980.68 L162.59,980.68 L164.38,980.68 L166.17,979.19 L167.96,980.68 L169.75,979.93 L171.54,977.69
+		L173.33,977.69 L175.12,978.44 L176.91,979.19 L178.70,978.44 L180.49,980.68 L182.28,978.44 L184.07,979.19 L185.86,979.93
+		L187.65,979.93 L189.44,980.68 L191.23,979.93 L193.02,980.68 L194.81,980.68 L196.60,980.68 L198.39,979.19 L200.18,980.68
+		L201.97,980.68 L203.76,977.69 L205.54,979.19 L207.33,980.68 L209.12,980.68 L210.91,979.19 L212.70,979.93 L214.49,980.68
+		L216.28,979.93 L218.07,979.93 L219.86,979.19 L221.65,976.20 L223.44,978.44 L225.23,977.69 L227.02,976.94 L228.81,977.69
+		L230.60,979.93 L232.39,978.44 L234.18,975.45 L235.97,979.19 L237.76,973.21 L239.55,979.19 L241.34,980.68 L243.13,979.93
+		L244.92,980.68 L246.71,978.44 L248.50,979.93 L250.29,974.70 L252.08,975.45 L253.87,976.94 L255.66,977.69 L257.45,967.98
+		L259.24,973.95 L261.02,973.95 L262.81,967.23 L264.60,973.95 L266.39,976.20 L268.18,968.72 L269.97,973.95 L271.76,975.45
+		L273.55,975.45 L275.34,979.93 L277.13,976.94 L278.92,973.95 L280.71,968.72 L282.50,977.69 L284.29,979.19 L286.08,976.20
+		L287.87,979.93 L289.66,977.69 L291.45,977.69 L293.24,977.69 L295.03,977.69 L296.82,976.94 L298.61,976.94 L300.40,980.68
+		L302.19,974.70 L303.98,978.44 L305.77,979.93 L307.56,976.94 L309.35,964.24 L311.14,979.19 L312.93,979.93 L314.71,976.94
+		L316.50,980.68 L318.29,976.94 L320.08,979.19 L321.87,976.20 L323.66,978.44 L325.45,979.19 L327.24,979.93 L329.03,976.20
+		L330.82,977.69 L332.61,978.44 L334.40,979.19 L336.19,979.93 L337.98,979.93 L339.77,979.19 L341.56,979.93 L343.35,979.93
+		L345.14,980.68 L346.93,979.93 L348.72,979.93 L350.51,976.94 L352.30,977.69 L354.09,979.93 L355.88,979.93 L357.67,979.93
+		L359.46,977.69 L361.25,980.68 L363.04,977.69 L364.83,979.93 L366.62,980.68 L368.40,980.68 L370.19,979.19 L371.98,979.93
+		L373.77,980.68 L375.56,980.68 L377.35,980.68 L379.14,979.93 L380.93,980.68 L382.72,978.44 L384.51,979.93 L386.30,980.68
+		L388.09,979.93 L389.88,980.68 L391.67,980.68 L393.46,980.68 L395.25,980.68 L397.04,980.68 L398.83,980.68 L400.62,979.19
+		L402.41,979.93 L404.20,980.68 L405.99,980.68 L407.78,980.68 L409.57,980.68 L411.36,980.68 L413.15,980.68 L414.94,980.68
+		L416.73,980.68 L418.52,980.68 L420.31,980.68 L422.10,980.68 L423.88,980.68 L425.67,979.93 L427.46,979.93 L429.25,980.68
+		L431.04,980.68 L432.83,980.68 L434.62,980.68 L436.41,980.68 L438.20,980.68 L439.99,980.68 L441.78,980.68 L443.57,980.68
+		L445.36,980.68 L447.15,980.68 L448.94,979.19 L450.73,980.68 L452.52,980.68 L454.31,980.68 L456.10,980.68 L457.89,980.68
+		L459.68,980.68 L461.47,980.68 L463.26,980.68 L465.05,979.19 L466.84,979.93 L468.63,980.68 L470.42,979.93 L472.21,979.19
+		L474.00,979.19 L475.79,980.68 L477.57,980.68 L479.36,980.68 L481.15,980.68 L482.94,980.68 L484.73,979.93 L486.52,980.68
+		L488.31,979.93 L490.10,980.68 L491.89,980.68 L493.68,980.68 L495.47,980.68 L497.26,980.68 L499.05,979.93 L500.84,980.68
+		L502.63,980.68 L504.42,980.68 L506.21,980.68 L508.00,979.19 L509.79,979.93 L511.58,980.68 L513.37,979.19 L515.16,980.68
+		L516.95,979.93 L518.74,980.68 L520.53,979.19 L522.32,979.93 L524.11,980.68 L525.90,980.68 L527.69,979.93 L529.48,979.19
+		L531.27,980.68 L533.05,979.93 L534.84,979.93 L536.63,980.68 L538.42,980.68 L540.21,980.68 L542.00,977.69 L543.79,980.68
+		L545.58,979.19 L547.37,980.68 L549.16,980.68 L550.95,980.68 L552.74,980.68 L554.53,980.68 L556.32,980.68 L558.11,980.68
+		L559.90,980.68 L561.69,979.93 L563.48,980.68 L565.27,979.93 L567.06,979.93 L568.85,980.68 L570.64,979.93 L572.43,979.93
+		L574.22,979.93 L576.01,979.93 L577.80,980.68 L579.59,979.93 L581.38,979.93 L583.17,979.93 L584.96,980.68 L586.74,980.68
+		L588.53,980.68 L590.32,979.19 L592.11,980.68 L593.90,977.69 L595.69,979.19 L597.48,980.68 L599.27,980.68 L601.06,980.68
+		L602.85,980.68 L604.64,980.68 L606.43,979.93 L608.22,979.93 L610.01,980.68 L611.80,979.93 L613.59,980.68 L615.38,980.68
+		L617.17,979.19 L618.96,980.68 L620.75,980.68 L622.54,980.68 L624.33,980.68 L626.12,979.93 L627.91,979.19 L629.70,980.68
+		L631.49,979.93 L633.28,980.68 L635.07,979.93 L636.86,979.93 L638.65,976.94 L640.43,980.68 L642.22,980.68 L644.01,980.68
+		L645.80,980.68 L647.59,979.93 L649.38,979.93 L651.17,980.68 L652.96,980.68 L654.75,979.93 L656.54,979.93 L658.33,979.93
+		L660.12,977.69 L661.91,979.19 L663.70,979.93 L665.49,979.93 L667.28,979.19 L669.07,980.68 L670.86,979.19 L672.65,979.19
+		L674.44,979.19 L676.23,979.93 L678.02,980.68 L679.81,980.68 L681.60,979.19 L683.39,980.68 L685.18,980.68 L686.97,979.93
+		L688.76,980.68 L690.55,979.93 L692.34,980.68 L694.13,980.68 L695.91,980.68 L697.70,978.44 L699.49,979.93 L701.28,979.93
+		L703.07,979.19 L704.86,979.19 L706.65,980.68 L708.44,979.19 L710.23,980.68 L712.02,979.19 L713.81,980.68 L715.60,980.68
+		L717.39,980.68 L719.18,979.93 L720.97,980.68 L722.76,979.93 L724.55,980.68 L726.34,980.68 L728.13,979.93 L729.92,980.68
+		L731.71,980.68 L733.50,980.68 L735.29,979.93 L737.08,979.93 L738.87,975.45 L740.66,980.68 L742.45,980.68 L744.24,980.68
+		L746.03,979.19 L747.82,980.68 L749.60,978.44 L751.39,979.19 L753.18,979.93 L754.97,978.44 L756.76,976.94 L758.55,980.68
+		L760.34,976.94 L762.13,980.68 L763.92,980.68 L765.71,980.68 L767.50,976.94 L769.29,979.93 L771.08,979.19 L772.87,980.68
+		L774.66,979.93 L776.45,979.19 L778.24,979.19 L780.03,979.19 L781.82,979.93 L783.61,980.68 L785.40,979.93 L787.19,978.44
+		L788.98,980.68 L790.77,978.44 L792.56,980.68 L794.35,980.68 L796.14,977.69 L797.93,979.19 L799.72,980.68 L801.51,980.68
+		L803.30,980.68 L805.08,979.93 L806.87,979.19 L808.66,980.68 L810.45,979.93 L812.24,980.68 L814.03,978.44 L815.82,979.93
+		L817.61,978.44 L819.40,979.19 L821.19,979.93 L822.98,980.68 L824.77,979.93 L826.56,976.20 L828.35,980.68 L830.14,980.68
+		L831.93,979.93 L833.72,980.68 L835.51,977.69 L837.30,979.93 L839.09,980.68 L840.88,979.93 L842.67,980.68 L844.46,980.68
+		L846.25,979.19 L848.04,980.68 L849.83,979.19 L851.62,980.68 L853.41,979.19 L855.20,980.68 L856.99,979.93 L858.77,979.93
+		L860.56,980.68 L862.35,980.68 L864.14,980.68 L865.93,980.68 L867.72,979.93 L869.51,979.19 L871.30,979.93 L873.09,979.93
+		L874.88,980.68 L876.67,979.19 L878.46,980.68 L880.25,980.68 L882.04,979.93 L883.83,979.19 L885.62,979.93 L887.41,980.68
+		L889.20,978.44 L890.99,979.93 L892.78,979.93 L894.57,980.68 L896.36,979.93 L898.15,979.19 L899.94,979.19 L901.73,980.68
+		L903.52,979.19 L905.31,980.68 L907.10,980.68 L908.89,980.68 L910.68,979.93 L912.47,980.68 L914.25,979.93 L916.04,979.19
+		L917.83,979.19 L919.62,980.68 L921.41,979.19 L923.20,979.93 L924.99,980.68 L926.78,979.93 L928.57,977.69 L930.36,980.68
+		L932.15,979.93 L933.94,980.68 L935.73,979.93 L937.52,980.68 L939.31,980.68 L941.10,980.68 L942.89,979.93 L944.68,980.68
+		L946.47,980.68 L948.26,980.68 L950.05,980.68 L951.84,980.68 L953.63,980.68 L955.42,980.68 L957.21,978.44 L959.00,980.68
+		L960.79,980.68 L962.58,979.93 L964.37,980.68 L966.16,979.93 L967.94,980.68 L969.73,980.68 L971.52,980.68 L973.31,980.68
+		L975.10,980.68 L976.89,980.68 L978.68,980.68 L980.47,980.68 L982.26,980.68 L984.05,980.68 L985.84,977.69 L987.63,980.68
+		L989.42,980.68 L991.21,979.93 L993.00,979.19 L994.79,979.19 L996.58,979.93 L998.37,979.93 L1000.16,976.94 L1001.95,979.93
+		L1003.74,980.68 L1005.53,979.93 L1007.32,980.68 L1009.11,980.68 L1010.90,979.93 L1012.69,980.68 L1014.48,980.68 L1016.27,980.68
+		L1018.06,980.68 L1019.85,979.93 L1021.63,980.68 L1023.42,980.68 L1025.21,980.68 L1027.00,980.68 L1028.79,980.68 L1030.58,980.68
+		L1032.37,980.68 L1034.16,979.93 L1035.95,980.68 L1037.74,979.93 L1039.53,979.93 L1041.32,980.68 L1043.11,980.68 L1044.90,980.68
+		L1046.69,980.68 L1048.48,980.68 L1050.27,979.93 L1052.06,980.68 L1053.85,980.68 L1055.64,980.68 L1057.43,980.68 L1059.22,980.68
+		L1061.01,979.93 L1062.80,980.68 L1064.59,979.19 L1066.38,979.93 L1068.17,979.19 L1069.96,980.68 L1071.75,980.68 L1073.54,980.68
+		L1075.33,980.68 L1077.11,980.68 L1078.90,979.19 L1080.69,980.68 L1082.48,979.93 L1084.27,980.68 L1086.06,980.68 L1087.85,980.68
+		L1089.64,980.68 L1091.43,980.68 L1093.22,980.68 L1095.01,980.68 L1096.80,979.93 L1098.59,979.93 L1100.38,976.94 L1102.17,979.19
+		L1103.96,980.68 L1105.75,979.93 L1107.54,980.68 L1109.33,978.44 L1111.12,979.93 L1112.91,979.19 L1114.70,980.68 L1116.49,980.68
+		L1118.28,979.19 L1120.07,980.68 L1121.86,978.44 L1123.65,976.20 L1125.44,976.20 L1127.23,979.93 L1129.02,980.68 L1130.80,980.68
+		L1132.59,979.93 L1134.38,977.69 L1136.17,978.44 L1137.96,980.68 L1139.75,980.68 L1141.54,977.69 L1143.33,979.93 L1145.12,979.93
+		L1146.91,978.44 L1148.70,977.69 L1150.49,979.93 L1152.28,979.19 L1154.07,979.19 L1155.86,979.93 L1157.65,979.93 L1159.44,979.93
+		L1161.23,974.70 L1163.02,979.19 L1164.81,979.19 L1166.60,977.69 L1168.39,980.68 L1170.18,975.45 L1171.97,977.69 L1173.76,977.69
+		L1175.55,980.68 L1177.34,980.68 L1179.13,978.44 L1180.92,980.68 L1182.71,979.19 L1184.50,980.68 L1186.28,978.44 L1188.07,979.19
+		L1189.86,980.68 L1191.65,980.68 L1193.44,979.93 L1195.23,980.68 L1197.02,979.19 L1198.81,978.44 L1200.60,979.93 L1202.39,976.20
+		L1204.18,980.68 L1205.97,979.93 L1207.76,980.68 L1209.55,978.44 L1211.34,979.93 L1213.13,980.68 L1214.92,980.68 L1216.71,980.68
+		L1218.50,980.68 L1220.29,979.93 L1222.08,980.68 L1223.87,979.93 L1225.66,978.44 L1227.45,979.93 L1229.24,980.68 L1231.03,979.19
+		L1232.82,980.68 L1234.61,979.93 L1236.40,976.20 L1238.19,980.68 L1239.97,980.68 L1241.76,978.44 L1243.55,980.68 L1245.34,979.93
+		L1247.13,979.19 L1248.92,976.20 L1250.71,978.44 L1252.50,980.68 L1254.29,979.19 L1256.08,980.68 L1257.87,979.93 L1259.66,980.68
+		L1261.45,978.44 L1263.24,980.68 L1265.03,980.68 L1266.82,980.68 L1268.61,979.19 L1270.40,979.93 L1272.19,980.68 L1273.98,980.68
+		L1275.77,979.93 L1277.56,980.68 L1279.35,979.93 L1281.14,980.68 L1282.93,980.68 L1284.72,980.68 L1286.51,980.68 L1288.30,980.68
+		L1290.09,980.68 L1291.88,979.93 L1293.67,979.19 L1295.45,980.68 L1297.24,980.68 L1299.03,980.68 L1300.82,980.68 L1302.61,980.68
+		L1304.40,980.68 L1306.19,980.68 L1307.98,980.68 L1309.77,980.68 L1311.56,980.68 L1313.35,980.68 L1315.14,980.68 L1316.93,980.68
+		L1318.72,980.68 L1320.51,979.93 L1322.30,980.68 L1324.09,980.68 L1325.88,980.68 L1327.67,980.68 L1329.46,980.68 L1331.25,980.68
+		L1333.04,980.68 L1334.83,980.68 L1336.62,979.19 L1338.41,978.44 L1340.20,980.68 L1341.99,975.45 L1343.78,980.68 L1345.57,980.68
+		L1347.36,979.93 L1349.14,979.93 L1350.93,980.68 L1352.72,980.68 L1354.51,979.19 L1356.30,979.19 L1358.09,980.68 L1359.88,980.68
+		L1361.67,978.44 L1363.46,976.94 L1365.25,976.94 L1367.04,979.93 L1368.83,979.19 L1370.62,977.69 L1372.41,978.44 L1374.20,979.19
+		L1375.99,976.94 L1377.78,976.94 L1379.57,976.94 L1381.36,979.19 L1383.15,979.93 L1384.94,979.19 L1386.73,979.19 L1388.52,976.94
+		L1390.31,978.44 L1392.10,980.68 L1393.89,980.68 L1395.68,979.93 L1397.47,979.93 L1399.26,975.45 L1401.05,977.69 L1402.83,978.44
+		L1404.62,970.97 L1406.41,976.94 L1408.20,977.69 L1409.99,977.69 L1411.78,979.93 L1413.57,976.20 L1415.36,976.94 L1417.15,979.19
+		L1418.94,979.93 L1420.73,976.94 L1422.52,980.68 L1424.31,975.45 L1426.10,974.70 L1427.89,973.95 L1429.68,976.94 L1431.47,980.68
+		L1433.26,977.69 L1435.05,974.70 L1436.84,979.93 L1438.63,977.69 L1440.42,978.44 L1442.21,978.44 L1444.00,980.68 L1445.79,979.19
+		L1447.58,976.20 L1449.37,977.69 L1451.16,979.93 L1452.95,979.93 L1454.74,979.93 L1456.53,980.68 L1458.31,979.93 L1460.10,979.93
+		L1461.89,979.93 L1463.68,980.68 L1465.47,978.44 L1467.26,977.69 L1469.05,980.68 L1470.84,979.93 L1472.63,978.44 L1474.42,978.44
+		L1476.21,978.44 L1478.00,979.19 L1479.79,979.19 L1481.58,979.93 L1483.37,980.68 L1485.16,979.93 L1486.95,978.44 L1488.74,976.94
+		L1490.53,977.69 L1492.32,979.19 L1494.11,979.93 L1495.90,980.68 L1497.69,979.19 L1499.48,979.19 L1501.27,979.93 L1503.06,979.93
+		L1504.85,979.93 L1506.64,979.93 L1508.43,979.93 L1510.22,980.68 L1512.00,980.68 L1513.79,977.69 L1515.58,977.69 L1517.37,979.19
+		L1519.16,979.93 L1520.95,980.68 L1522.74,979.93 L1524.53,979.19 L1526.32,980.68 L1528.11,979.93 L1529.90,980.68 L1531.69,980.68
+		L1533.48,980.68 L1535.27,980.68 L1537.06,980.68 L1538.85,979.93 L1540.64,979.19 L1542.43,980.68 L1544.22,980.68 L1546.01,980.68
+		L1547.80,980.68 L1549.59,979.19 L1551.38,980.68 L1553.17,980.68 L1554.96,979.93 L1556.75,980.68 L1558.54,979.93 L1560.33,980.68
+		L1562.12,979.93 L1563.91,979.93 L1565.70,980.68 L1567.48,980.68 L1569.27,979.93 L1571.06,980.68 L1572.85,980.68 L1574.64,979.93
+		L1576.43,980.68 L1578.22,980.68 L1580.01,980.68 L1581.80,980.68 L1583.59,980.68 L1585.38,980.68 L1587.17,980.68 L1588.96,980.68
+		L1590.75,980.68 L1592.54,980.68 L1594.33,980.68 L1596.12,980.68 L1597.91,980.68 L1599.70,980.68 L1601.49,980.68 L1603.28,980.68
+		L1605.07,979.93 L1606.86,980.68 L1608.65,980.68 L1610.44,980.68 L1612.23,980.68 L1614.02,980.68 L1615.81,980.68 L1617.60,979.93
+		L1619.39,980.68 L1621.17,979.19 L1622.96,980.68 L1624.75,980.68 L1626.54,980.68 L1628.33,980.68 L1630.12,979.93 L1631.91,980.68
+		L1633.70,980.68 L1635.49,980.68 L1637.28,979.93 L1639.07,980.68 L1640.86,980.68 L1642.65,980.68 L1644.44,980.68 L1646.23,980.68
+		L1648.02,980.68 L1649.81,980.68 L1651.60,980.68 L1653.39,980.68 L1655.18,980.68 L1656.97,980.68 L1658.76,980.68 L1660.55,979.93
+		L1662.34,979.93 L1664.13,979.19 L1665.92,980.68 L1667.71,980.68 L1669.50,980.68 L1671.29,979.93 L1673.08,980.68 L1674.86,980.68
+		L1676.65,980.68 L1678.44,980.68 L1680.23,980.68 L1682.02,980.68 L1683.81,980.68 L1685.60,980.68 L1687.39,980.68 L1689.18,980.68
+		L1690.97,980.68 L1692.76,980.68 L1694.55,980.68 L1696.34,980.68 L1698.13,980.68 L1699.92,980.68 L1701.71,980.68 L1703.50,980.68
+		L1705.29,980.68 L1707.08,980.68 L1708.87,976.94 L1710.66,980.68 L1712.45,980.68 L1714.24,979.93 L1716.03,980.68 L1717.82,980.68
+		L1719.61,980.68 L1721.40,980.68 L1723.19,980.68 L1724.98,980.68 L1726.77,980.68 L1728.56,980.68 L1730.34,980.68 L1732.13,980.68
+		L1733.92,980.68 L1735.71,980.68 L1737.50,980.68 L1739.29,979.93 L1741.08,980.68 L1742.87,980.68 L1744.66,980.68 L1746.45,980.68
+		L1748.24,979.19 L1750.03,979.93 L1751.82,980.68 L1753.61,980.68 L1755.40,980.68 L1757.19,980.68  '/></g>
+	</g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_3" ><title>le nombre de participants par jour (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(127,  95, 255)'  d='M159.01,967.98 L160.80,968.72 L162.59,953.78 L164.38,897.74 L166.17,873.83 L167.96,900.73 L169.75,876.82 L171.54,871.59
+		L173.33,866.35 L175.12,863.37 L176.91,875.32 L178.70,897.74 L180.49,907.45 L182.28,892.51 L184.07,896.99 L185.86,901.47
+		L187.65,900.73 L189.44,900.73 L191.23,892.51 L193.02,916.42 L194.81,890.27 L196.60,899.23 L198.39,901.47 L200.18,888.77
+		L201.97,925.39 L203.76,918.66 L205.54,928.37 L207.33,923.89 L209.12,923.14 L210.91,926.13 L212.70,922.40 L214.49,928.37
+		L216.28,908.95 L218.07,893.25 L219.86,835.72 L221.65,826.00 L223.44,801.35 L225.23,800.60 L227.02,766.23 L228.81,779.68
+		L230.60,784.91 L232.39,725.13 L234.18,735.59 L235.97,743.81 L237.76,699.72 L239.55,691.50 L241.34,758.01 L243.13,719.15
+		L244.92,681.04 L246.71,662.36 L248.50,654.14 L250.29,515.16 L252.08,538.32 L253.87,527.86 L255.66,399.34 L257.45,279.04
+		L259.24,397.84 L261.02,443.43 L262.81,472.57 L264.60,484.52 L266.39,506.94 L268.18,506.19 L269.97,494.24 L271.76,548.04
+		L273.55,533.09 L275.34,592.12 L277.13,554.01 L278.92,576.43 L280.71,562.23 L282.50,576.43 L284.29,611.55 L286.08,580.91
+		L287.87,596.61 L289.66,627.24 L291.45,663.86 L293.24,643.68 L295.03,594.36 L296.82,605.57 L298.61,628.74 L300.40,651.90
+		L302.19,678.80 L303.98,680.30 L305.77,700.47 L307.56,586.89 L309.35,626.50 L311.14,670.58 L312.93,693.75 L314.71,697.48
+		L316.50,723.63 L318.29,710.93 L320.08,728.87 L321.87,716.91 L323.66,715.42 L325.45,719.15 L327.24,737.08 L329.03,755.77
+		L330.82,769.22 L332.61,747.55 L334.40,669.83 L336.19,739.33 L337.98,743.06 L339.77,763.24 L341.56,789.39 L343.35,754.27
+		L345.14,743.81 L346.93,765.48 L348.72,770.71 L350.51,728.87 L352.30,787.15 L354.09,780.42 L355.88,750.53 L357.67,715.42
+		L359.46,784.91 L361.25,813.30 L363.04,815.54 L364.83,824.51 L366.62,855.89 L368.40,846.18 L370.19,841.70 L371.98,848.42
+		L373.77,848.42 L375.56,858.14 L377.35,840.20 L379.14,844.69 L380.93,861.87 L382.72,844.69 L384.51,849.92 L386.30,864.11
+		L388.09,812.55 L389.88,844.69 L391.67,886.53 L393.46,898.49 L395.25,891.76 L397.04,873.83 L398.83,871.59 L400.62,863.37
+		L402.41,865.61 L404.20,894.75 L405.99,900.73 L407.78,895.50 L409.57,899.98 L411.36,899.98 L413.15,913.43 L414.94,902.22
+		L416.73,903.72 L418.52,867.10 L420.31,895.50 L422.10,884.29 L423.88,901.47 L425.67,901.47 L427.46,897.74 L429.25,913.43
+		L431.04,892.51 L432.83,879.06 L434.62,893.25 L436.41,868.60 L438.20,873.08 L439.99,895.50 L441.78,910.44 L443.57,918.66
+		L445.36,914.92 L447.15,917.17 L448.94,908.95 L450.73,905.96 L452.52,924.64 L454.31,917.91 L456.10,920.90 L457.89,909.69
+		L459.68,895.50 L461.47,891.76 L463.26,886.53 L465.05,897.74 L466.84,908.95 L468.63,892.51 L470.42,894.75 L472.21,878.31
+		L474.00,879.06 L475.79,884.29 L477.57,870.84 L479.36,904.46 L481.15,888.77 L482.94,863.37 L484.73,882.05 L486.52,885.04
+		L488.31,882.79 L490.10,891.01 L491.89,896.99 L493.68,898.49 L495.47,870.84 L497.26,881.30 L499.05,880.55 L500.84,887.28
+		L502.63,876.07 L504.42,908.95 L506.21,885.04 L508.00,867.85 L509.79,867.85 L511.58,879.80 L513.37,885.78 L515.16,890.27
+		L516.95,891.76 L518.74,882.05 L520.53,867.10 L522.32,871.59 L524.11,870.84 L525.90,873.83 L527.69,875.32 L529.48,877.56
+		L531.27,879.06 L533.05,866.35 L534.84,854.40 L536.63,850.66 L538.42,862.62 L540.21,867.85 L542.00,877.56 L543.79,891.76
+		L545.58,880.55 L547.37,881.30 L549.16,882.05 L550.95,840.95 L552.74,837.96 L554.53,866.35 L556.32,868.60 L558.11,864.86
+		L559.90,841.70 L561.69,877.56 L563.48,879.80 L565.27,868.60 L567.06,888.77 L568.85,899.98 L570.64,855.15 L572.43,852.16
+		L574.22,845.43 L576.01,826.75 L577.80,811.81 L579.59,863.37 L581.38,877.56 L583.17,832.73 L584.96,843.94 L586.74,847.67
+		L588.53,856.64 L590.32,853.65 L592.11,882.05 L593.90,880.55 L595.69,849.17 L597.48,864.11 L599.27,815.54 L601.06,794.62
+		L602.85,814.05 L604.64,876.82 L606.43,849.17 L608.22,836.47 L610.01,851.41 L611.80,852.90 L613.59,846.18 L615.38,856.64
+		L617.17,879.80 L618.96,890.27 L620.75,846.18 L622.54,856.64 L624.33,871.59 L626.12,858.88 L627.91,850.66 L629.70,880.55
+		L631.49,855.89 L633.28,831.98 L635.07,814.80 L636.86,743.06 L638.65,774.45 L640.43,823.76 L642.22,863.37 L644.01,858.88
+		L645.80,858.14 L647.59,830.49 L649.38,833.48 L651.17,775.94 L652.96,811.81 L654.75,826.75 L656.54,794.62 L658.33,765.48
+		L660.12,687.02 L661.91,562.23 L663.70,639.95 L665.49,701.22 L667.28,754.27 L669.07,761.74 L670.86,734.10 L672.65,781.17
+		L674.44,828.99 L676.23,810.31 L678.02,822.27 L679.81,838.71 L681.60,821.52 L683.39,793.87 L685.18,809.57 L686.97,807.32
+		L688.76,790.88 L690.55,811.06 L692.34,840.20 L694.13,846.18 L695.91,813.30 L697.70,834.22 L699.49,837.21 L701.28,850.66
+		L703.07,853.65 L704.86,880.55 L706.65,874.57 L708.44,855.15 L710.23,801.35 L712.02,849.92 L713.81,866.35 L715.60,888.77
+		L717.39,885.04 L719.18,891.01 L720.97,879.06 L722.76,880.55 L724.55,862.62 L726.34,872.33 L728.13,853.65 L729.92,883.54
+		L731.71,876.82 L733.50,829.74 L735.29,846.18 L737.08,859.63 L738.87,826.75 L740.66,851.41 L742.45,890.27 L744.24,876.07
+		L746.03,853.65 L747.82,856.64 L749.60,864.86 L751.39,829.74 L753.18,868.60 L754.97,872.33 L756.76,840.20 L758.55,841.70
+		L760.34,831.23 L762.13,854.40 L763.92,875.32 L765.71,884.29 L767.50,864.86 L769.29,857.39 L771.08,840.20 L772.87,821.52
+		L774.66,813.30 L776.45,827.50 L778.24,836.47 L780.03,820.03 L781.82,814.80 L783.61,811.81 L785.40,794.62 L787.19,811.06
+		L788.98,823.76 L790.77,827.50 L792.56,852.16 L794.35,849.17 L796.14,803.59 L797.93,813.30 L799.72,812.55 L801.51,766.97
+		L803.30,798.36 L805.08,839.45 L806.87,820.03 L808.66,805.83 L810.45,824.51 L812.24,814.05 L814.03,812.55 L815.82,787.15
+		L817.61,835.72 L819.40,797.61 L821.19,769.96 L822.98,793.13 L824.77,788.64 L826.56,769.96 L828.35,755.77 L830.14,818.53
+		L831.93,818.53 L833.72,793.13 L835.51,808.07 L837.30,828.99 L839.09,813.30 L840.88,846.18 L842.67,870.84 L844.46,861.87
+		L846.25,839.45 L848.04,837.96 L849.83,844.69 L851.62,845.43 L853.41,840.95 L855.20,863.37 L856.99,870.84 L858.77,853.65
+		L860.56,844.69 L862.35,858.14 L864.14,867.85 L865.93,849.17 L867.72,880.55 L869.51,880.55 L871.30,837.21 L873.09,849.17
+		L874.88,843.94 L876.67,820.77 L878.46,844.69 L880.25,865.61 L882.04,870.84 L883.83,840.95 L885.62,839.45 L887.41,834.22
+		L889.20,816.29 L890.99,852.16 L892.78,861.87 L894.57,872.33 L896.36,849.17 L898.15,852.90 L899.94,843.94 L901.73,835.72
+		L903.52,836.47 L905.31,864.11 L907.10,858.14 L908.89,791.63 L910.68,782.67 L912.47,791.63 L914.25,701.97 L916.04,779.68
+		L917.83,809.57 L919.62,824.51 L921.41,821.52 L923.20,808.82 L924.99,793.87 L926.78,801.35 L928.57,816.29 L930.36,827.50
+		L932.15,815.54 L933.94,807.32 L935.73,766.23 L937.52,665.35 L939.31,770.71 L941.10,798.36 L942.89,846.93 L944.68,846.18
+		L946.47,840.20 L948.26,819.28 L950.05,820.03 L951.84,834.22 L953.63,834.22 L955.42,863.37 L957.21,856.64 L959.00,845.43
+		L960.79,844.69 L962.58,840.95 L964.37,833.48 L966.16,840.95 L967.94,864.11 L969.73,876.82 L971.52,847.67 L973.31,870.84
+		L975.10,843.19 L976.89,838.71 L978.68,870.84 L980.47,887.28 L982.26,860.38 L984.05,848.42 L985.84,850.66 L987.63,842.44
+		L989.42,819.28 L991.21,826.75 L993.00,869.34 L994.79,857.39 L996.58,829.74 L998.37,802.09 L1000.16,831.98 L1001.95,822.27
+		L1003.74,865.61 L1005.53,873.08 L1007.32,896.24 L1009.11,849.92 L1010.90,825.26 L1012.69,835.72 L1014.48,858.14 L1016.27,854.40
+		L1018.06,852.16 L1019.85,865.61 L1021.63,838.71 L1023.42,843.94 L1025.21,826.75 L1027.00,853.65 L1028.79,861.12 L1030.58,892.51
+		L1032.37,888.77 L1034.16,874.57 L1035.95,861.87 L1037.74,862.62 L1039.53,879.80 L1041.32,888.77 L1043.11,906.70 L1044.90,908.95
+		L1046.69,877.56 L1048.48,876.07 L1050.27,877.56 L1052.06,892.51 L1053.85,889.52 L1055.64,913.43 L1057.43,896.99 L1059.22,893.25
+		L1061.01,885.78 L1062.80,884.29 L1064.59,882.79 L1066.38,896.24 L1068.17,912.68 L1069.96,902.22 L1071.75,879.06 L1073.54,882.05
+		L1075.33,858.88 L1077.11,883.54 L1078.90,885.78 L1080.69,911.19 L1082.48,913.43 L1084.27,899.23 L1086.06,894.00 L1087.85,879.80
+		L1089.64,886.53 L1091.43,885.04 L1093.22,894.75 L1095.01,891.01 L1096.80,877.56 L1098.59,873.83 L1100.38,863.37 L1102.17,875.32
+		L1103.96,858.14 L1105.75,882.05 L1107.54,884.29 L1109.33,834.97 L1111.12,846.18 L1112.91,836.47 L1114.70,844.69 L1116.49,838.71
+		L1118.28,854.40 L1120.07,847.67 L1121.86,712.43 L1123.65,667.59 L1125.44,760.25 L1127.23,766.97 L1129.02,784.16 L1130.80,790.88
+		L1132.59,785.65 L1134.38,772.20 L1136.17,776.69 L1137.96,753.52 L1139.75,764.73 L1141.54,793.13 L1143.33,780.42 L1145.12,798.36
+		L1146.91,786.40 L1148.70,787.90 L1150.49,793.87 L1152.28,793.13 L1154.07,807.32 L1155.86,837.96 L1157.65,840.95 L1159.44,821.52
+		L1161.23,807.32 L1163.02,789.39 L1164.81,800.60 L1166.60,799.85 L1168.39,806.58 L1170.18,814.05 L1171.97,802.84 L1173.76,818.53
+		L1175.55,819.28 L1177.34,811.06 L1179.13,805.83 L1180.92,852.16 L1182.71,859.63 L1184.50,842.44 L1186.28,826.75 L1188.07,816.29
+		L1189.86,839.45 L1191.65,843.19 L1193.44,834.22 L1195.23,849.92 L1197.02,839.45 L1198.81,826.75 L1200.60,835.72 L1202.39,854.40
+		L1204.18,859.63 L1205.97,873.83 L1207.76,857.39 L1209.55,829.74 L1211.34,845.43 L1213.13,868.60 L1214.92,860.38 L1216.71,861.12
+		L1218.50,871.59 L1220.29,865.61 L1222.08,873.08 L1223.87,871.59 L1225.66,868.60 L1227.45,882.05 L1229.24,863.37 L1231.03,899.23
+		L1232.82,885.04 L1234.61,871.59 L1236.40,866.35 L1238.19,868.60 L1239.97,855.15 L1241.76,870.09 L1243.55,893.25 L1245.34,900.73
+		L1247.13,876.82 L1248.92,885.04 L1250.71,896.24 L1252.50,897.74 L1254.29,904.46 L1256.08,920.90 L1257.87,905.96 L1259.66,894.75
+		L1261.45,897.74 L1263.24,893.25 L1265.03,908.95 L1266.82,921.65 L1268.61,923.14 L1270.40,931.36 L1272.19,896.99 L1273.98,910.44
+		L1275.77,912.68 L1277.56,914.92 L1279.35,925.39 L1281.14,929.12 L1282.93,922.40 L1284.72,912.68 L1286.51,908.20 L1288.30,904.46
+		L1290.09,920.90 L1291.88,895.50 L1293.67,911.19 L1295.45,911.94 L1297.24,905.96 L1299.03,904.46 L1300.82,895.50 L1302.61,910.44
+		L1304.40,913.43 L1306.19,936.59 L1307.98,925.39 L1309.77,920.15 L1311.56,909.69 L1313.35,900.73 L1315.14,912.68 L1316.93,917.91
+		L1318.72,919.41 L1320.51,914.18 L1322.30,937.34 L1324.09,937.34 L1325.88,906.70 L1327.67,907.45 L1329.46,905.21 L1331.25,917.17
+		L1333.04,922.40 L1334.83,908.95 L1336.62,855.89 L1338.41,896.24 L1340.20,919.41 L1341.99,895.50 L1343.78,913.43 L1345.57,907.45
+		L1347.36,887.28 L1349.14,881.30 L1350.93,894.75 L1352.72,874.57 L1354.51,860.38 L1356.30,902.22 L1358.09,902.22 L1359.88,862.62
+		L1361.67,857.39 L1363.46,820.03 L1365.25,781.17 L1367.04,789.39 L1368.83,827.50 L1370.62,840.20 L1372.41,823.76 L1374.20,828.99
+		L1375.99,825.26 L1377.78,831.98 L1379.57,823.76 L1381.36,880.55 L1383.15,877.56 L1384.94,826.00 L1386.73,857.39 L1388.52,837.96
+		L1390.31,857.39 L1392.10,861.12 L1393.89,880.55 L1395.68,896.99 L1397.47,851.41 L1399.26,831.23 L1401.05,819.28 L1402.83,826.75
+		L1404.62,836.47 L1406.41,830.49 L1408.20,826.00 L1409.99,797.61 L1411.78,800.60 L1413.57,789.39 L1415.36,808.07 L1417.15,833.48
+		L1418.94,857.39 L1420.73,825.26 L1422.52,771.46 L1424.31,771.46 L1426.10,752.78 L1427.89,755.02 L1429.68,798.36 L1431.47,833.48
+		L1433.26,806.58 L1435.05,758.75 L1436.84,745.30 L1438.63,731.11 L1440.42,761.74 L1442.21,771.46 L1444.00,807.32 L1445.79,818.53
+		L1447.58,789.39 L1449.37,817.04 L1451.16,817.04 L1452.95,820.03 L1454.74,835.72 L1456.53,853.65 L1458.31,856.64 L1460.10,831.23
+		L1461.89,828.99 L1463.68,825.26 L1465.47,827.50 L1467.26,847.67 L1469.05,894.00 L1470.84,885.04 L1472.63,854.40 L1474.42,856.64
+		L1476.21,867.85 L1478.00,867.85 L1479.79,875.32 L1481.58,882.79 L1483.37,900.73 L1485.16,880.55 L1486.95,887.28 L1488.74,882.79
+		L1490.53,891.01 L1492.32,907.45 L1494.11,920.90 L1495.90,932.86 L1497.69,895.50 L1499.48,895.50 L1501.27,888.77 L1503.06,889.52
+		L1504.85,908.20 L1506.64,913.43 L1508.43,917.91 L1510.22,917.91 L1512.00,910.44 L1513.79,905.96 L1515.58,908.95 L1517.37,918.66
+		L1519.16,950.04 L1520.95,947.80 L1522.74,932.11 L1524.53,926.88 L1526.32,934.35 L1528.11,941.08 L1529.90,935.85 L1531.69,953.78
+		L1533.48,956.77 L1535.27,950.79 L1537.06,957.52 L1538.85,947.80 L1540.64,899.98 L1542.43,935.10 L1544.22,954.53 L1546.01,947.80
+		L1547.80,942.57 L1549.59,930.62 L1551.38,932.86 L1553.17,934.35 L1554.96,929.87 L1556.75,937.34 L1558.54,929.87 L1560.33,896.24
+		L1562.12,911.19 L1563.91,920.15 L1565.70,926.13 L1567.48,931.36 L1569.27,935.85 L1571.06,941.82 L1572.85,948.55 L1574.64,920.90
+		L1576.43,935.85 L1578.22,933.60 L1580.01,936.59 L1581.80,945.56 L1583.59,963.49 L1585.38,934.35 L1587.17,934.35 L1588.96,932.86
+		L1590.75,941.08 L1592.54,937.34 L1594.33,958.26 L1596.12,953.78 L1597.91,942.57 L1599.70,932.11 L1601.49,950.04 L1603.28,944.81
+		L1605.07,944.81 L1606.86,945.56 L1608.65,946.31 L1610.44,956.02 L1612.23,949.30 L1614.02,946.31 L1615.81,957.52 L1617.60,961.25
+		L1619.39,954.53 L1621.17,954.53 L1622.96,964.99 L1624.75,929.87 L1626.54,951.54 L1628.33,952.29 L1630.12,953.03 L1631.91,948.55
+		L1633.70,944.81 L1635.49,948.55 L1637.28,938.84 L1639.07,945.56 L1640.86,964.24 L1642.65,944.07 L1644.44,953.03 L1646.23,962.75
+		L1648.02,963.49 L1649.81,953.03 L1651.60,952.29 L1653.39,958.26 L1655.18,950.79 L1656.97,956.02 L1658.76,955.27 L1660.55,945.56
+		L1662.34,938.84 L1664.13,928.37 L1665.92,934.35 L1667.71,935.85 L1669.50,962.75 L1671.29,956.02 L1673.08,931.36 L1674.86,945.56
+		L1676.65,948.55 L1678.44,938.09 L1680.23,938.09 L1682.02,958.26 L1683.81,961.25 L1685.60,963.49 L1687.39,962.00 L1689.18,963.49
+		L1690.97,966.48 L1692.76,964.24 L1694.55,962.00 L1696.34,949.30 L1698.13,953.78 L1699.92,956.77 L1701.71,944.81 L1703.50,960.50
+		L1705.29,956.02 L1707.08,963.49 L1708.87,956.77 L1710.66,956.77 L1712.45,957.52 L1714.24,945.56 L1716.03,950.79 L1717.82,949.30
+		L1719.61,964.99 L1721.40,959.76 L1723.19,952.29 L1724.98,956.02 L1726.77,955.27 L1728.56,953.03 L1730.34,960.50 L1732.13,970.97
+		L1733.92,967.23 L1735.71,956.02 L1737.50,963.49 L1739.29,956.02 L1741.08,952.29 L1742.87,947.05 L1744.66,961.25 L1746.45,953.03
+		L1748.24,920.15 L1750.03,914.92 L1751.82,933.60 L1753.61,923.89 L1755.40,931.36 L1757.19,975.45  '/></g>
+	</g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_4" ><title>le nombre de nouveaux participants par jour (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '159.01,967.98 160.80,968.72 162.59,953.78 164.38,897.74 166.17,873.83 167.96,900.73 169.75,876.82 171.54,871.59 173.33,866.35 175.12,863.37 176.91,875.32 178.70,897.74 180.49,907.45 182.28,892.51 184.07,896.99 185.86,901.47
+187.65,900.73 189.44,900.73 191.23,892.51 193.02,916.42 191.23,903.72 189.44,906.70 187.65,902.97 185.86,908.95 184.07,902.22 182.28,901.47 180.49,917.17 178.70,905.96 176.91,888.77 175.12,879.80 173.33,883.54 171.54,894.00
+169.75,901.47 167.96,920.15 166.17,923.14 164.38,957.52 162.59,972.46 160.80,978.44 159.01,980.68 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '193.02,916.42 193.02,916.42 193.01,916.42 193.01,916.42 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '193.02,916.42 194.81,890.27 196.60,899.23 198.39,901.47 200.18,888.77 201.97,925.39 203.76,918.66 205.54,928.37 207.33,923.89 209.12,923.14 210.91,926.13 212.70,922.40 214.49,928.37 216.28,908.95 218.07,893.25 219.86,835.72
+221.65,826.00 223.44,801.35 225.23,800.60 227.02,766.23 228.81,779.68 230.60,784.91 232.39,725.13 234.18,735.59 235.97,743.81 237.76,699.72 239.55,691.50 241.34,758.01 243.13,719.15 244.92,681.04 246.71,662.36 248.50,654.14
+250.29,515.16 252.08,538.32 253.87,527.86 255.66,399.34 257.45,279.04 259.24,397.84 261.02,443.43 262.81,472.57 264.60,484.52 266.39,506.94 268.18,506.19 269.97,494.24 271.76,548.04 273.55,533.09 275.34,592.12 277.13,554.01
+278.92,576.43 280.71,562.23 282.50,576.43 284.29,611.55 286.08,580.91 287.87,596.61 289.66,627.24 291.45,663.86 293.24,643.68 295.03,594.36 296.82,605.57 298.61,628.74 300.40,651.90 302.19,678.80 303.98,680.30 305.77,700.47
+307.56,586.89 309.35,626.50 311.14,670.58 312.93,693.75 314.71,697.48 316.50,723.63 318.29,710.93 320.08,728.87 321.87,716.91 323.66,715.42 325.45,719.15 327.24,737.08 329.03,755.77 330.82,769.22 332.61,747.55 334.40,669.83
+336.19,739.33 337.98,743.06 339.77,763.24 341.56,789.39 343.35,754.27 345.14,743.81 346.93,765.48 348.72,770.71 350.51,728.87 352.30,787.15 354.09,780.42 355.88,750.53 357.67,715.42 359.46,784.91 361.25,813.30 359.46,788.64
+357.67,719.90 355.88,753.52 354.09,783.41 352.30,789.39 350.51,731.11 348.72,773.70 346.93,767.72 345.14,744.56 343.35,755.77 341.56,790.88 339.77,765.48 337.98,748.29 336.19,742.32 334.40,673.57 332.61,748.29 330.82,773.70
+329.03,759.50 327.24,740.82 325.45,721.39 323.66,719.15 321.87,721.39 320.08,731.85 318.29,716.16 316.50,731.85 314.71,701.97 312.93,696.73 311.14,675.06 309.35,634.71 307.56,601.09 305.77,707.94 303.98,684.03 302.19,682.54
+300.40,654.89 298.61,635.46 296.82,612.30 295.03,609.31 293.24,650.41 291.45,669.09 289.66,636.21 287.87,604.83 286.08,586.89 284.29,620.52 282.50,586.15 280.71,577.18 278.92,599.60 277.13,568.21 275.34,602.58 273.55,550.28
+271.76,559.25 269.97,523.38 268.18,534.59 266.39,533.84 264.60,524.87 262.81,497.23 261.02,494.98 259.24,463.60 257.45,404.57 255.66,502.46 253.87,599.60 252.08,588.39 250.29,586.89 248.50,681.04 246.71,684.03 244.92,708.69
+243.13,743.06 241.34,778.18 239.55,720.65 237.76,732.60 235.97,767.72 234.18,762.49 232.39,758.01 230.60,808.07 228.81,811.06 227.02,802.84 225.23,826.00 223.44,826.75 221.65,850.66 219.86,858.14 218.07,900.73 216.28,914.18
+214.49,931.36 212.70,923.14 210.91,926.88 209.12,923.89 207.33,926.88 205.54,929.12 203.76,920.90 201.97,926.88 200.18,894.75 198.39,904.46 196.60,906.70 194.81,895.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '361.25,813.30 361.25,813.30 361.24,813.30 361.24,813.30 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '361.25,813.30 363.04,815.54 364.83,824.51 363.04,816.29 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '364.83,824.51 364.83,824.51 366.61,855.89 366.61,855.89 366.62,855.89 364.83,824.51 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '366.62,855.89 368.40,846.18 370.19,841.70 371.98,848.42 373.77,848.42 375.56,858.14 377.35,840.20 375.56,859.63 373.77,849.17 371.98,849.17 370.19,843.94 368.40,847.67 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '377.35,840.20 377.35,840.20 379.13,844.69 379.13,844.69 379.14,844.69 377.35,840.20 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '379.14,844.69 380.93,861.87 382.72,844.69 384.51,849.92 386.30,864.11 384.51,851.41 382.72,846.18 380.93,864.86 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '386.30,864.11 386.30,864.11 386.29,864.11 386.29,864.11 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '386.30,864.11 388.09,812.55 389.88,844.69 391.67,886.53 393.46,898.49 391.67,887.28 389.88,846.18 388.09,815.54 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '393.46,898.49 393.46,898.49 393.45,898.49 393.45,898.49 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '393.46,898.49 395.25,891.76 397.04,873.83 395.25,893.25 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '397.04,873.83 397.04,873.83 398.82,871.59 398.82,871.59 398.83,871.59 397.04,873.83 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '398.83,871.59 400.62,863.37 402.41,865.61 400.62,864.86 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '402.41,865.61 402.41,865.61 404.20,894.75 405.99,900.73 407.78,895.50 409.57,899.98 411.36,899.98 413.15,913.43 413.15,913.43 413.15,913.43 411.36,899.98 409.57,899.98 407.78,895.50 405.99,900.73 404.20,894.75 402.41,865.61
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '413.15,913.43 414.94,902.22 416.73,903.72 414.94,902.97 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '416.73,903.72 416.73,903.72 418.52,867.10 420.30,895.50 420.30,895.50 420.31,895.50 418.52,867.10 416.73,903.72 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '420.31,895.50 422.10,884.29 423.88,901.47 422.10,885.04 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '423.88,901.47 423.88,901.47 423.87,901.47 423.87,901.47 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '423.88,901.47 425.67,901.47 427.46,897.74 425.67,902.22 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '427.46,897.74 427.46,897.74 429.25,913.43 431.03,892.51 431.03,892.51 431.04,892.51 429.25,913.43 427.46,897.74 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '431.04,892.51 432.83,879.06 434.62,893.25 436.41,868.60 438.20,873.08 439.99,895.50 441.78,910.44 439.99,896.24 438.20,874.57 436.41,870.84 434.62,894.00 432.83,879.80 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '441.78,910.44 441.78,910.44 443.56,918.66 443.56,918.66 443.57,918.66 441.78,910.44 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '443.57,918.66 445.36,914.92 447.15,917.17 445.36,916.42 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '447.15,917.17 447.15,917.17 447.14,917.17 447.14,917.17 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '447.15,917.17 448.94,908.95 450.73,905.96 448.94,909.69 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '450.73,905.96 450.73,905.96 452.52,924.64 454.31,917.91 456.10,920.90 456.10,920.90 456.10,920.90 454.31,917.91 452.52,924.64 450.73,905.96 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '456.10,920.90 457.89,909.69 459.68,895.50 461.47,891.76 459.68,896.24 457.89,910.44 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '461.47,891.76 461.47,891.76 461.46,891.76 461.46,891.76 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '461.47,891.76 463.26,886.53 465.05,897.74 463.26,888.02 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '465.05,897.74 465.05,897.74 466.84,908.95 468.62,892.51 468.62,892.51 468.63,892.51 466.84,908.95 465.05,897.74 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '468.63,892.51 470.42,894.75 472.21,878.31 474.00,879.06 475.79,884.29 474.00,879.80 472.21,879.06 470.42,895.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '475.79,884.29 475.79,884.29 477.56,870.84 477.56,870.84 477.57,870.84 475.79,884.29 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '477.57,870.84 479.36,904.46 481.15,888.77 482.94,863.37 484.73,882.05 482.94,864.11 481.15,889.52 479.36,905.21 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '484.73,882.05 484.73,882.05 486.51,885.04 486.51,885.04 486.52,885.04 484.73,882.05 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '486.52,885.04 488.31,882.79 490.10,891.01 491.89,896.99 493.68,898.49 491.89,899.23 490.10,891.76 488.31,884.29 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '493.68,898.49 493.68,898.49 493.67,898.49 493.67,898.49 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '493.68,898.49 495.47,870.84 497.26,881.30 499.05,880.55 497.26,882.05 495.47,873.08 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '499.05,880.55 499.05,880.55 499.04,880.55 499.04,880.55 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '499.05,880.55 500.84,887.28 502.63,876.07 500.84,889.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '502.63,876.07 502.63,876.07 504.42,908.95 506.20,885.04 506.20,885.04 506.21,885.04 504.42,908.95 502.63,876.07 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '506.21,885.04 508.00,867.85 509.79,867.85 511.58,879.80 513.37,885.78 515.16,890.27 513.37,887.28 511.58,880.55 509.79,868.60 508.00,868.60 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '515.16,890.27 515.16,890.27 515.15,890.27 515.15,890.27 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '515.16,890.27 516.95,891.76 518.74,882.05 520.53,867.10 522.32,871.59 524.11,870.84 525.90,873.83 524.11,871.59 522.32,873.08 520.53,868.60 518.74,883.54 516.95,892.51 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '525.90,873.83 525.90,873.83 525.89,873.83 525.89,873.83 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '525.90,873.83 527.69,875.32 529.48,877.56 531.27,879.06 533.05,866.35 534.84,854.40 533.05,868.60 531.27,880.55 529.48,879.06 527.69,876.07 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '534.84,854.40 534.84,854.40 534.83,854.40 534.83,854.40 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '534.84,854.40 536.63,850.66 538.42,862.62 540.21,867.85 542.00,877.56 543.79,891.76 545.58,880.55 547.37,881.30 549.16,882.05 547.37,882.79 545.58,882.05 543.79,893.25 542.00,879.06 540.21,868.60 538.42,863.37 536.63,852.16
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '549.16,882.05 549.16,882.05 549.15,882.05 549.15,882.05 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '549.16,882.05 550.95,840.95 552.74,837.96 554.53,866.35 552.74,840.20 550.95,843.94 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '554.53,866.35 554.53,866.35 554.52,866.35 554.52,866.35 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '554.53,866.35 556.32,868.60 558.11,864.86 559.90,841.70 561.69,877.56 563.48,879.80 565.27,868.60 567.06,888.77 565.27,869.34 563.48,880.55 561.69,879.06 559.90,846.18 558.11,866.35 556.32,870.84 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '567.06,888.77 567.06,888.77 567.05,888.77 567.05,888.77 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '567.06,888.77 568.85,899.98 570.64,855.15 568.85,901.47 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '570.64,855.15 570.64,855.15 570.63,855.15 570.63,855.15 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '570.64,855.15 572.43,852.16 574.22,845.43 576.01,826.75 577.80,811.81 579.59,863.37 581.38,877.56 579.59,864.11 577.80,814.05 576.01,828.99 574.22,846.93 572.43,854.40 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '581.38,877.56 581.38,877.56 581.37,877.56 581.37,877.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '581.38,877.56 583.17,832.73 584.96,843.94 586.74,847.67 584.96,844.69 583.17,835.72 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '586.74,847.67 586.74,847.67 588.52,856.64 588.52,856.64 588.53,856.64 586.74,847.67 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '588.53,856.64 590.32,853.65 592.11,882.05 593.90,880.55 592.11,883.54 590.32,855.15 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '593.90,880.55 593.90,880.55 593.89,880.55 593.89,880.55 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '593.90,880.55 595.69,849.17 597.48,864.11 599.27,815.54 601.06,794.62 602.85,814.05 604.64,876.82 606.43,849.17 608.22,836.47 610.01,851.41 608.22,839.45 606.43,849.92 604.64,880.55 602.85,816.29 601.06,796.12 599.27,817.04
+597.48,864.86 595.69,849.92 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '610.01,851.41 610.01,851.41 610.00,851.41 610.00,851.41 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '610.01,851.41 611.80,852.90 613.59,846.18 615.38,856.64 617.17,879.80 615.38,857.39 613.59,846.93 611.80,854.40 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '617.17,879.80 617.17,879.80 617.16,879.80 617.16,879.80 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '617.17,879.80 618.96,890.27 620.75,846.18 622.54,856.64 624.33,871.59 626.12,858.88 627.91,850.66 626.12,859.63 624.33,872.33 622.54,857.39 620.75,849.17 618.96,891.01 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '627.91,850.66 627.91,850.66 629.69,880.55 629.69,880.55 629.70,880.55 627.91,850.66 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '629.70,880.55 631.49,855.89 633.28,831.98 635.07,814.80 636.86,743.06 638.65,774.45 640.43,823.76 642.22,863.37 644.01,858.88 645.80,858.14 647.59,830.49 649.38,833.48 651.17,775.94 652.96,811.81 654.75,826.75 652.96,815.54
+651.17,776.69 649.38,834.22 647.59,834.22 645.80,858.88 644.01,861.12 642.22,865.61 640.43,826.00 638.65,777.43 636.86,747.55 635.07,817.78 633.28,833.48 631.49,857.39 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '654.75,826.75 654.75,826.75 654.74,826.75 654.74,826.75 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '654.75,826.75 656.54,794.62 658.33,765.48 660.12,687.02 661.91,562.23 663.70,639.95 665.49,701.22 667.28,754.27 669.07,761.74 670.86,734.10 672.65,781.17 674.44,828.99 676.23,810.31 678.02,822.27 679.81,838.71 681.60,821.52
+683.39,793.87 681.60,822.27 679.81,839.45 678.02,823.02 676.23,812.55 674.44,829.74 672.65,781.92 670.86,738.58 669.07,763.98 667.28,760.25 665.49,704.95 663.70,648.16 661.91,574.94 660.12,695.24 658.33,769.96 656.54,798.36
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '683.39,793.87 683.39,793.87 683.38,793.87 683.38,793.87 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '683.39,793.87 685.18,809.57 686.97,807.32 688.76,790.88 690.55,811.06 692.34,840.20 694.13,846.18 695.91,813.30 697.70,834.22 699.49,837.21 701.28,850.66 703.07,853.65 701.28,852.16 699.49,839.45 697.70,834.97 695.91,814.80
+694.13,846.93 692.34,843.19 690.55,812.55 688.76,793.13 686.97,809.57 685.18,810.31 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '703.07,853.65 703.07,853.65 703.06,853.65 703.06,853.65 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '703.07,853.65 704.86,880.55 706.65,874.57 704.86,881.30 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '706.65,874.57 706.65,874.57 708.44,855.15 710.22,801.35 710.22,801.35 710.23,801.35 708.44,855.15 706.65,874.57 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '710.23,801.35 712.02,849.92 713.81,866.35 712.02,850.66 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '713.81,866.35 713.81,866.35 713.80,866.35 713.80,866.35 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '713.81,866.35 715.60,888.77 717.39,885.04 715.60,889.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '717.39,885.04 717.39,885.04 719.17,891.01 719.17,891.01 719.18,891.01 717.39,885.04 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '719.18,891.01 720.97,879.06 722.76,880.55 724.55,862.62 726.34,872.33 728.13,853.65 729.92,883.54 731.71,876.82 729.92,884.29 728.13,855.15 726.34,873.83 724.55,863.37 722.76,881.30 720.97,881.30 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '731.71,876.82 731.71,876.82 731.70,876.82 731.70,876.82 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '731.71,876.82 733.50,829.74 735.29,846.18 737.08,859.63 735.29,848.42 733.50,831.23 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '737.08,859.63 737.08,859.63 737.07,859.63 737.07,859.63 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '737.08,859.63 738.87,826.75 740.66,851.41 742.45,890.27 740.66,852.90 738.87,828.25 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '742.45,890.27 742.45,890.27 742.44,890.27 742.44,890.27 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '742.45,890.27 744.24,876.07 746.03,853.65 747.82,856.64 749.60,864.86 751.39,829.74 753.18,868.60 754.97,872.33 753.18,869.34 751.39,830.49 749.60,865.61 747.82,858.14 746.03,855.15 744.24,876.82 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '754.97,872.33 754.97,872.33 754.96,872.33 754.96,872.33 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '754.97,872.33 756.76,840.20 758.55,841.70 760.34,831.23 758.55,842.44 756.76,842.44 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '760.34,831.23 760.34,831.23 762.12,854.40 762.12,854.40 762.13,854.40 760.34,831.23 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '762.13,854.40 763.92,875.32 765.71,884.29 767.50,864.86 765.71,885.04 763.92,876.82 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '767.50,864.86 767.50,864.86 767.49,864.86 767.49,864.86 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '767.50,864.86 769.29,857.39 771.08,840.20 772.87,821.52 774.66,813.30 772.87,822.27 771.08,840.95 769.29,858.14 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '774.66,813.30 774.66,813.30 774.65,813.30 774.65,813.30 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '774.66,813.30 776.45,827.50 778.24,836.47 780.03,820.03 781.82,814.80 783.61,811.81 785.40,794.62 787.19,811.06 788.98,823.76 790.77,827.50 788.98,825.26 787.19,812.55 785.40,796.12 783.61,814.80 781.82,815.54 780.03,824.51
+778.24,837.96 776.45,828.99 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '790.77,827.50 790.77,827.50 790.76,827.50 790.76,827.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '790.77,827.50 792.56,852.16 794.35,849.17 796.14,803.59 797.93,813.30 799.72,812.55 801.51,766.97 803.30,798.36 805.08,839.45 806.87,820.03 805.08,840.95 803.30,799.85 801.51,767.72 799.72,815.54 797.93,816.29 796.14,804.33
+794.35,850.66 792.56,852.90 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '806.87,820.03 806.87,820.03 808.66,805.83 810.44,824.51 810.44,824.51 810.45,824.51 808.66,805.83 806.87,820.03 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '810.45,824.51 812.24,814.05 814.03,812.55 815.82,787.15 817.61,835.72 819.40,797.61 821.19,769.96 822.98,793.13 824.77,788.64 822.98,793.87 821.19,771.46 819.40,799.85 817.61,836.47 815.82,788.64 814.03,814.05 812.24,816.29
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '824.77,788.64 824.77,788.64 824.76,788.64 824.76,788.64 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '824.77,788.64 826.56,769.96 828.35,755.77 830.14,818.53 831.93,818.53 833.72,793.13 835.51,808.07 833.72,794.62 831.93,820.77 830.14,820.03 828.35,757.26 826.56,771.46 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '835.51,808.07 835.51,808.07 837.29,828.99 837.29,828.99 837.30,828.99 835.51,808.07 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '837.30,828.99 839.09,813.30 840.88,846.18 842.67,870.84 840.88,846.93 839.09,815.54 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '842.67,870.84 842.67,870.84 842.66,870.84 842.66,870.84 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '842.67,870.84 844.46,861.87 846.25,839.45 848.04,837.96 849.83,844.69 848.04,839.45 846.25,841.70 844.46,862.62 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '849.83,844.69 849.83,844.69 849.82,844.69 849.82,844.69 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '849.83,844.69 851.62,845.43 853.41,840.95 855.20,863.37 853.41,842.44 851.62,846.18 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '855.20,863.37 855.20,863.37 856.99,870.84 858.76,853.65 858.76,853.65 858.77,853.65 856.99,870.84 855.20,863.37 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '858.77,853.65 860.56,844.69 862.35,858.14 864.14,867.85 865.93,849.17 864.14,868.60 862.35,858.88 860.56,846.18 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '865.93,849.17 865.93,849.17 865.92,849.17 865.92,849.17 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '865.93,849.17 867.72,880.55 869.51,880.55 871.30,837.21 873.09,849.17 871.30,837.96 869.51,881.30 867.72,881.30 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '873.09,849.17 873.09,849.17 874.87,843.94 874.87,843.94 874.88,843.94 873.09,849.17 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '874.88,843.94 876.67,820.77 878.46,844.69 880.25,865.61 878.46,845.43 876.67,821.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '880.25,865.61 880.25,865.61 882.03,870.84 882.03,870.84 882.04,870.84 880.25,865.61 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '882.04,870.84 883.83,840.95 885.62,839.45 883.83,841.70 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '885.62,839.45 885.62,839.45 885.61,839.45 885.61,839.45 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '885.62,839.45 887.41,834.22 889.20,816.29 890.99,852.16 892.78,861.87 894.57,872.33 892.78,862.62 890.99,853.65 889.20,817.78 887.41,835.72 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '894.57,872.33 894.57,872.33 894.56,872.33 894.56,872.33 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '894.57,872.33 896.36,849.17 898.15,852.90 896.36,849.92 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '898.15,852.90 898.15,852.90 898.14,852.90 898.14,852.90 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '898.15,852.90 899.94,843.94 901.73,835.72 903.52,836.47 905.31,864.11 907.10,858.14 905.31,865.61 903.52,837.21 901.73,837.96 899.94,846.93 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '907.10,858.14 907.10,858.14 908.88,791.63 908.88,791.63 908.89,791.63 907.10,858.14 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '908.89,791.63 910.68,782.67 912.47,791.63 914.25,701.97 916.04,779.68 917.83,809.57 919.62,824.51 921.41,821.52 919.62,826.75 917.83,811.06 916.04,780.42 914.25,704.21 912.47,794.62 910.68,785.65 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '921.41,821.52 921.41,821.52 921.40,821.52 921.40,821.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '921.41,821.52 923.20,808.82 924.99,793.87 923.20,810.31 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '924.99,793.87 924.99,793.87 924.98,793.87 924.98,793.87 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '924.99,793.87 926.78,801.35 928.57,816.29 930.36,827.50 928.57,817.04 926.78,802.84 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '930.36,827.50 930.36,827.50 930.35,827.50 930.35,827.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '930.36,827.50 932.15,815.54 933.94,807.32 935.73,766.23 937.52,665.35 939.31,770.71 941.10,798.36 942.89,846.93 941.10,799.85 939.31,772.20 937.52,667.59 935.73,768.47 933.94,808.07 932.15,816.29 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '942.89,846.93 942.89,846.93 942.88,846.93 942.88,846.93 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '942.89,846.93 944.68,846.18 946.47,840.20 944.68,847.67 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '946.47,840.20 946.47,840.20 946.46,840.20 946.46,840.20 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '946.47,840.20 948.26,819.28 950.05,820.03 951.84,834.22 953.63,834.22 955.42,863.37 957.21,856.64 959.00,845.43 960.79,844.69 959.00,846.18 957.21,857.39 955.42,864.11 953.63,834.97 951.84,836.47 950.05,820.77 948.26,821.52
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '960.79,844.69 960.79,844.69 960.78,844.69 960.78,844.69 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '960.79,844.69 962.58,840.95 964.37,833.48 966.16,840.95 967.94,864.11 966.16,841.70 964.37,835.72 962.58,841.70 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '967.94,864.11 967.94,864.11 967.93,864.11 967.93,864.11 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '967.94,864.11 969.73,876.82 971.52,847.67 969.73,877.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '971.52,847.67 971.52,847.67 973.31,870.84 975.09,843.19 975.09,843.19 975.10,843.19 973.31,870.84 971.52,847.67 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '975.10,843.19 976.89,838.71 978.68,870.84 980.47,887.28 978.68,871.59 976.89,839.45 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '980.47,887.28 980.47,887.28 980.46,887.28 980.46,887.28 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '980.47,887.28 982.26,860.38 984.05,848.42 982.26,861.12 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '984.05,848.42 984.05,848.42 984.04,848.42 984.04,848.42 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '984.05,848.42 985.84,850.66 987.63,842.44 989.42,819.28 987.63,844.69 985.84,851.41 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '989.42,819.28 989.42,819.28 991.20,826.75 991.20,826.75 991.21,826.75 989.42,819.28 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '991.21,826.75 993.00,869.34 994.79,857.39 996.58,829.74 998.37,802.09 1000.16,831.98 1001.95,822.27 1003.74,865.61 1001.95,824.51 1000.16,833.48 998.37,802.84 996.58,831.98 994.79,859.63 993.00,870.09 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1003.74,865.61 1003.74,865.61 1005.53,873.08 1007.31,896.24 1007.31,896.24 1007.32,896.24 1005.53,873.08 1003.74,865.61 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1007.32,896.24 1009.11,849.92 1010.90,825.26 1012.69,835.72 1014.48,858.14 1016.27,854.40 1018.06,852.16 1019.85,865.61 1021.63,838.71 1023.42,843.94 1025.21,826.75 1027.00,853.65 1028.79,861.12 1027.00,855.15 1025.21,829.74 1023.42,849.17
+1021.63,840.20 1019.85,867.85 1018.06,855.89 1016.27,858.14 1014.48,859.63 1012.69,837.96 1010.90,827.50 1009.11,850.66 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1028.79,861.12 1028.79,861.12 1030.57,892.51 1030.57,892.51 1030.58,892.51 1028.79,861.12 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1030.58,892.51 1032.37,888.77 1034.16,874.57 1035.95,861.87 1037.74,862.62 1039.53,879.80 1041.32,888.77 1039.53,881.30 1037.74,863.37 1035.95,862.62 1034.16,875.32 1032.37,889.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1041.32,888.77 1041.32,888.77 1041.31,888.77 1041.31,888.77 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1041.32,888.77 1043.11,906.70 1044.90,908.95 1046.69,877.56 1044.90,909.69 1043.11,907.45 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1046.69,877.56 1046.69,877.56 1046.68,877.56 1046.68,877.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1046.69,877.56 1048.48,876.07 1050.27,877.56 1048.48,876.82 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1050.27,877.56 1050.27,877.56 1050.26,877.56 1050.26,877.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1050.27,877.56 1052.06,892.51 1053.85,889.52 1052.06,894.00 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1053.85,889.52 1053.85,889.52 1053.84,889.52 1053.84,889.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1053.85,889.52 1055.64,913.43 1057.43,896.99 1059.22,893.25 1057.43,897.74 1055.64,914.18 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1059.22,893.25 1059.22,893.25 1059.21,893.25 1059.21,893.25 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1059.22,893.25 1061.01,885.78 1062.80,884.29 1064.59,882.79 1066.38,896.24 1064.59,883.54 1062.80,885.78 1061.01,887.28 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1066.38,896.24 1066.38,896.24 1068.16,912.68 1068.16,912.68 1068.17,912.68 1066.38,896.24 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1068.17,912.68 1069.96,902.22 1071.75,879.06 1073.54,882.05 1075.33,858.88 1073.54,883.54 1071.75,879.80 1069.96,902.97 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1075.33,858.88 1075.33,858.88 1077.10,883.54 1077.10,883.54 1077.11,883.54 1075.33,858.88 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1077.11,883.54 1078.90,885.78 1080.69,911.19 1082.48,913.43 1080.69,911.94 1078.90,886.53 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1082.48,913.43 1082.48,913.43 1082.47,913.43 1082.47,913.43 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1082.48,913.43 1084.27,899.23 1086.06,894.00 1087.85,879.80 1089.64,886.53 1087.85,881.30 1086.06,894.75 1084.27,900.73 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1089.64,886.53 1089.64,886.53 1089.63,886.53 1089.63,886.53 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1089.64,886.53 1091.43,885.04 1093.22,894.75 1095.01,891.01 1093.22,896.24 1091.43,885.78 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1095.01,891.01 1095.01,891.01 1095.00,891.01 1095.00,891.01 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1095.01,891.01 1096.80,877.56 1098.59,873.83 1096.80,878.31 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1098.59,873.83 1098.59,873.83 1098.58,873.83 1098.58,873.83 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1098.59,873.83 1100.38,863.37 1102.17,875.32 1103.96,858.14 1105.75,882.05 1107.54,884.29 1109.33,834.97 1111.12,846.18 1109.33,835.72 1107.54,885.78 1105.75,882.79 1103.96,858.88 1102.17,877.56 1100.38,864.11 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1111.12,846.18 1111.12,846.18 1111.11,846.18 1111.11,846.18 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1111.12,846.18 1112.91,836.47 1114.70,844.69 1116.49,838.71 1118.28,854.40 1120.07,847.67 1121.86,712.43 1123.65,667.59 1125.44,760.25 1127.23,766.97 1129.02,784.16 1130.80,790.88 1132.59,785.65 1134.38,772.20 1136.17,776.69 1137.96,753.52
+1139.75,764.73 1141.54,793.13 1143.33,780.42 1145.12,798.36 1143.33,783.41 1141.54,796.86 1139.75,768.47 1137.96,758.01 1136.17,781.17 1134.38,773.70 1132.59,790.14 1130.80,796.86 1129.02,789.39 1127.23,770.71 1125.44,766.23 1123.65,679.55
+1121.86,723.63 1120.07,848.42 1118.28,856.64 1116.49,841.70 1114.70,847.67 1112.91,837.96 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1145.12,798.36 1145.12,798.36 1145.11,798.36 1145.11,798.36 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1145.12,798.36 1146.91,786.40 1148.70,787.90 1150.49,793.87 1152.28,793.13 1154.07,807.32 1152.28,793.87 1150.49,796.12 1148.70,790.14 1146.91,788.64 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1154.07,807.32 1154.07,807.32 1154.06,807.32 1154.06,807.32 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1154.07,807.32 1155.86,837.96 1157.65,840.95 1159.44,821.52 1161.23,807.32 1163.02,789.39 1164.81,800.60 1163.02,790.88 1161.23,811.81 1159.44,823.76 1157.65,844.69 1155.86,838.71 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1164.81,800.60 1164.81,800.60 1164.80,800.60 1164.80,800.60 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1164.81,800.60 1166.60,799.85 1168.39,806.58 1170.18,814.05 1171.97,802.84 1173.76,818.53 1175.55,819.28 1177.34,811.06 1179.13,805.83 1180.92,852.16 1182.71,859.63 1184.50,842.44 1186.28,826.75 1184.50,843.94 1182.71,860.38 1180.92,853.65
+1179.13,808.82 1177.34,813.30 1175.55,820.77 1173.76,819.28 1171.97,805.08 1170.18,815.54 1168.39,808.07 1166.60,802.84 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1186.28,826.75 1186.28,826.75 1186.27,826.75 1186.27,826.75 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1186.28,826.75 1188.07,816.29 1189.86,839.45 1188.07,818.53 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1189.86,839.45 1189.86,839.45 1189.85,839.45 1189.85,839.45 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1189.86,839.45 1191.65,843.19 1193.44,834.22 1195.23,849.92 1193.44,836.47 1191.65,845.43 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1195.23,849.92 1195.23,849.92 1197.01,839.45 1197.01,839.45 1197.02,839.45 1195.23,849.92 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1197.02,839.45 1198.81,826.75 1200.60,835.72 1202.39,854.40 1204.18,859.63 1205.97,873.83 1204.18,860.38 1202.39,856.64 1200.60,837.96 1198.81,828.99 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1205.97,873.83 1205.97,873.83 1205.96,873.83 1205.96,873.83 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1205.97,873.83 1207.76,857.39 1209.55,829.74 1211.34,845.43 1213.13,868.60 1211.34,847.67 1209.55,831.98 1207.76,858.88 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1213.13,868.60 1213.13,868.60 1214.91,860.38 1214.91,860.38 1214.92,860.38 1213.13,868.60 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1214.92,860.38 1216.71,861.12 1218.50,871.59 1216.71,862.62 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1218.50,871.59 1218.50,871.59 1218.49,871.59 1218.49,871.59 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1218.50,871.59 1220.29,865.61 1222.08,873.08 1220.29,866.35 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1222.08,873.08 1222.08,873.08 1222.07,873.08 1222.07,873.08 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1222.08,873.08 1223.87,871.59 1225.66,868.60 1223.87,873.08 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1225.66,868.60 1225.66,868.60 1227.44,882.05 1227.44,882.05 1227.45,882.05 1225.66,868.60 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1227.45,882.05 1229.24,863.37 1231.03,899.23 1232.82,885.04 1234.61,871.59 1236.40,866.35 1234.61,873.08 1232.82,885.78 1231.03,900.73 1229.24,864.11 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1236.40,866.35 1236.40,866.35 1236.39,866.35 1236.39,866.35 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1236.40,866.35 1238.19,868.60 1239.97,855.15 1241.76,870.09 1243.55,893.25 1245.34,900.73 1243.55,894.00 1241.76,870.84 1239.97,857.39 1238.19,870.09 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1245.34,900.73 1245.34,900.73 1245.33,900.73 1245.33,900.73 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1245.34,900.73 1247.13,876.82 1248.92,885.04 1250.71,896.24 1248.92,885.78 1247.13,879.06 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1250.71,896.24 1250.71,896.24 1252.50,897.74 1254.28,904.46 1254.28,904.46 1254.29,904.46 1252.50,897.74 1250.71,896.24 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1254.29,904.46 1256.08,920.90 1257.87,905.96 1259.66,894.75 1257.87,906.70 1256.08,921.65 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1259.66,894.75 1259.66,894.75 1261.44,897.74 1261.44,897.74 1261.45,897.74 1259.66,894.75 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1261.45,897.74 1263.24,893.25 1265.03,908.95 1263.24,894.00 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1265.03,908.95 1265.03,908.95 1265.02,908.95 1265.02,908.95 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1265.03,908.95 1266.82,921.65 1268.61,923.14 1266.82,922.40 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1268.61,923.14 1268.61,923.14 1270.39,931.36 1270.39,931.36 1270.40,931.36 1268.61,923.14 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1270.40,931.36 1272.19,896.99 1273.98,910.44 1272.19,897.74 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1273.98,910.44 1273.98,910.44 1275.77,912.68 1277.56,914.92 1279.35,925.39 1281.14,929.12 1282.93,922.40 1284.72,912.68 1286.51,908.20 1288.30,904.46 1290.09,920.90 1290.09,920.90 1290.09,920.90 1288.30,904.46 1286.51,908.20 1284.72,912.68
+1282.93,922.40 1281.14,929.12 1279.35,925.39 1277.56,914.92 1275.77,912.68 1273.98,910.44 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1290.09,920.90 1291.88,895.50 1293.67,911.19 1291.88,896.99 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1293.67,911.19 1293.67,911.19 1295.45,911.94 1297.24,905.96 1299.03,904.46 1300.82,895.50 1302.61,910.44 1304.40,913.43 1306.19,936.59 1307.98,925.39 1309.77,920.15 1311.56,909.69 1313.35,900.73 1315.14,912.68 1316.93,917.91 1318.72,919.41
+1320.51,914.18 1322.30,937.34 1322.30,937.34 1322.30,937.34 1320.51,914.18 1318.72,919.41 1316.93,917.91 1315.14,912.68 1313.35,900.73 1311.56,909.69 1309.77,920.15 1307.98,925.39 1306.19,936.59 1304.40,913.43 1302.61,910.44 1300.82,895.50
+1299.03,904.46 1297.24,905.96 1295.45,911.94 1293.67,911.19 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1322.30,937.34 1324.09,937.34 1325.88,906.70 1324.09,938.09 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1325.88,906.70 1325.88,906.70 1325.87,906.70 1325.87,906.70 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1325.88,906.70 1327.67,907.45 1329.46,905.21 1327.67,908.20 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1329.46,905.21 1329.46,905.21 1331.25,917.17 1333.04,922.40 1334.83,908.95 1334.83,908.95 1334.83,908.95 1333.04,922.40 1331.25,917.17 1329.46,905.21 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1334.83,908.95 1336.62,855.89 1338.41,896.24 1340.20,919.41 1338.41,897.74 1336.62,857.39 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1340.20,919.41 1340.20,919.41 1340.19,919.41 1340.19,919.41 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1340.20,919.41 1341.99,895.50 1343.78,913.43 1341.99,896.24 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1343.78,913.43 1343.78,913.43 1345.57,907.45 1347.36,887.28 1349.14,881.30 1349.14,881.30 1349.14,881.30 1347.36,887.28 1345.57,907.45 1343.78,913.43 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1349.14,881.30 1350.93,894.75 1352.72,874.57 1354.51,860.38 1356.30,902.22 1354.51,861.12 1352.72,876.07 1350.93,895.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1356.30,902.22 1356.30,902.22 1358.08,902.22 1358.08,902.22 1358.09,902.22 1356.30,902.22 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1358.09,902.22 1359.88,862.62 1361.67,857.39 1359.88,863.37 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1361.67,857.39 1361.67,857.39 1361.66,857.39 1361.66,857.39 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1361.67,857.39 1363.46,820.03 1365.25,781.17 1367.04,789.39 1368.83,827.50 1370.62,840.20 1368.83,828.25 1367.04,790.14 1365.25,784.91 1363.46,820.77 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1370.62,840.20 1370.62,840.20 1370.61,840.20 1370.61,840.20 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1370.62,840.20 1372.41,823.76 1374.20,828.99 1375.99,825.26 1377.78,831.98 1379.57,823.76 1381.36,880.55 1383.15,877.56 1381.36,881.30 1379.57,824.51 1377.78,832.73 1375.99,826.75 1374.20,829.74 1372.41,826.00 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1383.15,877.56 1383.15,877.56 1383.14,877.56 1383.14,877.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1383.15,877.56 1384.94,826.00 1386.73,857.39 1384.94,827.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1386.73,857.39 1386.73,857.39 1388.52,837.96 1390.30,857.39 1390.30,857.39 1390.31,857.39 1388.52,837.96 1386.73,857.39 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1390.31,857.39 1392.10,861.12 1393.89,880.55 1395.68,896.99 1393.89,881.30 1392.10,862.62 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1395.68,896.99 1395.68,896.99 1397.46,851.41 1397.46,851.41 1397.47,851.41 1395.68,896.99 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1397.47,851.41 1399.26,831.23 1401.05,819.28 1402.83,826.75 1404.62,836.47 1406.41,830.49 1408.20,826.00 1409.99,797.61 1411.78,800.60 1413.57,789.39 1415.36,808.07 1417.15,833.48 1418.94,857.39 1420.73,825.26 1422.52,771.46 1424.31,771.46
+1426.10,752.78 1427.89,755.02 1429.68,798.36 1431.47,833.48 1429.68,800.60 1427.89,757.26 1426.10,755.02 1424.31,772.20 1422.52,772.20 1420.73,826.00 1418.94,858.14 1417.15,838.71 1415.36,809.57 1413.57,793.13 1411.78,802.09 1409.99,799.85
+1408.20,828.25 1406.41,831.23 1404.62,838.71 1402.83,828.25 1401.05,821.52 1399.26,833.48 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1431.47,833.48 1431.47,833.48 1431.46,833.48 1431.46,833.48 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1431.47,833.48 1433.26,806.58 1435.05,758.75 1436.84,745.30 1438.63,731.11 1440.42,761.74 1442.21,771.46 1444.00,807.32 1445.79,818.53 1447.58,789.39 1449.37,817.04 1451.16,817.04 1452.95,820.03 1454.74,835.72 1456.53,853.65 1454.74,837.96
+1452.95,821.52 1451.16,818.53 1449.37,817.78 1447.58,791.63 1445.79,819.28 1444.00,808.07 1442.21,775.94 1440.42,763.24 1438.63,735.59 1436.84,747.55 1435.05,759.50 1433.26,808.82 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1456.53,853.65 1456.53,853.65 1458.31,856.64 1460.09,831.23 1460.09,831.23 1460.10,831.23 1458.31,856.64 1456.53,853.65 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1460.10,831.23 1461.89,828.99 1463.68,825.26 1465.47,827.50 1463.68,827.50 1461.89,831.23 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1465.47,827.50 1465.47,827.50 1467.26,847.67 1469.05,894.00 1470.84,885.04 1470.84,885.04 1470.84,885.04 1469.05,894.00 1467.26,847.67 1465.47,827.50 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1470.84,885.04 1472.63,854.40 1474.42,856.64 1472.63,855.89 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1474.42,856.64 1474.42,856.64 1474.41,856.64 1474.41,856.64 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1474.42,856.64 1476.21,867.85 1478.00,867.85 1479.79,875.32 1478.00,868.60 1476.21,870.09 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1479.79,875.32 1479.79,875.32 1481.57,882.79 1481.57,882.79 1481.58,882.79 1479.79,875.32 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1481.58,882.79 1483.37,900.73 1485.16,880.55 1486.95,887.28 1488.74,882.79 1490.53,891.01 1492.32,907.45 1490.53,893.25 1488.74,885.04 1486.95,888.02 1485.16,881.30 1483.37,902.22 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1492.32,907.45 1492.32,907.45 1494.11,920.90 1495.90,932.86 1497.69,895.50 1499.48,895.50 1499.48,895.50 1499.48,895.50 1497.69,895.50 1495.90,932.86 1494.11,920.90 1492.32,907.45 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1499.48,895.50 1501.27,888.77 1503.06,889.52 1501.27,889.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1503.06,889.52 1503.06,889.52 1504.84,908.20 1504.84,908.20 1504.85,908.20 1503.06,889.52 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1504.85,908.20 1506.64,913.43 1508.43,917.91 1506.64,914.92 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1508.43,917.91 1508.43,917.91 1508.42,917.91 1508.42,917.91 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1508.43,917.91 1510.22,917.91 1512.00,910.44 1513.79,905.96 1512.00,911.19 1510.22,918.66 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1513.79,905.96 1513.79,905.96 1515.58,908.95 1517.37,918.66 1519.16,950.04 1520.95,947.80 1522.74,932.11 1524.53,926.88 1526.32,934.35 1528.11,941.08 1529.90,935.85 1531.69,953.78 1533.48,956.77 1535.27,950.79 1537.06,957.52 1538.85,947.80
+1538.85,947.80 1538.85,947.80 1537.06,957.52 1535.27,950.79 1533.48,956.77 1531.69,953.78 1529.90,935.85 1528.11,941.08 1526.32,934.35 1524.53,926.88 1522.74,932.11 1520.95,947.80 1519.16,950.04 1517.37,918.66 1515.58,908.95 1513.79,905.96
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1538.85,947.80 1540.64,899.98 1542.43,935.10 1544.22,954.53 1542.43,936.59 1540.64,901.47 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1544.22,954.53 1544.22,954.53 1544.21,954.53 1544.21,954.53 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1544.22,954.53 1546.01,947.80 1547.80,942.57 1549.59,930.62 1551.38,932.86 1549.59,931.36 1547.80,943.32 1546.01,948.55 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1551.38,932.86 1551.38,932.86 1553.17,934.35 1554.95,929.87 1554.95,929.87 1554.96,929.87 1553.17,934.35 1551.38,932.86 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1554.96,929.87 1556.75,937.34 1558.54,929.87 1560.33,896.24 1558.54,930.62 1556.75,938.09 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1560.33,896.24 1560.33,896.24 1562.11,911.19 1562.11,911.19 1562.12,911.19 1560.33,896.24 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1562.12,911.19 1563.91,920.15 1565.70,926.13 1563.91,920.90 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1565.70,926.13 1565.70,926.13 1567.47,931.36 1567.47,931.36 1567.48,931.36 1565.70,926.13 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1567.48,931.36 1569.27,935.85 1571.06,941.82 1569.27,936.59 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1571.06,941.82 1571.06,941.82 1572.84,948.55 1572.84,948.55 1572.85,948.55 1571.06,941.82 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1572.85,948.55 1574.64,920.90 1576.43,935.85 1574.64,921.65 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1576.43,935.85 1576.43,935.85 1578.22,933.60 1580.01,936.59 1581.80,945.56 1583.59,963.49 1585.38,934.35 1587.17,934.35 1588.96,932.86 1590.75,941.08 1590.75,941.08 1590.75,941.08 1588.96,932.86 1587.17,934.35 1585.38,934.35 1583.59,963.49
+1581.80,945.56 1580.01,936.59 1578.22,933.60 1576.43,935.85 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1590.75,941.08 1592.54,937.34 1594.33,958.26 1596.12,953.78 1594.33,959.01 1592.54,938.84 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1596.12,953.78 1596.12,953.78 1597.90,942.57 1597.90,942.57 1597.91,942.57 1596.12,953.78 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1597.91,942.57 1599.70,932.11 1601.49,950.04 1599.70,932.86 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1601.49,950.04 1601.49,950.04 1603.27,944.81 1603.27,944.81 1603.28,944.81 1601.49,950.04 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1603.28,944.81 1605.07,944.81 1606.86,945.56 1605.07,945.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1606.86,945.56 1606.86,945.56 1608.65,946.31 1610.44,956.02 1612.23,949.30 1614.02,946.31 1615.81,957.52 1617.60,961.25 1617.60,961.25 1617.60,961.25 1615.81,957.52 1614.02,946.31 1612.23,949.30 1610.44,956.02 1608.65,946.31 1606.86,945.56
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1617.60,961.25 1619.39,954.53 1621.17,954.53 1619.39,955.27 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1621.17,954.53 1621.17,954.53 1622.96,964.99 1624.74,929.87 1624.74,929.87 1624.75,929.87 1622.96,964.99 1621.17,954.53 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1624.75,929.87 1626.54,951.54 1628.33,952.29 1626.54,952.29 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1628.33,952.29 1628.33,952.29 1630.12,953.03 1631.91,948.55 1633.70,944.81 1635.49,948.55 1637.28,938.84 1637.28,938.84 1637.28,938.84 1635.49,948.55 1633.70,944.81 1631.91,948.55 1630.12,953.03 1628.33,952.29 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1637.28,938.84 1639.07,945.56 1640.86,964.24 1639.07,946.31 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1640.86,964.24 1640.86,964.24 1642.65,944.07 1644.44,953.03 1646.23,962.75 1648.02,963.49 1648.02,963.49 1648.02,963.49 1646.23,962.75 1644.44,953.03 1642.65,944.07 1640.86,964.24 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1648.02,963.49 1649.81,953.03 1651.60,952.29 1649.81,953.78 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1651.60,952.29 1651.60,952.29 1653.39,958.26 1655.18,950.79 1656.97,956.02 1658.76,955.27 1660.55,945.56 1662.34,938.84 1662.34,938.84 1662.34,938.84 1660.55,945.56 1658.76,955.27 1656.97,956.02 1655.18,950.79 1653.39,958.26 1651.60,952.29
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1662.34,938.84 1664.13,928.37 1665.92,934.35 1664.13,929.12 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1665.92,934.35 1665.92,934.35 1667.71,935.85 1669.49,962.75 1669.49,962.75 1669.50,962.75 1667.71,935.85 1665.92,934.35 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1669.50,962.75 1671.29,956.02 1673.08,931.36 1671.29,956.77 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1673.08,931.36 1673.08,931.36 1674.85,945.56 1674.85,945.56 1674.86,945.56 1673.08,931.36 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1674.86,945.56 1676.65,948.55 1678.44,938.09 1676.65,949.30 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1678.44,938.09 1678.44,938.09 1680.23,938.09 1682.01,958.26 1682.01,958.26 1682.02,958.26 1680.23,938.09 1678.44,938.09 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1682.02,958.26 1683.81,961.25 1685.60,963.49 1683.81,962.00 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1685.60,963.49 1685.60,963.49 1687.39,962.00 1689.18,963.49 1690.97,966.48 1692.76,964.24 1694.55,962.00 1696.34,949.30 1698.13,953.78 1699.92,956.77 1701.71,944.81 1703.50,960.50 1705.29,956.02 1707.08,963.49 1708.87,956.77 1710.66,956.77
+1710.66,956.77 1710.66,956.77 1708.87,956.77 1707.08,963.49 1705.29,956.02 1703.50,960.50 1701.71,944.81 1699.92,956.77 1698.13,953.78 1696.34,949.30 1694.55,962.00 1692.76,964.24 1690.97,966.48 1689.18,963.49 1687.39,962.00 1685.60,963.49
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1710.66,956.77 1712.45,957.52 1714.24,945.56 1712.45,959.01 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1714.24,945.56 1714.24,945.56 1714.23,945.56 1714.23,945.56 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1714.24,945.56 1716.03,950.79 1717.82,949.30 1716.03,951.54 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1717.82,949.30 1717.82,949.30 1719.61,964.99 1721.40,959.76 1723.19,952.29 1724.98,956.02 1726.77,955.27 1728.56,953.03 1730.34,960.50 1732.13,970.97 1733.92,967.23 1735.71,956.02 1737.50,963.49 1739.29,956.02 1741.08,952.29 1742.87,947.05
+1742.87,947.05 1742.87,947.05 1741.08,952.29 1739.29,956.02 1737.50,963.49 1735.71,956.02 1733.92,967.23 1732.13,970.97 1730.34,960.50 1728.56,953.03 1726.77,955.27 1724.98,956.02 1723.19,952.29 1721.40,959.76 1719.61,964.99 1717.82,949.30
+'/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1742.87,947.05 1744.66,961.25 1746.45,953.03 1744.66,962.00 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1746.45,953.03 1746.45,953.03 1748.24,920.15 1750.02,914.92 1750.02,914.92 1750.03,914.92 1748.24,920.15 1746.45,953.03 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1750.03,914.92 1751.82,933.60 1753.61,923.89 1755.40,931.36 1753.61,924.64 1751.82,934.35 '/>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1755.40,931.36 1755.40,931.36 1757.18,975.45 1757.18,975.45 1755.40,931.36 '/>
+	</g>
+</g>
+	</g>
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = '#FFFFFF' points = '1298.06,233.28 1768.69,233.28 1768.69,119.88 1298.06,119.88 '/>
+	</g>
+<g fill="none" color="#FFFFFF" stroke="#FFFFFF" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1298.06,233.28 L1298.06,119.88 L1768.69,119.88 L1768.69,233.28 L1298.06,233.28 Z  '/></g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_1" ><title>le nombre de posts par jour</title>
+<g fill="none" color="#FFFFFF" stroke="black" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20220702032548_05_activite_all_day_plot_1_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20220702032548_05_activite_all_day_plot_1')">
+	<g transform="translate(1357.51,143.33)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de posts par jour</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(255, 127,   0)'  d='M1307.85,138.78 L1347.72,138.78  '/>	</g>
+</g>
+	</g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_2" ><title>le nombre de posts roses par jour (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20220702032548_05_activite_all_day_plot_2_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20220702032548_05_activite_all_day_plot_2')">
+	<g transform="translate(1357.51,168.53)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de posts roses par jour (sur y2)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 63, 175,  63)'  d='M1307.85,163.98 L1347.72,163.98  '/>	</g>
+</g>
+	</g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_3" ><title>le nombre de participants par jour (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20220702032548_05_activite_all_day_plot_3_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20220702032548_05_activite_all_day_plot_3')">
+	<g transform="translate(1357.51,193.73)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de participants par jour (sur y2)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(127,  95, 255)'  d='M1307.85,189.18 L1347.72,189.18  '/>	</g>
+</g>
+	</g>
+	<g id="cov_20220702032548_05_activite_all_day_plot_4" ><title>le nombre de nouveaux participants par jour (sur y2)</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g id="cov_20220702032548_05_activite_all_day_plot_4_keyentry" visibility="visible" onclick="gnuplot_svg.toggleVisibility(evt,'cov_20220702032548_05_activite_all_day_plot_4')">
+	<g transform="translate(1357.51,218.93)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="start">
+		<text><tspan font-family="Verdana,Arial,Sans-serif,Helvetica" >le nombre de nouveaux participants par jour (sur y2)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g stroke='none' shape-rendering='crispEdges'>
+		<polygon fill = 'rgb(159, 159, 255)' fill-opacity = '0.400000' points = '1307.85,219.63 1347.72,219.63 1347.72,209.13 1307.85,209.13 '/>
+	</g>
+	</g>
+</g>
+	</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M123.22,84.01 L123.22,980.68 L1810.88,980.68 L1810.88,84.01 L123.22,84.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(967.05,36.06)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana"  font-weight="bold"  font-size="18.0">L'activité all time par jour du topic COVID-19</tspan><tspan font-size="14.0" dy="0.00"></tspan></text>
+	</g>
+	<g transform="translate(967.05,57.06)" stroke="none" fill="black" font-family="Verdana,Arial,Sans-serif,Helvetica" font-size="14.00"  text-anchor="middle">
+		<text><tspan font-family="Verdana"  font-weight="bold" >(données collectées le samedi 2 juillet 2022 à 03:25:48)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+
+<script type="text/javascript"><![CDATA[
+// plot boundaries and axis scaling information for mousing 
+gnuplot_svg.plot_term_xmax = 1920;
+gnuplot_svg.plot_term_ymax = 1080;
+gnuplot_svg.plot_xmin = 123.2;
+gnuplot_svg.plot_xmax = 1810.9;
+gnuplot_svg.plot_ybot = 980.7;
+gnuplot_svg.plot_ytop = 84.0;
+gnuplot_svg.plot_width = 1687.7;
+gnuplot_svg.plot_height = 896.7;
+gnuplot_svg.plot_axis_ymin = 0;
+gnuplot_svg.plot_axis_ymax = 12000;
+gnuplot_svg.polar_mode = false;
+gnuplot_svg.plot_axis_x2min = "none";
+gnuplot_svg.plot_axis_y2min = 0;
+gnuplot_svg.plot_axis_y2max = 1200;
+gnuplot_svg.plot_logaxis_x = 0;
+gnuplot_svg.plot_logaxis_y = 0;
+gnuplot_svg.plot_axis_xmin = 1577836800.000;
+gnuplot_svg.plot_axis_xmax = 1659312000.000;
+gnuplot_svg.plot_timeaxis_x = "DateTime";
+gnuplot_svg.plot_timeaxis_y = "";
+gnuplot_svg.hypertext_fontSize = 0;
+gnuplot_svg.hypertext_fontName = null;
+gnuplot_svg.hypertext_fontStyle = null;
+gnuplot_svg.hypertext_fontWeight = null;
+]]>
+</script>
+</g>
+
+  <text id="coord_text" text-anchor="start" pointer-events="none"
+  font-size="12" font-family="Arial"
+  visibility="hidden"> </text>
+
+  <rect id="hypertextbox" class="hypertextbox" pointer-events="none"
+  fill="white" stroke="black" opacity="0.8"
+  height="16" visibility="hidden" />
+
+  <text id="hypertext" class="hypertext" pointer-events="none"
+  font-size="12" font-family="Arial"
+  visibility="hidden"> </text>
+
+  <image id="hyperimage" class="hyperimage" pointer-events="none"
+  fill="white" stroke="black" opacity="0.8"
+  height="200" width="300" visibility="hidden" />
+
+  <image x='10' y='1054' width='16' height='16' 
+    xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABmJLR0QA/wD/AP+gvaeTAAAAM0lEQVQokWP8//8/AymACc5iZGQkyEDRQCwgyUn///9nhGtgZISy8TBGnTSCnMRIavIGAGPTWfVV7DcfAAAAAElFTkSuQmCC'
+    onclick='gnuplot_svg.toggleGrid();'/>
+</svg>
+
