@@ -1,0 +1,80 @@
+
+
+# Le nombre de posts culture générale versus images
+
+unset multiplot
+reset session
+reset
+#set locale "french"
+set encoding utf8
+set terminal svg size 1920, 1080 dynamic name "cul_20230106091029_12_course_image" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cul_20230106091029_12_course_image.svg"
+set title "{/:Bold=18 Le topic culture générale versus le topic images en nombre de posts en 2022\n{/:Bold=14 (données collectées le vendredi 6 janvier 2023 à 09:10:29)"
+set key at graph .02, graph .975 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
+set xtics ("2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 1293840000, "2012" 1325376000, "2013" 1356998400, "2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200, "2025" 1735689600, "2026" 1767225600) rotate
+set ytics 0, 100000
+set mytics 2
+set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
+set format y "%'.0f"
+set xdata time
+set timefmt "%s"
+set format x "%F %T"
+set mouse mouseformat "DateTime"
+
+set size .985,1
+set origin .015,0
+
+set fit quiet nolog limit 1e-30
+reglin_culture_generale(x)=acg*x+bcg
+fit reglin_culture_generale(x) "cul_20230106091029_00_data_count_posts_culture_generale_2022.txt" via acg,bcg
+reglin_images(x)=ai*x+bi
+fit reglin_images(x) "cul_20230106091029_00_data_count_posts_images_2022.txt" via ai,bi
+
+plot [1199145600:1767225600][0:700000] \
+reglin_culture_generale(x) lw 2 lc rgbcolor "#00bf7f" title "tendance 2022 du topic culture générale", \
+"cul_20230106091029_00_data_count_posts_culture_generale.txt" u 1:2 w line lw 2 lc rgbcolor "#007fff" title "posts all time du topic culture générale", \
+reglin_images(x) lw 2 lc rgbcolor "#bf007f" title "tendance 2022 du topic images", \
+"cul_20230106091029_00_data_count_posts_images.txt" u 1:2 w line lw 2 lc rgbcolor "#7f00ff" title "posts all time du topic images"
+
+set output
+
+
+# Le nombre de posts culture générale versus images zoomé
+
+unset multiplot
+reset session
+reset
+#set locale "french"
+set encoding utf8
+set terminal svg size 1920, 1080 dynamic name "cul_20230106091029_13_course_image_zoom" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set output "cul_20230106091029_13_course_image_zoom.svg"
+set title "{/:Bold=18 Le topic culture générale versus le topic images en nombre de posts zoomé en 2022\n{/:Bold=14 (données collectées le vendredi 6 janvier 2023 à 09:10:29)"
+set key at graph .02, graph .975 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
+set xtics ("2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 1293840000, "2012" 1325376000, "2013" 1356998400, "2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200, "2025" 1735689600, "2026" 1767225600) rotate
+set ytics 0, 50000
+set mytics 2
+set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
+set format y "%'.0f"
+set xdata time
+set timefmt "%s"
+set format x "%F %T"
+set mouse mouseformat "DateTime"
+
+set size .985,1
+set origin .015,0
+
+set fit quiet nolog limit 1e-30
+reglin_culture_generale(x)=acg*x+bcg
+fit reglin_culture_generale(x) "cul_20230106091029_00_data_count_posts_culture_generale_2022.txt" via acg,bcg
+reglin_images(x)=ai*x+bi
+fit reglin_images(x) "cul_20230106091029_00_data_count_posts_images_2022.txt" via ai,bi
+
+plot [1593561600:1719792000][525000:625000] \
+reglin_culture_generale(x) lw 2 lc rgbcolor "#00bf7f" title "tendance 2022 du topic culture générale", \
+"cul_20230106091029_00_data_count_posts_culture_generale.txt" u 1:2 w line lw 2 lc rgbcolor "#007fff" title "posts all time du topic culture générale", \
+reglin_images(x) lw 2 lc rgbcolor "#bf007f" title "tendance 2022 du topic images", \
+"cul_20230106091029_00_data_count_posts_images.txt" u 1:2 w line lw 2 lc rgbcolor "#7f00ff" title "posts all time du topic images"
+
+set output
+
+
