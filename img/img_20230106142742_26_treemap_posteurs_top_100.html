@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des posteurs 2022 du topic images (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -2098 * -1;
+  }
+  if(value > 0) {
+    return value / 419;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posteurs");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "images");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["viniw", "posteurs", 4119, normalize(-340), -340],
+    ["tous les autres posteurs", "posteurs", 1256, normalize(-102), -102],
+    ["goomi32", "posteurs", 1014, normalize(-59), -59],
+    ["sidela", "posteurs", 830, normalize(-512), -512],
+    ["moggbomber", "posteurs", 672, normalize(209), 209],
+    ["Pavese69", "posteurs", 532, normalize(-146), -146],
+    ["Absolument Fabuleux", "posteurs", 527, normalize(-35), -35],
+    ["mimychatmiaou", "posteurs", 459, normalize(419), 419],
+    ["Fork Bomb", "posteurs", 451, normalize(-93), -93],
+    ["lilicite", "posteurs", 413, normalize(-2098), -2098],
+    ["QNTAL", "posteurs", 386, normalize(183), 183],
+    ["jlkyt", "posteurs", 312, normalize(-227), -227],
+    ["Firecracker", "posteurs", 293, normalize(152), 152],
+    ["Saint Quentin", "posteurs", 248, normalize(-177), -177],
+    ["flyingchair", "posteurs", 238, normalize(177), 177],
+    ["sire de Botcor", "posteurs", 176, normalize(-64), -64],
+    ["jluc", "posteurs", 153, normalize(11), 11],
+    ["SCEtoAUX", "posteurs", 148, normalize(-426), -426],
+    ["Scoinscoin", "posteurs", 148, normalize(-72), -72],
+    ["mosk", "posteurs", 141, normalize(33), 33],
+    ["H00d", "posteurs", 133, normalize(79), 79],
+    ["coppin", "posteurs", 117, normalize(0), 0],
+    ["Berceker United", "posteurs", 116, normalize(-94), -94],
+    ["macbeth", "posteurs", 116, normalize(41), 41],
+    ["Blast3r", "posteurs", 112, normalize(64), 64],
+    ["Ticento", "posteurs", 112, normalize(0), null],
+    ["MantaFahrer", "posteurs", 104, normalize(-7), -7],
+    ["HumanRAGE", "posteurs", 103, normalize(44), 44],
+    ["foul", "posteurs", 101, normalize(45), 45],
+    ["Space", "posteurs", 99, normalize(-184), -184],
+    ["usma16", "posteurs", 97, normalize(-67), -67],
+    ["XaTriX", "posteurs", 91, normalize(-29), -29],
+    ["Majax691", "posteurs", 89, normalize(-97), -97],
+    ["Mercius", "posteurs", 85, normalize(68), 68],
+    ["jb18v", "posteurs", 84, normalize(-6), -6],
+    ["edhelas", "posteurs", 73, normalize(5), 5],
+    ["Marcel Pitou", "posteurs", 69, normalize(16), 16],
+    ["Z_cool", "posteurs", 63, normalize(14), 14],
+    ["Harrrrg", "posteurs", 59, normalize(1), 1],
+    ["Azkron", "posteurs", 54, normalize(52), 52],
+    ["vazyvite", "posteurs", 54, normalize(53), 53],
+    ["Vince-100", "posteurs", 54, normalize(4), 4],
+    ["etiandim", "posteurs", 51, normalize(0), null],
+    ["houckaye", "posteurs", 49, normalize(-5), -5],
+    ["lebreton56", "posteurs", 49, normalize(25), 25],
+    ["BrisChri", "posteurs", 48, normalize(-23), -23],
+    ["Fouge", "posteurs", 48, normalize(-1), -1],
+    ["DeltaVega", "posteurs", 47, normalize(-10), -10],
+    ["Billy54", "posteurs", 46, normalize(-7), -7],
+    ["the anakin", "posteurs", 45, normalize(11), 11],
+    ["Gedemon", "posteurs", 44, normalize(43), 43],
+    ["IsKor", "posteurs", 44, normalize(-31), -31],
+    ["tfpsly", "posteurs", 43, normalize(22), 22],
+    ["banditoz", "posteurs", 42, normalize(34), 34],
+    ["billgatesanonym", "posteurs", 42, normalize(15), 15],
+    ["jo_biclou", "posteurs", 39, normalize(38), 38],
+    ["masterroshi", "posteurs", 33, normalize(-5), -5],
+    ["maurice chevallier", "posteurs", 32, normalize(-44), -44],
+    ["CAMPEDEL", "posteurs", 30, normalize(-6), -6],
+    ["man-x69", "posteurs", 29, normalize(21), 21],
+    ["Profil supprimé", "posteurs", 29, normalize(-312), -312],
+    ["Cuistot", "posteurs", 28, normalize(17), 17],
+    ["cmoscmos", "posteurs", 27, normalize(22), 22],
+    ["johnclaude", "posteurs", 27, normalize(-52), -52],
+    ["bigsido", "posteurs", 26, normalize(20), 20],
+    ["bubule50", "posteurs", 26, normalize(0), null],
+    ["nedurb", "posteurs", 26, normalize(-24), -24],
+    ["teepodavignon", "posteurs", 25, normalize(2), 2],
+    ["ClioWilliams", "posteurs", 23, normalize(4), 4],
+    ["davidgag", "posteurs", 23, normalize(-12), -12],
+    ["Gilgamesh d'Uruk", "posteurs", 23, normalize(18), 18],
+    ["berlo", "posteurs", 22, normalize(16), 16],
+    ["Errare", "posteurs", 22, normalize(0), null],
+    ["DDT", "posteurs", 21, normalize(11), 11],
+    ["Geeck0", "posteurs", 21, normalize(6), 6],
+    ["Gordon Shumway", "posteurs", 21, normalize(10), 10],
+    ["sadicologue", "posteurs", 21, normalize(17), 17],
+    ["NGCubeur", "posteurs", 20, normalize(6), 6],
+    ["Aline BOQS", "posteurs", 19, normalize(0), null],
+    ["hisvin", "posteurs", 19, normalize(-2), -2],
+    ["Coroners", "posteurs", 18, normalize(15), 15],
+    ["Eberhart", "posteurs", 18, normalize(-2), -2],
+    ["john_tgv", "posteurs", 18, normalize(-5), -5],
+    ["Leg9", "posteurs", 18, normalize(8), 8],
+    ["nicolas_yad", "posteurs", 18, normalize(13), 13],
+    ["aleholi", "posteurs", 17, normalize(15), 15],
+    ["cuervo_jones", "posteurs", 17, normalize(0), null],
+    ["darxmurf", "posteurs", 17, normalize(7), 7],
+    ["hfrspaceprogram", "posteurs", 17, normalize(0), null],
+    ["michel mouillart", "posteurs", 17, normalize(17), 17],
+    ["chienBlanc", "posteurs", 16, normalize(10), 10],
+    ["crazy_c0vv", "posteurs", 16, normalize(14), 14],
+    ["kouz8", "posteurs", 16, normalize(7), 7],
+    ["Nanaki", "posteurs", 16, normalize(-79), -79],
+    ["otobox", "posteurs", 16, normalize(9), 9],
+    ["roger21", "posteurs", 16, normalize(-25), -25],
+    ["weedo974", "posteurs", 16, normalize(16), 16],
+    ["edwoud", "posteurs", 15, normalize(-34), -34],
+    ["manulelutin", "posteurs", 15, normalize(4), 4],
+    ["MasonAge", "posteurs", 15, normalize(9), 9],
+    ["mko", "posteurs", 15, normalize(-23), -23]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " images" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des posteurs 2022 du topic images (top 100)</h1>
+  <h3>(données collectées le vendredi 6 janvier 2023 à 14:27:42)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
