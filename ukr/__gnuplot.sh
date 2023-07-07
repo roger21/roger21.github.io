@@ -1,9 +1,13 @@
-if ls ukr_20230106195014_00_data_* 1>/dev/null 2>&1 ; then echo "lessgo!" ; else echo "no ukr_20230106195014_00_data file" ; exit 1 ; fi
+if ls ukr_20230707152312_00_data_* 1>/dev/null 2>&1 ; then echo "lessgo!" ; else echo "no ukr_20230707152312_00_data file" ; exit 1 ; fi
 
-/usr/bin/gnuplot /home/moi/devs/gittop/ukr/ukr_20230106195014_00_gnuplot.gpt
+/usr/bin/gnuplot /home/moi/devs/gittop/ukr/ukr_20230707152312_00_gnuplot.gpt
 
-sed -i "s/<title>ukr_20230106195014_01_counts_all<\/title>/<title>Le nombre de posts et de participants all time du topic Ukraine au vendredi 6 janvier 2023 à 19:50:14<\/title>/g" ukr_20230106195014_01_counts_all.svg
-sed -i "s/<title>ukr_20230106195014_02_evol_all<\/title>/<title>L'évolution du nombre de participants all time du topic Ukraine au vendredi 6 janvier 2023 à 19:50:14<\/title>/g" ukr_20230106195014_02_evol_all.svg
+sed -i "s/<title>ukr_20230707152312_01_counts_all<\/title>/<title>Le nombre de posts et de participants all time du topic Ukraine au vendredi 7 juillet 2023 à 15:23:12<\/title>/g" ukr_20230707152312_01_counts_all.svg
+sed -i "s/<title>ukr_20230707152312_02_evol_all<\/title>/<title>L'évolution du nombre de participants all time du topic Ukraine au vendredi 7 juillet 2023 à 15:23:12<\/title>/g" ukr_20230707152312_02_evol_all.svg
+sed -i "s/<title>ukr_20230707152312_03_activite_all_year<\/title>/<title>L'activité all time par an du topic Ukraine au vendredi 7 juillet 2023 à 15:23:12<\/title>/g" ukr_20230707152312_03_activite_all_year.svg
+sed -i "s/<title>ukr_20230707152312_04_activite_all_month<\/title>/<title>L'activité all time par mois du topic Ukraine au vendredi 7 juillet 2023 à 15:23:12<\/title>/g" ukr_20230707152312_04_activite_all_month.svg
+sed -i "s/<title>ukr_20230707152312_05_activite_all_week<\/title>/<title>L'activité all time par semaine du topic Ukraine au vendredi 7 juillet 2023 à 15:23:12<\/title>/g" ukr_20230707152312_05_activite_all_week.svg
+sed -i "s/<title>ukr_20230707152312_06_activite_all_day<\/title>/<title>L'activité all time par jour du topic Ukraine au vendredi 7 juillet 2023 à 15:23:12<\/title>/g" ukr_20230707152312_06_activite_all_day.svg
 
-rm ukr_20230106195014_00_data_*
+rm ukr_20230707152312_00_data_*
 
