@@ -9,7 +9,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "sub_20230707110846_01_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "sub_20230707110846_01_counts_all.svg"
-set title "{/:Bold=18 Le nombre de posts et de participants all time du topic du submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
+set title "{/:Bold=18 Le nombre de posts et de participants all time du topic submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
 set ylabel "{/=16 le nombre de posts"
 set y2label "{/=16 le nombre de posts roses et de participants"
 set key at graph .025, graph .96 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
@@ -51,7 +51,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "sub_20230707110846_02_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "sub_20230707110846_02_evol_all.svg"
-set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time du topic du submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
+set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time du topic submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
 set xtics ("12 jun" 1686528000, "13 jun" 1686614400, "14 jun" 1686700800, "15 jun" 1686787200, "16 jun" 1686873600, "17 jun" 1686960000, "18 jun" 1687046400, "19 jun" 1687132800, "20 jun" 1687219200, "21 jun" 1687305600, "22 jun" 1687392000, "23 jun" 1687478400, "24 jun" 1687564800, "25 jun" 1687651200, "26 jun" 1687737600, "27 jun" 1687824000, "28 jun" 1687910400, "29 jun" 1687996800, "30 jun" 1688083200, "01 jul" 1688169600, "02 jul" 1688256000, "03 jul" 1688342400, "04 jul" 1688428800, "05 jul" 1688515200, "06 jul" 1688601600, "07 jul" 1688688000, "08 jul" 1688774400, "09 jul" 1688860800, "10 jul" 1688947200, "11 jul" 1689033600, "12 jul" 1689120000, "13 jul" 1689206400, "14 jul" 1689292800, "15 jul" 1689379200, "16 jul" 1689465600, "17 jul" 1689552000) rotate
 set ytics 0, 50
 set mytics 2
@@ -101,7 +101,7 @@ set output
 # set encoding utf8
 # set terminal svg size 1920, 1080 dynamic name "sub_20230707110846_03_activite_all_year" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 # set output "sub_20230707110846_03_activite_all_year.svg"
-# set title "{/:Bold=18 L'activité all time par an du topic du submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
+# set title "{/:Bold=18 L'activité all time par an du topic submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
 # set ylabel "{/=16 le nombre de posts par an"
 # set y2label "{/=16 le nombre de posts roses et de participants par an"
 # set key at graph .025, graph .96 top left Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10
@@ -140,7 +140,7 @@ set output
 # set encoding utf8
 # set terminal svg size 1920, 1080 dynamic name "sub_20230707110846_04_activite_all_month" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 # set output "sub_20230707110846_04_activite_all_month.svg"
-# set title "{/:Bold=18 L'activité all time par mois du topic du submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
+# set title "{/:Bold=18 L'activité all time par mois du topic submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
 # set ylabel "{/=16 le nombre de posts par mois"
 # set y2label "{/=16 le nombre de posts roses et de participants par mois"
 # set key at graph .025, graph .96 top left Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10
@@ -179,7 +179,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "sub_20230707110846_05_activite_all_week" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "sub_20230707110846_05_activite_all_week.svg"
-set title "{/:Bold=18 L'activité all time par semaine du topic du submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
+set title "{/:Bold=18 L'activité all time par semaine du topic submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
 set ylabel "{/=16 le nombre de posts par semaine"
 set y2label "{/=16 le nombre de posts roses et de participants par semaine"
 set key at graph .975, graph .96 top right Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10
@@ -218,7 +218,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "sub_20230707110846_06_activite_all_day" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "sub_20230707110846_06_activite_all_day.svg"
-set title "{/:Bold=18 L'activité all time par jour du topic du submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
+set title "{/:Bold=18 L'activité all time par jour du topic submersible disparu\n{/:Bold=14 (données collectées le vendredi 7 juillet 2023 à 11:08:46)"
 set ylabel "{/=16 le nombre de posts par jour"
 set y2label "{/=16 le nombre de posts roses et de participants par jour"
 set key at graph .975, graph .96 top right Left opaque reverse samplen 3 box spacing 1.2 height .5 width -10
