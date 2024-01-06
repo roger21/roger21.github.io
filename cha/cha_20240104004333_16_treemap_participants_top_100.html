@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2023 du topic Charlie Hebdo (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -21 * -1;
+  }
+  if(value > 0) {
+    return value / 7;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["OTH", "participants", 41, normalize(-14), -14],
+    ["Tammuz", "participants", 17, normalize(4), 4],
+    ["bellemousse", "participants", 16, normalize(-5), -5],
+    ["brown paper bag", "participants", 15, normalize(-8), -8],
+    ["icumblood", "participants", 14, normalize(-4), -4],
+    ["Coroners", "participants", 13, normalize(-21), -21],
+    ["azymantiop", "participants", 10, normalize(7), 7],
+    ["asu5", "participants", 8, normalize(-6), -6],
+    ["Gwrach", "participants", 6, normalize(3), 3],
+    ["- Erik Von Hartmann", "participants", 5, normalize(0), null],
+    ["Ernestor", "participants", 5, normalize(4), 4],
+    ["autocall", "participants", 4, normalize(3), 3],
+    ["joams", "participants", 4, normalize(3), 3],
+    ["jul-xander", "participants", 4, normalize(0), null],
+    ["Kiveu", "participants", 4, normalize(1), 1],
+    ["LePcFou", "participants", 4, normalize(0), null],
+    ["lokilefourbe", "participants", 4, normalize(0), null],
+    ["dj pone", "participants", 3, normalize(1), 1],
+    ["keall", "participants", 3, normalize(2), 2],
+    ["Till Lindemann", "participants", 3, normalize(-7), -7],
+    ["Cuistot", "participants", 2, normalize(0), 0],
+    ["fahrenheit68220", "participants", 2, normalize(0), null],
+    ["fougnac", "participants", 2, normalize(0), null],
+    ["frede94", "participants", 2, normalize(1), 1],
+    ["Gracchus13", "participants", 2, normalize(0), null],
+    ["houckaye", "participants", 2, normalize(0), 0],
+    ["pesos", "participants", 2, normalize(0), null],
+    ["[Toine]", "participants", 2, normalize(1), 1],
+    ["Trezoster", "participants", 2, normalize(1), 1],
+    ["verdoux", "participants", 2, normalize(0), 0],
+    ["1000Trees", "participants", 1, normalize(0), null],
+    ["Amenorrhee suspecte", "participants", 1, normalize(0), null],
+    ["aragoampere", "participants", 1, normalize(0), null],
+    ["baltazare", "participants", 1, normalize(-4), -4],
+    ["buscape30", "participants", 1, normalize(-7), -7],
+    ["chinois02", "participants", 1, normalize(0), 0],
+    ["Cygne_d_etang", "participants", 1, normalize(0), null],
+    ["Derek De Lint", "participants", 1, normalize(0), null],
+    ["everso", "participants", 1, normalize(0), null],
+    ["FordPrefect", "participants", 1, normalize(0), null],
+    ["John Nada", "participants", 1, normalize(0), null],
+    ["kriloner", "participants", 1, normalize(-4), -4],
+    ["maurice chevallier", "participants", 1, normalize(-3), -3],
+    ["mirtouf", "participants", 1, normalize(-1), -1],
+    ["Modération", "participants", 1, normalize(0), null],
+    ["moilol1228", "participants", 1, normalize(0), null],
+    ["MrFreeze", "participants", 1, normalize(0), null],
+    ["Orodreths", "participants", 1, normalize(0), null],
+    ["ozzzo kozz", "participants", 1, normalize(0), null],
+    ["Profil supprimé", "participants", 1, normalize(0), null],
+    ["Rem82", "participants", 1, normalize(0), null],
+    ["Scoinscoin", "participants", 1, normalize(0), null],
+    ["Skopos", "participants", 1, normalize(0), null],
+    ["theomede", "participants", 1, normalize(0), null],
+    ["VigneuxAmsterdam", "participants", 1, normalize(0), 0],
+    ["Vince-100", "participants", 1, normalize(-6), -6],
+    ["yngwie", "participants", 1, normalize(-6), -6]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2023 du topic Charlie Hebdo (top 100)</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 00:43:33)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
