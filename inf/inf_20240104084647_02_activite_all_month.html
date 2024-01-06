@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>L'activité all time 2023 par mois du topic infos insos</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["corechart", "table"]
+});
+function onload() {
+  var data_lignes = new google.visualization.DataTable();
+  data_lignes.addColumn("date", "mois");
+  data_lignes.addColumn("number", "posts");
+  data_lignes.addColumn("number", "smileys");
+  data_lignes.addColumn("number", "participants");
+  var data_lignes_values = [
+    [new Date(2006, 0, 11, 16, 51, 48), 0, 0, 0],
+    [new Date(2006, 0, 31, 23, 59, 59), 112, 79, 41],
+    [new Date(2006, 1, 28, 23, 59, 59), 125, 91, 39],
+    [new Date(2006, 2, 31, 23, 59, 59), 136, 116, 40],
+    [new Date(2006, 3, 30, 23, 59, 59), 136, 125, 38],
+    [new Date(2006, 4, 31, 23, 59, 59), 53, 54, 26],
+    [new Date(2006, 5, 30, 23, 59, 59), 43, 29, 21],
+    [new Date(2006, 6, 31, 23, 59, 59), 50, 46, 27],
+    [new Date(2006, 7, 31, 23, 59, 59), 96, 65, 31],
+    [new Date(2006, 8, 30, 23, 59, 59), 51, 43, 26],
+    [new Date(2006, 9, 31, 23, 59, 59), 53, 41, 29],
+    [new Date(2006, 10, 30, 23, 59, 59), 59, 33, 31],
+    [new Date(2006, 11, 31, 23, 59, 59), 59, 41, 30],
+    [new Date(2007, 0, 31, 23, 59, 59), 79, 64, 36],
+    [new Date(2007, 1, 28, 23, 59, 59), 92, 82, 35],
+    [new Date(2007, 2, 31, 23, 59, 59), 52, 39, 22],
+    [new Date(2007, 3, 30, 23, 59, 59), 51, 50, 22],
+    [new Date(2007, 4, 31, 23, 59, 59), 105, 89, 39],
+    [new Date(2007, 5, 30, 23, 59, 59), 29, 16, 19],
+    [new Date(2007, 6, 31, 23, 59, 59), 124, 108, 44],
+    [new Date(2007, 7, 31, 23, 59, 59), 154, 129, 49],
+    [new Date(2007, 8, 30, 23, 59, 59), 226, 205, 49],
+    [new Date(2007, 9, 31, 23, 59, 59), 270, 255, 64],
+    [new Date(2007, 10, 30, 23, 59, 59), 183, 157, 49],
+    [new Date(2007, 11, 31, 23, 59, 59), 175, 127, 71],
+    [new Date(2008, 0, 31, 23, 59, 59), 242, 187, 60],
+    [new Date(2008, 1, 29, 23, 59, 59), 173, 114, 47],
+    [new Date(2008, 2, 31, 23, 59, 59), 193, 139, 56],
+    [new Date(2008, 3, 30, 23, 59, 59), 282, 237, 81],
+    [new Date(2008, 4, 31, 23, 59, 59), 236, 212, 68],
+    [new Date(2008, 5, 30, 23, 59, 59), 404, 375, 76],
+    [new Date(2008, 6, 31, 23, 59, 59), 217, 174, 59],
+    [new Date(2008, 7, 31, 23, 59, 59), 252, 208, 77],
+    [new Date(2008, 8, 30, 23, 59, 59), 300, 257, 79],
+    [new Date(2008, 9, 31, 23, 59, 59), 410, 398, 84],
+    [new Date(2008, 10, 30, 23, 59, 59), 326, 313, 83],
+    [new Date(2008, 11, 31, 23, 59, 59), 313, 284, 78],
+    [new Date(2009, 0, 31, 23, 59, 59), 300, 278, 83],
+    [new Date(2009, 1, 28, 23, 59, 59), 248, 239, 72],
+    [new Date(2009, 2, 31, 23, 59, 59), 523, 516, 106],
+    [new Date(2009, 3, 30, 23, 59, 59), 236, 235, 86],
+    [new Date(2009, 4, 31, 23, 59, 59), 736, 650, 126],
+    [new Date(2009, 5, 30, 23, 59, 59), 600, 534, 129],
+    [new Date(2009, 6, 31, 23, 59, 59), 896, 857, 142],
+    [new Date(2009, 7, 31, 23, 59, 59), 466, 403, 116],
+    [new Date(2009, 8, 30, 23, 59, 59), 502, 418, 118],
+    [new Date(2009, 9, 31, 23, 59, 59), 379, 413, 109],
+    [new Date(2009, 10, 30, 23, 59, 59), 500, 383, 102],
+    [new Date(2009, 11, 31, 23, 59, 59), 352, 312, 96],
+    [new Date(2010, 0, 31, 23, 59, 59), 462, 386, 103],
+    [new Date(2010, 1, 28, 23, 59, 59), 609, 500, 111],
+    [new Date(2010, 2, 31, 23, 59, 59), 617, 492, 112],
+    [new Date(2010, 3, 30, 23, 59, 59), 828, 674, 113],
+    [new Date(2010, 4, 31, 23, 59, 59), 294, 232, 92],
+    [new Date(2010, 5, 30, 23, 59, 59), 523, 463, 107],
+    [new Date(2010, 6, 31, 23, 59, 59), 633, 597, 125],
+    [new Date(2010, 7, 31, 23, 59, 59), 702, 584, 141],
+    [new Date(2010, 8, 30, 23, 59, 59), 571, 493, 124],
+    [new Date(2010, 9, 31, 23, 59, 59), 680, 649, 134],
+    [new Date(2010, 10, 30, 23, 59, 59), 706, 759, 119],
+    [new Date(2010, 11, 31, 23, 59, 59), 539, 522, 116],
+    [new Date(2011, 0, 31, 23, 59, 59), 606, 564, 131],
+    [new Date(2011, 1, 28, 23, 59, 59), 661, 666, 109],
+    [new Date(2011, 2, 31, 23, 59, 59), 372, 311, 119],
+    [new Date(2011, 3, 30, 23, 59, 59), 519, 458, 126],
+    [new Date(2011, 4, 31, 23, 59, 59), 614, 545, 131],
+    [new Date(2011, 5, 30, 23, 59, 59), 680, 650, 146],
+    [new Date(2011, 6, 31, 23, 59, 59), 1022, 933, 151],
+    [new Date(2011, 7, 31, 23, 59, 59), 1042, 887, 166],
+    [new Date(2011, 8, 30, 23, 59, 59), 1089, 1003, 158],
+    [new Date(2011, 9, 31, 23, 59, 59), 1177, 1000, 169],
+    [new Date(2011, 10, 30, 23, 59, 59), 1088, 860, 158],
+    [new Date(2011, 11, 31, 23, 59, 59), 1048, 874, 158],
+    [new Date(2012, 0, 31, 23, 59, 59), 1136, 1040, 163],
+    [new Date(2012, 1, 29, 23, 59, 59), 1299, 1177, 151],
+    [new Date(2012, 2, 31, 23, 59, 59), 979, 849, 159],
+    [new Date(2012, 3, 30, 23, 59, 59), 1132, 1057, 144],
+    [new Date(2012, 4, 31, 23, 59, 59), 858, 792, 138],
+    [new Date(2012, 5, 30, 23, 59, 59), 1002, 889, 153],
+    [new Date(2012, 6, 31, 23, 59, 59), 1477, 1317, 183],
+    [new Date(2012, 7, 31, 23, 59, 59), 843, 714, 158],
+    [new Date(2012, 8, 30, 23, 59, 59), 951, 792, 167],
+    [new Date(2012, 9, 31, 23, 59, 59), 1267, 1121, 190],
+    [new Date(2012, 10, 30, 23, 59, 59), 1155, 974, 180],
+    [new Date(2012, 11, 31, 23, 59, 59), 1032, 930, 160],
+    [new Date(2013, 0, 31, 23, 59, 59), 1716, 1412, 176],
+    [new Date(2013, 1, 28, 23, 59, 59), 1472, 1162, 187],
+    [new Date(2013, 2, 31, 23, 59, 59), 1170, 872, 152],
+    [new Date(2013, 3, 30, 23, 59, 59), 927, 670, 157],
+    [new Date(2013, 4, 31, 23, 59, 59), 1010, 807, 167],
+    [new Date(2013, 5, 30, 23, 59, 59), 956, 763, 163],
+    [new Date(2013, 6, 31, 23, 59, 59), 987, 895, 174],
+    [new Date(2013, 7, 31, 23, 59, 59), 865, 669, 160],
+    [new Date(2013, 8, 30, 23, 59, 59), 1356, 1114, 187],
+    [new Date(2013, 9, 31, 23, 59, 59), 1382, 1133, 179],
+    [new Date(2013, 10, 30, 23, 59, 59), 1398, 1219, 183],
+    [new Date(2013, 11, 31, 23, 59, 59), 639, 478, 152],
+    [new Date(2014, 0, 31, 23, 59, 59), 621, 435, 156],
+    [new Date(2014, 1, 28, 23, 59, 59), 849, 631, 174],
+    [new Date(2014, 2, 31, 23, 59, 59), 935, 668, 155],
+    [new Date(2014, 3, 30, 23, 59, 59), 768, 592, 138],
+    [new Date(2014, 4, 31, 23, 59, 59), 590, 478, 156],
+    [new Date(2014, 5, 30, 23, 59, 59), 675, 583, 144],
+    [new Date(2014, 6, 31, 23, 59, 59), 813, 705, 172],
+    [new Date(2014, 7, 31, 23, 59, 59), 809, 618, 173],
+    [new Date(2014, 8, 30, 23, 59, 59), 986, 800, 191],
+    [new Date(2014, 9, 31, 23, 59, 59), 1307, 1019, 194],
+    [new Date(2014, 10, 30, 23, 59, 59), 995, 782, 168],
+    [new Date(2014, 11, 31, 23, 59, 59), 840, 620, 147],
+    [new Date(2015, 0, 31, 23, 59, 59), 575, 455, 145],
+    [new Date(2015, 1, 28, 23, 59, 59), 679, 521, 138],
+    [new Date(2015, 2, 31, 23, 59, 59), 1079, 817, 177],
+    [new Date(2015, 3, 30, 23, 59, 59), 694, 552, 148],
+    [new Date(2015, 4, 31, 23, 59, 59), 1204, 976, 171],
+    [new Date(2015, 5, 30, 23, 59, 59), 947, 682, 155],
+    [new Date(2015, 6, 31, 23, 59, 59), 904, 602, 152],
+    [new Date(2015, 7, 31, 23, 59, 59), 701, 484, 142],
+    [new Date(2015, 8, 30, 23, 59, 59), 930, 729, 175],
+    [new Date(2015, 9, 31, 23, 59, 59), 736, 563, 153],
+    [new Date(2015, 10, 30, 23, 59, 59), 710, 505, 151],
+    [new Date(2015, 11, 31, 23, 59, 59), 641, 464, 154],
+    [new Date(2016, 0, 31, 23, 59, 59), 669, 494, 174],
+    [new Date(2016, 1, 29, 23, 59, 59), 877, 705, 151],
+    [new Date(2016, 2, 31, 23, 59, 59), 681, 499, 141],
+    [new Date(2016, 3, 30, 23, 59, 59), 381, 278, 118],
+    [new Date(2016, 4, 31, 23, 59, 59), 324, 213, 112],
+    [new Date(2016, 5, 30, 23, 59, 59), 331, 280, 110],
+    [new Date(2016, 6, 31, 23, 59, 59), 618, 482, 140],
+    [new Date(2016, 7, 31, 23, 59, 59), 530, 401, 132],
+    [new Date(2016, 8, 30, 23, 59, 59), 563, 446, 135],
+    [new Date(2016, 9, 31, 23, 59, 59), 472, 376, 137],
+    [new Date(2016, 10, 30, 23, 59, 59), 450, 390, 124],
+    [new Date(2016, 11, 31, 23, 59, 59), 389, 343, 119],
+    [new Date(2017, 0, 31, 23, 59, 59), 646, 486, 144],
+    [new Date(2017, 1, 28, 23, 59, 59), 562, 432, 121],
+    [new Date(2017, 2, 31, 23, 59, 59), 821, 598, 145],
+    [new Date(2017, 3, 30, 23, 59, 59), 448, 359, 140],
+    [new Date(2017, 4, 31, 23, 59, 59), 611, 426, 136],
+    [new Date(2017, 5, 30, 23, 59, 59), 579, 447, 138],
+    [new Date(2017, 6, 31, 23, 59, 59), 677, 495, 147],
+    [new Date(2017, 7, 31, 23, 59, 59), 911, 639, 170],
+    [new Date(2017, 8, 30, 23, 59, 59), 826, 616, 174],
+    [new Date(2017, 9, 31, 23, 59, 59), 566, 422, 135],
+    [new Date(2017, 10, 30, 23, 59, 59), 706, 501, 144],
+    [new Date(2017, 11, 31, 23, 59, 59), 755, 540, 143],
+    [new Date(2018, 0, 31, 23, 59, 59), 1255, 921, 171],
+    [new Date(2018, 1, 28, 23, 59, 59), 783, 604, 149],
+    [new Date(2018, 2, 31, 23, 59, 59), 819, 590, 156],
+    [new Date(2018, 3, 30, 23, 59, 59), 633, 447, 144],
+    [new Date(2018, 4, 31, 23, 59, 59), 689, 505, 153],
+    [new Date(2018, 5, 30, 23, 59, 59), 945, 709, 152],
+    [new Date(2018, 6, 31, 23, 59, 59), 801, 555, 146],
+    [new Date(2018, 7, 31, 23, 59, 59), 868, 611, 154],
+    [new Date(2018, 8, 30, 23, 59, 59), 629, 436, 145],
+    [new Date(2018, 9, 31, 23, 59, 59), 929, 655, 171],
+    [new Date(2018, 10, 30, 23, 59, 59), 761, 494, 144],
+    [new Date(2018, 11, 31, 23, 59, 59), 324, 220, 113],
+    [new Date(2019, 0, 31, 23, 59, 59), 867, 644, 153],
+    [new Date(2019, 1, 28, 23, 59, 59), 683, 477, 143],
+    [new Date(2019, 2, 31, 23, 59, 59), 856, 581, 141],
+    [new Date(2019, 3, 30, 23, 59, 59), 729, 522, 141],
+    [new Date(2019, 4, 31, 23, 59, 59), 754, 551, 155],
+    [new Date(2019, 5, 30, 23, 59, 59), 885, 591, 164],
+    [new Date(2019, 6, 31, 23, 59, 59), 1386, 891, 199],
+    [new Date(2019, 7, 31, 23, 59, 59), 1500, 994, 169],
+    [new Date(2019, 8, 30, 23, 59, 59), 1772, 1178, 190],
+    [new Date(2019, 9, 31, 23, 59, 59), 1070, 685, 164],
+    [new Date(2019, 10, 30, 23, 59, 59), 868, 497, 160],
+    [new Date(2019, 11, 31, 23, 59, 59), 910, 578, 162],
+    [new Date(2020, 0, 31, 23, 59, 59), 1037, 629, 158],
+    [new Date(2020, 1, 29, 23, 59, 59), 790, 485, 153],
+    [new Date(2020, 2, 31, 23, 59, 59), 282, 184, 101],
+    [new Date(2020, 3, 30, 23, 59, 59), 165, 113, 79],
+    [new Date(2020, 4, 31, 23, 59, 59), 372, 245, 115],
+    [new Date(2020, 5, 30, 23, 59, 59), 449, 307, 116],
+    [new Date(2020, 6, 31, 23, 59, 59), 497, 291, 110],
+    [new Date(2020, 7, 31, 23, 59, 59), 632, 389, 127],
+    [new Date(2020, 8, 30, 23, 59, 59), 635, 431, 139],
+    [new Date(2020, 9, 31, 23, 59, 59), 321, 234, 110],
+    [new Date(2020, 10, 30, 23, 59, 59), 678, 470, 140],
+    [new Date(2020, 11, 31, 23, 59, 59), 360, 259, 106],
+    [new Date(2021, 0, 31, 23, 59, 59), 472, 348, 114],
+    [new Date(2021, 1, 28, 23, 59, 59), 581, 458, 119],
+    [new Date(2021, 2, 31, 23, 59, 59), 429, 277, 128],
+    [new Date(2021, 3, 30, 23, 59, 59), 509, 369, 127],
+    [new Date(2021, 4, 31, 23, 59, 59), 218, 125, 93],
+    [new Date(2021, 5, 30, 23, 59, 59), 173, 110, 80],
+    [new Date(2021, 6, 31, 23, 59, 59), 275, 204, 103],
+    [new Date(2021, 7, 31, 23, 59, 59), 213, 132, 99],
+    [new Date(2021, 8, 30, 23, 59, 59), 483, 371, 124],
+    [new Date(2021, 9, 31, 23, 59, 59), 366, 259, 106],
+    [new Date(2021, 10, 30, 23, 59, 59), 151, 106, 73],
+    [new Date(2021, 11, 31, 23, 59, 59), 258, 182, 98],
+    [new Date(2022, 0, 31, 23, 59, 59), 381, 282, 106],
+    [new Date(2022, 1, 28, 23, 59, 59), 134, 93, 64],
+    [new Date(2022, 2, 31, 23, 59, 59), 167, 127, 62],
+    [new Date(2022, 3, 30, 23, 59, 59), 77, 51, 41],
+    [new Date(2022, 4, 31, 23, 59, 59), 297, 201, 87],
+    [new Date(2022, 5, 30, 23, 59, 59), 509, 304, 116],
+    [new Date(2022, 6, 31, 23, 59, 59), 225, 148, 94],
+    [new Date(2022, 7, 31, 23, 59, 59), 270, 171, 82],
+    [new Date(2022, 8, 30, 23, 59, 59), 299, 191, 83],
+    [new Date(2022, 9, 31, 23, 59, 59), 190, 96, 68],
+    [new Date(2022, 10, 30, 23, 59, 59), 211, 141, 83],
+    [new Date(2022, 11, 31, 23, 59, 59), 99, 66, 52],
+    [new Date(2023, 0, 31, 23, 59, 59), 230, 161, 79],
+    [new Date(2023, 1, 28, 23, 59, 59), 406, 283, 106],
+    [new Date(2023, 2, 31, 23, 59, 59), 343, 228, 100],
+    [new Date(2023, 3, 30, 23, 59, 59), 256, 158, 90],
+    [new Date(2023, 4, 31, 23, 59, 59), 301, 201, 97],
+    [new Date(2023, 5, 30, 23, 59, 59), 322, 198, 97],
+    [new Date(2023, 6, 31, 23, 59, 59), 355, 229, 95],
+    [new Date(2023, 7, 31, 23, 59, 59), 420, 291, 107],
+    [new Date(2023, 8, 30, 23, 59, 59), 374, 262, 90],
+    [new Date(2023, 9, 31, 23, 59, 59), 214, 151, 80],
+    [new Date(2023, 10, 30, 23, 59, 59), 207, 118, 80],
+    [new Date(2023, 11, 31, 14, 11, 36), 187, 123, 77]
+  ];
+  data_lignes.addRows(data_lignes_values);
+  var ticks_lignes = [
+    new Date("2006-01-01"),
+    new Date("2007-01-01"),
+    new Date("2008-01-01"),
+    new Date("2009-01-01"),
+    new Date("2010-01-01"),
+    new Date("2011-01-01"),
+    new Date("2012-01-01"),
+    new Date("2013-01-01"),
+    new Date("2014-01-01"),
+    new Date("2015-01-01"),
+    new Date("2016-01-01"),
+    new Date("2017-01-01"),
+    new Date("2018-01-01"),
+    new Date("2019-01-01"),
+    new Date("2020-01-01"),
+    new Date("2021-01-01"),
+    new Date("2022-01-01"),
+    new Date("2023-01-01")
+  ];
+  while(ticks_lignes[0] < data_lignes_values[0][0]) {
+    ticks_lignes.shift();
+  }
+  var data_barres = new google.visualization.DataTable();
+  data_barres.addColumn("date", "mois");
+  data_barres.addColumn("number", "posts");
+  data_barres.addColumn("number", "smileys");
+  data_barres.addColumn("number", "participants");
+  var data_barres_values = [
+    [new Date("2006-01-01"), 112, 79, 41],
+    [new Date("2006-02-01"), 125, 91, 39],
+    [new Date("2006-03-01"), 136, 116, 40],
+    [new Date("2006-04-01"), 136, 125, 38],
+    [new Date("2006-05-01"), 53, 54, 26],
+    [new Date("2006-06-01"), 43, 29, 21],
+    [new Date("2006-07-01"), 50, 46, 27],
+    [new Date("2006-08-01"), 96, 65, 31],
+    [new Date("2006-09-01"), 51, 43, 26],
+    [new Date("2006-10-01"), 53, 41, 29],
+    [new Date("2006-11-01"), 59, 33, 31],
+    [new Date("2006-12-01"), 59, 41, 30],
+    [new Date("2007-01-01"), 79, 64, 36],
+    [new Date("2007-02-01"), 92, 82, 35],
+    [new Date("2007-03-01"), 52, 39, 22],
+    [new Date("2007-04-01"), 51, 50, 22],
+    [new Date("2007-05-01"), 105, 89, 39],
+    [new Date("2007-06-01"), 29, 16, 19],
+    [new Date("2007-07-01"), 124, 108, 44],
+    [new Date("2007-08-01"), 154, 129, 49],
+    [new Date("2007-09-01"), 226, 205, 49],
+    [new Date("2007-10-01"), 270, 255, 64],
+    [new Date("2007-11-01"), 183, 157, 49],
+    [new Date("2007-12-01"), 175, 127, 71],
+    [new Date("2008-01-01"), 242, 187, 60],
+    [new Date("2008-02-01"), 173, 114, 47],
+    [new Date("2008-03-01"), 193, 139, 56],
+    [new Date("2008-04-01"), 282, 237, 81],
+    [new Date("2008-05-01"), 236, 212, 68],
+    [new Date("2008-06-01"), 404, 375, 76],
+    [new Date("2008-07-01"), 217, 174, 59],
+    [new Date("2008-08-01"), 252, 208, 77],
+    [new Date("2008-09-01"), 300, 257, 79],
+    [new Date("2008-10-01"), 410, 398, 84],
+    [new Date("2008-11-01"), 326, 313, 83],
+    [new Date("2008-12-01"), 313, 284, 78],
+    [new Date("2009-01-01"), 300, 278, 83],
+    [new Date("2009-02-01"), 248, 239, 72],
+    [new Date("2009-03-01"), 523, 516, 106],
+    [new Date("2009-04-01"), 236, 235, 86],
+    [new Date("2009-05-01"), 736, 650, 126],
+    [new Date("2009-06-01"), 600, 534, 129],
+    [new Date("2009-07-01"), 896, 857, 142],
+    [new Date("2009-08-01"), 466, 403, 116],
+    [new Date("2009-09-01"), 502, 418, 118],
+    [new Date("2009-10-01"), 379, 413, 109],
+    [new Date("2009-11-01"), 500, 383, 102],
+    [new Date("2009-12-01"), 352, 312, 96],
+    [new Date("2010-01-01"), 462, 386, 103],
+    [new Date("2010-02-01"), 609, 500, 111],
+    [new Date("2010-03-01"), 617, 492, 112],
+    [new Date("2010-04-01"), 828, 674, 113],
+    [new Date("2010-05-01"), 294, 232, 92],
+    [new Date("2010-06-01"), 523, 463, 107],
+    [new Date("2010-07-01"), 633, 597, 125],
+    [new Date("2010-08-01"), 702, 584, 141],
+    [new Date("2010-09-01"), 571, 493, 124],
+    [new Date("2010-10-01"), 680, 649, 134],
+    [new Date("2010-11-01"), 706, 759, 119],
+    [new Date("2010-12-01"), 539, 522, 116],
+    [new Date("2011-01-01"), 606, 564, 131],
+    [new Date("2011-02-01"), 661, 666, 109],
+    [new Date("2011-03-01"), 372, 311, 119],
+    [new Date("2011-04-01"), 519, 458, 126],
+    [new Date("2011-05-01"), 614, 545, 131],
+    [new Date("2011-06-01"), 680, 650, 146],
+    [new Date("2011-07-01"), 1022, 933, 151],
+    [new Date("2011-08-01"), 1042, 887, 166],
+    [new Date("2011-09-01"), 1089, 1003, 158],
+    [new Date("2011-10-01"), 1177, 1000, 169],
+    [new Date("2011-11-01"), 1088, 860, 158],
+    [new Date("2011-12-01"), 1048, 874, 158],
+    [new Date("2012-01-01"), 1136, 1040, 163],
+    [new Date("2012-02-01"), 1299, 1177, 151],
+    [new Date("2012-03-01"), 979, 849, 159],
+    [new Date("2012-04-01"), 1132, 1057, 144],
+    [new Date("2012-05-01"), 858, 792, 138],
+    [new Date("2012-06-01"), 1002, 889, 153],
+    [new Date("2012-07-01"), 1477, 1317, 183],
+    [new Date("2012-08-01"), 843, 714, 158],
+    [new Date("2012-09-01"), 951, 792, 167],
+    [new Date("2012-10-01"), 1267, 1121, 190],
+    [new Date("2012-11-01"), 1155, 974, 180],
+    [new Date("2012-12-01"), 1032, 930, 160],
+    [new Date("2013-01-01"), 1716, 1412, 176],
+    [new Date("2013-02-01"), 1472, 1162, 187],
+    [new Date("2013-03-01"), 1170, 872, 152],
+    [new Date("2013-04-01"), 927, 670, 157],
+    [new Date("2013-05-01"), 1010, 807, 167],
+    [new Date("2013-06-01"), 956, 763, 163],
+    [new Date("2013-07-01"), 987, 895, 174],
+    [new Date("2013-08-01"), 865, 669, 160],
+    [new Date("2013-09-01"), 1356, 1114, 187],
+    [new Date("2013-10-01"), 1382, 1133, 179],
+    [new Date("2013-11-01"), 1398, 1219, 183],
+    [new Date("2013-12-01"), 639, 478, 152],
+    [new Date("2014-01-01"), 621, 435, 156],
+    [new Date("2014-02-01"), 849, 631, 174],
+    [new Date("2014-03-01"), 935, 668, 155],
+    [new Date("2014-04-01"), 768, 592, 138],
+    [new Date("2014-05-01"), 590, 478, 156],
+    [new Date("2014-06-01"), 675, 583, 144],
+    [new Date("2014-07-01"), 813, 705, 172],
+    [new Date("2014-08-01"), 809, 618, 173],
+    [new Date("2014-09-01"), 986, 800, 191],
+    [new Date("2014-10-01"), 1307, 1019, 194],
+    [new Date("2014-11-01"), 995, 782, 168],
+    [new Date("2014-12-01"), 840, 620, 147],
+    [new Date("2015-01-01"), 575, 455, 145],
+    [new Date("2015-02-01"), 679, 521, 138],
+    [new Date("2015-03-01"), 1079, 817, 177],
+    [new Date("2015-04-01"), 694, 552, 148],
+    [new Date("2015-05-01"), 1204, 976, 171],
+    [new Date("2015-06-01"), 947, 682, 155],
+    [new Date("2015-07-01"), 904, 602, 152],
+    [new Date("2015-08-01"), 701, 484, 142],
+    [new Date("2015-09-01"), 930, 729, 175],
+    [new Date("2015-10-01"), 736, 563, 153],
+    [new Date("2015-11-01"), 710, 505, 151],
+    [new Date("2015-12-01"), 641, 464, 154],
+    [new Date("2016-01-01"), 669, 494, 174],
+    [new Date("2016-02-01"), 877, 705, 151],
+    [new Date("2016-03-01"), 681, 499, 141],
+    [new Date("2016-04-01"), 381, 278, 118],
+    [new Date("2016-05-01"), 324, 213, 112],
+    [new Date("2016-06-01"), 331, 280, 110],
+    [new Date("2016-07-01"), 618, 482, 140],
+    [new Date("2016-08-01"), 530, 401, 132],
+    [new Date("2016-09-01"), 563, 446, 135],
+    [new Date("2016-10-01"), 472, 376, 137],
+    [new Date("2016-11-01"), 450, 390, 124],
+    [new Date("2016-12-01"), 389, 343, 119],
+    [new Date("2017-01-01"), 646, 486, 144],
+    [new Date("2017-02-01"), 562, 432, 121],
+    [new Date("2017-03-01"), 821, 598, 145],
+    [new Date("2017-04-01"), 448, 359, 140],
+    [new Date("2017-05-01"), 611, 426, 136],
+    [new Date("2017-06-01"), 579, 447, 138],
+    [new Date("2017-07-01"), 677, 495, 147],
+    [new Date("2017-08-01"), 911, 639, 170],
+    [new Date("2017-09-01"), 826, 616, 174],
+    [new Date("2017-10-01"), 566, 422, 135],
+    [new Date("2017-11-01"), 706, 501, 144],
+    [new Date("2017-12-01"), 755, 540, 143],
+    [new Date("2018-01-01"), 1255, 921, 171],
+    [new Date("2018-02-01"), 783, 604, 149],
+    [new Date("2018-03-01"), 819, 590, 156],
+    [new Date("2018-04-01"), 633, 447, 144],
+    [new Date("2018-05-01"), 689, 505, 153],
+    [new Date("2018-06-01"), 945, 709, 152],
+    [new Date("2018-07-01"), 801, 555, 146],
+    [new Date("2018-08-01"), 868, 611, 154],
+    [new Date("2018-09-01"), 629, 436, 145],
+    [new Date("2018-10-01"), 929, 655, 171],
+    [new Date("2018-11-01"), 761, 494, 144],
+    [new Date("2018-12-01"), 324, 220, 113],
+    [new Date("2019-01-01"), 867, 644, 153],
+    [new Date("2019-02-01"), 683, 477, 143],
+    [new Date("2019-03-01"), 856, 581, 141],
+    [new Date("2019-04-01"), 729, 522, 141],
+    [new Date("2019-05-01"), 754, 551, 155],
+    [new Date("2019-06-01"), 885, 591, 164],
+    [new Date("2019-07-01"), 1386, 891, 199],
+    [new Date("2019-08-01"), 1500, 994, 169],
+    [new Date("2019-09-01"), 1772, 1178, 190],
+    [new Date("2019-10-01"), 1070, 685, 164],
+    [new Date("2019-11-01"), 868, 497, 160],
+    [new Date("2019-12-01"), 910, 578, 162],
+    [new Date("2020-01-01"), 1037, 629, 158],
+    [new Date("2020-02-01"), 790, 485, 153],
+    [new Date("2020-03-01"), 282, 184, 101],
+    [new Date("2020-04-01"), 165, 113, 79],
+    [new Date("2020-05-01"), 372, 245, 115],
+    [new Date("2020-06-01"), 449, 307, 116],
+    [new Date("2020-07-01"), 497, 291, 110],
+    [new Date("2020-08-01"), 632, 389, 127],
+    [new Date("2020-09-01"), 635, 431, 139],
+    [new Date("2020-10-01"), 321, 234, 110],
+    [new Date("2020-11-01"), 678, 470, 140],
+    [new Date("2020-12-01"), 360, 259, 106],
+    [new Date("2021-01-01"), 472, 348, 114],
+    [new Date("2021-02-01"), 581, 458, 119],
+    [new Date("2021-03-01"), 429, 277, 128],
+    [new Date("2021-04-01"), 509, 369, 127],
+    [new Date("2021-05-01"), 218, 125, 93],
+    [new Date("2021-06-01"), 173, 110, 80],
+    [new Date("2021-07-01"), 275, 204, 103],
+    [new Date("2021-08-01"), 213, 132, 99],
+    [new Date("2021-09-01"), 483, 371, 124],
+    [new Date("2021-10-01"), 366, 259, 106],
+    [new Date("2021-11-01"), 151, 106, 73],
+    [new Date("2021-12-01"), 258, 182, 98],
+    [new Date("2022-01-01"), 381, 282, 106],
+    [new Date("2022-02-01"), 134, 93, 64],
+    [new Date("2022-03-01"), 167, 127, 62],
+    [new Date("2022-04-01"), 77, 51, 41],
+    [new Date("2022-05-01"), 297, 201, 87],
+    [new Date("2022-06-01"), 509, 304, 116],
+    [new Date("2022-07-01"), 225, 148, 94],
+    [new Date("2022-08-01"), 270, 171, 82],
+    [new Date("2022-09-01"), 299, 191, 83],
+    [new Date("2022-10-01"), 190, 96, 68],
+    [new Date("2022-11-01"), 211, 141, 83],
+    [new Date("2022-12-01"), 99, 66, 52],
+    [new Date("2023-01-01"), 230, 161, 79],
+    [new Date("2023-02-01"), 406, 283, 106],
+    [new Date("2023-03-01"), 343, 228, 100],
+    [new Date("2023-04-01"), 256, 158, 90],
+    [new Date("2023-05-01"), 301, 201, 97],
+    [new Date("2023-06-01"), 322, 198, 97],
+    [new Date("2023-07-01"), 355, 229, 95],
+    [new Date("2023-08-01"), 420, 291, 107],
+    [new Date("2023-09-01"), 374, 262, 90],
+    [new Date("2023-10-01"), 214, 151, 80],
+    [new Date("2023-11-01"), 207, 118, 80],
+    [new Date("2023-12-01"), 187, 123, 77]
+  ];
+  data_barres.addRows(data_barres_values);
+  var ticks_barres = [
+    new Date("2006-01-01"),
+    new Date("2007-01-01"),
+    new Date("2008-01-01"),
+    new Date("2009-01-01"),
+    new Date("2010-01-01"),
+    new Date("2011-01-01"),
+    new Date("2012-01-01"),
+    new Date("2013-01-01"),
+    new Date("2014-01-01"),
+    new Date("2015-01-01"),
+    new Date("2016-01-01"),
+    new Date("2017-01-01"),
+    new Date("2018-01-01"),
+    new Date("2019-01-01"),
+    new Date("2020-01-01"),
+    new Date("2021-01-01"),
+    new Date("2022-01-01"),
+    new Date("2023-01-01")
+  ];
+  while(ticks_barres[0] < data_barres_values[0][0]) {
+    ticks_barres.shift();
+  }
+  var options_graph = {
+    aggregationTarget: "category",
+    animation: {
+      duration: 1000,
+      easing: "inAndOut",
+      startup: true
+    },
+    axisTitlesPosition: "none",
+    backgroundColor: "#f8f8f8",
+    chartArea: {
+      left: "6%",
+      top: "9%",
+      width: "92%",
+      height: "84%"
+    },
+    colors: ["#8e8ef8", "#ff9900", "#109618"],
+    crosshair: {
+      focused: {
+        color: "#ffbf60",
+        opacity: 1
+      },
+      orientation: "both",
+      selected: {
+        color: "#f4947f",
+        opacity: 1
+      },
+      trigger: "both"
+    },
+    curveType: "none",
+    enableInteractivity: true,
+    focusTarget: "category",
+    fontName: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    hAxis: {
+      direction: 1,
+      format: "yyyy",
+      logScale: false,
+      textPosition: "out",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      },
+      ticks: ticks_lignes
+    },
+    interpolateNulls: false,
+    isStacked: false,
+    legend: {
+      alignment: "start",
+      position: "top",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      }
+    },
+    lineWidth: 1,
+    orientation: "horizontal",
+    reverseCategories: false,
+    selectionMode: "single",
+    seriesType: "area",
+    tooltip: {
+      ignoreBounds: false,
+      isHtml: false,
+      showColorCode: true,
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      },
+      trigger: "focus"
+    },
+    vAxis: {
+      direction: 1,
+      format: "#,###",
+      logScale: false,
+      minValue: 0,
+      textPosition: "out",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      }
+    }
+  };
+  var options_table = {
+    allowHtml: false,
+    alternatingRowStyle: true,
+    cssClassNames: {
+      headerRow: "headerRow",
+      tableRow: "tableRow",
+      oddTableRow: "oddTableRow",
+      selectedTableRow: "selectedTableRow",
+      hoverTableRow: "hoverTableRow",
+      headerCell: "headerCell",
+      tableCell: "tableCell"
+    },
+    page: "disable",
+    rtlTable: false,
+    showRowNumber: false,
+    sort: "enable",
+    sortAscending: true,
+    sortColumn: 0
+  };
+  var formater_date = new google.visualization.DateFormat({
+    pattern: "MMMM yyyy"
+  });
+  formater_date.format(data_lignes, 0);
+  formater_date.format(data_barres, 0);
+  var formater_number = new google.visualization.NumberFormat({
+    decimalSymbol: ",",
+    groupingSymbol: " ",
+    fractionDigits: 0
+  });
+  formater_number.format(data_lignes, 1);
+  formater_number.format(data_lignes, 2);
+  formater_number.format(data_lignes, 3);
+  formater_number.format(data_barres, 1);
+  formater_number.format(data_barres, 2);
+  formater_number.format(data_barres, 3);
+  var div_graph = document.querySelector("div#graph");
+  var div_table = document.querySelector("div#table");
+  var div_switcher = document.querySelector("div#switcher");
+  var data_graph = data_lignes.clone();
+  var graph = new google.visualization.ComboChart(div_graph);
+  var data_table = data_barres.clone();
+  var table = new google.visualization.Table(div_table);
+  function select_graph() {
+    var selection = graph.getSelection();
+    if(typeof selection[0] === "undefined" || typeof selection[0].row === "undefined") {
+      graph.setSelection();
+      table.setSelection();
+      return;
+    }
+    if(div_graph.dataset.type === "lignes") {
+      selection[0].row -= 1;
+    }
+    table.setSelection(selection);
+  }
+  google.visualization.events.addListener(graph, "select", select_graph);
+  function select_table() {
+    var selection = table.getSelection();
+    if(typeof selection[0] === "undefined" || typeof selection[0].row === "undefined") {
+      graph.setSelection();
+      table.setSelection();
+      return;
+    }
+    if(div_graph.dataset.type === "lignes") {
+      selection[0].row += 1;
+    }
+    graph.setSelection(selection);
+  }
+  google.visualization.events.addListener(table, "select", select_table);
+  function switcher() {
+    div_switcher.classList.remove("active");
+    div_switcher.removeEventListener("click", switcher, false);
+    graph.setSelection();
+    if(div_graph.dataset.type === "lignes") {
+      options_graph.seriesType = "bars";
+      options_graph.hAxis.ticks = ticks_barres;
+      data_graph = data_barres.clone();
+      graph.draw(data_graph, options_graph);
+      div_graph.dataset.type = "barres";
+      div_switcher.classList.remove("barres");
+      div_switcher.setAttribute("title", "afficher en lignes");
+    } else {
+      options_graph.seriesType = "area";
+      options_graph.hAxis.ticks = ticks_lignes;
+      data_graph = data_lignes.clone();
+      graph.draw(data_graph, options_graph);
+      div_graph.dataset.type = "lignes";
+      div_switcher.classList.add("barres");
+      div_switcher.setAttribute("title", "afficher en barres");
+    }
+    select_table();
+    div_switcher.addEventListener("click", switcher, false);
+    div_switcher.classList.add("active");
+  }
+  var starting = true;
+  google.visualization.events.addListener(graph, "animationfinish", function() {
+    if(starting) {
+      starting = false;
+      options_graph.animation.duration = 0;
+      div_graph.firstElementChild.appendChild(div_switcher);
+      div_switcher.style.display = "block";
+      div_switcher.addEventListener("click", switcher, false);
+      div_switcher.classList.add("active");
+    }
+  });
+  graph.draw(data_graph, options_graph);
+  table.draw(data_table, options_table);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="graph">
+  <h1>L'activité <span class="alltime">all time</span> 2023 par mois du topic infos insos</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 08:46:47)</h3>
+  <div id="graph" data-type="lignes"></div>
+  <div id="switcher" class="link barres" title="afficher en barres"></div>
+  <div id="table"></div>
+</body>
+</html>
