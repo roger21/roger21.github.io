@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des bruyants all time 2023 du topic images (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "bruyants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "bruits");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["bruyants", null, 0, 0, 0],
+    ["tous les autres bruyants all time", "bruyants", 123814, 0, 0],
+    ["Profil supprimé", "bruyants", 20672, 0, 0],
+    ["HumanRAGE", "bruyants", 3255, 0, 0],
+    ["ObsydianKenobi", "bruyants", 2649, 0, 0],
+    ["Berceker United", "bruyants", 2544, 0, 0],
+    ["nakata", "bruyants", 2295, 0, 0],
+    ["teepodavignon", "bruyants", 2076, 0, 0],
+    ["CAMPEDEL", "bruyants", 1933, 0, 0],
+    ["DrDooM", "bruyants", 1887, 0, 0],
+    ["_tchip_", "bruyants", 1849, 0, 0],
+    ["Data error", "bruyants", 1776, 0, 0],
+    ["P0L0", "bruyants", 1652, 0, 0],
+    ["XaTriX", "bruyants", 1586, 0, 0],
+    ["Aardpeer", "bruyants", 1532, 0, 0],
+    ["Swiss_Knight", "bruyants", 1458, 0, 0],
+    ["the_warrior", "bruyants", 1402, 0, 0],
+    ["no_gods", "bruyants", 1366, 0, 0],
+    ["Leg9", "bruyants", 1322, 0, 0],
+    ["morb", "bruyants", 1308, 0, 0],
+    ["DeltaVega", "bruyants", 1254, 0, 0],
+    ["Fork Bomb", "bruyants", 1239, 0, 0],
+    ["JFKen", "bruyants", 1218, 0, 0],
+    ["thoulisse_bernard", "bruyants", 1204, 0, 0],
+    ["TheCreator", "bruyants", 1188, 0, 0],
+    ["Gonzoide", "bruyants", 1165, 0, 0],
+    ["gougoul07", "bruyants", 1138, 0, 0],
+    ["zcoold", "bruyants", 1122, 0, 0],
+    ["justeleblanc", "bruyants", 1094, 0, 0],
+    ["philibear", "bruyants", 1085, 0, 0],
+    ["arkrom", "bruyants", 1080, 0, 0],
+    ["tuxbleu", "bruyants", 1079, 0, 0],
+    ["karlit", "bruyants", 1067, 0, 0],
+    ["Kiveu", "bruyants", 1059, 0, 0],
+    ["giorkal", "bruyants", 1011, 0, 0],
+    ["Bertrand_205champion", "bruyants", 971, 0, 0],
+    ["Winpoks", "bruyants", 967, 0, 0],
+    ["Perceval_De_Galles", "bruyants", 962, 0, 0],
+    ["Eife", "bruyants", 937, 0, 0],
+    ["Jambier", "bruyants", 900, 0, 0],
+    ["moonboots", "bruyants", 861, 0, 0],
+    ["iskor", "bruyants", 860, 0, 0],
+    ["sligor", "bruyants", 835, 0, 0],
+    ["_Nins_", "bruyants", 821, 0, 0],
+    ["Modération", "bruyants", 817, 0, 0],
+    ["biboo_", "bruyants", 793, 0, 0],
+    ["Ciler", "bruyants", 781, 0, 0],
+    ["decamerone", "bruyants", 775, 0, 0],
+    ["edhelas", "bruyants", 774, 0, 0],
+    ["Paul de Saint-Balby", "bruyants", 768, 0, 0],
+    ["Kewyn", "bruyants", 738, 0, 0],
+    ["Harrrrg", "bruyants", 733, 0, 0],
+    ["dark oopa", "bruyants", 705, 0, 0],
+    ["Till Lindemann", "bruyants", 701, 0, 0],
+    ["TenjO TengE", "bruyants", 697, 0, 0],
+    ["babylone83", "bruyants", 693, 0, 0],
+    ["jpcheck", "bruyants", 666, 0, 0],
+    ["newbie_master", "bruyants", 662, 0, 0],
+    ["floflow", "bruyants", 652, 0, 0],
+    ["freewind", "bruyants", 652, 0, 0],
+    ["Cuistot", "bruyants", 647, 0, 0],
+    ["Cver1", "bruyants", 640, 0, 0],
+    ["tibo2002", "bruyants", 636, 0, 0],
+    ["ClioWilliams", "bruyants", 635, 0, 0],
+    ["am7", "bruyants", 621, 0, 0],
+    ["-JLL-", "bruyants", 616, 0, 0],
+    ["cybercap", "bruyants", 614, 0, 0],
+    ["Marco Paulo", "bruyants", 593, 0, 0],
+    ["Kromsson", "bruyants", 589, 0, 0],
+    ["Mona Soyoc", "bruyants", 589, 0, 0],
+    ["stancw", "bruyants", 576, 0, 0],
+    ["carbon38", "bruyants", 572, 0, 0],
+    ["Nivacrin", "bruyants", 570, 0, 0],
+    ["Sgt-D", "bruyants", 568, 0, 0],
+    ["Jaxom31", "bruyants", 567, 0, 0],
+    ["moquette", "bruyants", 567, 0, 0],
+    ["arthoung", "bruyants", 558, 0, 0],
+    ["ijk_reference", "bruyants", 557, 0, 0],
+    ["RaKaCHa", "bruyants", 547, 0, 0],
+    ["cordelius", "bruyants", 541, 0, 0],
+    ["Da_Edge", "bruyants", 537, 0, 0],
+    ["jonas", "bruyants", 535, 0, 0],
+    ["chatoo", "bruyants", 530, 0, 0],
+    ["Mercius", "bruyants", 522, 0, 0],
+    ["Z_cool", "bruyants", 520, 0, 0],
+    ["master71", "bruyants", 519, 0, 0],
+    ["swimm3r", "bruyants", 509, 0, 0],
+    ["meriadeck", "bruyants", 507, 0, 0],
+    ["-the_unforgiven-", "bruyants", 505, 0, 0],
+    ["vinzomatik", "bruyants", 502, 0, 0],
+    ["benji123", "bruyants", 496, 0, 0],
+    ["Paul le Poulpe", "bruyants", 496, 0, 0],
+    ["Bakk15", "bruyants", 495, 0, 0],
+    ["Kirvel", "bruyants", 487, 0, 0],
+    ["darxmurf", "bruyants", 485, 0, 0],
+    ["fafarex", "bruyants", 485, 0, 0],
+    ["J_D_", "bruyants", 483, 0, 0],
+    ["philippe06", "bruyants", 483, 0, 0],
+    ["multivitamine", "bruyants", 479, 0, 0],
+    ["cust be back", "bruyants", 472, 0, 0],
+    ["Proute2000", "bruyants", 440, 0, 0],
+    ["airy", "bruyants", 439, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#ffcfcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#cfffcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " bruits" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des bruyants <span class="alltime">all time</span> 2023 du topic images (top 100)</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 08:11:03)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
