@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2023 du topic Luxembourg (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Profil supprimé", "participants", 10631, 0, 0],
+    ["glandoll", "participants", 5687, 0, 0],
+    ["didier1809", "participants", 4999, 0, 0],
+    ["eclaireur", "participants", 4660, 0, 0],
+    ["Flaie", "participants", 3989, 0, 0],
+    ["-luxboy-", "participants", 2918, 0, 0],
+    ["R-jac", "participants", 2260, 0, 0],
+    ["Leskipper", "participants", 2224, 0, 0],
+    ["ynorsa", "participants", 2062, 0, 0],
+    ["galaxnordist", "participants", 2000, 0, 0],
+    ["M300A", "participants", 1974, 0, 0],
+    ["speedboyz30", "participants", 1758, 0, 0],
+    ["tous les autres all time", "participants", 1657, 0, 0],
+    ["Luckan", "participants", 1579, 0, 0],
+    ["hfrfc", "participants", 1234, 0, 0],
+    ["Iv4ndi", "participants", 1227, 0, 0],
+    ["dante2002", "participants", 1148, 0, 0],
+    ["Iryngael", "participants", 1102, 0, 0],
+    ["Slay", "participants", 1013, 0, 0],
+    ["Deadlock", "participants", 927, 0, 0],
+    ["Roude Leiw", "participants", 923, 0, 0],
+    ["Schoumy_", "participants", 837, 0, 0],
+    ["H00d", "participants", 835, 0, 0],
+    ["Geddons", "participants", 832, 0, 0],
+    ["Antoine Doinel", "participants", 801, 0, 0],
+    ["emegamanu", "participants", 589, 0, 0],
+    ["Gonzoide", "participants", 574, 0, 0],
+    ["malo62", "participants", 552, 0, 0],
+    ["Bagdarion", "participants", 526, 0, 0],
+    ["dk3nt", "participants", 508, 0, 0],
+    ["SplitForm", "participants", 467, 0, 0],
+    ["Qingdan", "participants", 455, 0, 0],
+    ["pc2000", "participants", 338, 0, 0],
+    ["erness", "participants", 337, 0, 0],
+    ["mimychatmiaou", "participants", 323, 0, 0],
+    ["dajay", "participants", 271, 0, 0],
+    ["darkangel", "participants", 262, 0, 0],
+    ["popol_55", "participants", 244, 0, 0],
+    ["latruffe", "participants", 232, 0, 0],
+    ["Deep Turn", "participants", 216, 0, 0],
+    ["-solal-", "participants", 215, 0, 0],
+    ["Uhustick", "participants", 214, 0, 0],
+    ["qisope", "participants", 213, 0, 0],
+    ["shalazyr", "participants", 205, 0, 0],
+    ["karma up", "participants", 185, 0, 0],
+    ["Raiisin", "participants", 178, 0, 0],
+    ["Koreskalp", "participants", 171, 0, 0],
+    ["jest13", "participants", 170, 0, 0],
+    ["mealin", "participants", 170, 0, 0],
+    ["Talisker", "participants", 166, 0, 0],
+    ["Follow Me", "participants", 158, 0, 0],
+    ["ujina", "participants", 152, 0, 0],
+    ["thekilgore", "participants", 118, 0, 0],
+    ["Microminus", "participants", 116, 0, 0],
+    ["marc-jule", "participants", 115, 0, 0],
+    ["wild boy", "participants", 112, 0, 0],
+    ["SashaG", "participants", 106, 0, 0],
+    ["Hortense", "participants", 102, 0, 0],
+    ["Zeplusoif", "participants", 99, 0, 0],
+    ["vaoboo", "participants", 96, 0, 0],
+    ["floootheone", "participants", 89, 0, 0],
+    ["sebfun", "participants", 85, 0, 0],
+    ["zohann", "participants", 85, 0, 0],
+    ["XaTriX", "participants", 83, 0, 0],
+    ["rapha-35", "participants", 80, 0, 0],
+    ["StatuFab", "participants", 80, 0, 0],
+    ["zagan", "participants", 80, 0, 0],
+    ["mcsime", "participants", 76, 0, 0],
+    ["Bocal83", "participants", 72, 0, 0],
+    ["macdaniel", "participants", 72, 0, 0],
+    ["Priareos", "participants", 72, 0, 0],
+    ["Azhiria", "participants", 68, 0, 0],
+    ["Zolomion", "participants", 68, 0, 0],
+    ["big e", "participants", 63, 0, 0],
+    ["imoteptek", "participants", 63, 0, 0],
+    ["seba1492", "participants", 63, 0, 0],
+    ["Stinson54", "participants", 61, 0, 0],
+    ["true-wiwi", "participants", 60, 0, 0],
+    ["User Name", "participants", 60, 0, 0],
+    ["Babouchka", "participants", 50, 0, 0],
+    ["ScroooK", "participants", 46, 0, 0],
+    ["Ik12", "participants", 45, 0, 0],
+    ["maaah", "participants", 42, 0, 0],
+    ["Cup_Cake", "participants", 40, 0, 0],
+    ["faap", "participants", 39, 0, 0],
+    ["MTiger", "participants", 38, 0, 0],
+    ["simchevelu", "participants", 38, 0, 0],
+    ["Infinity4D", "participants", 35, 0, 0],
+    ["londoncherry", "participants", 35, 0, 0],
+    ["Sebast971", "participants", 34, 0, 0],
+    ["LIGHT'in", "participants", 31, 0, 0],
+    ["SPlissken", "participants", 31, 0, 0],
+    ["fpo", "participants", 30, 0, 0],
+    ["gf38lg", "participants", 30, 0, 0],
+    ["kikou2419", "participants", 30, 0, 0],
+    ["bazia", "participants", 29, 0, 0],
+    ["fougnac", "participants", 28, 0, 0],
+    ["seb57lux", "participants", 28, 0, 0],
+    ["stripsky", "participants", 28, 0, 0],
+    ["grouiky", "participants", 27, 0, 0],
+    ["Nabu1", "participants", 27, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2023 du topic Luxembourg (top 100)</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 10:11:01)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
