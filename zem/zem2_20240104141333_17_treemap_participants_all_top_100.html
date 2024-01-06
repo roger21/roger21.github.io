@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2023 du topic Zemmour (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 65000, 0, 0],
+    ["donut78", "participants", 9291, 0, 0],
+    ["ledenez", "participants", 8383, 0, 0],
+    ["Ernestor", "participants", 7929, 0, 0],
+    ["fred_div91", "participants", 7704, 0, 0],
+    ["Profil supprimé", "participants", 6867, 0, 0],
+    ["andhar", "participants", 6433, 0, 0],
+    ["Cuistot", "participants", 5881, 0, 0],
+    ["Nikechow", "participants", 5553, 0, 0],
+    ["la lampe", "participants", 5122, 0, 0],
+    ["_Makaveli_", "participants", 4374, 0, 0],
+    ["fiscalisator", "participants", 3771, 0, 0],
+    ["Scrypt", "participants", 3419, 0, 0],
+    ["arngrimlechauve", "participants", 3415, 0, 0],
+    ["babyboy4", "participants", 3341, 0, 0],
+    ["pesos", "participants", 3244, 0, 0],
+    ["Flaie", "participants", 3053, 0, 0],
+    ["La Monne", "participants", 2895, 0, 0],
+    ["armageddindon", "participants", 2733, 0, 0],
+    ["moggbomber", "participants", 2708, 0, 0],
+    ["kronekenbc", "participants", 2654, 0, 0],
+    ["Fender", "participants", 2448, 0, 0],
+    ["Roupillon", "participants", 2421, 0, 0],
+    ["Xamoth", "participants", 2402, 0, 0],
+    ["Raspa", "participants", 2391, 0, 0],
+    ["super_pourri", "participants", 2365, 0, 0],
+    ["Sillage276", "participants", 2335, 0, 0],
+    ["broddok27", "participants", 2333, 0, 0],
+    ["alien64", "participants", 2278, 0, 0],
+    ["morb", "participants", 2213, 0, 0],
+    ["marocaindu82", "participants", 2200, 0, 0],
+    ["varlocke", "participants", 2184, 0, 0],
+    ["t_faz", "participants", 2182, 0, 0],
+    ["StefSamy", "participants", 2124, 0, 0],
+    ["Grumms", "participants", 2092, 0, 0],
+    ["Backbone-", "participants", 2057, 0, 0],
+    ["buscape30", "participants", 1990, 0, 0],
+    ["Kami", "participants", 1810, 0, 0],
+    ["Apokrif", "participants", 1801, 0, 0],
+    ["Kiveu", "participants", 1798, 0, 0],
+    ["Coroners", "participants", 1721, 0, 0],
+    ["azymantiop", "participants", 1714, 0, 0],
+    ["Mujol", "participants", 1713, 0, 0],
+    ["dopador", "participants", 1710, 0, 0],
+    ["Gottorp", "participants", 1652, 0, 0],
+    ["The NBoc", "participants", 1612, 0, 0],
+    ["KillMe", "participants", 1601, 0, 0],
+    ["Tammuz", "participants", 1589, 0, 0],
+    ["Yagmoth", "participants", 1583, 0, 0],
+    ["brown paper bag", "participants", 1546, 0, 0],
+    ["Gunman24", "participants", 1545, 0, 0],
+    ["walkersjh", "participants", 1528, 0, 0],
+    ["Sticki", "participants", 1522, 0, 0],
+    ["Jakes", "participants", 1518, 0, 0],
+    ["gromarik", "participants", 1420, 0, 0],
+    ["choufarci", "participants", 1414, 0, 0],
+    ["poutrella", "participants", 1393, 0, 0],
+    ["icumblood", "participants", 1390, 0, 0],
+    ["maouuu", "participants", 1360, 0, 0],
+    ["El Dood", "participants", 1332, 0, 0],
+    ["Lyrks", "participants", 1308, 0, 0],
+    ["UYSCUTI", "participants", 1224, 0, 0],
+    ["kriloner", "participants", 1223, 0, 0],
+    ["doum", "participants", 1185, 0, 0],
+    ["Kiriou", "participants", 1185, 0, 0],
+    ["p'tet'ben", "participants", 1125, 0, 0],
+    ["Bordel", "participants", 1024, 0, 0],
+    ["dossage", "participants", 1022, 0, 0],
+    ["1000Trees", "participants", 1018, 0, 0],
+    ["-JLL-", "participants", 981, 0, 0],
+    ["schezario", "participants", 980, 0, 0],
+    ["jkf", "participants", 979, 0, 0],
+    ["TarzouilleLP", "participants", 971, 0, 0],
+    ["RaKaCHa", "participants", 953, 0, 0],
+    ["kamoulox_", "participants", 919, 0, 0],
+    ["snakesolid2", "participants", 910, 0, 0],
+    ["John Nada", "participants", 901, 0, 0],
+    ["valentinvtl", "participants", 885, 0, 0],
+    ["SHAMSHIR", "participants", 859, 0, 0],
+    ["Amenorrhee suspecte", "participants", 857, 0, 0],
+    ["L'helleno-chretien", "participants", 842, 0, 0],
+    ["theomede", "participants", 818, 0, 0],
+    ["Brad Pitt", "participants", 800, 0, 0],
+    ["Publius Pertinax", "participants", 758, 0, 0],
+    ["Esiuol", "participants", 756, 0, 0],
+    ["panda_man", "participants", 744, 0, 0],
+    ["joost6", "participants", 719, 0, 0],
+    ["docmaboul", "participants", 713, 0, 0],
+    ["jydi75", "participants", 707, 0, 0],
+    ["Lesluckys", "participants", 704, 0, 0],
+    ["TrakT", "participants", 685, 0, 0],
+    ["arnyek", "participants", 679, 0, 0],
+    ["maurice chevallier", "participants", 678, 0, 0],
+    ["tekel", "participants", 663, 0, 0],
+    ["Jambier", "participants", 660, 0, 0],
+    ["loulou le marlou", "participants", 647, 0, 0],
+    ["scOulOu", "participants", 644, 0, 0],
+    ["OTH", "participants", 641, 0, 0],
+    ["freddy021", "participants", 640, 0, 0],
+    ["hyenal1", "participants", 638, 0, 0],
+    ["asmomo", "participants", 637, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2023 du topic Zemmour (top 100)</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 14:13:33)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
