@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2023 du topic GSNALF (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 729110, 0, 0],
+    ["Profil supprimé", "participants", 303125, 0, 0],
+    ["donut78", "participants", 45416, 0, 0],
+    ["Paul de Saint-Balby", "participants", 34139, 0, 0],
+    ["Grenouille Bleue", "participants", 32592, 0, 0],
+    ["Zoreil", "participants", 30093, 0, 0],
+    ["dany rfm", "participants", 29253, 0, 0],
+    ["FLeFou", "participants", 27734, 0, 0],
+    ["bulle_d'o", "participants", 25783, 0, 0],
+    ["Phenom", "participants", 25565, 0, 0],
+    ["lafilledu22", "participants", 20279, 0, 0],
+    ["Sinking", "participants", 20058, 0, 0],
+    ["tamino", "participants", 19407, 0, 0],
+    ["incassable", "participants", 18180, 0, 0],
+    ["Mihirung_", "participants", 16738, 0, 0],
+    ["Kyrieleve", "participants", 16027, 0, 0],
+    ["pvcr", "participants", 15274, 0, 0],
+    ["bulldozer_fusion", "participants", 14991, 0, 0],
+    ["La classe @ dallas", "participants", 13408, 0, 0],
+    ["Ramasse-Miettes", "participants", 13324, 0, 0],
+    ["Blaq", "participants", 13146, 0, 0],
+    ["Zaldarf", "participants", 13017, 0, 0],
+    ["Aranthys", "participants", 12817, 0, 0],
+    ["Altered", "participants", 12698, 0, 0],
+    ["Bresse", "participants", 12635, 0, 0],
+    ["Amraz", "participants", 12377, 0, 0],
+    ["Pablo Escrobarbe", "participants", 12022, 0, 0],
+    ["thesmilingface", "participants", 11854, 0, 0],
+    ["Dolores", "participants", 11750, 0, 0],
+    ["antioch_arrow", "participants", 11599, 0, 0],
+    ["aRWaM", "participants", 11460, 0, 0],
+    ["-rOmanO-", "participants", 11240, 0, 0],
+    ["Chou Andy", "participants", 11153, 0, 0],
+    ["Pomme", "participants", 11013, 0, 0],
+    ["Buta43", "participants", 10700, 0, 0],
+    ["HumanRAGE", "participants", 10263, 0, 0],
+    ["loupie94", "participants", 9734, 0, 0],
+    ["haralph", "participants", 9733, 0, 0],
+    ["harrypotdefleur", "participants", 9512, 0, 0],
+    ["Grumms", "participants", 9328, 0, 0],
+    ["LePhasme", "participants", 9325, 0, 0],
+    ["blaseee", "participants", 9010, 0, 0],
+    ["Chocbo", "participants", 8857, 0, 0],
+    ["Nicky_rr", "participants", 8844, 0, 0],
+    ["Daphne", "participants", 8754, 0, 0],
+    ["because the night", "participants", 8735, 0, 0],
+    ["ellesse", "participants", 8717, 0, 0],
+    ["francis1256", "participants", 8696, 0, 0],
+    ["bubkalourson", "participants", 8547, 0, 0],
+    ["la lampe", "participants", 8469, 0, 0],
+    ["alpachinois", "participants", 8375, 0, 0],
+    ["lorelei", "participants", 8329, 0, 0],
+    ["mejoralo", "participants", 8030, 0, 0],
+    ["Grande Greluche", "participants", 8024, 0, 0],
+    ["daaadou", "participants", 7930, 0, 0],
+    ["Tuxerman12", "participants", 7925, 0, 0],
+    ["helton le bretonien", "participants", 7739, 0, 0],
+    ["KapweT", "participants", 7736, 0, 0],
+    ["Loop_q", "participants", 7597, 0, 0],
+    ["HannaeMax", "participants", 7055, 0, 0],
+    ["zeuartisan", "participants", 6992, 0, 0],
+    ["Sly Angel", "participants", 6987, 0, 0],
+    ["multimmy", "participants", 6949, 0, 0],
+    ["Ben_be", "participants", 6913, 0, 0],
+    ["loic_1715", "participants", 6799, 0, 0],
+    ["ogsvart_", "participants", 6725, 0, 0],
+    ["Penis_de_Castor", "participants", 6707, 0, 0],
+    ["Irmada", "participants", 6692, 0, 0],
+    ["Noble_Art", "participants", 6596, 0, 0],
+    ["Azrail", "participants", 6557, 0, 0],
+    ["guigr", "participants", 6528, 0, 0],
+    ["TrakT", "participants", 6498, 0, 0],
+    ["-Chris-", "participants", 6239, 0, 0],
+    ["Budykiller", "participants", 6237, 0, 0],
+    ["Angelene", "participants", 6113, 0, 0],
+    ["CyrilleTelmer", "participants", 6007, 0, 0],
+    ["Da_Edge", "participants", 5966, 0, 0],
+    ["Thordax", "participants", 5896, 0, 0],
+    ["Rick_C137", "participants", 5888, 0, 0],
+    ["schezario", "participants", 5862, 0, 0],
+    ["kikou2419", "participants", 5838, 0, 0],
+    ["KillMe", "participants", 5835, 0, 0],
+    ["Gogole Masque", "participants", 5763, 0, 0],
+    ["pdbzombifiay", "participants", 5646, 0, 0],
+    ["Yagmoth", "participants", 5488, 0, 0],
+    ["wizza", "participants", 5482, 0, 0],
+    ["_UnDeAd_", "participants", 5445, 0, 0],
+    ["Whatsmyname", "participants", 5406, 0, 0],
+    ["Faluja", "participants", 5397, 0, 0],
+    ["impopo", "participants", 5209, 0, 0],
+    ["dje33", "participants", 5198, 0, 0],
+    ["raph0ux", "participants", 5074, 0, 0],
+    ["just a pinch", "participants", 5058, 0, 0],
+    ["Therouquine", "participants", 4965, 0, 0],
+    ["popinouse", "participants", 4953, 0, 0],
+    ["halley-bruley", "participants", 4948, 0, 0],
+    ["wedgeant", "participants", 4939, 0, 0],
+    ["tim_coucou", "participants", 4887, 0, 0],
+    ["3615Buck", "participants", 4733, 0, 0],
+    ["Karousel", "participants", 4700, 0, 0],
+    ["lilyz", "participants", 4678, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2023 du topic GSNALF (top 100)</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 06:21:00)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
