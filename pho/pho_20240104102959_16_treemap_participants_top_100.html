@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2023 du bistrot photonum (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -671 * -1;
+  }
+  if(value > 0) {
+    return value / 364;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Poogz", "participants", 1489, normalize(-576), -576],
+    ["randolf", "participants", 712, normalize(364), 364],
+    ["Delantera", "participants", 688, normalize(-380), -380],
+    ["Zygonyx", "participants", 645, normalize(157), 157],
+    ["fegafomatos", "participants", 615, normalize(-63), -63],
+    ["Toxin", "participants", 580, normalize(-541), -541],
+    ["bobor", "participants", 527, normalize(-84), -84],
+    ["Cygne_d_etang", "participants", 472, normalize(-597), -597],
+    ["Bordel", "participants", 383, normalize(-671), -671],
+    ["ilium", "participants", 349, normalize(-273), -273],
+    ["Naxos", "participants", 256, normalize(-272), -272],
+    ["Micmax", "participants", 245, normalize(239), 239],
+    ["Opendtc", "participants", 216, normalize(134), 134],
+    ["cd5", "participants", 200, normalize(-605), -605],
+    ["oMs7", "participants", 184, normalize(-174), -174],
+    ["Dafiiiiid", "participants", 164, normalize(0), null],
+    ["Zim_zum63", "participants", 154, normalize(-2), -2],
+    ["Landolfi", "participants", 122, normalize(-319), -319],
+    ["le-poulpe", "participants", 103, normalize(-39), -39],
+    ["joulpouille", "participants", 78, normalize(-12), -12],
+    ["db__", "participants", 77, normalize(-30), -30],
+    ["infrarouge", "participants", 77, normalize(60), 60],
+    ["sat 08", "participants", 70, normalize(-112), -112],
+    ["Gnub", "participants", 40, normalize(9), 9],
+    ["Belgianman", "participants", 35, normalize(24), 24],
+    ["chocolathe", "participants", 33, normalize(28), 28],
+    ["criquetbite", "participants", 31, normalize(0), null],
+    ["antilop", "participants", 27, normalize(5), 5],
+    ["Fdd_fr", "participants", 27, normalize(20), 20],
+    ["carbon38", "participants", 19, normalize(-31), -31],
+    ["tot013", "participants", 15, normalize(1), 1],
+    ["darxmurf", "participants", 13, normalize(3), 3],
+    ["Denio", "participants", 10, normalize(0), null],
+    ["tchou@happy", "participants", 9, normalize(0), null],
+    ["cartemere", "participants", 8, normalize(5), 5],
+    ["GAS", "participants", 6, normalize(-4), -4],
+    ["Kayou", "participants", 6, normalize(0), null],
+    ["MAcdriveRZ", "participants", 6, normalize(4), 4],
+    ["ZIG ZAG", "participants", 6, normalize(-33), -33],
+    ["FLo14", "participants", 5, normalize(3), 3],
+    ["nasdak", "participants", 4, normalize(0), null],
+    ["Batou", "participants", 3, normalize(-2), -2],
+    ["btbw03", "participants", 3, normalize(0), null],
+    ["joprime", "participants", 3, normalize(0), null],
+    ["Modération", "participants", 3, normalize(2), 2],
+    ["NFS-974", "participants", 3, normalize(0), null],
+    ["panda_man", "participants", 3, normalize(0), null],
+    ["3615Buck", "participants", 2, normalize(0), null],
+    ["akanico", "participants", 2, normalize(0), null],
+    ["babysnoopy", "participants", 2, normalize(0), null],
+    ["Goldos", "participants", 2, normalize(-232), -232],
+    ["kulamaker", "participants", 2, normalize(0), null],
+    ["Lyrks", "participants", 2, normalize(0), null],
+    ["Otan beauval", "participants", 2, normalize(0), null],
+    ["tomtomx", "participants", 2, normalize(0), null],
+    ["Faluja", "participants", 1, normalize(-545), -545],
+    ["Mme Michu", "participants", 1, normalize(0), null],
+    ["o-wilde", "participants", 1, normalize(0), null],
+    ["RemiFL", "participants", 1, normalize(0), null],
+    ["The Gr Experience", "participants", 1, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2023 du bistrot photonum (top 100)</h1>
+  <h3>(données collectées le jeudi 4 janvier 2024 à 10:29:59)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
