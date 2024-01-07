@@ -30,7 +30,7 @@ fit reglin_culture_generale(x) "cul_20240104031752_00_data_count_posts_culture_g
 reglin_images(x)=ai*x+bi
 fit reglin_images(x) "cul_20240104031752_00_data_count_posts_images_2023.txt" via ai,bi
 
-plot [1199145600:1798761600][0:800000] \
+plot [1199145600:1798761600][0:700000] \
 reglin_culture_generale(x) lw 1 lc rgbcolor "#00bf7f" title "tendance 2023 du topic culture générale", \
 "cul_20240104031752_00_data_count_posts_culture_generale.txt" u 1:2 w line lw 2 lc rgbcolor "#007fff" title "posts all time du topic culture générale", \
 reglin_images(x) lw 1 lc rgbcolor "#bf007f" title "tendance 2023 du topic images", \
