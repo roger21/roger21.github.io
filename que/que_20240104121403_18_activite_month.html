@@ -3,7 +3,7 @@
 <head>
   <!-- utf-8: Ω -->
   <meta charset="utf-8">
-  <title>L'activité 2023 par mois du topic qes questions</title>
+  <title>L'activité 2023 par mois du topic des questions</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -17,21 +17,22 @@ function onload() {
   data_lignes.addColumn("date", "mois");
   data_lignes.addColumn("number", "posts");
   data_lignes.addColumn("number", "questions");
+  data_lignes.addColumn("number", "smileys");
   data_lignes.addColumn("number", "participants");
   var data_lignes_values = [
-    [new Date(2023, 0, 1, 0, 11, 8), 0, 0, 0],
-    [new Date(2023, 0, 31, 23, 59, 59), 835, 272, 124],
-    [new Date(2023, 1, 28, 23, 59, 59), 803, 310, 126],
-    [new Date(2023, 2, 31, 23, 59, 59), 677, 229, 105],
-    [new Date(2023, 3, 30, 23, 59, 59), 1138, 363, 118],
-    [new Date(2023, 4, 31, 23, 59, 59), 976, 296, 119],
-    [new Date(2023, 5, 30, 23, 59, 59), 1087, 362, 119],
-    [new Date(2023, 6, 31, 23, 59, 59), 991, 375, 130],
-    [new Date(2023, 7, 31, 23, 59, 59), 890, 302, 131],
-    [new Date(2023, 8, 30, 23, 59, 59), 921, 304, 120],
-    [new Date(2023, 9, 31, 23, 59, 59), 1142, 360, 126],
-    [new Date(2023, 10, 30, 23, 59, 59), 1166, 380, 129],
-    [new Date(2023, 11, 31, 21, 33, 3), 1274, 441, 126]
+    [new Date(2023, 0, 1, 0, 11, 8), 0, 0, 0, 0],
+    [new Date(2023, 0, 31, 23, 59, 59), 835, 272, 440, 124],
+    [new Date(2023, 1, 28, 23, 59, 59), 803, 310, 434, 126],
+    [new Date(2023, 2, 31, 23, 59, 59), 677, 229, 391, 105],
+    [new Date(2023, 3, 30, 23, 59, 59), 1138, 363, 688, 118],
+    [new Date(2023, 4, 31, 23, 59, 59), 976, 296, 565, 119],
+    [new Date(2023, 5, 30, 23, 59, 59), 1087, 362, 647, 119],
+    [new Date(2023, 6, 31, 23, 59, 59), 991, 375, 601, 130],
+    [new Date(2023, 7, 31, 23, 59, 59), 890, 302, 475, 131],
+    [new Date(2023, 8, 30, 23, 59, 59), 921, 304, 511, 120],
+    [new Date(2023, 9, 31, 23, 59, 59), 1142, 360, 615, 126],
+    [new Date(2023, 10, 30, 23, 59, 59), 1166, 380, 676, 129],
+    [new Date(2023, 11, 31, 21, 33, 3), 1274, 441, 801, 126]
   ];
   data_lignes.addRows(data_lignes_values);
   var ticks_lignes = [
@@ -56,20 +57,21 @@ function onload() {
   data_barres.addColumn("date", "mois");
   data_barres.addColumn("number", "posts");
   data_barres.addColumn("number", "questions");
+  data_barres.addColumn("number", "smileys");
   data_barres.addColumn("number", "participants");
   var data_barres_values = [
-    [new Date("2023-01-01"), 835, 272, 124],
-    [new Date("2023-02-01"), 803, 310, 126],
-    [new Date("2023-03-01"), 677, 229, 105],
-    [new Date("2023-04-01"), 1138, 363, 118],
-    [new Date("2023-05-01"), 976, 296, 119],
-    [new Date("2023-06-01"), 1087, 362, 119],
-    [new Date("2023-07-01"), 991, 375, 130],
-    [new Date("2023-08-01"), 890, 302, 131],
-    [new Date("2023-09-01"), 921, 304, 120],
-    [new Date("2023-10-01"), 1142, 360, 126],
-    [new Date("2023-11-01"), 1166, 380, 129],
-    [new Date("2023-12-01"), 1274, 441, 126]
+    [new Date("2023-01-01"), 835, 272, 440, 124],
+    [new Date("2023-02-01"), 803, 310, 434, 126],
+    [new Date("2023-03-01"), 677, 229, 391, 105],
+    [new Date("2023-04-01"), 1138, 363, 688, 118],
+    [new Date("2023-05-01"), 976, 296, 565, 119],
+    [new Date("2023-06-01"), 1087, 362, 647, 119],
+    [new Date("2023-07-01"), 991, 375, 601, 130],
+    [new Date("2023-08-01"), 890, 302, 475, 131],
+    [new Date("2023-09-01"), 921, 304, 511, 120],
+    [new Date("2023-10-01"), 1142, 360, 615, 126],
+    [new Date("2023-11-01"), 1166, 380, 676, 129],
+    [new Date("2023-12-01"), 1274, 441, 801, 126]
   ];
   data_barres.addRows(data_barres_values);
   var ticks_barres = [
@@ -105,7 +107,7 @@ function onload() {
       width: "92%",
       height: "84%"
     },
-    colors: ["#8e8ef8", "#ff9900", "#109618"],
+    colors: ["#8e8ef8", "#dc3912", "#ff9900", "#109618"],
     crosshair: {
       focused: {
         color: "#ffbf60",
@@ -215,9 +217,11 @@ function onload() {
   formater_number.format(data_lignes, 1);
   formater_number.format(data_lignes, 2);
   formater_number.format(data_lignes, 3);
+  formater_number.format(data_lignes, 4);
   formater_number.format(data_barres, 1);
   formater_number.format(data_barres, 2);
   formater_number.format(data_barres, 3);
+  formater_number.format(data_barres, 4);
   var div_graph = document.querySelector("div#graph");
   var div_table = document.querySelector("div#table");
   var div_switcher = document.querySelector("div#switcher");
@@ -294,7 +298,7 @@ google.charts.setOnLoadCallback(onload);
   </script>
 </head>
 <body class="graph">
-  <h1>L'activité 2023 par mois du topic qes questions</h1>
+  <h1>L'activité 2023 par mois du topic des questions</h1>
   <h3>(données collectées le jeudi 4 janvier 2024 à 12:14:03)</h3>
   <div id="graph" data-type="lignes"></div>
   <div id="switcher" class="link barres" title="afficher en barres"></div>

@@ -3,7 +3,7 @@
 <head>
   <!-- utf-8: Ω -->
   <meta charset="utf-8">
-  <title>L'activité all time 2023 par an du topic qes questions</title>
+  <title>L'activité all time 2023 par an du topic des questions</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -17,27 +17,28 @@ function onload() {
   data_lignes.addColumn("date", "année");
   data_lignes.addColumn("number", "posts");
   data_lignes.addColumn("number", "questions");
+  data_lignes.addColumn("number", "smileys");
   data_lignes.addColumn("number", "participants");
   var data_lignes_values = [
-    [new Date(2006, 1, 17, 9, 59, 30), 0, 0, 0],
-    [new Date(2006, 11, 31, 23, 59, 59), 14642, 5175, 400],
-    [new Date(2007, 11, 31, 23, 59, 59), 103286, 33533, 805],
-    [new Date(2008, 11, 31, 23, 59, 59), 58624, 19790, 679],
-    [new Date(2009, 11, 31, 23, 59, 59), 48187, 17615, 710],
-    [new Date(2010, 11, 31, 23, 59, 59), 61454, 21890, 795],
-    [new Date(2011, 11, 31, 23, 59, 59), 36769, 13944, 696],
-    [new Date(2012, 11, 31, 23, 59, 59), 34433, 12546, 629],
-    [new Date(2013, 11, 31, 23, 59, 59), 24130, 9080, 559],
-    [new Date(2014, 11, 31, 23, 59, 59), 19918, 7635, 526],
-    [new Date(2015, 11, 31, 23, 59, 59), 18423, 7258, 487],
-    [new Date(2016, 11, 31, 23, 59, 59), 19215, 7284, 466],
-    [new Date(2017, 11, 31, 23, 59, 59), 16170, 5797, 449],
-    [new Date(2018, 11, 31, 23, 59, 59), 15907, 5749, 434],
-    [new Date(2019, 11, 31, 23, 59, 59), 14611, 5046, 401],
-    [new Date(2020, 11, 31, 23, 59, 59), 15420, 5150, 393],
-    [new Date(2021, 11, 31, 23, 59, 59), 20303, 6689, 383],
-    [new Date(2022, 11, 31, 23, 59, 59), 14683, 4875, 354],
-    [new Date(2023, 11, 31, 21, 33, 3), 11900, 3994, 327]
+    [new Date(2006, 1, 17, 9, 59, 30), 0, 0, 0, 0],
+    [new Date(2006, 11, 31, 23, 59, 59), 14642, 5175, 13895, 400],
+    [new Date(2007, 11, 31, 23, 59, 59), 103286, 33533, 97661, 805],
+    [new Date(2008, 11, 31, 23, 59, 59), 58624, 19790, 53834, 679],
+    [new Date(2009, 11, 31, 23, 59, 59), 48187, 17615, 42024, 710],
+    [new Date(2010, 11, 31, 23, 59, 59), 61454, 21890, 51191, 795],
+    [new Date(2011, 11, 31, 23, 59, 59), 36769, 13944, 29941, 696],
+    [new Date(2012, 11, 31, 23, 59, 59), 34433, 12546, 27038, 629],
+    [new Date(2013, 11, 31, 23, 59, 59), 24130, 9080, 18446, 559],
+    [new Date(2014, 11, 31, 23, 59, 59), 19918, 7635, 15160, 526],
+    [new Date(2015, 11, 31, 23, 59, 59), 18423, 7258, 13578, 487],
+    [new Date(2016, 11, 31, 23, 59, 59), 19215, 7284, 14089, 466],
+    [new Date(2017, 11, 31, 23, 59, 59), 16170, 5797, 10884, 449],
+    [new Date(2018, 11, 31, 23, 59, 59), 15907, 5749, 10271, 434],
+    [new Date(2019, 11, 31, 23, 59, 59), 14611, 5046, 8349, 401],
+    [new Date(2020, 11, 31, 23, 59, 59), 15420, 5150, 9564, 393],
+    [new Date(2021, 11, 31, 23, 59, 59), 20303, 6689, 12492, 383],
+    [new Date(2022, 11, 31, 23, 59, 59), 14683, 4875, 7991, 354],
+    [new Date(2023, 11, 31, 21, 33, 3), 11900, 3994, 6844, 327]
   ];
   data_lignes.addRows(data_lignes_values);
   var ticks_lignes = [
@@ -67,26 +68,27 @@ function onload() {
   data_barres.addColumn("date", "année");
   data_barres.addColumn("number", "posts");
   data_barres.addColumn("number", "questions");
+  data_barres.addColumn("number", "smileys");
   data_barres.addColumn("number", "participants");
   var data_barres_values = [
-    [new Date("2006-01-01"), 14642, 5175, 400],
-    [new Date("2007-01-01"), 103286, 33533, 805],
-    [new Date("2008-01-01"), 58624, 19790, 679],
-    [new Date("2009-01-01"), 48187, 17615, 710],
-    [new Date("2010-01-01"), 61454, 21890, 795],
-    [new Date("2011-01-01"), 36769, 13944, 696],
-    [new Date("2012-01-01"), 34433, 12546, 629],
-    [new Date("2013-01-01"), 24130, 9080, 559],
-    [new Date("2014-01-01"), 19918, 7635, 526],
-    [new Date("2015-01-01"), 18423, 7258, 487],
-    [new Date("2016-01-01"), 19215, 7284, 466],
-    [new Date("2017-01-01"), 16170, 5797, 449],
-    [new Date("2018-01-01"), 15907, 5749, 434],
-    [new Date("2019-01-01"), 14611, 5046, 401],
-    [new Date("2020-01-01"), 15420, 5150, 393],
-    [new Date("2021-01-01"), 20303, 6689, 383],
-    [new Date("2022-01-01"), 14683, 4875, 354],
-    [new Date("2023-01-01"), 11900, 3994, 327]
+    [new Date("2006-01-01"), 14642, 5175, 13895, 400],
+    [new Date("2007-01-01"), 103286, 33533, 97661, 805],
+    [new Date("2008-01-01"), 58624, 19790, 53834, 679],
+    [new Date("2009-01-01"), 48187, 17615, 42024, 710],
+    [new Date("2010-01-01"), 61454, 21890, 51191, 795],
+    [new Date("2011-01-01"), 36769, 13944, 29941, 696],
+    [new Date("2012-01-01"), 34433, 12546, 27038, 629],
+    [new Date("2013-01-01"), 24130, 9080, 18446, 559],
+    [new Date("2014-01-01"), 19918, 7635, 15160, 526],
+    [new Date("2015-01-01"), 18423, 7258, 13578, 487],
+    [new Date("2016-01-01"), 19215, 7284, 14089, 466],
+    [new Date("2017-01-01"), 16170, 5797, 10884, 449],
+    [new Date("2018-01-01"), 15907, 5749, 10271, 434],
+    [new Date("2019-01-01"), 14611, 5046, 8349, 401],
+    [new Date("2020-01-01"), 15420, 5150, 9564, 393],
+    [new Date("2021-01-01"), 20303, 6689, 12492, 383],
+    [new Date("2022-01-01"), 14683, 4875, 7991, 354],
+    [new Date("2023-01-01"), 11900, 3994, 6844, 327]
   ];
   data_barres.addRows(data_barres_values);
   var ticks_barres = [
@@ -127,7 +129,7 @@ function onload() {
       width: "92%",
       height: "84%"
     },
-    colors: ["#8e8ef8", "#ff9900", "#109618"],
+    colors: ["#8e8ef8", "#dc3912", "#ff9900", "#109618"],
     crosshair: {
       focused: {
         color: "#ffbf60",
@@ -234,9 +236,11 @@ function onload() {
   formater_number.format(data_lignes, 1);
   formater_number.format(data_lignes, 2);
   formater_number.format(data_lignes, 3);
+  formater_number.format(data_lignes, 4);
   formater_number.format(data_barres, 1);
   formater_number.format(data_barres, 2);
   formater_number.format(data_barres, 3);
+  formater_number.format(data_barres, 4);
   var div_graph = document.querySelector("div#graph");
   var div_table = document.querySelector("div#table");
   var div_switcher = document.querySelector("div#switcher");
@@ -313,7 +317,7 @@ google.charts.setOnLoadCallback(onload);
   </script>
 </head>
 <body class="graph">
-  <h1>L'activité <span class="alltime">all time</span> 2023 par an du topic qes questions</h1>
+  <h1>L'activité <span class="alltime">all time</span> 2023 par an du topic des questions</h1>
   <h3>(données collectées le jeudi 4 janvier 2024 à 12:14:03)</h3>
   <div id="graph" data-type="lignes"></div>
   <div id="switcher" class="link barres" title="afficher en barres"></div>
