@@ -1,0 +1,43 @@
+html, body, canvas, form, div, input, label, span{
+  margin:0;
+  border:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body.fract{
+  color:#303030;
+  background-color:#ffffff;
+  width:calc(100vw - 60px);
+  height:calc(100vh - 60px);
+  margin:30px;
+  border:2px dashed;
+  padding:30px;
+  position:relative;
+  font-family:monospace;
+  font-size:16px;
+}
+body.fract.work{
+  border-color:#c0c0c0;
+}
+body.fract canvas{
+  display:block;
+}
+body.fract form{
+  position:absolute;
+  top:30px;
+  left:30px;
+}
+body.fract form label{
+  padding:0 0 0 10px;
+}
+body.fract.work form label{
+  color:#c0c0c0;
+}
+body.fract span{
+  position:absolute;
+  top:30px;
+  right:30px;
+}
+body.fract.work span{
+  color:#c0c0c0;
+}
