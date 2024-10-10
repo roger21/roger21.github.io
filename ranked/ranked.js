@@ -326,7 +326,7 @@ function highlightDataset(datasets, index) {
         dataset.borderColor.replace(" 80% ", " 100% ");
       dataset.backgroundColor =
         dataset.backgroundColor.replace(" 80% ", " 100% ");
-      dataset.pointBorderWidth = 2;
+      dataset.pointBorderWidth = 1;
       dataset.pointBorderColor =
         dataset.borderColor.replace(" 80% ", " 100% ");
       dataset.pointBackgroundColor =
