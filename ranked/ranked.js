@@ -820,13 +820,30 @@ function onHover(event, elements, chart) {
     lastHoverIndex = null;
   }
   if(elements.length && typeof elements[0].datasetIndex === "number") {
-    lastHoverIndex = elements[0].datasetIndex;
-    update = true;
-    // mise en valeur de la courbe et atténuation des autres courbes
-    highlightDataset(datasets, lastHoverIndex);
+    let index = elements[0].datasetIndex;
+    if(index !== lastHoverIndex) {
+      update = true;
+      lastHoverIndex = index;
+      // mise en valeur de la courbe et atténuation des autres courbes
+      highlightDataset(datasets, lastHoverIndex);
+    }
   }
   if(update) {
     chart.update();
+  }
+}
+
+// plugin pour la gestion du onHover out qui permet de gérer la sortie du graph
+// qui n'est pas gérée par onHover qui ne répond plus en dehors du graph
+const onhoverout = {
+  id: "onhoverout",
+  beforeEvent(chart, args, pluginOptions) {
+    if(lastHoverIndex !== null) {
+      // remise des courbe en visibilité normale
+      unHighlightDataset(chart.data.datasets, lastHoverIndex);
+      lastHoverIndex = null;
+      chart.update();
+    }
   }
 }
 
@@ -1310,7 +1327,7 @@ async function loadData() {
     },
 
     // plugins
-    plugins: [chartborderandcolor, htmllegend, updatemargins],
+    plugins: [chartborderandcolor, htmllegend, updatemargins, onhoverout],
   });
 
   // gestion du passage du mode zoom rectangle au mode pan
