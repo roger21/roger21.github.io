@@ -286,6 +286,115 @@ let lastClick = 0;
 let clickTimer;
 const clickTime = 300;
 
+// gestion de la mise en valeur de la courbe et atténuation des autres courbes
+function highlightDataset(datasets, index) {
+  datasets.forEach((dataset, i) => {
+    if(i !== index) {
+      // atténuation des autres courbes : passage du alpha channel à
+      // 0.1 pour tous les éléménts de couleurs des autres courbes
+      if(!dataset.borderColor.includes("/")) {
+        dataset.borderColor =
+          dataset.borderColor.replace(")", colorHover);
+      }
+      if(!dataset.backgroundColor.includes("/")) {
+        dataset.backgroundColor =
+          dataset.backgroundColor.replace(")", colorHover);
+      }
+      if(!dataset.pointBorderColor.includes("/")) {
+        dataset.pointBorderColor =
+          dataset.pointBorderColor.replace(")", colorHover);
+      }
+      if(!dataset.pointBackgroundColor.includes("/")) {
+        dataset.pointBackgroundColor =
+          dataset.pointBackgroundColor.replace(")", colorHover);
+      }
+      if(!dataset.pointHoverBorderColor.includes("/")) {
+        dataset.pointHoverBorderColor =
+          dataset.pointHoverBorderColor.
+        replace(")", colorHover);
+      }
+      if(!dataset.pointHoverBackgroundColor.includes("/")) {
+        dataset.pointHoverBackgroundColor =
+          dataset.pointHoverBackgroundColor.
+        replace(")", colorHover);
+      }
+    } else {
+      // mise en valeur de la courbe et de ses points : tailles
+      // plus épaisse, saturation des teintes à 100% et ordre à 0
+      dataset.borderWidth = 3;
+      dataset.borderColor =
+        dataset.borderColor.replace(" 80% ", " 100% ");
+      dataset.backgroundColor =
+        dataset.backgroundColor.replace(" 80% ", " 100% ");
+      dataset.pointBorderWidth = 2;
+      dataset.pointBorderColor =
+        dataset.borderColor.replace(" 80% ", " 100% ");
+      dataset.pointBackgroundColor =
+        dataset.backgroundColor.replace(" 80% ", " 100% ");
+      dataset.pointHoverBorderColor =
+        dataset.borderColor.replace(" 80% ", " 100% ");
+      dataset.pointHoverBackgroundColor =
+        dataset.backgroundColor.replace(" 80% ", " 100% ");
+      dataset.order = 0;
+    }
+  });
+}
+
+// gestion de la remise des courbe en visibilité normale
+function unHighlightDataset(datasets, index) {
+  datasets.forEach((dataset, i) => {
+    if(i !== index) {
+      // suppression de l'atténuation des autres courbes :
+      // repassage du alpha channel à 1 pour tous les éléménts
+      // de couleur des autres courbes
+      if(dataset.borderColor.includes("/")) {
+        dataset.borderColor =
+          dataset.borderColor.replace(colorHover, ")");
+      }
+      if(dataset.backgroundColor.includes("/")) {
+        dataset.backgroundColor =
+          dataset.backgroundColor.replace(colorHover, ")");
+      }
+      if(dataset.pointBorderColor.includes("/")) {
+        dataset.pointBorderColor =
+          dataset.pointBorderColor.replace(colorHover, ")");
+      }
+      if(dataset.pointBackgroundColor.includes("/")) {
+        dataset.pointBackgroundColor =
+          dataset.pointBackgroundColor.replace(colorHover, ")");
+      }
+      if(dataset.pointHoverBorderColor.includes("/")) {
+        dataset.pointHoverBorderColor =
+          dataset.pointHoverBorderColor.replace(colorHover, ")");
+      }
+      if(dataset.pointHoverBackgroundColor.includes("/")) {
+        dataset.pointHoverBackgroundColor =
+          dataset.pointHoverBackgroundColor.
+        replace(colorHover, ")");
+      }
+    } else {
+      // rétabliessement de la visibilité normale de la courbe et
+      // de ses points : taille normale, saturation à 80% et
+      // ordre normal
+      dataset.borderWidth = 2;
+      dataset.borderColor =
+        dataset.borderColor.replace(" 100% ", " 80% ");
+      dataset.backgroundColor =
+        dataset.backgroundColor.replace(" 100% ", " 80% ");
+      dataset.pointBorderWidth = 0;
+      dataset.pointBorderColor =
+        dataset.borderColor.replace(" 100% ", " 80% ");
+      dataset.pointBackgroundColor =
+        dataset.backgroundColor.replace(" 100% ", " 80% ");
+      dataset.pointHoverBorderColor =
+        dataset.borderColor.replace(" 100% ", " 80% ");
+      dataset.pointHoverBackgroundColor =
+        dataset.backgroundColor.replace(" 100% ", " 80% ");
+      dataset.order = dataset.number;
+    }
+  });
+}
+
 // plugin pour la gestion de la legende en html
 const htmllegend = {
   id: "htmllegend",
@@ -363,113 +472,14 @@ const htmllegend = {
         // mise en valeur de la courbe et atténuation des autres courbes
         itemElement.addEventListener("mouseenter", function(event) {
           let datasets = chart.data.datasets;
-          datasets.forEach((dataset, i) => {
-            if(i !== itemIndex) {
-              // atténuation des autres courbes : passage du alpha channel à
-              // 0.1 pour tous les éléménts de couleurs des autres courbes
-              if(!dataset.borderColor.includes("/")) {
-                dataset.borderColor =
-                  dataset.borderColor.replace(")", colorHover);
-              }
-              if(!dataset.backgroundColor.includes("/")) {
-                dataset.backgroundColor =
-                  dataset.backgroundColor.replace(")", colorHover);
-              }
-              if(!dataset.pointBorderColor.includes("/")) {
-                dataset.pointBorderColor =
-                  dataset.pointBorderColor.replace(")", colorHover);
-              }
-              if(!dataset.pointBackgroundColor.includes("/")) {
-                dataset.pointBackgroundColor =
-                  dataset.pointBackgroundColor.replace(")", colorHover);
-              }
-              if(!dataset.pointHoverBorderColor.includes("/")) {
-                dataset.pointHoverBorderColor =
-                  dataset.pointHoverBorderColor.
-                replace(")", colorHover);
-              }
-              if(!dataset.pointHoverBackgroundColor.includes("/")) {
-                dataset.pointHoverBackgroundColor =
-                  dataset.pointHoverBackgroundColor.
-                replace(")", colorHover);
-              }
-            } else {
-              // mise en valeur de la courbe et de ses points : tailles
-              // plus épaisse, saturation des teintes à 100% et ordre à 0
-              dataset.borderWidth = 3;
-              dataset.borderColor =
-                dataset.borderColor.replace(" 80% ", " 100% ");
-              dataset.backgroundColor =
-                dataset.backgroundColor.replace(" 80% ", " 100% ");
-              dataset.pointBorderWidth = 2;
-              dataset.pointBorderColor =
-                dataset.borderColor.replace(" 80% ", " 100% ");
-              dataset.pointBackgroundColor =
-                dataset.backgroundColor.replace(" 80% ", " 100% ");
-              dataset.pointHoverBorderColor =
-                dataset.borderColor.replace(" 80% ", " 100% ");
-              dataset.pointHoverBackgroundColor =
-                dataset.backgroundColor.replace(" 80% ", " 100% ");
-              dataset.order = 0;
-            }
-          });
+          highlightDataset(datasets, itemIndex);
           chart.update();
         }, false);
         // gestion du mouseleave sur les éléments de la légende :
-        // remet les courbes en visibilité normale
+        // remise des courbes en visibilité normale
         itemElement.addEventListener("mouseleave", function(event) {
           let datasets = chart.data.datasets;
-          datasets.forEach((dataset, i) => {
-            if(i !== itemIndex) {
-              // suppression de l'atténuation des autres courbes :
-              // repassage du alpha channel à 1 pour tous les éléménts
-              // de couleur des autres courbes
-              if(dataset.borderColor.includes("/")) {
-                dataset.borderColor =
-                  dataset.borderColor.replace(colorHover, ")");
-              }
-              if(dataset.backgroundColor.includes("/")) {
-                dataset.backgroundColor =
-                  dataset.backgroundColor.replace(colorHover, ")");
-              }
-              if(dataset.pointBorderColor.includes("/")) {
-                dataset.pointBorderColor =
-                  dataset.pointBorderColor.replace(colorHover, ")");
-              }
-              if(dataset.pointBackgroundColor.includes("/")) {
-                dataset.pointBackgroundColor =
-                  dataset.pointBackgroundColor.replace(colorHover, ")");
-              }
-              if(dataset.pointHoverBorderColor.includes("/")) {
-                dataset.pointHoverBorderColor =
-                  dataset.pointHoverBorderColor.replace(colorHover, ")");
-              }
-              if(dataset.pointHoverBackgroundColor.includes("/")) {
-                dataset.pointHoverBackgroundColor =
-                  dataset.pointHoverBackgroundColor.
-                replace(colorHover, ")");
-              }
-            } else {
-              // rétabliessement de la visibilité normale de la courbe et
-              // de ses points : taille normale, saturation à 80% et
-              // ordre normal
-              dataset.borderWidth = 2;
-              dataset.borderColor =
-                dataset.borderColor.replace(" 100% ", " 80% ");
-              dataset.backgroundColor =
-                dataset.backgroundColor.replace(" 100% ", " 80% ");
-              dataset.pointBorderWidth = 0;
-              dataset.pointBorderColor =
-                dataset.borderColor.replace(" 100% ", " 80% ");
-              dataset.pointBackgroundColor =
-                dataset.backgroundColor.replace(" 100% ", " 80% ");
-              dataset.pointHoverBorderColor =
-                dataset.borderColor.replace(" 100% ", " 80% ");
-              dataset.pointHoverBackgroundColor =
-                dataset.backgroundColor.replace(" 100% ", " 80% ");
-              dataset.order = dataset.number;
-            }
-          });
+          unHighlightDataset(datasets, index)
           chart.update();
         }, false);
       } // fin de la construction des éléments de la légende
@@ -796,6 +806,30 @@ async function setLang(lang) {
 // gestion de la récupération du mode sombre
 function getMode() {}
 
+// données pour la gestion du onHover sur le graph
+let lastHoverIndex;
+
+// gestion du onHover sur le graph
+function onHover(event, elements, chart) {
+  let datasets = chart.data.datasets;
+  let update = false;
+  if(lastHoverIndex !== null) {
+    update = true;
+    // remise des courbe en visibilité normale
+    unHighlightDataset(datasets, lastHoverIndex);
+    lastHoverIndex = null;
+  }
+  if(elements.length && typeof elements[0].datasetIndex === "number") {
+    lastHoverIndex = elements[0].datasetIndex;
+    update = true;
+    // mise en valeur de la courbe et atténuation des autres courbes
+    highlightDataset(datasets, lastHoverIndex);
+  }
+  if(update) {
+    chart.update();
+  }
+}
+
 // gestion du chargement des données et de la
 // construction du graph au chargement de la page
 async function loadData() {
@@ -1027,12 +1061,10 @@ async function loadData() {
       aspectRatio: 2,
       maintainAspectRatio: false,
       animation: false,
-      interaction: {
-        intersect: true,
-      },
       onResize: function() {
         hasResized = true;
       },
+      onHover: onHover,
       parsing: {
         xAxisKey: "date",
         yAxisKey: "elo",
@@ -1166,6 +1198,8 @@ async function loadData() {
         },
         tooltip: {
           enabled: false,
+          mode: "nearest",
+          intersect: true,
           position: "nearest",
           external: htmltooltip,
         },
