@@ -27,17 +27,32 @@ body.fract form{
   top:30px;
   left:30px;
 }
+body.fract form *:is(input, label, span){
+  cursor:pointer;
+}
 body.fract form label{
   padding:0 0 0 10px;
 }
 body.fract.work form label{
   color:#c0c0c0;
 }
-body.fract span{
+body.fract form div:has(span){
+  text-align:center;
+  margin-top:5px;
+}
+body.fract form span{
+  display:none;
+}
+body.fract:not(.work) form span#start.startable,
+body.fract.work form span#stop.stoppable{
+  display:inline;
+  color:#303030;
+}
+body.fract > span#steps{
   position:absolute;
   top:30px;
   right:30px;
 }
-body.fract.work span{
+body.fract.work > span#steps{
   color:#c0c0c0;
 }

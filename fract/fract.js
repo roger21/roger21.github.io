@@ -4,10 +4,17 @@ window.addEventListener("load", function() {
   let canvas = document.getElementById("fract");
   let fract = canvas.getContext("2d", {
     alpha: true,
-    desynchronized: true
+    desynchronized: true,
   });
-  let steps = document.querySelector("body > span");
+  let steps = document.querySelector("body > span#steps");
+  let start = document.querySelector("body form span#start");
+  let stop = document.querySelector("body form span#stop");
+  let stopping = false;
   let width, height;
+
+  stop.addEventListener("click", function() {
+    stopping = true;
+  }, false);
 
   function setCanvaSize() {
     console.log("fract.js setCanvaSize");
@@ -23,6 +30,9 @@ window.addEventListener("load", function() {
     }
     steps.textContent = "";
     body.classList.toggle("work", false);
+    start.classList.toggle("startable", false);
+    stop.classList.toggle("stoppable", false);
+    stopping = false;
   }
   window.addEventListener("resize", setCanvaSize, false);
 
@@ -134,18 +144,24 @@ window.addEventListener("load", function() {
     },
 
     kochStep: async function(size, x, y) {
-      console.log("fract.js kochStep", fractals.animeStep);
-      tortue.reset();
-      tortue.color("rgba(255, 0, 0, 1)",
-        fractals.shadow ? "rgba(0, 0, 255, 0.5)" : "rgba(0, 0, 0, 0)",
-        fractals.shadow ? 5 : 0);
-      tortue.move(x, y);
-      fractals.kochLine(size, fractals.animeStep);
-      tortue.turn("right", 120);
-      fractals.kochLine(size, fractals.animeStep);
-      tortue.turn("right", 120);
-      fractals.kochLine(size, fractals.animeStep);
-      steps.textContent = fractals.animeStep + 1;
+      if(stopping) {
+        fractals.animeOver = true;
+        steps.textContent = "stopped at step " + steps.textContent;
+        console.log("fract.js stopping kochStep", fractals.animeStep);
+      } else {
+        console.log("fract.js kochStep", fractals.animeStep);
+        tortue.reset();
+        tortue.color("rgba(255, 0, 0, 1)",
+          fractals.shadow ? "rgba(0, 0, 255, 0.5)" : "rgba(0, 0, 0, 0)",
+          fractals.shadow ? 5 : 0);
+        tortue.move(x, y);
+        fractals.kochLine(size, fractals.animeStep);
+        tortue.turn("right", 120);
+        fractals.kochLine(size, fractals.animeStep);
+        tortue.turn("right", 120);
+        fractals.kochLine(size, fractals.animeStep);
+        steps.textContent = (fractals.animeStep + 1);
+      }
       if(!fractals.animeOver) {
         ++fractals.animeStep;
         await fractals.kochStepDelay(size, x, y);
@@ -207,15 +223,21 @@ window.addEventListener("load", function() {
     },
 
     treeStep: async function(size, angle1, angle2, factor1, factor2, x, y) {
-      console.log("fract.js treeStep", fractals.animeStep);
-      tortue.reset();
-      tortue.color("rgba(255, 0, 0, 1)",
-        fractals.shadow ? "rgba(0, 0, 255, 0.5)" : "rgba(0, 0, 0, 0)",
-        fractals.shadow ? 5 : 0);
-      tortue.move(x, y);
-      tortue.turn("left", 90);
-      fractals.treeLine(size, angle1, angle2, factor1, factor2, fractals.animeStep);
-      steps.textContent = fractals.animeStep;
+      if(stopping) {
+        fractals.animeOver = true;
+        steps.textContent = "stopped at step " + steps.textContent;
+        console.log("fract.js stopping treeStep", fractals.animeStep);
+      } else {
+        console.log("fract.js treeStep", fractals.animeStep);
+        tortue.reset();
+        tortue.color("rgba(255, 0, 0, 1)",
+          fractals.shadow ? "rgba(0, 0, 255, 0.5)" : "rgba(0, 0, 0, 0)",
+          fractals.shadow ? 5 : 0);
+        tortue.move(x, y);
+        tortue.turn("left", 90);
+        fractals.treeLine(size, angle1, angle2, factor1, factor2, fractals.animeStep);
+        steps.textContent = fractals.animeStep;
+      }
       if(!fractals.animeOver) {
         ++fractals.animeStep;
         await fractals.treeStepDelay(size, angle1, angle2, factor1, factor2, x, y);
@@ -286,14 +308,20 @@ window.addEventListener("load", function() {
     },
 
     drgnStep: async function(size, x, y) {
-      console.log("fract.js drgnStep", fractals.animeStep);
-      tortue.reset();
-      tortue.color("rgba(255, 0, 0, 1)",
-        fractals.shadow ? "rgba(0, 0, 255, 0.5)" : "rgba(0, 0, 0, 0)",
-        fractals.shadow ? 5 : 0);
-      tortue.move(x, y);
-      fractals.drgnLine(size, fractals.animeStep, "left");
-      steps.textContent = fractals.animeStep + 1;
+      if(stopping) {
+        fractals.animeOver = true;
+        steps.textContent = "stopped at step " + steps.textContent;
+        console.log("fract.js stopping drgnStep", fractals.animeStep);
+      } else {
+        console.log("fract.js drgnStep", fractals.animeStep);
+        tortue.reset();
+        tortue.color("rgba(255, 0, 0, 1)",
+          fractals.shadow ? "rgba(0, 0, 255, 0.5)" : "rgba(0, 0, 0, 0)",
+          fractals.shadow ? 5 : 0);
+        tortue.move(x, y);
+        fractals.drgnLine(size, fractals.animeStep, "left");
+        steps.textContent = (fractals.animeStep + 1);
+      }
       if(!fractals.animeOver) {
         ++fractals.animeStep;
         await fractals.drgnStepDelay(size, x, y);
@@ -332,11 +360,18 @@ window.addEventListener("load", function() {
       inputs.item(i).disabled = disable;
     }
     body.classList.toggle("work", true);
+    start.classList.toggle("startable", false);
+    if(fractals.step) {
+      stop.classList.toggle("stoppable", true);
+    }
   }
 
   function enableInputs() {
     disableInputs(false);
     body.classList.toggle("work", false);
+    start.classList.toggle("startable", true);
+    stop.classList.toggle("stoppable", false);
+    stopping = false;
   }
 
   function drawFractal() {
@@ -353,10 +388,22 @@ window.addEventListener("load", function() {
       }
     }
   }
+  start.addEventListener("click", drawFractal, false);
 
+  function isStartable() {
+    let isit = false;
+    let inputs = document.getElementsByName("fractal");
+    for(let i = 0; i < inputs.length; ++i) {
+      if(inputs.item(i).checked) {
+        isit = true;
+        break;
+      }
+    }
+    start.classList.toggle("startable", isit);
+  }
   let inputs = document.getElementsByTagName("input");
   for(let i = 0; i < inputs.length; ++i) {
-    inputs.item(i).addEventListener("change", drawFractal, false);
+    inputs.item(i).addEventListener("change", isStartable, false);
   }
 
   setCanvaSize();
