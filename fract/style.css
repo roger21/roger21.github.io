@@ -44,7 +44,8 @@ body.fract form span{
   display:none;
 }
 body.fract:not(.work) form span#start.startable,
-body.fract.work form span#stop.stoppable{
+body.fract.work form span#stop.stoppable,
+body.fract:not(.work):not(.clean) form span#clear{
   display:inline;
   color:#303030;
 }

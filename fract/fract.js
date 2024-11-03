@@ -9,14 +9,23 @@ window.addEventListener("load", function() {
   let steps = document.querySelector("body > span#steps");
   let start = document.querySelector("body form span#start");
   let stop = document.querySelector("body form span#stop");
+  let clear = document.querySelector("body form span#clear");
   let stopping = false;
+  let working = false;
+  let reseting = false;
   let width, height;
 
   stop.addEventListener("click", function() {
+    console.log("fract.js stopping");
     stopping = true;
   }, false);
 
   function setCanvaSize() {
+    if(working) {
+      reseting = true;
+      console.log("fract.js reseting setCanvaSize");
+      return;
+    }
     console.log("fract.js setCanvaSize");
     width = body.clientWidth - 60;
     height = body.clientHeight - 60;
@@ -32,9 +41,13 @@ window.addEventListener("load", function() {
     body.classList.toggle("work", false);
     start.classList.toggle("startable", false);
     stop.classList.toggle("stoppable", false);
+    body.classList.toggle("clean", true);
     stopping = false;
+    working = false;
+    reseting = false;
   }
   window.addEventListener("resize", setCanvaSize, false);
+  clear.addEventListener("click", setCanvaSize, false);
 
   let tortue = {
     angle: 0,
@@ -146,7 +159,7 @@ window.addEventListener("load", function() {
     kochStep: async function(size, x, y) {
       if(stopping) {
         fractals.animeOver = true;
-        steps.textContent = "stopped at step " + steps.textContent;
+        steps.textContent = "stopped at step " + (steps.textContent || "0");
         console.log("fract.js stopping kochStep", fractals.animeStep);
       } else {
         console.log("fract.js kochStep", fractals.animeStep);
@@ -225,7 +238,7 @@ window.addEventListener("load", function() {
     treeStep: async function(size, angle1, angle2, factor1, factor2, x, y) {
       if(stopping) {
         fractals.animeOver = true;
-        steps.textContent = "stopped at step " + steps.textContent;
+        steps.textContent = "stopped at step " + (steps.textContent || "0");
         console.log("fract.js stopping treeStep", fractals.animeStep);
       } else {
         console.log("fract.js treeStep", fractals.animeStep);
@@ -310,7 +323,7 @@ window.addEventListener("load", function() {
     drgnStep: async function(size, x, y) {
       if(stopping) {
         fractals.animeOver = true;
-        steps.textContent = "stopped at step " + steps.textContent;
+        steps.textContent = "stopped at step " + (steps.textContent || "0");
         console.log("fract.js stopping drgnStep", fractals.animeStep);
       } else {
         console.log("fract.js drgnStep", fractals.animeStep);
@@ -354,6 +367,22 @@ window.addEventListener("load", function() {
     },
   };
 
+  function isStartable() {
+    let isit = false;
+    let inputs = document.getElementsByName("fractal");
+    for(let i = 0; i < inputs.length; ++i) {
+      if(inputs.item(i).checked) {
+        isit = true;
+        break;
+      }
+    }
+    start.classList.toggle("startable", isit);
+  }
+  let inputs = document.getElementsByTagName("input");
+  for(let i = 0; i < inputs.length; ++i) {
+    inputs.item(i).addEventListener("change", isStartable, false);
+  }
+
   function disableInputs(disable = true) {
     let inputs = document.getElementsByTagName("input");
     for(let i = 0; i < inputs.length; ++i) {
@@ -364,6 +393,7 @@ window.addEventListener("load", function() {
     if(fractals.step) {
       stop.classList.toggle("stoppable", true);
     }
+    working = true;
   }
 
   function enableInputs() {
@@ -371,7 +401,12 @@ window.addEventListener("load", function() {
     body.classList.toggle("work", false);
     start.classList.toggle("startable", true);
     stop.classList.toggle("stoppable", false);
+    body.classList.toggle("clean", false);
     stopping = false;
+    working = false;
+    if(reseting) {
+      setCanvaSize();
+    }
   }
 
   function drawFractal() {
@@ -389,22 +424,6 @@ window.addEventListener("load", function() {
     }
   }
   start.addEventListener("click", drawFractal, false);
-
-  function isStartable() {
-    let isit = false;
-    let inputs = document.getElementsByName("fractal");
-    for(let i = 0; i < inputs.length; ++i) {
-      if(inputs.item(i).checked) {
-        isit = true;
-        break;
-      }
-    }
-    start.classList.toggle("startable", isit);
-  }
-  let inputs = document.getElementsByTagName("input");
-  for(let i = 0; i < inputs.length; ++i) {
-    inputs.item(i).addEventListener("change", isStartable, false);
-  }
 
   setCanvaSize();
 
