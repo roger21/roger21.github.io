@@ -30,7 +30,7 @@ body.fract form{
 body.fract form *:is(input, label, span){
   cursor:pointer;
 }
-body.fract form label{
+body.fract label{
   padding:0 0 0 10px;
 }
 body.fract.work form label{
@@ -56,4 +56,29 @@ body.fract > span#steps{
 }
 body.fract.work > span#steps{
   color:#c0c0c0;
+}
+body.fract > dialog#warning{
+  color:#303030;
+  border:0;
+  padding:0;
+  width:750px;
+}
+body.fract > dialog#warning > div{
+  margin:20px;
+  border:2px dashed;
+  padding:20px;
+}
+body.fract > dialog#warning *:is(input, label, span){
+  cursor:pointer;
+}
+body.fract > dialog#warning div.always{
+  margin:20px 0;
+  text-align:center;
+}
+body.fract > dialog#warning div.buttons{
+  display:flex;
+  justify-content:space-around;
+}
+body.fract > dialog#warning div.buttons > span{
+  dispaly:block;
 }
