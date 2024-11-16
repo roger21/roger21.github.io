@@ -11,8 +11,8 @@ window.addEventListener("DOMContentLoaded", function() {
   const indexFr = navigator.languages.findIndex(lang =>
     lang.toLowerCase().split("-")[0] === "fr");
   const lang = ((indexEn !== -1 && indexEn < indexFr) || indexFr === -1) ?
-        "en" : "fr";
-  if(lang === "fr" /*&& false*/){
+    "en" : "fr";
+  if(lang === "fr" /*&& false*/ ) {
     document.querySelectorAll("[data-lang]").forEach((e) => {
       e.firstChild.textContent = fr[e.getAttribute("data-lang")];
     });
@@ -68,6 +68,7 @@ window.addEventListener("DOMContentLoaded", function() {
     stopping = false;
     working = false;
     reseting = false;
+    dialog.close();
   }
   window.addEventListener("resize", () => {
     alwaysFreeze = false;
@@ -184,7 +185,7 @@ window.addEventListener("DOMContentLoaded", function() {
     },
 
     kochStep: async function(size, x, y) {
-      if(stopping) {
+      if(stopping || reseting) {
         fractals.animeOver = true;
         steps.textContent = "stopped at step " +
           (steps.textContent || "0");
@@ -267,7 +268,7 @@ window.addEventListener("DOMContentLoaded", function() {
     },
 
     treeStep: async function(size, angle1, angle2, factor1, factor2, x, y) {
-      if(stopping) {
+      if(stopping || reseting) {
         fractals.animeOver = true;
         steps.textContent = "stopped at step " +
           (steps.textContent || "0");
@@ -297,7 +298,8 @@ window.addEventListener("DOMContentLoaded", function() {
       console.log("fract.js tree");
       // 5.65 4.49 2.00 are magic numbers for
       // angles 25 and 15 and factors 0.85 and 0.75
-      let size = Math.round(Math.min(width * .9 / 5.65, height * .9 / 4.49));
+      let size =
+        Math.round(Math.min(width * .9 / 5.65, height * .9 / 4.49));
       let angle1 = 25;
       let angle2 = 15;
       let factor1 = 0.85;
@@ -357,7 +359,7 @@ window.addEventListener("DOMContentLoaded", function() {
     },
 
     drgnStep: async function(size, x, y) {
-      if(stopping) {
+      if(stopping || reseting) {
         fractals.animeOver = true;
         steps.textContent = "stopped at step " +
           (steps.textContent || "0");
