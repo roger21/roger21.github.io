@@ -1,0 +1,29 @@
+html, body, div{
+  margin:0;
+  border:0;
+  padding:0;
+}
+body{
+  color:#303030;
+  background-color:#ffffff;
+  font-family:Verdana,Arial,Sans-serif,Helvetica;
+  font-size:16px;
+}
+div.index{
+  margin:30px;
+  border:2px dashed;
+  padding:30px;
+  text-align:center;
+}
+a{
+  color:#505050;
+  text-decoration:none;
+}
+a:visited{
+  color:#707070;
+  text-decoration:none;
+}
+a:hover, a:visited:hover{
+  color:#909090;
+  text-decoration:none;
+}
