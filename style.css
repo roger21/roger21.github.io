@@ -18,12 +18,13 @@ div.index{
 a{
   color:#505050;
   text-decoration:none;
+  padding:0 4px;
 }
 a:visited{
-  color:#707070;
+  color:#b07070;
   text-decoration:none;
 }
 a:hover, a:visited:hover{
-  color:#909090;
   text-decoration:none;
+  background-color:#e8e8f8;
 }

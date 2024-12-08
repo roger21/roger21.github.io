@@ -72,6 +72,9 @@ body.fract > dialog#warning{
   padding:0;
   width:750px;
 }
+body.fract > dialog#warning:focus{
+  outline:none;
+}
 body.fract > dialog#warning > div{
   margin:20px;
   border:2px dashed;
