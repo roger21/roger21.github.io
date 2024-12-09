@@ -55,6 +55,10 @@
   "buried_treasure": "trésor enfoui",
   "shipwreck": "épave de navire",
   "village": "village",
+  "bridge": "pont",
+  "housing": "habitations",
+  "stables": "écuries",
+  "treasure": "trésor",
   "title_top_": "classement du ",
   "title_tops_": "classement des ",
   "title_player_": "meilleur joueur de mcsr ranked ",
@@ -68,5 +72,17 @@
   "displayFormats": {
     "hour": "H 'h'",
     "minute": "H:mm"
-  }
+  },
+  "close": "fermer",
+  "data": "données :",
+  "data1": "Les données sont actualisées toutes les 24 minutes en moyenne mais cela peut varier de 3 minutes à plus de 2 heures…",
+  "legend": "légende :",
+  "legend1": "Cliquez sur un nom pour masquer / afficher la courbe correspondante.",
+  "legend2": "Double-cliquez ou faites un Ctrl+clic sur un nom pour masquer / afficher les autres courbes.",
+  "graph": "graphique :",
+  "graph1": "Utilisez la molette de la souris sur le graphique pour zoomer / dézoomer.",
+  "graph2": "Utilisez la molette de la souris sur les axes ou les étiquettes de graduation pour zoomer / dézoomer suivant l’axe correspondant uniquement.",
+  "graph3": "Vous pouvez faire glisser le graphique lorsqu’il est zoomé pour déplacer la partie visible, c’est le mode « déplacer ».",
+  "graph4": "Utilisez le bouton « rectangle » ou utilisez la touche Ctrl pour passer au mode zoom rectangulaire. Après utilisation le graphique revient automatiquement au mode « déplacer ».",
+  "graph5": "Utilisez le bouton « réinitialiser » pour remettre rapidement le graphique dans son état initial."
 }

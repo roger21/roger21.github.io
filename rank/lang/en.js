@@ -55,6 +55,10 @@
   "buried_treasure": "buried treasure",
   "shipwreck": "shipwreck",
   "village": "village",
+  "bridge": "bridge",
+  "housing": "housing",
+  "stables": "stables",
+  "treasure": "treasure",
   "title_top_": "top ",
   "title_tops_": "top ",
   "title_player_": "mcsr ranked player ",
@@ -68,5 +72,17 @@
   "displayFormats": {
     "hour": "h a",
     "minute": "h:mm a"
-  }
+  },
+  "close": "close",
+  "data": "data:",
+  "data1": "The data are updated every 24 minutes on average, but this may vary from 3 minutes to more than 2 hours…",
+  "legend": "legend:",
+  "legend1": "Click on a name to hide/unhide the corresponding chart.",
+  "legend2": "Double-click or Ctrl+click on a name to hide/unhide all other charts.",
+  "graph": "graph:",
+  "graph1": "Scroll over the graph area to zoom in or out.",
+  "graph2": "Scroll over the axes or tick labels to zoom in or out along the corresponding axis only.",
+  "graph3": "You can drag the graph when it is zoomed in to move the visible part; this is the “pan” mode.",
+  "graph4": "Use the “rect” button or the Ctrl key to switch to rectangle zoom mode. It will automatically switch back to “pan” mode once used.",
+  "graph5": "Use the “reset” button to quickly reset the graph to its original state."
 }

@@ -42,6 +42,7 @@ body.ranked div#legend{
   gap:5px 10px;
   font-size:12px;
   margin:0 0 1px 0;
+  user-select:none;
 }
 body.ranked div#legend > div{
   display:flex;
@@ -164,12 +165,12 @@ body.ranked div#tooltip > div.seedline{
 body.ranked div#tooltip > div.seedline > div.time{
   padding:0 0 0 21px;
   background:url(img/time.svg) left / 16px 16px no-repeat;
-  height:16px
+  height:16px;
 }
 body.ranked div#tooltip > div.seedline > div.seed{
   padding:0 0 0 21px;
   background:url(img/seeds.png) no-repeat;
-  height:16px
+  height:16px;
 }
 body.ranked div#tooltip > div.seedline > div.seed.ruined_portal{
   background-position:0 0;
@@ -185,6 +186,11 @@ body.ranked div#tooltip > div.seedline > div.seed.shipwreck{
 }
 body.ranked div#tooltip > div.seedline > div.seed.village{
   background-position:0 -64px;
+}
+body.ranked div#tooltip > div.seedline > div.bastion{
+  padding:0 0 0 21px;
+  background:url(img/gold.png) no-repeat;
+  height:16px;
 }
 body.ranked div#tooltip > div.dateline{
   justify-content:space-between;
@@ -224,15 +230,13 @@ body.ranked div.choices > a{
   background-clip:padding-box;
 }
 body.ranked div.choices > span{
-  padding:2px 10px;
+  padding:2px 8px;
 }
 body.ranked div.choices > a,
 body.ranked div.choices > span.lang{
+  box-sizing:content-box;
   padding:2px 5px;
-}
-body.ranked div.choices > a,
-body.ranked div.choices > span.lang{
-  width:2.5em;
+  width:1.5em;
 }
 body.ranked div.choices.top > span,
 body.ranked div.choices.top > a{
@@ -266,12 +270,12 @@ body.ranked div.choices > span.title{
 body.ranked div.choices > a:hover,
 body.ranked div.choices > a.selected:hover,
 body.ranked div.choices > span.zoom:hover,
-body.ranked div.choices > span.lang:hover{
+body.ranked div.choices > span.lang:hover,
+body.ranked div.choices > span#help:hover{
   background-color:#e0f0ff;
 }
 body.ranked div.choices > a.selected,
-body.ranked div.choices > span.selected,
-body.ranked div.choices > span#help:hover{
+body.ranked div.choices > span.selected{
   background-color:#ffffb0;
 }
 body.ranked div.choices > span.selected.max{
@@ -289,4 +293,79 @@ body.ranked div#no-data{
   border:2px dashed;
   padding:20px 30px;
   background-color:#ffffff;
+}
+body.ranked > dialog#helpwindow{
+  height:100vh;
+  width:100vw;
+  max-height:100vh;
+  max-width:100vw;
+  border:0;
+  padding:0;
+  color:#303030;
+}
+body.ranked > dialog#helpwindow:focus{
+  outline:none;
+}
+body.ranked > dialog#helpwindow > span.close{
+  cursor:pointer;
+  display:block;
+  position:absolute;
+  padding:2px 8px;
+  background-clip:padding-box;
+  font-size:14px;
+  font-weight:bold;
+}
+body.ranked > dialog#helpwindow > span.close.top{
+  top:32px;
+  border-bottom:2px dashed;
+}
+body.ranked > dialog#helpwindow > span.close.bottom{
+  bottom:32px;
+  border-top:2px dashed;
+}
+body.ranked > dialog#helpwindow > span.close.left{
+  left:32px;
+  border-right:2px dashed;
+}
+body.ranked > dialog#helpwindow > span.close.right{
+  right:32px;
+  border-left:2px dashed;
+}
+body.ranked > dialog#helpwindow > span.close:hover{
+  background-color:#e0f0ff;
+}
+body.ranked > dialog#helpwindow > div{
+  position:absolute;
+  inset:0;
+  margin:30px;
+  border:2px dashed;
+  padding:50px;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+body.ranked > dialog#helpwindow > div > div.title{
+  text-align:center;
+  font-size:16px;
+  font-weight:bold;
+  padding:0 0 30px;
+}
+body.ranked > dialog#helpwindow > div > div.content{
+  font-size:14px;
+  width:auto;
+  margin:0 auto;
+  overflow:auto;
+}
+body.ranked > dialog#helpwindow > div > div.content > div.subtitle{
+  font-weight:bold;
+}
+body.ranked > dialog#helpwindow > div > div.content > div.point{
+  padding:10px 0 0 20px;
+  display:list-item;
+  list-style-position:inside;
+}
+body.ranked > dialog#helpwindow > div > div.content > div.point + div.subtitle{
+  padding:20px 0 0;
 }

@@ -41,9 +41,9 @@ let nbRows = 5;
 // nombre de colonnes (les teintes réparties entre 0° et 310°)
 let nbColors = 10;
 // lignes de décallage pour le passage d'une couleur à la suivante
-let rowSkip = 2;
+let rowSkip = 3;
 // colonnes de décallage pour le passage d'une couleur à la suivante
-let colorSkip = 7;
+let colorSkip = 3;
 // ligne de départ
 let rowStart = 2;
 // colonne de départ
@@ -262,7 +262,7 @@ const chartborderandcolor = {
           left,
           top,
           width,
-          height
+          height,
         }
       } = chart;
       left = Math.round(left);
@@ -289,53 +289,55 @@ const clickTime = 300;
 // gestion de la mise en valeur de la courbe et atténuation des autres courbes
 function highlightDataset(datasets, index) {
   datasets.forEach((dataset, i) => {
-    if(i !== index) {
-      // atténuation des autres courbes : passage du alpha channel à
-      // 0.1 pour tous les éléménts de couleurs des autres courbes
-      if(!dataset.borderColor.includes("/")) {
+    if(!dataset.shadow) {
+      if(i !== index) {
+        // atténuation des autres courbes : passage du alpha channel à
+        // 0.1 pour tous les éléménts de couleurs des autres courbes
+        if(!dataset.borderColor.includes("/")) {
+          dataset.borderColor =
+            dataset.borderColor.replace(")", colorHover);
+        }
+        if(!dataset.backgroundColor.includes("/")) {
+          dataset.backgroundColor =
+            dataset.backgroundColor.replace(")", colorHover);
+        }
+        if(!dataset.pointBorderColor.includes("/")) {
+          dataset.pointBorderColor =
+            dataset.pointBorderColor.replace(")", colorHover);
+        }
+        if(!dataset.pointBackgroundColor.includes("/")) {
+          dataset.pointBackgroundColor =
+            dataset.pointBackgroundColor.replace(")", colorHover);
+        }
+        if(!dataset.pointHoverBorderColor.includes("/")) {
+          dataset.pointHoverBorderColor =
+            dataset.pointHoverBorderColor
+            .replace(")", colorHover);
+        }
+        if(!dataset.pointHoverBackgroundColor.includes("/")) {
+          dataset.pointHoverBackgroundColor =
+            dataset.pointHoverBackgroundColor
+            .replace(")", colorHover);
+        }
+      } else {
+        // mise en valeur de la courbe et de ses points : tailles
+        // plus épaisse, saturation des teintes à 100% et ordre à 0
+        dataset.borderWidth = 3;
         dataset.borderColor =
-          dataset.borderColor.replace(")", colorHover);
-      }
-      if(!dataset.backgroundColor.includes("/")) {
+          dataset.borderColor.replace(" 80% ", " 100% ");
         dataset.backgroundColor =
-          dataset.backgroundColor.replace(")", colorHover);
-      }
-      if(!dataset.pointBorderColor.includes("/")) {
+          dataset.backgroundColor.replace(" 80% ", " 100% ");
+        dataset.pointBorderWidth = 1;
         dataset.pointBorderColor =
-          dataset.pointBorderColor.replace(")", colorHover);
-      }
-      if(!dataset.pointBackgroundColor.includes("/")) {
+          dataset.borderColor.replace(" 80% ", " 100% ");
         dataset.pointBackgroundColor =
-          dataset.pointBackgroundColor.replace(")", colorHover);
-      }
-      if(!dataset.pointHoverBorderColor.includes("/")) {
+          dataset.backgroundColor.replace(" 80% ", " 100% ");
         dataset.pointHoverBorderColor =
-          dataset.pointHoverBorderColor.
-        replace(")", colorHover);
-      }
-      if(!dataset.pointHoverBackgroundColor.includes("/")) {
+          dataset.borderColor.replace(" 80% ", " 100% ");
         dataset.pointHoverBackgroundColor =
-          dataset.pointHoverBackgroundColor.
-        replace(")", colorHover);
+          dataset.backgroundColor.replace(" 80% ", " 100% ");
+        dataset.order = 0;
       }
-    } else {
-      // mise en valeur de la courbe et de ses points : tailles
-      // plus épaisse, saturation des teintes à 100% et ordre à 0
-      dataset.borderWidth = 3;
-      dataset.borderColor =
-        dataset.borderColor.replace(" 80% ", " 100% ");
-      dataset.backgroundColor =
-        dataset.backgroundColor.replace(" 80% ", " 100% ");
-      dataset.pointBorderWidth = 1;
-      dataset.pointBorderColor =
-        dataset.borderColor.replace(" 80% ", " 100% ");
-      dataset.pointBackgroundColor =
-        dataset.backgroundColor.replace(" 80% ", " 100% ");
-      dataset.pointHoverBorderColor =
-        dataset.borderColor.replace(" 80% ", " 100% ");
-      dataset.pointHoverBackgroundColor =
-        dataset.backgroundColor.replace(" 80% ", " 100% ");
-      dataset.order = 0;
     }
   });
 }
@@ -343,54 +345,56 @@ function highlightDataset(datasets, index) {
 // gestion de la remise des courbe en visibilité normale
 function unHighlightDataset(datasets, index) {
   datasets.forEach((dataset, i) => {
-    if(i !== index) {
-      // suppression de l'atténuation des autres courbes :
-      // repassage du alpha channel à 1 pour tous les éléménts
-      // de couleur des autres courbes
-      if(dataset.borderColor.includes("/")) {
+    if(!dataset.shadow) {
+      if(i !== index) {
+        // suppression de l'atténuation des autres courbes :
+        // repassage du alpha channel à 1 pour tous les éléménts
+        // de couleur des autres courbes
+        if(dataset.borderColor.includes("/")) {
+          dataset.borderColor =
+            dataset.borderColor.replace(colorHover, ")");
+        }
+        if(dataset.backgroundColor.includes("/")) {
+          dataset.backgroundColor =
+            dataset.backgroundColor.replace(colorHover, ")");
+        }
+        if(dataset.pointBorderColor.includes("/")) {
+          dataset.pointBorderColor =
+            dataset.pointBorderColor.replace(colorHover, ")");
+        }
+        if(dataset.pointBackgroundColor.includes("/")) {
+          dataset.pointBackgroundColor =
+            dataset.pointBackgroundColor.replace(colorHover, ")");
+        }
+        if(dataset.pointHoverBorderColor.includes("/")) {
+          dataset.pointHoverBorderColor =
+            dataset.pointHoverBorderColor.replace(colorHover, ")");
+        }
+        if(dataset.pointHoverBackgroundColor.includes("/")) {
+          dataset.pointHoverBackgroundColor =
+            dataset.pointHoverBackgroundColor
+            .replace(colorHover, ")");
+        }
+      } else {
+        // rétabliessement de la visibilité normale de la courbe et
+        // de ses points : taille normale, saturation à 80% et
+        // ordre normal
+        dataset.borderWidth = 2;
         dataset.borderColor =
-          dataset.borderColor.replace(colorHover, ")");
-      }
-      if(dataset.backgroundColor.includes("/")) {
+          dataset.borderColor.replace(" 100% ", " 80% ");
         dataset.backgroundColor =
-          dataset.backgroundColor.replace(colorHover, ")");
-      }
-      if(dataset.pointBorderColor.includes("/")) {
+          dataset.backgroundColor.replace(" 100% ", " 80% ");
+        dataset.pointBorderWidth = 0;
         dataset.pointBorderColor =
-          dataset.pointBorderColor.replace(colorHover, ")");
-      }
-      if(dataset.pointBackgroundColor.includes("/")) {
+          dataset.borderColor.replace(" 100% ", " 80% ");
         dataset.pointBackgroundColor =
-          dataset.pointBackgroundColor.replace(colorHover, ")");
-      }
-      if(dataset.pointHoverBorderColor.includes("/")) {
+          dataset.backgroundColor.replace(" 100% ", " 80% ");
         dataset.pointHoverBorderColor =
-          dataset.pointHoverBorderColor.replace(colorHover, ")");
-      }
-      if(dataset.pointHoverBackgroundColor.includes("/")) {
+          dataset.borderColor.replace(" 100% ", " 80% ");
         dataset.pointHoverBackgroundColor =
-          dataset.pointHoverBackgroundColor.
-        replace(colorHover, ")");
+          dataset.backgroundColor.replace(" 100% ", " 80% ");
+        dataset.order = dataset.number;
       }
-    } else {
-      // rétabliessement de la visibilité normale de la courbe et
-      // de ses points : taille normale, saturation à 80% et
-      // ordre normal
-      dataset.borderWidth = 2;
-      dataset.borderColor =
-        dataset.borderColor.replace(" 100% ", " 80% ");
-      dataset.backgroundColor =
-        dataset.backgroundColor.replace(" 100% ", " 80% ");
-      dataset.pointBorderWidth = 0;
-      dataset.pointBorderColor =
-        dataset.borderColor.replace(" 100% ", " 80% ");
-      dataset.pointBackgroundColor =
-        dataset.backgroundColor.replace(" 100% ", " 80% ");
-      dataset.pointHoverBorderColor =
-        dataset.borderColor.replace(" 100% ", " 80% ");
-      dataset.pointHoverBackgroundColor =
-        dataset.backgroundColor.replace(" 100% ", " 80% ");
-      dataset.order = dataset.number;
     }
   });
 }
@@ -422,66 +426,67 @@ const htmllegend = {
         itemElement.appendChild(text);
         // gestion du clic, du double-clic et du ctrl + clic
         // sur les éléments de la légende
-        itemElement.addEventListener("click", function(event) {
-          window.clearTimeout(clickTimer);
-          let currentLastClick = Date.now();
-          let hidden = !chart.isDatasetVisible(itemIndex);
-          if((currentLastClick - lastClick) < clickTime) { // double clic
-            // désactivation de la sélection sur double clic
-            document.getSelection().empty();
-            if(hidden || (!hidden && !ctrlMode)) {
-              // tout cacher sauf lui
-              ctrlMode = true;
-              for(let i = 0; i < legendLength; ++i) {
-                chart.setDatasetVisibility(i, i === itemIndex);
-              }
-            } else {
-              // afficher tout
-              ctrlMode = false;
-              for(let i = 0; i < legendLength; ++i) {
-                chart.setDatasetVisibility(i, true);
-              }
-            }
-            chart.update();
-          } else { // clic simple
-            clickTimer = window.setTimeout(function() {
-              if(event.ctrlKey) { // ctrl + clic
-                if(hidden || (!hidden && !ctrlMode)) {
-                  // tout cacher sauf lui
-                  ctrlMode = true;
-                  for(let i = 0; i < legendLength; ++i) {
-                    chart.setDatasetVisibility(i, i === itemIndex);
-                  }
-                } else {
-                  // afficher tout
-                  ctrlMode = false;
-                  for(let i = 0; i < legendLength; ++i) {
-                    chart.setDatasetVisibility(i, true);
-                  }
+        if(!legendItem.shadow) {
+          itemElement.addEventListener("click", function(event) {
+            window.clearTimeout(clickTimer);
+            let currentLastClick = Date.now();
+            let hidden = !chart.isDatasetVisible(itemIndex);
+            if((currentLastClick - lastClick) < clickTime) { // double clic
+              // désactivation de la sélection sur double clic
+              if(hidden || (!hidden && !ctrlMode)) {
+                // tout cacher sauf lui
+                ctrlMode = true;
+                for(let i = 0; i < legendLength; ++i) {
+                  chart.setDatasetVisibility(i, i === itemIndex);
                 }
-              } else { // clic sans ctrl
-                // inverser sa visibilité
-                chart.setDatasetVisibility(itemIndex, hidden);
+              } else {
+                // afficher tout
+                ctrlMode = false;
+                for(let i = 0; i < legendLength; ++i) {
+                  chart.setDatasetVisibility(i, true);
+                }
               }
               chart.update();
-            }, clickTime);
-          }
-          lastClick = currentLastClick;
-        }, false);
-        // gestion du mouseenter sur les éléments de la légende :
-        // mise en valeur de la courbe et atténuation des autres courbes
-        itemElement.addEventListener("mouseenter", function(event) {
-          let datasets = chart.data.datasets;
-          highlightDataset(datasets, itemIndex);
-          chart.update();
-        }, false);
-        // gestion du mouseleave sur les éléments de la légende :
-        // remise des courbes en visibilité normale
-        itemElement.addEventListener("mouseleave", function(event) {
-          let datasets = chart.data.datasets;
-          unHighlightDataset(datasets, index)
-          chart.update();
-        }, false);
+            } else { // clic simple
+              clickTimer = window.setTimeout(function() {
+                if(event.ctrlKey) { // ctrl + clic
+                  if(hidden || (!hidden && !ctrlMode)) {
+                    // tout cacher sauf lui
+                    ctrlMode = true;
+                    for(let i = 0; i < legendLength; ++i) {
+                      chart.setDatasetVisibility(i, i === itemIndex);
+                    }
+                  } else {
+                    // afficher tout
+                    ctrlMode = false;
+                    for(let i = 0; i < legendLength; ++i) {
+                      chart.setDatasetVisibility(i, true);
+                    }
+                  }
+                } else { // clic sans ctrl
+                  // inverser sa visibilité
+                  chart.setDatasetVisibility(itemIndex, hidden);
+                }
+                chart.update();
+              }, clickTime);
+            }
+            lastClick = currentLastClick;
+          }, false);
+          // gestion du mouseenter sur les éléments de la légende :
+          // mise en valeur de la courbe et atténuation des autres courbes
+          itemElement.addEventListener("mouseenter", function(event) {
+            let datasets = chart.data.datasets;
+            highlightDataset(datasets, itemIndex);
+            chart.update();
+          }, false);
+          // gestion du mouseleave sur les éléments de la légende :
+          // remise des courbes en visibilité normale
+          itemElement.addEventListener("mouseleave", function(event) {
+            let datasets = chart.data.datasets;
+            unHighlightDataset(datasets, index);
+            chart.update();
+          }, false);
+        }
       } // fin de la construction des éléments de la légende
       // mise à jour du style et de la couleur des éléments
       // après la mise à jour du graph
@@ -500,7 +505,7 @@ function htmltooltip(context) {
   // récupération du tooltip et du chart
   const {
     chart,
-    tooltip
+    tooltip,
   } = context;
   // le tooltip
   const tooltipDiv = document.getElementById("tooltip");
@@ -555,7 +560,7 @@ function htmltooltip(context) {
   resultPlayer.appendChild(eloDiv);
   const newDiv = document.createElement("div");
   newDiv.classList.add("new");
-  newDiv.textContent = data.elo
+  newDiv.textContent = data.elo;
   eloDiv.appendChild(newDiv);
   const diffDiv = document.createElement("div");
   diffDiv.classList.add("diff");
@@ -582,7 +587,7 @@ function htmltooltip(context) {
     oeloDiv.appendChild(odiffDiv);
     const onewDiv = document.createElement("div");
     onewDiv.classList.add("new");
-    onewDiv.textContent = data.oelo
+    onewDiv.textContent = data.oelo;
     oeloDiv.appendChild(onewDiv);
     // le résultat de l'adversaire
     const oresultDiv = document.createElement("div");
@@ -600,13 +605,13 @@ function htmltooltip(context) {
     resultOpponent.appendChild(opponentDiv);
     const onameDiv = document.createElement("div");
     onameDiv.classList.add("name");
-    onameDiv.textContent = opponent
+    onameDiv.textContent = opponent;
     opponentDiv.appendChild(onameDiv);
     const ocolorDiv = document.createElement("div");
     ocolorDiv.classList.add("color");
     ocolorDiv.style.background = ocolor ? ocolor : "url(img/color.png)";
     opponentDiv.appendChild(ocolorDiv);
-    // ligne de la seed
+    // ligne temps seed bastion
     const seedLine = document.createElement("div");
     seedLine.classList.add("seedline");
     tooltipDiv.appendChild(seedLine);
@@ -619,6 +624,12 @@ function htmltooltip(context) {
     seedDiv.classList.add(data.type.toLowerCase());
     seedDiv.textContent = language[data.type.toLowerCase()];
     seedLine.appendChild(seedDiv);
+    if(data.bastion) {
+      const bastionDiv = document.createElement("div");
+      bastionDiv.classList.add("bastion");
+      bastionDiv.textContent = language[data.bastion.toLowerCase()];
+      seedLine.appendChild(bastionDiv);
+    }
   }
   // ligne de la date
   const dateLine = document.createElement("div");
@@ -679,7 +690,7 @@ function computeMargins(chart = false) {
     dateMargin = 0;
     timeUnit = "hour";
     minElo = 1500;
-    maxElo = 2500
+    maxElo = 2500;
     eloMargin = 0;
     document.getElementById("loading").style.display = "none";
     document.getElementById("no-data").style.display = "block";
@@ -985,7 +996,8 @@ async function loadData() {
     }
 
     // determination de la couleur pour cette courbe
-    let color = colors[cptRows % nbRows][cptColors % nbColors]
+    let color = colors[cptRows % nbRows][cptColors % nbColors];
+    color = shadow ? color.replace(")", colorHover) : color;
 
     // données pour cette courbe
     data.push({
@@ -1023,8 +1035,8 @@ async function loadData() {
     cptRows += rowSkip;
     cptColors += colorSkip;
     if((cptColors % nbColors) === 0) {
-      ++cptRows;
-      //console.log("++cptRows", cptRows);
+      cptRows += rowSkip;
+      //console.log("cptRows", cptRows);
     }
 
     // limitation au nombre de players demandés en paramètre
@@ -1244,7 +1256,7 @@ async function loadData() {
                 // masquage du tooltip
                 o.chart.tooltip.setActiveElements([], {
                   x: 0,
-                  y: 0
+                  y: 0,
                 });
               }
             },
@@ -1279,7 +1291,7 @@ async function loadData() {
               // masquage du tooltip
               o.chart.tooltip.setActiveElements([], {
                 x: 0,
-                y: 0
+                y: 0,
               });
               // désactivation du zoom si on atteint le zoom maximum
               // pour éviter le pan collatéral
@@ -1404,6 +1416,22 @@ async function loadData() {
   // gestion des boutons de langue
   document.getElementById("en").addEventListener("click", changeLang, false);
   document.getElementById("fr").addEventListener("click", changeLang, false);
+
+  // fenêtre d'aide
+  const helpwindow = document.querySelector("dialog#helpwindow");
+
+  // gestion du bouton d'ouverture de la fenêtre d'aide
+  document.getElementById("help").addEventListener("click", () => {
+    helpwindow.showModal();
+  }, false);
+
+  // gestion des boutons de fermeture de la fenêtre de l'aide
+  let closes = document.querySelectorAll("dialog#helpwindow > span.close");
+  for(let close of closes) {
+    close.addEventListener("click", () => {
+      helpwindow.close();
+    }, false);
+  }
 
   // masquage du message "loading data..."
   loading.style.display = "none";
