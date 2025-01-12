@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2024 du topic US Politics (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -300 * -1;
+  }
+  if(value > 0) {
+    return value / 13455;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres", "participants", 13954, normalize(13455), 13455],
+    ["Faramir", "participants", 1973, normalize(1845), 1845],
+    ["broddok27", "participants", 1680, normalize(1510), 1510],
+    ["Dæmon", "participants", 1618, normalize(1185), 1185],
+    ["the veggie boy", "participants", 1526, normalize(918), 918],
+    ["Ernestor", "participants", 1097, normalize(1059), 1059],
+    ["Bweezy", "participants", 1052, normalize(882), 882],
+    ["Fender", "participants", 1047, normalize(730), 730],
+    ["brown paper bag", "participants", 993, normalize(728), 728],
+    ["iVador", "participants", 991, normalize(937), 937],
+    ["Gottorp", "participants", 962, normalize(520), 520],
+    ["Kiveu", "participants", 922, normalize(913), 913],
+    ["Xamoth", "participants", 883, normalize(880), 880],
+    ["MacEugene", "participants", 879, normalize(729), 729],
+    ["autocall", "participants", 789, normalize(774), 774],
+    ["240-185", "participants", 763, normalize(586), 586],
+    ["LeGrandMatheux", "participants", 686, normalize(295), 295],
+    ["HumanRAGE", "participants", 653, normalize(299), 299],
+    ["harrypotdefleur", "participants", 612, normalize(0), null],
+    ["Marco Paulo", "participants", 546, normalize(485), 485],
+    ["Maouuu", "participants", 544, normalize(512), 512],
+    ["arthoung", "participants", 540, normalize(536), 536],
+    ["evildeus", "participants", 455, normalize(449), 449],
+    ["Julian33", "participants", 455, normalize(422), 422],
+    ["Arkin", "participants", 444, normalize(326), 326],
+    ["homnibus", "participants", 404, normalize(363), 363],
+    ["fred_div91", "participants", 402, normalize(0), null],
+    ["asmomo", "participants", 398, normalize(356), 356],
+    ["moggbomber", "participants", 385, normalize(0), null],
+    ["airy", "participants", 376, normalize(85), 85],
+    ["Scrypt", "participants", 374, normalize(0), null],
+    ["racingman11", "participants", 364, normalize(0), null],
+    ["giorkal", "participants", 358, normalize(233), 233],
+    ["super_pourri", "participants", 357, normalize(356), 356],
+    ["El Dood", "participants", 356, normalize(347), 347],
+    ["_Makaveli_", "participants", 341, normalize(340), 340],
+    ["luckynick", "participants", 334, normalize(0), null],
+    ["piou piou piou", "participants", 327, normalize(309), 309],
+    ["Yeagermach42", "participants", 326, normalize(239), 239],
+    ["Amenorrhee suspecte", "participants", 301, normalize(254), 254],
+    ["buscape30", "participants", 301, normalize(298), 298],
+    ["Olivie", "participants", 294, normalize(290), 290],
+    ["bobdumas", "participants", 286, normalize(0), null],
+    ["Arngrimlechauve", "participants", 285, normalize(0), null],
+    ["Jacquot martin", "participants", 270, normalize(0), null],
+    ["tim-timmy", "participants", 270, normalize(144), 144],
+    ["el muchacho", "participants", 266, normalize(-300), -300],
+    ["Flaie", "participants", 260, normalize(0), null],
+    ["Leto 42", "participants", 260, normalize(128), 128],
+    ["Maalak", "participants", 249, normalize(248), 248],
+    ["Rhadamenthos", "participants", 248, normalize(233), 233],
+    ["ledenez", "participants", 244, normalize(188), 188],
+    ["Mac_Lane", "participants", 236, normalize(123), 123],
+    ["tfpsly", "participants", 228, normalize(206), 206],
+    ["verdoux", "participants", 227, normalize(196), 196],
+    ["fiscalisator", "participants", 222, normalize(220), 220],
+    ["_OttO_", "participants", 221, normalize(197), 197],
+    ["epsiloneridani", "participants", 213, normalize(177), 177],
+    ["Esiuol", "participants", 210, normalize(114), 114],
+    ["The NBoc", "participants", 206, normalize(205), 205],
+    ["PinkFloyd31", "participants", 200, normalize(0), null],
+    ["Ryo-Ohki", "participants", 197, normalize(134), 134],
+    ["vanloque", "participants", 197, normalize(0), null],
+    ["lkae", "participants", 196, normalize(0), null],
+    ["Cuistot", "participants", 195, normalize(-20), -20],
+    ["zad38", "participants", 195, normalize(132), 132],
+    ["prospoul", "participants", 194, normalize(0), null],
+    ["chinois02", "participants", 188, normalize(164), 164],
+    ["[Toine]", "participants", 180, normalize(113), 113],
+    ["Yog Sothoth", "participants", 180, normalize(0), null],
+    ["mlon", "participants", 176, normalize(175), 175],
+    ["GreatSaiyaman", "participants", 175, normalize(163), 163],
+    ["- gab", "participants", 172, normalize(81), 81],
+    ["le rouge", "participants", 171, normalize(169), 169],
+    ["Raspa", "participants", 169, normalize(0), null],
+    ["barnabe", "participants", 168, normalize(0), null],
+    ["fatal error", "participants", 168, normalize(163), 163],
+    ["mxpx", "participants", 168, normalize(0), null],
+    ["Modération", "participants", 166, normalize(151), 151],
+    ["Hegemonie", "participants", 163, normalize(122), 122],
+    ["Toxin", "participants", 163, normalize(0), null],
+    ["MycRub", "participants", 161, normalize(132), 132],
+    ["bulldozer_fusion", "participants", 159, normalize(153), 153],
+    ["Tuxerman12", "participants", 159, normalize(0), null],
+    ["armageddindon", "participants", 157, normalize(-59), -59],
+    ["korrigan73", "participants", 157, normalize(0), null],
+    ["rokhlan", "participants", 157, normalize(134), 134],
+    ["dje33", "participants", 153, normalize(0), null],
+    ["LennyB", "participants", 153, normalize(0), null],
+    ["cyberslan", "participants", 151, normalize(147), 147],
+    ["bobe", "participants", 150, normalize(146), 146],
+    ["el mirador", "participants", 150, normalize(0), null],
+    ["John-Nada", "participants", 148, normalize(0), null],
+    ["Brazeinstein", "participants", 144, normalize(0), null],
+    ["nounounounou", "participants", 142, normalize(137), 137],
+    ["LEctrodz", "participants", 141, normalize(139), 139],
+    ["zakatana", "participants", 137, normalize(106), 106],
+    ["mantel", "participants", 135, normalize(67), 67],
+    ["boulgakov", "participants", 133, normalize(126), 126],
+    ["Calone", "participants", 131, normalize(82), 82],
+    ["PetitJean", "participants", 131, normalize(126), 126]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2024 du topic US Politics (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 10:09:33)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
