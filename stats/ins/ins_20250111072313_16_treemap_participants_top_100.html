@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2024 du topic insomniaks (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -167 * -1;
+  }
+  if(value > 0) {
+    return value / 129;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Rem82", "participants", 437, normalize(-128), -128],
+    ["big e", "participants", 425, normalize(-14), -14],
+    ["spark", "participants", 219, normalize(-167), -167],
+    ["poutrella", "participants", 201, normalize(129), 129],
+    ["roger21", "participants", 184, normalize(128), 128],
+    ["0psimath", "participants", 108, normalize(-76), -76],
+    ["Electrochoc", "participants", 97, normalize(83), 83],
+    ["zeroz", "participants", 80, normalize(-24), -24],
+    ["Nowa", "participants", 54, normalize(-151), -151],
+    ["SHAMSHIR", "participants", 54, normalize(-35), -35],
+    ["Theomede", "participants", 37, normalize(0), null],
+    ["TrOnKlOu", "participants", 35, normalize(7), 7],
+    ["PetitJean", "participants", 34, normalize(4), 4],
+    ["lilicite", "participants", 33, normalize(12), 12],
+    ["totoz", "participants", 24, normalize(6), 6],
+    ["kyouray", "participants", 22, normalize(21), 21],
+    ["joueur de flute", "participants", 19, normalize(0), null],
+    ["mauvlam", "participants", 19, normalize(4), 4],
+    ["LePcFou", "participants", 17, normalize(-86), -86],
+    ["angelusdeus", "participants", 16, normalize(15), 15],
+    ["HumanRAGE", "participants", 15, normalize(6), 6],
+    ["Marcel Pitou", "participants", 15, normalize(-9), -9],
+    ["iosys99", "participants", 14, normalize(12), 12],
+    ["Augmented", "participants", 12, normalize(0), null],
+    ["denzel wash in town", "participants", 11, normalize(8), 8],
+    ["Goldmankind", "participants", 8, normalize(5), 5],
+    ["Hector Stringer", "participants", 8, normalize(0), null],
+    ["niku", "participants", 8, normalize(7), 7],
+    ["Profil supprimé", "participants", 8, normalize(-18), -18],
+    ["axklaus", "participants", 7, normalize(4), 4],
+    ["citror", "participants", 5, normalize(2), 2],
+    ["Connemrara", "participants", 5, normalize(0), null],
+    ["santiago10", "participants", 5, normalize(0), null],
+    ["lerizdeben", "participants", 4, normalize(0), null],
+    ["TheCLeaN", "participants", 4, normalize(-6), -6],
+    ["asmomo", "participants", 3, normalize(0), null],
+    ["dazouille", "participants", 3, normalize(-9), -9],
+    ["FUX_huhu", "participants", 3, normalize(2), 2],
+    ["zolpidem", "participants", 3, normalize(0), null],
+    ["cthugha", "participants", 2, normalize(0), null],
+    ["jamere20", "participants", 2, normalize(0), 0],
+    ["kAizOr", "participants", 2, normalize(0), null],
+    ["lady287", "participants", 2, normalize(0), null],
+    ["mouss_diouf", "participants", 2, normalize(-16), -16],
+    ["Nebulah", "participants", 2, normalize(0), null],
+    ["simius_computus", "participants", 2, normalize(-3), -3],
+    ["1tibilywa", "participants", 1, normalize(0), null],
+    ["animemint", "participants", 1, normalize(0), 0],
+    ["azymantiop", "participants", 1, normalize(0), null],
+    ["Baudeflo", "participants", 1, normalize(0), null],
+    ["Bobox", "participants", 1, normalize(0), null],
+    ["Chapeau de Paille", "participants", 1, normalize(0), null],
+    ["CommeUnLundi", "participants", 1, normalize(0), null],
+    ["daadou", "participants", 1, normalize(0), null],
+    ["Drfunkenstein", "participants", 1, normalize(0), null],
+    ["fiend41", "participants", 1, normalize(0), null],
+    ["joost6", "participants", 1, normalize(0), null],
+    ["LeGrandMatheux", "participants", 1, normalize(0), null],
+    ["LeKeiser", "participants", 1, normalize(0), null],
+    ["meriadeck", "participants", 1, normalize(0), null],
+    ["mirtouf", "participants", 1, normalize(-8), -8],
+    ["nonivanille", "participants", 1, normalize(0), null],
+    ["olafdavalon", "participants", 1, normalize(0), null],
+    ["paco fpg", "participants", 1, normalize(0), null],
+    ["_Pouvoir", "participants", 1, normalize(0), null],
+    ["Robbo", "participants", 1, normalize(-38), -38],
+    ["romneo", "participants", 1, normalize(0), 0],
+    ["_tchip_", "participants", 1, normalize(0), 0],
+    ["ted_mosby", "participants", 1, normalize(0), null],
+    ["thepilot64", "participants", 1, normalize(0), null],
+    ["Toxin", "participants", 1, normalize(0), null],
+    ["uxam", "participants", 1, normalize(0), null],
+    ["xcluzif", "participants", 1, normalize(0), null],
+    ["Yog Sothoth", "participants", 1, normalize(0), null],
+    ["zog79", "participants", 1, normalize(-33), -33]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2024 du topic insomniaks (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 07:23:13)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
