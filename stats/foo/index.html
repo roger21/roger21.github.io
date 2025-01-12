@@ -6,10 +6,114 @@
   <title>foo</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
 </head>
 <body>
   <h1 class="title">Stats Du Topic Foot</h1>
   <div class="index">
+    <div class="section" id="20250111020109">
+      <b><a class="permalink" href="#20250111020109">samedi 11 janvier 2025 à 02:01:09</a></b>
+      <span>4 768 participants / 2 910 576 posts / 1 856 918 smileys / 1 281 posts roses</span>
+      <a class="graph" href="foo_20250111020109_01_activite_all_year.html">
+        activité all time 2024 par an
+      </a>
+      <a class="graph" href="foo_20250111020109_02_activite_all_month.html">
+        activité all time 2024 par mois
+      </a>
+      <a class="graph" href="foo_20250111020109_03_activite_all_week.html">
+        activité all time 2024 par semaine
+      </a>
+      <a class="graph" href="foo_20250111020109_04_activite_month.html">
+        activité 2024 par mois
+      </a>
+      <a class="graph" href="foo_20250111020109_05_activite_week.html">
+        activité 2024 par semaine
+      </a>
+      <a class="table" href="foo_20250111020109_11_participants_top_100.html">
+        participants 2024 (top 100)
+      </a>
+      <a class="table" href="foo_20250111020109_12_participants_sortants.html">
+        participants sortants 2024 (19)
+      </a>
+      <a class="table" href="foo_20250111020109_13_participants_all_top_500.html">
+        participants all time 2024 (top 500)
+      </a>
+      <a class="table" href="foo_20250111020109_14_participants_mensuel_top_100.html">
+        participants mensuel 2024 (top 100)
+      </a>
+      <a class="table" href="foo_20250111020109_15_participants_annuel_all_top_100.html">
+        participants annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="foo_20250111020109_16_treemap_participants_top_100.html">
+        treemap participants 2024 (top 100)
+      </a>
+      <a class="graph" href="foo_20250111020109_17_treemap_participants_all_top_100.html">
+        treemap participants all time 2024 (top 100)
+      </a>
+      <a class="table" href="foo_20250111020109_21_smileys_top_100.html">
+        smileys 2024 (top 100)
+      </a>
+      <a class="table" href="foo_20250111020109_22_smileys_sortants.html">
+        smileys sortants 2024 (27)
+      </a>
+      <a class="table" href="foo_20250111020109_23_smileys_all_top_500.html">
+        smileys all time 2024 (top 500)
+      </a>
+      <a class="table" href="foo_20250111020109_24_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="foo_20250111020109_25_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2024 (top 50)
+      </a>
+      <a class="table" href="foo_20250111020109_31_posts_quotes_top_100.html">
+        posts les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="foo_20250111020109_32_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="table" href="foo_20250111020109_33_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="foo_20250111020109_34_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2024 (19)
+      </a>
+      <a class="table" href="foo_20250111020109_35_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="graph" href="foo_20250111020109_g1_counts_all.svg">
+        nombre de posts et de participants all time 2024
+      </a>
+      <a class="graph" href="foo_20250111020109_g2_evol_all.svg">
+        évolution du nombre de participants all time 2024
+      </a>
+      <a class="graph" href="foo_20250111020109_g3_foot_versus_covid.svg">
+        foot versus COVID-19 en 2024
+      </a>
+      <a class="graph" href="foo_20250111020109_g4_foot_versus_world.svg">
+        foot versus the world en 2024
+      </a>
+    </div>
     <div class="section" id="20240104035056">
       <b><a class="permalink" href="#20240104035056">jeudi 4 janvier 2024 à 03:50:56</a></b>
       <span>4 724 participants / 2 824 728 posts / 1 824 884 smileys / 1 237 posts roses</span>
