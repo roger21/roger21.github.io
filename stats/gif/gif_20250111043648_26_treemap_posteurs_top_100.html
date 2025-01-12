@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des posteurs 2024 du topic Gifs (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -261 * -1;
+  }
+  if(value > 0) {
+    return value / 933;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posteurs");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "images");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["Ticento", "posteurs", 2993, normalize(933), 933],
+    ["Pavese69", "posteurs", 1581, normalize(788), 788],
+    ["viniw", "posteurs", 746, normalize(53), 53],
+    ["Billy54", "posteurs", 274, normalize(180), 180],
+    ["usma16", "posteurs", 191, normalize(33), 33],
+    ["banditoz", "posteurs", 123, normalize(-58), -58],
+    ["blast3r", "posteurs", 99, normalize(54), 54],
+    ["Gruuik Gruuik", "posteurs", 95, normalize(-261), -261],
+    ["tous les autres posteurs", "posteurs", 69, normalize(15), 15],
+    ["ptibeur", "posteurs", 63, normalize(51), 51],
+    ["DeltaVega", "posteurs", 56, normalize(2), 2],
+    ["kyouray", "posteurs", 51, normalize(7), 7],
+    ["kmara2", "posteurs", 45, normalize(-2), -2],
+    ["zotzi", "posteurs", 42, normalize(0), null],
+    ["iskor", "posteurs", 41, normalize(13), 13],
+    ["Fr4p", "posteurs", 35, normalize(17), 17],
+    ["dzmth", "posteurs", 33, normalize(30), 30],
+    ["Errare", "posteurs", 32, normalize(-23), -23],
+    ["Ryo-Ohki", "posteurs", 30, normalize(15), 15],
+    ["kaloalani", "posteurs", 29, normalize(0), null],
+    ["johnclaude", "posteurs", 26, normalize(17), 17],
+    ["macbeth", "posteurs", 22, normalize(2), 2],
+    ["Marcel Pitou", "posteurs", 22, normalize(3), 3],
+    ["sire de Botcor", "posteurs", 22, normalize(-6), -6],
+    ["Fork Bomb", "posteurs", 20, normalize(15), 15],
+    ["anti-pop", "posteurs", 17, normalize(10), 10],
+    ["rorosk", "posteurs", 17, normalize(16), 16],
+    ["foul", "posteurs", 16, normalize(-5), -5],
+    ["prospoul", "posteurs", 16, normalize(13), 13],
+    ["yohaskan", "posteurs", 15, normalize(11), 11],
+    ["joost6", "posteurs", 14, normalize(0), null],
+    ["lilicite", "posteurs", 14, normalize(-11), -11],
+    ["john_tgv", "posteurs", 13, normalize(-34), -34],
+    ["mko", "posteurs", 13, normalize(-18), -18],
+    ["pascaldeuxzero", "posteurs", 13, normalize(9), 9],
+    ["DrDooM", "posteurs", 11, normalize(6), 6],
+    ["teepodavignon", "posteurs", 11, normalize(3), 3],
+    ["H00d", "posteurs", 10, normalize(-7), -7],
+    ["Profil supprimé", "posteurs", 10, normalize(6), 6],
+    ["Sanglier", "posteurs", 10, normalize(-3), -3],
+    ["tomatookc", "posteurs", 10, normalize(9), 9],
+    ["didin19", "posteurs", 9, normalize(7), 7],
+    ["Gordon Shumway", "posteurs", 9, normalize(-5), -5],
+    ["NODeath", "posteurs", 9, normalize(9), 9],
+    ["Sebmbalo", "posteurs", 9, normalize(7), 7],
+    ["Gedemon", "posteurs", 8, normalize(-4), -4],
+    ["mosk", "posteurs", 8, normalize(5), 5],
+    ["sharkybilly", "posteurs", 8, normalize(7), 7],
+    ["tfpsly", "posteurs", 8, normalize(0), 0],
+    ["Leilu", "posteurs", 7, normalize(4), 4],
+    ["Augmented", "posteurs", 6, normalize(0), null],
+    ["bixibu", "posteurs", 6, normalize(-4), -4],
+    ["goomi32", "posteurs", 6, normalize(-13), -13],
+    ["mechkurt", "posteurs", 6, normalize(6), 6],
+    ["Raoul Guinness", "posteurs", 6, normalize(-18), -18],
+    ["bobdumas", "posteurs", 5, normalize(-3), -3],
+    ["El Toro", "posteurs", 5, normalize(5), 5],
+    ["giHefca", "posteurs", 5, normalize(5), 5],
+    ["HumanRAGE", "posteurs", 5, normalize(1), 1],
+    ["Kewyn", "posteurs", 5, normalize(4), 4],
+    ["MisterMoT", "posteurs", 5, normalize(2), 2],
+    ["spacemaster2", "posteurs", 5, normalize(1), 1],
+    ["Sygoris", "posteurs", 5, normalize(0), null],
+    ["leto", "posteurs", 4, normalize(1), 1],
+    ["musacorp", "posteurs", 4, normalize(2), 2],
+    ["pedzouille", "posteurs", 4, normalize(-1), -1],
+    ["SupaPictave", "posteurs", 4, normalize(-2), -2],
+    ["tinc", "posteurs", 4, normalize(0), 0],
+    ["Bensai", "posteurs", 3, normalize(2), 2],
+    ["Berceker United", "posteurs", 3, normalize(-25), -25],
+    ["cartemere", "posteurs", 3, normalize(-3), -3],
+    ["Chandler B", "posteurs", 3, normalize(2), 2],
+    ["davidgag", "posteurs", 3, normalize(1), 1],
+    ["Doc Konaii", "posteurs", 3, normalize(-16), -16],
+    ["everfrost", "posteurs", 3, normalize(3), 3],
+    ["Jaxom31", "posteurs", 3, normalize(1), 1],
+    ["jijiba", "posteurs", 3, normalize(3), 3],
+    ["joedoe", "posteurs", 3, normalize(3), 3],
+    ["Kanwulf", "posteurs", 3, normalize(-59), -59],
+    ["karionstre", "posteurs", 3, normalize(2), 2],
+    ["kronoob", "posteurs", 3, normalize(3), 3],
+    ["mister_winter", "posteurs", 3, normalize(1), 1],
+    ["4get9", "posteurs", 2, normalize(2), 2],
+    ["Darth Carotte", "posteurs", 2, normalize(2), 2],
+    ["darxmurf", "posteurs", 2, normalize(2), 2],
+    ["Dezerd", "posteurs", 2, normalize(0), null],
+    ["dondake", "posteurs", 2, normalize(1), 1],
+    ["flash23", "posteurs", 2, normalize(-9), -9],
+    ["gimmeshelter", "posteurs", 2, normalize(2), 2],
+    ["gugus", "posteurs", 2, normalize(2), 2],
+    ["hisvin", "posteurs", 2, normalize(-1), -1],
+    ["John-Nada", "posteurs", 2, normalize(0), null],
+    ["Kirvel", "posteurs", 2, normalize(2), 2],
+    ["Kiveu", "posteurs", 2, normalize(2), 2],
+    ["mealin", "posteurs", 2, normalize(0), null],
+    ["merise2", "posteurs", 2, normalize(0), null],
+    ["Moihey", "posteurs", 2, normalize(2), 2],
+    ["Mountain Dew", "posteurs", 2, normalize(1), 1],
+    ["NGCubeur", "posteurs", 2, normalize(2), 2],
+    ["otobox", "posteurs", 2, normalize(2), 2],
+    ["pilou92", "posteurs", 2, normalize(2), 2]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " images" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des posteurs 2024 du topic Gifs (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 04:36:48)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
