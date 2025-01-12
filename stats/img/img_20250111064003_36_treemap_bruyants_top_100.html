@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des bruyants 2024 du topic images (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -529 * -1;
+  }
+  if(value > 0) {
+    return value / 33;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "bruyants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "bruits");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["bruyants", null, 0, 0, 0],
+    ["tous les autres bruyants", "bruyants", 722, normalize(-529), -529],
+    ["DeltaVega", "bruyants", 335, normalize(33), 33],
+    ["XaTriX", "bruyants", 144, normalize(-83), -83],
+    ["hfrspaceprogram", "bruyants", 143, normalize(2), 2],
+    ["It_Connexion", "bruyants", 94, normalize(3), 3],
+    ["gloinfred", "bruyants", 65, normalize(31), 31],
+    ["Harrrrg", "bruyants", 64, normalize(-70), -70],
+    ["WATT1000", "bruyants", 59, normalize(18), 18],
+    ["etiandim", "bruyants", 56, normalize(9), 9],
+    ["Lt Ripley", "bruyants", 56, normalize(-26), -26],
+    ["Marco Paulo", "bruyants", 53, normalize(-11), -11],
+    ["_tchip_", "bruyants", 53, normalize(-9), -9],
+    ["Kewyn", "bruyants", 52, normalize(25), 25],
+    ["butcher's motorbike", "bruyants", 48, normalize(-68), -68],
+    ["CAMPEDEL", "bruyants", 47, normalize(-37), -37],
+    ["giorkal", "bruyants", 46, normalize(-11), -11],
+    ["philibear", "bruyants", 45, normalize(-81), -81],
+    ["Profil supprimé", "bruyants", 45, normalize(-76), -76],
+    ["jonas", "bruyants", 44, normalize(22), 22],
+    ["garath_", "bruyants", 42, normalize(-6), -6],
+    ["teepodavignon", "bruyants", 42, normalize(-18), -18],
+    ["racsoft1", "bruyants", 41, normalize(8), 8],
+    ["arkrom", "bruyants", 40, normalize(17), 17],
+    ["Jaxom31", "bruyants", 40, normalize(-19), -19],
+    ["gromarik", "bruyants", 39, normalize(4), 4],
+    ["otobox", "bruyants", 39, normalize(32), 32],
+    ["Augmented", "bruyants", 38, normalize(0), null],
+    ["salsifi34", "bruyants", 38, normalize(16), 16],
+    ["Togi", "bruyants", 38, normalize(0), null],
+    ["babylone83", "bruyants", 36, normalize(-9), -9],
+    ["Emzy", "bruyants", 35, normalize(6), 6],
+    ["vinzomatik", "bruyants", 35, normalize(-48), -48],
+    ["mxpx", "bruyants", 34, normalize(0), null],
+    ["rheo", "bruyants", 34, normalize(5), 5],
+    ["oranginaaaa", "bruyants", 33, normalize(18), 18],
+    ["randolf", "bruyants", 32, normalize(3), 3],
+    ["foul", "bruyants", 31, normalize(28), 28],
+    ["$k-flown", "bruyants", 29, normalize(23), 23],
+    ["Eclat d'ombre", "bruyants", 29, normalize(6), 6],
+    ["jix", "bruyants", 27, normalize(-6), -6],
+    ["_OttO_", "bruyants", 27, normalize(2), 2],
+    ["rz1", "bruyants", 27, normalize(0), 0],
+    ["bobdumas", "bruyants", 26, normalize(-10), -10],
+    ["xanthe", "bruyants", 25, normalize(0), null],
+    ["gimmeshelter", "bruyants", 23, normalize(-14), -14],
+    ["Modération", "bruyants", 23, normalize(1), 1],
+    ["tinc", "bruyants", 23, normalize(-3), -3],
+    ["Marcel Pitou", "bruyants", 22, normalize(0), 0],
+    ["Perceval_De_Galles", "bruyants", 22, normalize(-11), -11],
+    ["dark oopa", "bruyants", 21, normalize(-4), -4],
+    ["john_tgv", "bruyants", 20, normalize(10), 10],
+    ["mosk", "bruyants", 19, normalize(0), null],
+    ["zcoold", "bruyants", 19, normalize(19), 19],
+    ["iskor", "bruyants", 18, normalize(0), null],
+    ["Winpoks", "bruyants", 18, normalize(-23), -23],
+    ["Cuistot", "bruyants", 17, normalize(-80), -80],
+    ["edhelas", "bruyants", 17, normalize(17), 17],
+    ["Mercius", "bruyants", 17, normalize(4), 4],
+    ["mockfella", "bruyants", 17, normalize(1), 1],
+    ["prospoul", "bruyants", 17, normalize(15), 15],
+    ["GAS", "bruyants", 16, normalize(-17), -17],
+    ["monsieurorange", "bruyants", 16, normalize(-11), -11],
+    ["Sygoris", "bruyants", 16, normalize(0), null],
+    ["Till Lindemann", "bruyants", 16, normalize(1), 1],
+    ["Shane Hannigan", "bruyants", 15, normalize(10), 10],
+    ["shinkan", "bruyants", 15, normalize(9), 9],
+    ["sodiumna+", "bruyants", 15, normalize(-10), -10],
+    ["4get9", "bruyants", 14, normalize(3), 3],
+    ["chin jo", "bruyants", 14, normalize(13), 13],
+    ["HumanRAGE", "bruyants", 14, normalize(-18), -18],
+    ["M4vrick", "bruyants", 14, normalize(-5), -5],
+    ["Perfector", "bruyants", 14, normalize(-6), -6],
+    ["pingouinnuclaire", "bruyants", 14, normalize(-12), -12],
+    ["chienBlanc", "bruyants", 13, normalize(-26), -26],
+    ["hisvin", "bruyants", 13, normalize(-3), -3],
+    ["newbie_master", "bruyants", 13, normalize(0), 0],
+    ["Pupoul", "bruyants", 13, normalize(10), 10],
+    ["gouleyance", "bruyants", 12, normalize(-3), -3],
+    ["Je@nb", "bruyants", 12, normalize(-2), -2],
+    ["clemlegrand", "bruyants", 11, normalize(5), 5],
+    ["darxmurf", "bruyants", 11, normalize(8), 8],
+    ["Eberhart", "bruyants", 11, normalize(11), 11],
+    ["fredo3", "bruyants", 11, normalize(2), 2],
+    ["NODeath", "bruyants", 11, normalize(0), null],
+    ["didin19", "bruyants", 10, normalize(5), 5],
+    ["Homerde", "bruyants", 10, normalize(8), 8],
+    ["Kirvel", "bruyants", 10, normalize(0), 0],
+    ["Badcow", "bruyants", 9, normalize(0), null],
+    ["DrDooM", "bruyants", 9, normalize(-27), -27],
+    ["eamesimport", "bruyants", 9, normalize(0), null],
+    ["flyingchair", "bruyants", 9, normalize(7), 7],
+    ["lilicite", "bruyants", 9, normalize(0), null],
+    ["nicobule", "bruyants", 9, normalize(-5), -5],
+    ["panchopa", "bruyants", 9, normalize(7), 7],
+    ["tibo2002", "bruyants", 9, normalize(-2), -2],
+    ["tuxbleu", "bruyants", 9, normalize(-32), -32],
+    ["ese-aSH", "bruyants", 8, normalize(-13), -13],
+    ["Gauteng", "bruyants", 8, normalize(7), 7],
+    ["Gnub", "bruyants", 8, normalize(1), 1],
+    ["LibreArbitre", "bruyants", 8, normalize(-2), -2],
+    ["martin2troie", "bruyants", 8, normalize(-91), -91]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#ffcfcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#cfffcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " bruits" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des bruyants 2024 du topic images (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 06:40:03)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

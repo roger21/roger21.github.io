@@ -6,10 +6,188 @@
   <title>img</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
 </head>
 <body>
   <h1 class="title">Stats Du Topic Images</h1>
   <div class="index">
+    <div class="section" id="20250111064003">
+      <b><a class="permalink" href="#20250111064003">samedi 11 janvier 2025 à 06:40:03</a></b>
+      <span>5 976 participants / 608 886 posts / 553 569 images au total / 39 340 images en spoiler / 446 711 smileys / 878 posts roses</span>
+      <a class="graph" href="img_20250111064003_01_activite_posts_all_year.html">
+        activité posts all time 2024 par an
+      </a>
+      <a class="graph" href="img_20250111064003_02_activite_posts_all_month.html">
+        activité posts all time 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_03_activite_posts_all_week.html">
+        activité posts all time 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_04_activite_images_all_year.html">
+        activité images all time 2024 par an
+      </a>
+      <a class="graph" href="img_20250111064003_05_activite_images_all_month.html">
+        activité images all time 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_06_activite_images_all_week.html">
+        activité images all time 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_07_activite_posts_images_all_year.html">
+        activité posts images all time 2024 par an
+      </a>
+      <a class="graph" href="img_20250111064003_08_activite_posts_images_all_month.html">
+        activité posts images all time 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_09_activite_posts_images_all_week.html">
+        activité posts images all time 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_10_activite_images_bruits_all_year.html">
+        activité images bruits all time 2024 par an
+      </a>
+      <a class="graph" href="img_20250111064003_11_activite_images_bruits_all_month.html">
+        activité images bruits all time 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_12_activite_images_bruits_all_week.html">
+        activité images bruits all time 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_13_activite_posts_month.html">
+        activité posts 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_14_activite_posts_week.html">
+        activité posts 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_15_activite_images_month.html">
+        activité images 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_16_activite_images_week.html">
+        activité images 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_17_activite_posts_images_month.html">
+        activité posts images 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_18_activite_posts_images_week.html">
+        activité posts images 2024 par semaine
+      </a>
+      <a class="graph" href="img_20250111064003_19_activite_images_bruits_month.html">
+        activité images bruits 2024 par mois
+      </a>
+      <a class="graph" href="img_20250111064003_20_activite_images_bruits_week.html">
+        activité images bruits 2024 par semaine
+      </a>
+      <a class="table" href="img_20250111064003_21_posteurs_top_100.html">
+        posteurs 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_22_posteurs_sortants.html">
+        posteurs sortants 2024 (30)
+      </a>
+      <a class="table" href="img_20250111064003_23_posteurs_all_top_500.html">
+        posteurs all time 2024 (top 500)
+      </a>
+      <a class="table" href="img_20250111064003_24_posteurs_mensuel_top_50.html">
+        posteurs mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="img_20250111064003_25_posteurs_annuel_all_top_100.html">
+        posteurs annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="img_20250111064003_26_treemap_posteurs_top_100.html">
+        treemap posteurs 2024 (top 100)
+      </a>
+      <a class="graph" href="img_20250111064003_27_treemap_posteurs_all_top_100.html">
+        treemap posteurs all time 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_31_bruyants_top_100.html">
+        bruyants 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_32_bruyants_sortants.html">
+        bruyants sortants 2024 (38)
+      </a>
+      <a class="table" href="img_20250111064003_33_bruyants_all_top_500.html">
+        bruyants all time 2024 (top 500)
+      </a>
+      <a class="table" href="img_20250111064003_34_bruyants_mensuel_top_50.html">
+        bruyants mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="img_20250111064003_35_bruyants_annuel_all_top_100.html">
+        bruyants annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="img_20250111064003_36_treemap_bruyants_top_100.html">
+        treemap bruyants 2024 (top 100)
+      </a>
+      <a class="graph" href="img_20250111064003_37_treemap_bruyants_all_top_100.html">
+        treemap bruyants all time 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_41_smileys_top_100.html">
+        smileys 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_42_smileys_sortants.html">
+        smileys sortants 2024 (34)
+      </a>
+      <a class="table" href="img_20250111064003_43_smileys_all_top_500.html">
+        smileys all time 2024 (top 500)
+      </a>
+      <a class="table" href="img_20250111064003_44_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="img_20250111064003_45_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2024 (top 50)
+      </a>
+      <a class="table" href="img_20250111064003_51_hebergeurs_top_100.html">
+        hébergeurs 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_52_hebergeurs_sortants.html">
+        hébergeurs sortants 2024 (33)
+      </a>
+      <a class="table" href="img_20250111064003_53_hebergeurs_all_top_500.html">
+        hébergeurs all time 2024 (top 500)
+      </a>
+      <a class="table" href="img_20250111064003_54_hebergeurs_mensuel_top_50.html">
+        hébergeurs mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="img_20250111064003_55_hebergeurs_annuel_all_top_100.html">
+        hébergeurs annuel all time 2024 (top 100)
+      </a>      <a class="table" href="img_20250111064003_71_posts_quotes_top_100.html">
+        posts les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_72_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="table" href="img_20250111064003_73_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="img_20250111064003_74_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2024 (29)
+      </a>
+      <a class="table" href="img_20250111064003_75_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="graph" href="img_20250111064003_g1_counts_all.svg">
+        nombre de posts et de participants all time 2024
+      </a>
+      <a class="graph" href="img_20250111064003_g2_evol_all.svg">
+        évolution du nombre de participants all time 2024
+      </a>
+    </div>
     <div class="section" id="20240104081103">
       <b><a class="permalink" href="#20240104081103">jeudi 4 janvier 2024 à 08:11:03</a></b>
       <span>5 941 participants / 600 196 posts / 536 514 images au total / 35 797 images en spoiler / 440 877 smileys / 855 posts roses</span>

@@ -30,6 +30,10 @@ div.section > b{
   align-self:flex-start;
   font-weight:bold;
 }
+div.section.highlight > b{
+  background-color:#ffe0ff;
+  outline:5px solid #ffe0ff;
+}
 div.section > span{
   display:block;
   margin:5px 30px 10px;
@@ -140,6 +144,10 @@ div.table > table td.smaller > span{
 div.table > table.s90 td.smaller > a,
 div.table > table.s90 td.smaller > span{
   max-width:90px;
+}
+div.table > table.s60 td.smaller > a,
+div.table > table.s60 td.smaller > span{
+  max-width:60px;
 }
 div.table > table.s50 td.smaller > a,
 div.table > table.s50 td.smaller > span{
