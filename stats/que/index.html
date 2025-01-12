@@ -6,10 +6,129 @@
   <title>que</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
 </head>
 <body>
   <h1 class="title">Stats Du Topic Des Questions</h1>
   <div class="index">
+    <div class="section" id="20250111131802">
+      <b><a class="permalink" href="#20250111131802">samedi 11 janvier 2025 à 13:18:02</a></b>
+      <span>3 286 participants / 563 337 posts / 197 693 questions / 452 324 smileys / 74 posts roses</span>
+      <a class="graph" href="que_20250111131802_15_activite_all_year.html">
+        activité all time 2024 par an
+      </a>
+      <a class="graph" href="que_20250111131802_16_activite_all_month.html">
+        activité all time 2024 par mois
+      </a>
+      <a class="graph" href="que_20250111131802_17_activite_all_week.html">
+        activité all time 2024 par semaine
+      </a>
+      <a class="graph" href="que_20250111131802_18_activite_month.html">
+        activité 2024 par mois
+      </a>
+      <a class="graph" href="que_20250111131802_19_activite_week.html">
+        activité 2024 par semaine
+      </a>
+      <a class="table" href="que_20250111131802_01_participants_top_100.html">
+        participants 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_02_participants_sortants.html">
+        participants sortants 2024 (34)
+      </a>
+      <a class="table" href="que_20250111131802_03_participants_all_top_500.html">
+        participants all time 2024 (top 500)
+      </a>
+      <a class="table" href="que_20250111131802_24_participants_mensuel_top_100.html">
+        participants mensuel 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_25_participants_annuel_all_top_100.html">
+        participants annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="que_20250111131802_20_treemap_participants_top_100.html">
+        treemap participants 2024 (top 100)
+      </a>
+      <a class="graph" href="que_20250111131802_21_treemap_participants_all_top_100.html">
+        treemap participants all time 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_04_curieux_top_100.html">
+        curieux 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_05_curieux_sortants.html">
+        curieux sortants 2024 (30)
+      </a>
+      <a class="table" href="que_20250111131802_06_curieux_all_top_500.html">
+        curieux all time 2024 (top 500)
+      </a>
+      <a class="table" href="que_20250111131802_26_curieux_mensuel_top_100.html">
+        curieux mensuel 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_27_curieux_annuel_all_top_100.html">
+        curieux annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="que_20250111131802_22_treemap_curieux_top_100.html">
+        treemap curieux 2024 (top 100)
+      </a>
+      <a class="graph" href="que_20250111131802_23_treemap_curieux_all_top_100.html">
+        treemap curieux all time 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_07_smileys_top_100.html">
+        smileys 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_08_smileys_sortants.html">
+        smileys sortants 2024 (42)
+      </a>
+      <a class="table" href="que_20250111131802_09_smileys_all_top_500.html">
+        smileys all time 2024 (top 500)
+      </a>
+      <a class="table" href="que_20250111131802_28_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="que_20250111131802_29_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2024 (top 50)
+      </a>
+      <a class="table" href="que_20250111131802_10_posts_quotes_top_100.html">
+        posts les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_11_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="table" href="que_20250111131802_12_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="que_20250111131802_13_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2024 (31)
+      </a>
+      <a class="table" href="que_20250111131802_14_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="graph" href="que_20250111131802_g1_counts_all.svg">
+        nombre de posts et de participants all time 2024
+      </a>
+      <a class="graph" href="que_20250111131802_g2_evol_all.svg">
+        évolution du nombre de participants all time 2024
+      </a>
+    </div>
     <div class="section" id="20240104121403">
       <b><a class="permalink" href="#20240104121403">jeudi 4 janvier 2024 à 12:14:03</a></b>
       <span>3 243 participants / 548 075 posts / 193 050 questions / 443 252 smileys / 72 posts roses</span>

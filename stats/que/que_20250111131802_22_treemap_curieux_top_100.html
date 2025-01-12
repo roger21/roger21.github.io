@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des curieux 2024 du topic des questions (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -93 * -1;
+  }
+  if(value > 0) {
+    return value / 78;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "curieux");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "questions");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["curieux", null, 0, 0, 0],
+    ["tous les autres curieux", "curieux", 560, normalize(66), 66],
+    ["XaTriX", "curieux", 185, normalize(-20), -20],
+    ["Ink87", "curieux", 179, normalize(28), 28],
+    ["lilicite", "curieux", 138, normalize(-6), -6],
+    ["MycRub", "curieux", 137, normalize(57), 57],
+    ["babylone83", "curieux", 131, normalize(37), 37],
+    ["PierrotLeDingue", "curieux", 127, normalize(34), 34],
+    ["stefaninho", "curieux", 122, normalize(5), 5],
+    ["Jay Kay", "curieux", 110, normalize(78), 78],
+    ["rheo", "curieux", 110, normalize(29), 29],
+    ["joost6", "curieux", 100, normalize(75), 75],
+    ["barnabe", "curieux", 87, normalize(66), 66],
+    ["jonas", "curieux", 86, normalize(33), 33],
+    ["salsifi34", "curieux", 86, normalize(0), null],
+    ["jamere20", "curieux", 83, normalize(61), 61],
+    ["Arthurod", "curieux", 81, normalize(70), 70],
+    ["FRandon", "curieux", 71, normalize(70), 70],
+    ["GAS", "curieux", 68, normalize(-3), -3],
+    ["WATT1000", "curieux", 66, normalize(31), 31],
+    ["chienBlanc", "curieux", 65, normalize(12), 12],
+    ["martin2troie", "curieux", 65, normalize(0), null],
+    ["Dolores", "curieux", 61, normalize(-6), -6],
+    ["garath_", "curieux", 61, normalize(16), 16],
+    ["moonblood", "curieux", 57, normalize(-8), -8],
+    ["Perfector", "curieux", 57, normalize(32), 32],
+    ["milfeuilles", "curieux", 56, normalize(11), 11],
+    ["Cuistot", "curieux", 55, normalize(-70), -70],
+    ["otobox", "curieux", 54, normalize(-6), -6],
+    ["merise2", "curieux", 53, normalize(0), null],
+    ["smartymcfly", "curieux", 50, normalize(0), null],
+    ["Coq", "curieux", 48, normalize(44), 44],
+    ["philibear", "curieux", 48, normalize(5), 5],
+    ["Poly", "curieux", 48, normalize(6), 6],
+    ["Poogz", "curieux", 42, normalize(-6), -6],
+    ["Hegemonie", "curieux", 41, normalize(15), 15],
+    ["axklaus", "curieux", 40, normalize(33), 33],
+    ["PostiT666", "curieux", 40, normalize(0), null],
+    ["Jean-Luc Skywalker", "curieux", 39, normalize(-16), -16],
+    ["hurricanes", "curieux", 38, normalize(9), 9],
+    ["jix", "curieux", 38, normalize(-11), -11],
+    ["clarence B", "curieux", 37, normalize(15), 15],
+    ["Malodor", "curieux", 37, normalize(15), 15],
+    ["Herbert de Vaucanson", "curieux", 32, normalize(0), null],
+    ["ObsydianKenobi", "curieux", 30, normalize(-9), -9],
+    ["efyliae", "curieux", 29, normalize(22), 22],
+    ["GladiaS", "curieux", 29, normalize(-2), -2],
+    ["mockfella", "curieux", 29, normalize(0), null],
+    ["Roger01", "curieux", 29, normalize(-16), -16],
+    ["Critias", "curieux", 27, normalize(-7), -7],
+    ["HumanRAGE", "curieux", 27, normalize(3), 3],
+    ["lafilledu22", "curieux", 27, normalize(0), null],
+    ["gsx33", "curieux", 25, normalize(-14), -14],
+    ["niku", "curieux", 25, normalize(13), 13],
+    ["fredo3", "curieux", 24, normalize(-6), -6],
+    ["giHefca", "curieux", 24, normalize(-3), -3],
+    ["LeGrandMatheux", "curieux", 24, normalize(0), null],
+    ["manololecarolo", "curieux", 24, normalize(21), 21],
+    ["biezdomny", "curieux", 23, normalize(-3), -3],
+    ["Cell Nucleus", "curieux", 23, normalize(-53), -53],
+    ["bertrand_205champion", "curieux", 22, normalize(20), 20],
+    ["canarvador", "curieux", 21, normalize(8), 8],
+    ["Pims_UTT", "curieux", 21, normalize(6), 6],
+    ["roger21", "curieux", 21, normalize(12), 12],
+    ["mxpx", "curieux", 20, normalize(-23), -23],
+    ["true-wiwi", "curieux", 20, normalize(11), 11],
+    ["$temp", "curieux", 19, normalize(0), 0],
+    ["viniw", "curieux", 19, normalize(10), 10],
+    ["panacocota", "curieux", 18, normalize(0), null],
+    ["Pascalo974", "curieux", 18, normalize(-6), -6],
+    ["k-nar", "curieux", 17, normalize(5), 5],
+    ["rewe", "curieux", 17, normalize(-93), -93],
+    ["Jaxom31", "curieux", 16, normalize(-1), -1],
+    ["Daphne", "curieux", 15, normalize(12), 12],
+    ["Eddy_60", "curieux", 15, normalize(9), 9],
+    ["pascaldeuxzero", "curieux", 15, normalize(2), 2],
+    ["Hautbois", "curieux", 14, normalize(0), null],
+    ["La Monne", "curieux", 14, normalize(-3), -3],
+    ["Proust4", "curieux", 14, normalize(2), 2],
+    ["squall_leonhart", "curieux", 14, normalize(0), null],
+    ["Trotamundos", "curieux", 14, normalize(-29), -29],
+    ["Alanina", "curieux", 13, normalize(0), null],
+    ["Azgor", "curieux", 13, normalize(0), null],
+    ["bracame", "curieux", 13, normalize(-17), -17],
+    ["Ababakar Octopuce", "curieux", 12, normalize(-49), -49],
+    ["kronoob", "curieux", 12, normalize(0), 0],
+    ["poney2014", "curieux", 12, normalize(0), null],
+    ["tuxbleu", "curieux", 12, normalize(-28), -28],
+    ["Art Core", "curieux", 11, normalize(4), 4],
+    ["eclaireur", "curieux", 11, normalize(10), 10],
+    ["Kurchak", "curieux", 11, normalize(0), null],
+    ["Madadayo", "curieux", 11, normalize(10), 10],
+    ["Latiole", "curieux", 10, normalize(-4), -4],
+    ["Lugz", "curieux", 10, normalize(4), 4],
+    ["Poule_au_pot", "curieux", 10, normalize(9), 9],
+    ["Wolfman", "curieux", 10, normalize(0), null],
+    ["clements42", "curieux", 9, normalize(8), 8],
+    ["franckyvinvin12", "curieux", 9, normalize(2), 2],
+    ["mikamika", "curieux", 9, normalize(6), 6],
+    ["Olivie", "curieux", 9, normalize(-10), -10],
+    ["rionsnoir", "curieux", 9, normalize(4), 4],
+    ["Smelly Jelly", "curieux", 9, normalize(1), 1]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " questions" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des curieux 2024 du topic des questions (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 13:18:02)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

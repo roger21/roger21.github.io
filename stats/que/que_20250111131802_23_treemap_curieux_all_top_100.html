@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des curieux all time 2024 du topic des questions (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "curieux");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "questions");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["curieux", null, 0, 0, 0],
+    ["tous les autres curieux all time", "curieux", 73694, 0, 0],
+    ["Profil supprimé", "curieux", 23958, 0, 0],
+    ["potemkin", "curieux", 7425, 0, 0],
+    ["Herbert de Vaucanson", "curieux", 5559, 0, 0],
+    ["Thordax", "curieux", 4371, 0, 0],
+    ["XaTriX", "curieux", 3443, 0, 0],
+    ["Dolores", "curieux", 3205, 0, 0],
+    ["babylone83", "curieux", 2562, 0, 0],
+    ["Riot", "curieux", 2376, 0, 0],
+    ["jonas", "curieux", 2179, 0, 0],
+    ["BaF - FlOp", "curieux", 2072, 0, 0],
+    ["canarvador", "curieux", 1888, 0, 0],
+    ["TheCreator", "curieux", 1783, 0, 0],
+    ["Otan beauval", "curieux", 1679, 0, 0],
+    ["barnabe", "curieux", 1642, 0, 0],
+    ["Dj YeLL", "curieux", 1544, 0, 0],
+    ["Poly", "curieux", 1502, 0, 0],
+    ["yo_play", "curieux", 1266, 0, 0],
+    ["Mihirung_", "curieux", 1190, 0, 0],
+    ["Aardpeer", "curieux", 1184, 0, 0],
+    ["snaluori1", "curieux", 1167, 0, 0],
+    ["Poogz", "curieux", 1109, 0, 0],
+    ["stefaninho", "curieux", 1094, 0, 0],
+    ["Cuistot", "curieux", 1077, 0, 0],
+    ["theredled", "curieux", 1064, 0, 0],
+    ["ObsydianKenobi", "curieux", 1060, 0, 0],
+    ["D_omi", "curieux", 1057, 0, 0],
+    ["benji123", "curieux", 986, 0, 0],
+    ["Olivie", "curieux", 937, 0, 0],
+    ["cd5", "curieux", 922, 0, 0],
+    ["Gugus2000", "curieux", 911, 0, 0],
+    ["Max Evans", "curieux", 896, 0, 0],
+    ["Samourai", "curieux", 884, 0, 0],
+    ["rheo", "curieux", 882, 0, 0],
+    ["igor1984", "curieux", 881, 0, 0],
+    ["Faluja", "curieux", 879, 0, 0],
+    ["$temp", "curieux", 867, 0, 0],
+    ["The Diamond Geezer", "curieux", 856, 0, 0],
+    ["Tillow", "curieux", 833, 0, 0],
+    ["Eddy_", "curieux", 832, 0, 0],
+    ["MantaFahrer", "curieux", 821, 0, 0],
+    ["moonblood", "curieux", 820, 0, 0],
+    ["nightbringer57", "curieux", 820, 0, 0],
+    ["popeye0", "curieux", 801, 0, 0],
+    ["Ptit loup", "curieux", 801, 0, 0],
+    ["Cougy", "curieux", 774, 0, 0],
+    ["Saytreza", "curieux", 771, 0, 0],
+    ["Daphne", "curieux", 770, 0, 0],
+    ["Temperance", "curieux", 757, 0, 0],
+    ["Sharen Morgan", "curieux", 750, 0, 0],
+    ["fredo3", "curieux", 745, 0, 0],
+    ["Lugz", "curieux", 738, 0, 0],
+    ["Dr House", "curieux", 736, 0, 0],
+    ["Kalymereau", "curieux", 719, 0, 0],
+    ["Iryngael", "curieux", 712, 0, 0],
+    ["yoak", "curieux", 705, 0, 0],
+    ["Cell Nucleus", "curieux", 692, 0, 0],
+    ["PierrotLeDingue", "curieux", 680, 0, 0],
+    ["Cirdan Sindar", "curieux", 672, 0, 0],
+    ["lilicite", "curieux", 607, 0, 0],
+    ["Proute2000", "curieux", 594, 0, 0],
+    ["Anteus", "curieux", 583, 0, 0],
+    ["Data error", "curieux", 566, 0, 0],
+    ["Elmoricq", "curieux", 563, 0, 0],
+    ["P_erf_ide", "curieux", 562, 0, 0],
+    ["Domi9999", "curieux", 557, 0, 0],
+    ["WATT1000", "curieux", 540, 0, 0],
+    ["Louxxx", "curieux", 531, 0, 0],
+    ["Blaq", "curieux", 521, 0, 0],
+    ["Marco Paulo", "curieux", 506, 0, 0],
+    ["shadowdim", "curieux", 502, 0, 0],
+    ["Vini", "curieux", 497, 0, 0],
+    ["La Monne", "curieux", 492, 0, 0],
+    ["angellus2", "curieux", 491, 0, 0],
+    ["LaSolution", "curieux", 491, 0, 0],
+    ["true-wiwi", "curieux", 486, 0, 0],
+    ["gougoul07", "curieux", 484, 0, 0],
+    ["SirAnneau", "curieux", 475, 0, 0],
+    ["biezdomny", "curieux", 474, 0, 0],
+    ["Critias", "curieux", 462, 0, 0],
+    ["Kilyn", "curieux", 461, 0, 0],
+    ["Ryoh", "curieux", 460, 0, 0],
+    ["wedgeant", "curieux", 460, 0, 0],
+    ["Timoonn", "curieux", 458, 0, 0],
+    ["garath_", "curieux", 456, 0, 0],
+    ["GAS", "curieux", 455, 0, 0],
+    ["Svensl", "curieux", 450, 0, 0],
+    ["Dr Dorian", "curieux", 438, 0, 0],
+    ["Kortex@HFR", "curieux", 437, 0, 0],
+    ["hephaestos", "curieux", 433, 0, 0],
+    ["MycRub", "curieux", 416, 0, 0],
+    ["ngkreator", "curieux", 402, 0, 0],
+    ["Altered", "curieux", 394, 0, 0],
+    ["daaadou", "curieux", 386, 0, 0],
+    ["giHefca", "curieux", 382, 0, 0],
+    ["gurb44", "curieux", 379, 0, 0],
+    ["Kiveu", "curieux", 374, 0, 0],
+    ["ZePRiNCE", "curieux", 373, 0, 0],
+    ["HumanRAGE", "curieux", 368, 0, 0],
+    ["garcia_h", "curieux", 364, 0, 0],
+    ["vave", "curieux", 363, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " questions" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des curieux <span class="alltime">all time</span> 2024 du topic des questions (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 13:18:02)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
