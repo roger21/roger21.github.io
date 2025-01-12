@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2024 du topic terrorisme islamiste (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -580 * -1;
+  }
+  if(value > 0) {
+    return value / 117;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres", "participants", 480, normalize(-580), -580],
+    ["Rasthor", "participants", 250, normalize(-23), -23],
+    ["el mirador", "participants", 181, normalize(117), 117],
+    ["4lkaline", "participants", 171, normalize(-68), -68],
+    ["freddy021", "participants", 120, normalize(25), 25],
+    ["Tammuz", "participants", 108, normalize(-69), -69],
+    ["poutrella", "participants", 107, normalize(-8), -8],
+    ["deadpool", "participants", 106, normalize(54), 54],
+    ["Maalak", "participants", 96, normalize(31), 31],
+    ["PitOnForum", "participants", 95, normalize(-38), -38],
+    ["Ernestor", "participants", 94, normalize(0), null],
+    ["Scrypt", "participants", 86, normalize(-7), -7],
+    ["0psimath", "participants", 75, normalize(53), 53],
+    ["PinkFloyd31", "participants", 74, normalize(-23), -23],
+    ["ledenez", "participants", 68, normalize(19), 19],
+    ["hfr of the dead", "participants", 60, normalize(-41), -41],
+    ["bobdumas", "participants", 58, normalize(19), 19],
+    ["SHAMSHIR", "participants", 56, normalize(47), 47],
+    ["crepator4", "participants", 54, normalize(48), 48],
+    ["fred_div91", "participants", 52, normalize(38), 38],
+    ["Space", "participants", 52, normalize(11), 11],
+    ["leeligo", "participants", 51, normalize(0), 0],
+    ["XaTriX", "participants", 50, normalize(0), null],
+    ["asu5", "participants", 48, normalize(-63), -63],
+    ["Van Winkle", "participants", 40, normalize(-51), -51],
+    ["buscape30", "participants", 36, normalize(-12), -12],
+    ["lkae", "participants", 36, normalize(0), null],
+    ["frede94", "participants", 35, normalize(-31), -31],
+    ["Born Dead", "participants", 34, normalize(25), 25],
+    ["markesz", "participants", 34, normalize(12), 12],
+    ["merise2", "participants", 34, normalize(0), null],
+    ["Jahaa_sv", "participants", 33, normalize(5), 5],
+    ["jamere20", "participants", 33, normalize(-4), -4],
+    ["Xamoth", "participants", 33, normalize(16), 16],
+    ["autocall", "participants", 32, normalize(-38), -38],
+    ["Blaq", "participants", 32, normalize(30), 30],
+    ["mrblonde03", "participants", 32, normalize(-3), -3],
+    ["babyboy4", "participants", 31, normalize(8), 8],
+    ["flash23", "participants", 30, normalize(-54), -54],
+    ["Hermes le Messager", "participants", 29, normalize(-18), -18],
+    ["OTH", "participants", 28, normalize(-14), -14],
+    ["verdoux", "participants", 28, normalize(-39), -39],
+    ["no_gods", "participants", 27, normalize(23), 23],
+    ["philibear", "participants", 27, normalize(21), 21],
+    ["Raspa", "participants", 27, normalize(19), 19],
+    ["Skopos", "participants", 27, normalize(5), 5],
+    ["John-Nada", "participants", 26, normalize(0), null],
+    ["1000Trees", "participants", 24, normalize(4), 4],
+    ["poney2014", "participants", 24, normalize(0), null],
+    ["Backbone-", "participants", 22, normalize(14), 14],
+    ["azymantiop", "participants", 21, normalize(15), 15],
+    ["zcoold", "participants", 21, normalize(17), 17],
+    ["dreamer18", "participants", 20, normalize(-6), -6],
+    ["fiscalisator", "participants", 20, normalize(13), 13],
+    ["Hector Stringer", "participants", 20, normalize(12), 12],
+    ["Kupfer", "participants", 20, normalize(-21), -21],
+    ["lokilefourbe", "participants", 20, normalize(8), 8],
+    ["Cisko", "participants", 19, normalize(16), 16],
+    ["fablin", "participants", 19, normalize(-6), -6],
+    ["Gwrach", "participants", 19, normalize(-32), -32],
+    ["kray", "participants", 19, normalize(8), 8],
+    ["racingman11", "participants", 19, normalize(14), 14],
+    ["Sticki", "participants", 19, normalize(5), 5],
+    ["Godyfou", "participants", 18, normalize(10), 10],
+    ["Gottorp", "participants", 18, normalize(-19), -19],
+    ["Hoiniel", "participants", 18, normalize(-12), -12],
+    ["LeGrandMatheux", "participants", 18, normalize(0), null],
+    ["M300A", "participants", 18, normalize(16), 16],
+    ["prokie", "participants", 18, normalize(7), 7],
+    ["Gilgamesh d'Uruk", "participants", 16, normalize(12), 12],
+    ["KillMe", "participants", 16, normalize(0), null],
+    ["Modération", "participants", 16, normalize(8), 8],
+    ["Gracchus13", "participants", 15, normalize(4), 4],
+    ["luckynick", "participants", 15, normalize(0), null],
+    ["coria974", "participants", 14, normalize(-1), -1],
+    ["hisvin", "participants", 14, normalize(-44), -44],
+    ["doum", "participants", 13, normalize(-21), -21],
+    ["iVador", "participants", 13, normalize(10), 10],
+    ["Johnny_Marrocain", "participants", 13, normalize(1), 1],
+    ["Kirk_Lee_Hammett", "participants", 13, normalize(-6), -6],
+    ["scOulOu", "participants", 13, normalize(1), 1],
+    ["valentinvtl", "participants", 13, normalize(4), 4],
+    ["Badcow", "participants", 12, normalize(0), null],
+    ["chienBlanc", "participants", 12, normalize(-10), -10],
+    ["icumblood", "participants", 12, normalize(-62), -62],
+    ["Moonzoid", "participants", 12, normalize(-4), -4],
+    ["Pere Dodu", "participants", 12, normalize(-4), -4],
+    ["Tuxerman12", "participants", 12, normalize(7), 7],
+    ["chin jo", "participants", 11, normalize(8), 8],
+    ["igo2001", "participants", 11, normalize(9), 9],
+    ["nouveau pseudo", "participants", 11, normalize(-9), -9],
+    ["petitebrunette1", "participants", 11, normalize(-39), -39],
+    ["Ticento", "participants", 11, normalize(0), null],
+    ["zdong", "participants", 11, normalize(-3), -3],
+    ["fanboy34", "participants", 10, normalize(0), null],
+    ["jonas", "participants", 10, normalize(8), 8],
+    ["Klins", "participants", 10, normalize(-11), -11],
+    ["LadySushi", "participants", 10, normalize(0), null],
+    ["t-w", "participants", 9, normalize(5), 5],
+    ["Bordel", "participants", 8, normalize(0), null],
+    ["homnibus", "participants", 8, normalize(-6), -6]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2024 du topic terrorisme islamiste (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 09:14:17)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

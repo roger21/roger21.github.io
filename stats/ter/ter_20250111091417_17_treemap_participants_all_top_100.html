@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2024 du topic terrorisme islamiste (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 132102, 0, 0],
+    ["Profil supprimé", "participants", 29011, 0, 0],
+    ["Ernestor", "participants", 5225, 0, 0],
+    ["fiscalisator", "participants", 4840, 0, 0],
+    ["Rasthor", "participants", 4772, 0, 0],
+    ["4lkaline", "participants", 4440, 0, 0],
+    ["deadpool", "participants", 4103, 0, 0],
+    ["Kiveu", "participants", 3721, 0, 0],
+    ["Hermes le Messager", "participants", 3657, 0, 0],
+    ["jamere", "participants", 3560, 0, 0],
+    ["OTH", "participants", 3462, 0, 0],
+    ["M_D_C", "participants", 3017, 0, 0],
+    ["morb", "participants", 3010, 0, 0],
+    ["carbon based", "participants", 2500, 0, 0],
+    ["Ibo_Simon", "participants", 2489, 0, 0],
+    ["el_nono_masquay", "participants", 2473, 0, 0],
+    ["Backbone-", "participants", 2456, 0, 0],
+    ["Andy Kauffman", "participants", 2383, 0, 0],
+    ["glod 2", "participants", 2368, 0, 0],
+    ["gouleyance", "participants", 2301, 0, 0],
+    ["Tammuz", "participants", 2238, 0, 0],
+    ["La Monne", "participants", 2076, 0, 0],
+    ["orodreths", "participants", 2061, 0, 0],
+    ["valentinvtl", "participants", 1971, 0, 0],
+    ["_Makaveli_", "participants", 1942, 0, 0],
+    ["yellowstone2", "participants", 1811, 0, 0],
+    ["grozibouille", "participants", 1773, 0, 0],
+    ["Kalymereau", "participants", 1765, 0, 0],
+    ["Azrail", "participants", 1718, 0, 0],
+    ["freddy021", "participants", 1663, 0, 0],
+    ["bulldozer_fusion", "participants", 1591, 0, 0],
+    ["TheBigO", "participants", 1542, 0, 0],
+    ["Olivie", "participants", 1459, 0, 0],
+    ["Ciler", "participants", 1381, 0, 0],
+    ["Dworkin", "participants", 1372, 0, 0],
+    ["totoz", "participants", 1367, 0, 0],
+    ["moggbomber", "participants", 1350, 0, 0],
+    ["_hendrix_", "participants", 1335, 0, 0],
+    ["moreweed", "participants", 1325, 0, 0],
+    ["Ainex", "participants", 1272, 0, 0],
+    ["Jahaa_sv", "participants", 1243, 0, 0],
+    ["kriloner", "participants", 1234, 0, 0],
+    ["StefSamy", "participants", 1215, 0, 0],
+    ["luckynick", "participants", 1139, 0, 0],
+    ["babyboy4", "participants", 1095, 0, 0],
+    ["Gallagh", "participants", 1088, 0, 0],
+    ["fred_div91", "participants", 1043, 0, 0],
+    ["poutrella", "participants", 1039, 0, 0],
+    ["Raskoln", "participants", 1035, 0, 0],
+    ["ticaribou", "participants", 1014, 0, 0],
+    ["MajoriteSilencieuse", "participants", 1012, 0, 0],
+    ["Kami", "participants", 986, 0, 0],
+    ["smaragdus", "participants", 981, 0, 0],
+    ["markesz", "participants", 977, 0, 0],
+    ["Jocho", "participants", 945, 0, 0],
+    ["antioch_arrow", "participants", 935, 0, 0],
+    ["frede94", "participants", 911, 0, 0],
+    ["Gazette", "participants", 898, 0, 0],
+    ["doutrisor", "participants", 876, 0, 0],
+    ["bobdumas", "participants", 869, 0, 0],
+    ["Trifon_Ivanov", "participants", 866, 0, 0],
+    ["prokie", "participants", 851, 0, 0],
+    ["Theomede", "participants", 851, 0, 0],
+    ["zemops", "participants", 817, 0, 0],
+    ["hfr of the dead", "participants", 808, 0, 0],
+    ["PitOnForum", "participants", 808, 0, 0],
+    ["baggers", "participants", 802, 0, 0],
+    ["Spaune", "participants", 784, 0, 0],
+    ["Yems93", "participants", 781, 0, 0],
+    ["uxam", "participants", 776, 0, 0],
+    ["maurice chevallier", "participants", 773, 0, 0],
+    ["Shia Leboeuf", "participants", 761, 0, 0],
+    ["ElPedro", "participants", 756, 0, 0],
+    ["flemmingite", "participants", 744, 0, 0],
+    ["Ali-Pacha", "participants", 733, 0, 0],
+    ["buscape30", "participants", 732, 0, 0],
+    ["LardonCru", "participants", 731, 0, 0],
+    ["Maouuu", "participants", 731, 0, 0],
+    ["Amaniak", "participants", 728, 0, 0],
+    ["lokilefourbe", "participants", 716, 0, 0],
+    ["verseb", "participants", 714, 0, 0],
+    ["Scrypt", "participants", 706, 0, 0],
+    ["leraturbain", "participants", 705, 0, 0],
+    ["macgawel", "participants", 702, 0, 0],
+    ["Bitman", "participants", 701, 0, 0],
+    ["Van Winkle", "participants", 701, 0, 0],
+    ["DREAListe", "participants", 698, 0, 0],
+    ["roller and scratcher", "participants", 688, 0, 0],
+    ["le zombie", "participants", 685, 0, 0],
+    ["weemanbe", "participants", 682, 0, 0],
+    ["hyenal1", "participants", 678, 0, 0],
+    ["Jambier", "participants", 675, 0, 0],
+    ["hisvin", "participants", 673, 0, 0],
+    ["punchnow0", "participants", 673, 0, 0],
+    ["Blaq", "participants", 670, 0, 0],
+    ["super_pourri", "participants", 670, 0, 0],
+    ["cyd125", "participants", 668, 0, 0],
+    ["lycoctonum", "participants", 668, 0, 0],
+    ["symaski62", "participants", 656, 0, 0],
+    ["racingman11", "participants", 655, 0, 0],
+    ["Hunters", "participants", 644, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2024 du topic terrorisme islamiste (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 09:14:17)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
