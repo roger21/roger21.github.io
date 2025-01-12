@@ -31,6 +31,10 @@ div.section > b{
   align-self:flex-start;
   font-weight:bold;
 }
+div.section.highlight > b{
+  background-color:#ffe0ff;
+  outline:5px solid #ffe0ff;
+}
 div.stats > div.section > b{
   margin:20px 30px;
 }
