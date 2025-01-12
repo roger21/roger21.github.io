@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2024 du topic Luxembourg (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -559 * -1;
+  }
+  if(value > 0) {
+    return value / 37;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Profil supprimé", "participants", 269, normalize(-559), -559],
+    ["Flaie", "participants", 169, normalize(-153), -153],
+    ["glandoll", "participants", 144, normalize(-128), -128],
+    ["eclaireur", "participants", 143, normalize(-70), -70],
+    ["-luxboy-", "participants", 122, normalize(37), 37],
+    ["galaxnordist", "participants", 96, normalize(-78), -78],
+    ["ynorsa", "participants", 73, normalize(-49), -49],
+    ["Luckan", "participants", 70, normalize(-28), -28],
+    ["Iv4ndi", "participants", 68, normalize(-94), -94],
+    ["didier1809", "participants", 52, normalize(-145), -145],
+    ["R-jac", "participants", 44, normalize(-17), -17],
+    ["dante2002", "participants", 39, normalize(-30), -30],
+    ["Raiisin", "participants", 34, normalize(-46), -46],
+    ["Hortense", "participants", 31, normalize(-17), -17],
+    ["M300A", "participants", 29, normalize(-59), -59],
+    ["Schoumy_", "participants", 27, normalize(-56), -56],
+    ["lailaire", "participants", 26, normalize(0), null],
+    ["Roude Leiw", "participants", 26, normalize(13), 13],
+    ["Iryngael", "participants", 20, normalize(-41), -41],
+    ["MycRub", "participants", 18, normalize(-3), -3],
+    ["SplitForm", "participants", 17, normalize(-10), -10],
+    ["aljazeera", "participants", 14, normalize(12), 12],
+    ["jest13", "participants", 14, normalize(-6), -6],
+    ["Leskipper", "participants", 14, normalize(-41), -41],
+    ["Slay", "participants", 14, normalize(-5), -5],
+    ["maaah", "participants", 13, normalize(-6), -6],
+    ["simchevelu", "participants", 13, normalize(-5), -5],
+    ["malo62", "participants", 11, normalize(-56), -56],
+    ["darkangel", "participants", 9, normalize(-12), -12],
+    ["latruffe", "participants", 8, normalize(-2), -2],
+    ["pegazus", "participants", 8, normalize(5), 5],
+    ["big e", "participants", 7, normalize(-11), -11],
+    ["llobregat", "participants", 7, normalize(0), null],
+    ["mealin", "participants", 7, normalize(0), 0],
+    ["hfrfc", "participants", 6, normalize(-9), -9],
+    ["neosly", "participants", 6, normalize(-3), -3],
+    ["thekilgore", "participants", 6, normalize(-4), -4],
+    ["dk3nt", "participants", 4, normalize(-31), -31],
+    ["rupteursortiedepeage", "participants", 4, normalize(0), null],
+    ["mickalux", "participants", 3, normalize(0), null],
+    ["playinhood", "participants", 3, normalize(0), null],
+    ["erness", "participants", 2, normalize(1), 1],
+    ["Bagdarion", "participants", 1, normalize(-2), -2],
+    ["Caamasi", "participants", 1, normalize(0), 0],
+    ["fan-tomass", "participants", 1, normalize(0), null],
+    ["rewe", "participants", 1, normalize(0), null],
+    ["SashaG", "participants", 1, normalize(0), null],
+    ["speedboyz30", "participants", 1, normalize(0), null],
+    ["tomatux", "participants", 1, normalize(0), 0],
+    ["Uhustick", "participants", 1, normalize(-2), -2]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2024 du topic Luxembourg (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 08:42:06)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
