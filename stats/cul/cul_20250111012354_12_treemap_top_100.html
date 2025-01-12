@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap 2024 du topic culture générale (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -1241 * -1;
+  }
+  if(value > 0) {
+    return value / 615;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posts");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["Mercius", "posteurs", 2157, normalize(-533), -533],
+    ["mxpx", "posteurs", 1340, normalize(-1241), -1241],
+    ["Gottorp", "posteurs", 1225, normalize(0), 0],
+    ["PierrotLeDingue", "posteurs", 1179, normalize(-175), -175],
+    ["Profil supprimé", "posteurs", 1133, normalize(48), 48],
+    ["XaTriX", "posteurs", 1121, normalize(-501), -501],
+    ["-Sarah-", "posteurs", 817, normalize(615), 615],
+    ["Raistlin Majere", "posteurs", 788, normalize(167), 167],
+    ["Bob The Builder", "posteurs", 751, normalize(519), 519],
+    ["senide", "posteurs", 643, normalize(420), 420],
+    ["Hegemonie", "posteurs", 636, normalize(-122), -122],
+    ["roger21", "posteurs", 526, normalize(-8), -8],
+    ["SHAMSHIR", "posteurs", 499, normalize(186), 186],
+    ["sire de Botcor", "posteurs", 434, normalize(-87), -87],
+    ["ledauphinois", "posteurs", 419, normalize(418), 418],
+    ["santiago10", "posteurs", 414, normalize(253), 253],
+    ["athanor-paris", "posteurs", 412, normalize(208), 208],
+    ["gilou", "posteurs", 344, normalize(72), 72],
+    ["macgawel", "posteurs", 339, normalize(277), 277],
+    ["barnabe", "posteurs", 309, normalize(0), null],
+    ["qwazer", "posteurs", 293, normalize(-141), -141],
+    ["Jaxom31", "posteurs", 239, normalize(-125), -125],
+    ["babylone83", "posteurs", 215, normalize(-49), -49],
+    ["billgatesanonym", "posteurs", 214, normalize(0), null],
+    ["Eifersucht91", "posteurs", 211, normalize(-39), -39],
+    ["philibear", "posteurs", 203, normalize(-110), -110],
+    ["ganfoud", "posteurs", 195, normalize(-18), -18],
+    ["Lagloye", "posteurs", 191, normalize(140), 140],
+    ["mlon", "posteurs", 165, normalize(0), null],
+    ["toum_toum", "posteurs", 162, normalize(-297), -297],
+    ["pilou92", "posteurs", 152, normalize(63), 63],
+    ["louchinho", "posteurs", 140, normalize(-83), -83],
+    ["Pims_UTT", "posteurs", 119, normalize(0), 0],
+    ["dSlaM", "posteurs", 116, normalize(106), 106],
+    ["rafioul2", "posteurs", 108, normalize(-71), -71],
+    ["k_raf", "posteurs", 93, normalize(-34), -34],
+    ["Tillow", "posteurs", 75, normalize(0), null],
+    ["antipognon", "posteurs", 64, normalize(63), 63],
+    ["seianec", "posteurs", 47, normalize(0), null],
+    ["TMadMac", "posteurs", 40, normalize(0), null],
+    ["Parrapa", "posteurs", 37, normalize(0), null],
+    ["cisco1", "posteurs", 36, normalize(-241), -241],
+    ["fret6", "posteurs", 32, normalize(0), null],
+    ["Lazarock", "posteurs", 32, normalize(0), null],
+    ["virvs", "posteurs", 31, normalize(0), null],
+    ["DixHuitHeures10", "posteurs", 28, normalize(0), null],
+    ["stefaninho", "posteurs", 28, normalize(0), null],
+    ["Dworkin", "posteurs", 24, normalize(-53), -53],
+    ["TheCreator", "posteurs", 22, normalize(-186), -186],
+    ["super_pourri", "posteurs", 19, normalize(-262), -262],
+    ["alcyanel", "posteurs", 18, normalize(0), null],
+    ["azymantiop", "posteurs", 18, normalize(15), 15],
+    ["gagaches", "posteurs", 18, normalize(0), null],
+    ["Critias", "posteurs", 17, normalize(0), null],
+    ["FordPrefect", "posteurs", 17, normalize(-40), -40],
+    ["Aardpeer", "posteurs", 16, normalize(-343), -343],
+    ["aurichalque", "posteurs", 16, normalize(-32), -32],
+    ["lerizdeben", "posteurs", 14, normalize(0), null],
+    ["Daphne", "posteurs", 13, normalize(-190), -190],
+    ["Lak", "posteurs", 11, normalize(0), null],
+    ["Shooter", "posteurs", 11, normalize(9), 9],
+    ["Bresse", "posteurs", 10, normalize(0), null],
+    ["meuniere", "posteurs", 10, normalize(-30), -30],
+    ["Pascalo974", "posteurs", 10, normalize(-55), -55],
+    ["sadlig", "posteurs", 10, normalize(0), null],
+    ["Dolores", "posteurs", 8, normalize(-146), -146],
+    ["karaya", "posteurs", 7, normalize(-30), -30],
+    ["Bensai", "posteurs", 6, normalize(0), null],
+    ["Gorby le porc", "posteurs", 6, normalize(0), null],
+    ["Wolfman", "posteurs", 6, normalize(0), null],
+    ["valentinvtl", "posteurs", 5, normalize(0), null],
+    ["jimbofarrar", "posteurs", 4, normalize(2), 2],
+    ["Karopockle", "posteurs", 4, normalize(0), null],
+    ["crougnagna", "posteurs", 3, normalize(-2), -2],
+    ["Gnarfou", "posteurs", 3, normalize(0), null],
+    ["pistache52", "posteurs", 3, normalize(0), null],
+    ["tinkywinky", "posteurs", 3, normalize(0), null],
+    ["tous les autres", "posteurs", 3, normalize(-3), -3],
+    ["andhar", "posteurs", 2, normalize(-146), -146],
+    ["chaisedejardin", "posteurs", 2, normalize(-8), -8],
+    ["cultofthedeadcow", "posteurs", 2, normalize(0), null],
+    ["Homerde", "posteurs", 2, normalize(0), null],
+    ["La classe @ dallas", "posteurs", 2, normalize(0), null],
+    ["Micmax", "posteurs", 2, normalize(0), null],
+    ["ouloulou", "posteurs", 2, normalize(0), null],
+    ["Ryo-Ohki", "posteurs", 2, normalize(0), null],
+    ["Abnormal Termination", "posteurs", 1, normalize(0), null],
+    ["AntoineT29", "posteurs", 1, normalize(0), null],
+    ["Arkin", "posteurs", 1, normalize(-1), -1],
+    ["aRWaM", "posteurs", 1, normalize(0), null],
+    ["coyote28", "posteurs", 1, normalize(0), null],
+    ["Floom", "posteurs", 1, normalize(0), null],
+    ["franswa202", "posteurs", 1, normalize(-140), -140],
+    ["Herbert de Vaucanson", "posteurs", 1, normalize(0), null],
+    ["labul67", "posteurs", 1, normalize(-1), -1],
+    ["ledenez", "posteurs", 1, normalize(-23), -23],
+    ["Lobster", "posteurs", 1, normalize(-11), -11],
+    ["Lugz", "posteurs", 1, normalize(0), 0],
+    ["minouz12", "posteurs", 1, normalize(-16), -16],
+    ["Modération", "posteurs", 1, normalize(0), 0],
+    ["_probleme_", "posteurs", 1, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap 2024 du topic culture générale (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 01:23:54)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

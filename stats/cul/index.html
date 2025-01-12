@@ -6,10 +6,105 @@
   <title>cul</title>
   <link rel="stylesheet" href="style.css" type="text/css">
   <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
 </head>
 <body>
   <h1 class="title">Stats Du Topic Culture Générale</h1>
   <div class="index">
+    <div class="section" id="20250111012354">
+      <b><a class="permalink" href="#20250111012354">samedi 11 janvier 2025 à 01:23:54</a></b>
+      <span>1 192 participants / 633 375 posts / 30 800 questions / 22 022 laurekas / 19 posts roses</span>
+      <a class="graph" href="cul_20250111012354_01_activite_all_year.html">
+        activité all time 2024 par an
+      </a>
+      <a class="graph" href="cul_20250111012354_02_activite_all_month.html">
+        activité all time 2024 par mois
+      </a>
+      <a class="graph" href="cul_20250111012354_03_activite_all_week.html">
+        activité all time 2024 par semaine
+      </a>
+      <a class="graph" href="cul_20250111012354_04_activite_month.html">
+        activité 2024 par mois
+      </a>
+      <a class="graph" href="cul_20250111012354_05_activite_week.html">
+        activité 2024 par semaine
+      </a>
+      <a class="table" href="cul_20250111012354_06_classement_top_100.html">
+        classement 2024 (top 100)
+      </a>
+      <a class="table" href="cul_20250111012354_07_classement_sortants.html">
+        classement sortants 2024 (40)
+      </a>
+      <a class="table" href="cul_20250111012354_08_classement_all_top_500.html">
+        classement all time 2024 (top 500)
+      </a>
+      <a class="table" href="cul_20250111012354_09_babylones_mayrde.html">
+        babylones de mayrde 2024 (118)
+      </a>
+      <a class="graph" href="cul_20250111012354_g5_babylones_mayrde.svg">
+        babylones de mayrde all time 2024
+      </a>
+      <a class="table" href="cul_20250111012354_10_participants_mensuel_top_100.html">
+        participants mensuel 2024 (top 100)
+      </a>
+      <a class="table" href="cul_20250111012354_11_participants_annuel_all_top_100.html">
+        participants annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="cul_20250111012354_12_treemap_top_100.html">
+        treemap 2024 (top 100)
+      </a>
+      <a class="graph" href="cul_20250111012354_13_treemap_all_top_100.html">
+        treemap all time 2024 (top 100)
+      </a>
+      <a class="table" href="cul_20250111012354_14_posts_quotes_top_100.html">
+        posts les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="cul_20250111012354_15_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="table" href="cul_20250111012354_16_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="cul_20250111012354_17_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2024 (28)
+      </a>
+      <a class="table" href="cul_20250111012354_18_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="graph" href="cul_20250111012354_g1_counts_all.svg">
+        nombre de posts et de participants all time 2024
+      </a>
+      <a class="graph" href="cul_20250111012354_g2_evol_all.svg">
+        évolution du nombre de participants all time 2024
+      </a>
+      <a class="graph" href="cul_20250111012354_g3_course_image.svg">
+        course à l'image 2024<!-- ' -->
+      </a>
+      <a class="graph" href="cul_20250111012354_g4_course_image_zoom.svg">
+        course à l'image zoomé 2024<!-- ' -->
+      </a>
+    </div>
     <div class="section" id="20240104031752">
       <b><a class="permalink" href="#20240104031752">jeudi 4 janvier 2024 à 03:17:52</a></b>
       <span>1 178 participants / 614 262 posts / 29 723 questions / 21 107 laurekas / 18 posts roses</span>
