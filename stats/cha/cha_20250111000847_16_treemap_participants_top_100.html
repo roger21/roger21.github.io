@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2024 du topic Charlie Hebdo (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -11 * -1;
+  }
+  if(value > 0) {
+    return value / 13;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["OTH", "participants", 54, normalize(13), 13],
+    ["brown paper bag", "participants", 18, normalize(3), 3],
+    ["bellemousse", "participants", 10, normalize(-6), -6],
+    ["dj pone", "participants", 8, normalize(5), 5],
+    ["Tammuz", "participants", 6, normalize(-11), -11],
+    ["asu5", "participants", 5, normalize(-3), -3],
+    ["Kiveu", "participants", 5, normalize(1), 1],
+    ["LeGrandMatheux", "participants", 5, normalize(0), null],
+    ["everso", "participants", 4, normalize(3), 3],
+    ["icumblood", "participants", 4, normalize(-10), -10],
+    ["verdoux", "participants", 4, normalize(2), 2],
+    ["buscape30", "participants", 3, normalize(2), 2],
+    ["joams", "participants", 3, normalize(-1), -1],
+    ["maurice chevallier", "participants", 3, normalize(2), 2],
+    ["senide", "participants", 3, normalize(0), null],
+    ["Till Lindemann", "participants", 3, normalize(0), 0],
+    ["yngwie", "participants", 3, normalize(2), 2],
+    ["basketor63", "participants", 2, normalize(0), null],
+    ["Coroners", "participants", 2, normalize(-11), -11],
+    ["Gwrach", "participants", 2, normalize(-4), -4],
+    ["markesz", "participants", 2, normalize(0), null],
+    ["Space", "participants", 2, normalize(0), null],
+    ["Ticento", "participants", 2, normalize(0), null],
+    ["[Toine]", "participants", 2, normalize(0), 0],
+    ["zcoold", "participants", 2, normalize(0), null],
+    ["cashless", "participants", 1, normalize(0), null],
+    ["Cuistot", "participants", 1, normalize(-1), -1],
+    ["Cygne_d_Etang", "participants", 1, normalize(0), 0],
+    ["D_omi", "participants", 1, normalize(0), null],
+    ["doutrisor", "participants", 1, normalize(0), null],
+    ["fougnac", "participants", 1, normalize(-1), -1],
+    ["frede94", "participants", 1, normalize(-1), -1],
+    ["Garfield74", "participants", 1, normalize(0), null],
+    ["Gilgamesh d'Uruk", "participants", 1, normalize(0), null],
+    ["jamere20", "participants", 1, normalize(0), null],
+    ["LePcFou", "participants", 1, normalize(-3), -3],
+    ["Maouuu", "participants", 1, normalize(0), null],
+    ["mirtouf", "participants", 1, normalize(0), 0],
+    ["Scoinscoin", "participants", 1, normalize(0), 0],
+    ["Shane Hannigan", "participants", 1, normalize(0), null],
+    ["Xamoth", "participants", 1, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2024 du topic Charlie Hebdo (top 100)</h1>
+  <h3>(données collectées le samedi 11 janvier 2025 à 00:08:47)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
