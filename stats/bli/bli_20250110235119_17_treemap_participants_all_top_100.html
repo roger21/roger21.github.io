@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2024 du topic blind test (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["mikekine", "participants", 32728, 0, 0],
+    ["tous les autres all time", "participants", 27830, 0, 0],
+    ["petitebrunette1", "participants", 19569, 0, 0],
+    ["Ahkayaqua", "participants", 11525, 0, 0],
+    ["lechewal", "participants", 11106, 0, 0],
+    ["RandallBoggs", "participants", 10567, 0, 0],
+    ["demars", "participants", 9173, 0, 0],
+    ["captain gouyou", "participants", 9068, 0, 0],
+    ["Arbil", "participants", 7785, 0, 0],
+    ["Profil supprimé", "participants", 7403, 0, 0],
+    ["nicky78", "participants", 6527, 0, 0],
+    ["Transparency", "participants", 6241, 0, 0],
+    ["cHacAL31", "participants", 5850, 0, 0],
+    ["laureka", "participants", 5399, 0, 0],
+    ["Sooshi", "participants", 5294, 0, 0],
+    ["AKA44", "participants", 4987, 0, 0],
+    ["Bobby B", "participants", 4908, 0, 0],
+    ["kaymi", "participants", 4896, 0, 0],
+    ["elessar53", "participants", 4489, 0, 0],
+    ["Venegan", "participants", 4452, 0, 0],
+    ["Grobert", "participants", 4349, 0, 0],
+    ["Apo_Isis", "participants", 4224, 0, 0],
+    ["mimipunkchou", "participants", 3795, 0, 0],
+    ["toum_toum", "participants", 3672, 0, 0],
+    ["angellus2", "participants", 3432, 0, 0],
+    ["Pykchnetz", "participants", 3196, 0, 0],
+    ["austin24100", "participants", 3112, 0, 0],
+    ["roger21", "participants", 3010, 0, 0],
+    ["Lhooq", "participants", 2964, 0, 0],
+    ["theredled", "participants", 2843, 0, 0],
+    ["djlemon", "participants", 2815, 0, 0],
+    ["Talen", "participants", 2795, 0, 0],
+    ["bgx", "participants", 2699, 0, 0],
+    ["Jean-Kevain", "participants", 2312, 0, 0],
+    ["RaoulDussentier", "participants", 2167, 0, 0],
+    ["Jered Weird", "participants", 2038, 0, 0],
+    ["Cutter", "participants", 1935, 0, 0],
+    ["Fading", "participants", 1930, 0, 0],
+    ["l0ser", "participants", 1826, 0, 0],
+    ["FordPrefect", "participants", 1811, 0, 0],
+    ["custard", "participants", 1796, 0, 0],
+    ["hans zimmer", "participants", 1675, 0, 0],
+    ["vethalyn", "participants", 1621, 0, 0],
+    ["Panchounet", "participants", 1584, 0, 0],
+    ["misato", "participants", 1548, 0, 0],
+    ["metalyogi", "participants", 1538, 0, 0],
+    ["duc-leto", "participants", 1521, 0, 0],
+    ["Arkin", "participants", 1506, 0, 0],
+    ["Cr@po", "participants", 1484, 0, 0],
+    ["Trefledepique_W", "participants", 1480, 0, 0],
+    ["yoirgl", "participants", 1479, 0, 0],
+    ["Infection dentaire", "participants", 1469, 0, 0],
+    ["gm_superstar", "participants", 1444, 0, 0],
+    ["skeye", "participants", 1407, 0, 0],
+    ["subtray", "participants", 1395, 0, 0],
+    ["fading33", "participants", 1285, 0, 0],
+    ["zero is enough", "participants", 1281, 0, 0],
+    ["m0zart", "participants", 1212, 0, 0],
+    ["loute_93", "participants", 1202, 0, 0],
+    ["gilou", "participants", 1151, 0, 0],
+    ["tinkywinky", "participants", 1148, 0, 0],
+    ["CharlesT", "participants", 1139, 0, 0],
+    ["poussi", "participants", 1116, 0, 0],
+    ["the prisoner", "participants", 1116, 0, 0],
+    ["Lucy'", "participants", 1115, 0, 0],
+    ["jerome38", "participants", 1086, 0, 0],
+    ["Hafrexx", "participants", 1077, 0, 0],
+    ["Timoonn", "participants", 1074, 0, 0],
+    ["virvs", "participants", 1051, 0, 0],
+    ["APABA", "participants", 871, 0, 0],
+    ["jpcheck", "participants", 868, 0, 0],
+    ["Casper87", "participants", 865, 0, 0],
+    ["KoRni", "participants", 847, 0, 0],
+    ["Roland de Gilead", "participants", 806, 0, 0],
+    ["vapeur_cochonne", "participants", 805, 0, 0],
+    ["elwood_be", "participants", 797, 0, 0],
+    ["qisope", "participants", 779, 0, 0],
+    ["krusty le clown", "participants", 758, 0, 0],
+    ["Fred999", "participants", 716, 0, 0],
+    ["Morgan35", "participants", 692, 0, 0],
+    ["Reyko", "participants", 675, 0, 0],
+    ["DeathMask", "participants", 669, 0, 0],
+    ["Lam's", "participants", 633, 0, 0],
+    ["maitreprunille", "participants", 623, 0, 0],
+    ["oizoman", "participants", 615, 0, 0],
+    ["Filip J Fry", "participants", 609, 0, 0],
+    ["kim__", "participants", 599, 0, 0],
+    ["sofasong", "participants", 593, 0, 0],
+    ["Commodus", "participants", 588, 0, 0],
+    ["vandit", "participants", 571, 0, 0],
+    ["Nono", "participants", 560, 0, 0],
+    ["ororuK", "participants", 556, 0, 0],
+    ["kalagan64", "participants", 546, 0, 0],
+    ["RapscalliOn", "participants", 529, 0, 0],
+    ["Ramasse-Miettes", "participants", 523, 0, 0],
+    ["Frank_Jeager", "participants", 522, 0, 0],
+    ["moquette", "participants", 500, 0, 0],
+    ["KapweT", "participants", 490, 0, 0],
+    ["romualdzzz", "participants", 487, 0, 0],
+    ["asterios polyp", "participants", 480, 0, 0],
+    ["Mellodya", "participants", 472, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2024 du topic blind test (top 100)</h1>
+  <h3>(données collectées le vendredi 10 janvier 2025 à 23:51:19)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
