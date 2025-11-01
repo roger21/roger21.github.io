@@ -31,12 +31,16 @@ div.index > b{
   font-weight:bold;
 }
 div.index > b.highlight{
-  background-color:#ffe0ff;
-  outline:5px solid #ffe0ff;
+  background-color:#d7ffe7;
+  outline:5px solid #d7ffe7;
 }
 div.index > span{
   display:block;
   margin:5px 30px 10px;
+}
+div.index > span > span.inactive{
+	background-color:#ffd7e7;
+	padding:0 4px 2px;
 }
 div.index > a,
 div.index > div.a{
