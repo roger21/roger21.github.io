@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>lfi</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
+</head>
+<body>
+  <h1 class="title">Stats Du Topic LFI</h1>
+  <div class="index">
+    <div class="section" id="20251107141923">
+      <b><a class="permalink" href="#20251107141923">vendredi 7 novembre 2025 à 14:19:23</a></b>
+      <span>1 985 participants / 512 393 posts / 312 292 smileys / 849 posts roses</span>
+      <a class="graph" href="lfi_20251107141923_01_activite_all_year.html">
+        activité all time 2024 par an
+      </a>
+      <a class="graph" href="lfi_20251107141923_02_activite_all_month.html">
+        activité all time 2024 par mois
+      </a>
+      <a class="graph" href="lfi_20251107141923_03_activite_all_week.html">
+        activité all time 2024 par semaine
+      </a>
+      <a class="graph" href="lfi_20251107141923_04_activite_month.html">
+        activité 2024 par mois
+      </a>
+      <a class="graph" href="lfi_20251107141923_05_activite_week.html">
+        activité 2024 par semaine
+      </a>
+      <a class="table" href="lfi_20251107141923_11_participants_top_100.html">
+        participants 2024 (top 100)
+      </a>
+      <a class="table" href="lfi_20251107141923_12_participants_sortants.html">
+        participants sortants 2024 (31)
+      </a>
+      <a class="table" href="lfi_20251107141923_13_participants_all_top_500.html">
+        participants all time 2024 (top 500)
+      </a>
+      <a class="table" href="lfi_20251107141923_14_participants_mensuel_top_100.html">
+        participants mensuel 2024 (top 100)
+      </a>
+      <a class="table" href="lfi_20251107141923_15_participants_annuel_all_top_100.html">
+        participants annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="lfi_20251107141923_16_treemap_participants_top_100.html">
+        treemap participants 2024 (top 100)
+      </a>
+      <a class="graph" href="lfi_20251107141923_17_treemap_participants_all_top_100.html">
+        treemap participants all time 2024 (top 100)
+      </a>
+      <a class="table" href="lfi_20251107141923_21_smileys_top_100.html">
+        smileys 2024 (top 100)
+      </a>
+      <a class="table" href="lfi_20251107141923_22_smileys_sortants.html">
+        smileys sortants 2024 (27)
+      </a>
+      <a class="table" href="lfi_20251107141923_23_smileys_all_top_500.html">
+        smileys all time 2024 (top 500)
+      </a>
+      <a class="table" href="lfi_20251107141923_24_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="lfi_20251107141923_25_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2024 (top 50)
+      </a>
+      <a class="table" href="lfi_20251107141923_31_posts_quotes_top_100.html">
+        posts les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="lfi_20251107141923_32_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="table" href="lfi_20251107141923_33_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="lfi_20251107141923_34_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2024 (34)
+      </a>
+      <a class="table" href="lfi_20251107141923_35_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="graph" href="lfi_20251107141923_g1_counts_all.svg">
+        nombre de posts et de participants all time 2024
+      </a>
+      <a class="graph" href="lfi_20251107141923_g2_evol_all.svg">
+        évolution du nombre de participants all time 2024
+      </a>
+    </div>
+  </div>
+</body>
+</html>
