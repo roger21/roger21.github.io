@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2024 du topic du Rassemblement national (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 77411, 0, 0],
+    ["Profil supprimé", "participants", 25150, 0, 0],
+    ["Ibo_Simon", "participants", 14558, 0, 0],
+    ["LooSHA", "participants", 8939, 0, 0],
+    ["Gottorp", "participants", 8058, 0, 0],
+    ["andhar", "participants", 8054, 0, 0],
+    ["Rasthor", "participants", 7143, 0, 0],
+    ["La Monne", "participants", 5802, 0, 0],
+    ["morb", "participants", 5513, 0, 0],
+    ["Backbone-", "participants", 4180, 0, 0],
+    ["taliesin74", "participants", 4125, 0, 0],
+    ["Jakes", "participants", 3380, 0, 0],
+    ["DooMIII", "participants", 3333, 0, 0],
+    ["doum", "participants", 3020, 0, 0],
+    ["Petit Frelon", "participants", 2976, 0, 0],
+    ["serina", "participants", 2906, 0, 0],
+    ["bobdumas", "participants", 2658, 0, 0],
+    ["fiscalisator", "participants", 2576, 0, 0],
+    ["grozibouille", "participants", 2502, 0, 0],
+    ["alien64", "participants", 2476, 0, 0],
+    ["p'tet'ben", "participants", 2355, 0, 0],
+    ["Ernestor", "participants", 2074, 0, 0],
+    ["Ciler", "participants", 2020, 0, 0],
+    ["lxl ihsahn lxl", "participants", 1930, 0, 0],
+    ["broddok27", "participants", 1893, 0, 0],
+    ["Serpico7", "participants", 1870, 0, 0],
+    ["jamere", "participants", 1852, 0, 0],
+    ["kami", "participants", 1742, 0, 0],
+    ["helicon2", "participants", 1663, 0, 0],
+    ["Zzozo", "participants", 1646, 0, 0],
+    ["maouuu", "participants", 1469, 0, 0],
+    ["Ednolgroz", "participants", 1379, 0, 0],
+    ["Kromsson", "participants", 1373, 0, 0],
+    ["moreweed", "participants", 1321, 0, 0],
+    ["Rhadamenthos", "participants", 1290, 0, 0],
+    ["Nikechow", "participants", 1283, 0, 0],
+    ["edwoud", "participants", 1242, 0, 0],
+    ["xjoker", "participants", 1220, 0, 0],
+    ["luckynick", "participants", 1214, 0, 0],
+    ["El Dood", "participants", 1185, 0, 0],
+    ["Van Winkle", "participants", 1169, 0, 0],
+    ["Cizia", "participants", 1159, 0, 0],
+    ["corsicapersempre", "participants", 1111, 0, 0],
+    ["Equipments", "participants", 1059, 0, 0],
+    ["sillage276", "participants", 1056, 0, 0],
+    ["sidela", "participants", 1046, 0, 0],
+    ["Moundir", "participants", 1025, 0, 0],
+    ["Jaune_Pipi", "participants", 987, 0, 0],
+    ["ozidivision", "participants", 978, 0, 0],
+    ["Sebmbalo", "participants", 962, 0, 0],
+    ["Andy Kauffman", "participants", 940, 0, 0],
+    ["fire in the hole !!!", "participants", 930, 0, 0],
+    ["-id-", "participants", 926, 0, 0],
+    ["mixoumix", "participants", 926, 0, 0],
+    ["silkr", "participants", 908, 0, 0],
+    ["fookooflakman", "participants", 905, 0, 0],
+    ["dedouille29", "participants", 900, 0, 0],
+    ["ledenez", "participants", 882, 0, 0],
+    ["basketor63", "participants", 869, 0, 0],
+    ["BoR", "participants", 865, 0, 0],
+    ["snakesolid2", "participants", 859, 0, 0],
+    ["disanthus", "participants", 847, 0, 0],
+    ["Xamoth", "participants", 847, 0, 0],
+    ["saLutat1ons", "participants", 831, 0, 0],
+    ["antipognon", "participants", 802, 0, 0],
+    ["Zguvus", "participants", 790, 0, 0],
+    ["Terminatux", "participants", 789, 0, 0],
+    ["W0r1dIndu5tri35", "participants", 789, 0, 0],
+    ["markesz", "participants", 786, 0, 0],
+    ["la lampe", "participants", 784, 0, 0],
+    ["valentinvtl", "participants", 736, 0, 0],
+    ["navidad", "participants", 712, 0, 0],
+    ["medmhand", "participants", 710, 0, 0],
+    ["dresdd", "participants", 703, 0, 0],
+    ["la question", "participants", 660, 0, 0],
+    ["doublebeurre", "participants", 650, 0, 0],
+    ["zyx", "participants", 637, 0, 0],
+    ["Modération", "participants", 618, 0, 0],
+    ["Bordel", "participants", 610, 0, 0],
+    ["Cuistot", "participants", 589, 0, 0],
+    ["asmomo", "participants", 583, 0, 0],
+    ["djboulette", "participants", 574, 0, 0],
+    ["Impacilla Carpisung", "participants", 569, 0, 0],
+    ["buscape30", "participants", 565, 0, 0],
+    ["Yagmoth", "participants", 560, 0, 0],
+    ["gira", "participants", 559, 0, 0],
+    ["korrigan73", "participants", 555, 0, 0],
+    ["januari", "participants", 540, 0, 0],
+    ["Kayune", "participants", 528, 0, 0],
+    ["pcfal", "participants", 526, 0, 0],
+    ["lumpen", "participants", 514, 0, 0],
+    ["voor0ck", "participants", 509, 0, 0],
+    ["Empificator", "participants", 508, 0, 0],
+    ["TheMiz", "participants", 504, 0, 0],
+    ["boblion", "participants", 495, 0, 0],
+    ["Spaune", "participants", 479, 0, 0],
+    ["roller and scratcher", "participants", 468, 0, 0],
+    ["michel 1664", "participants", 457, 0, 0],
+    ["Gerbille Putrefiee", "participants", 452, 0, 0],
+    ["_hendrix_", "participants", 451, 0, 0],
+    ["lecharcutierdelinux", "participants", 446, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2024 du topic du Rassemblement national (top 100)</h1>
+  <h3>(données collectées le dimanche 9 novembre 2025 à 10:33:34)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
