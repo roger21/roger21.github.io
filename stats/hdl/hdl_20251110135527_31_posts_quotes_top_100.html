@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>Les posts les plus quotés 2024 du topic Henry de Lesquen (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="sorter.js"></script>
+  <script type="text/javascript">
+    var sortBy=fdTableSort.sortNumeric;
+    function sortByPrepareData(td, innerText){
+      return td.getAttribute("sortby");
+    }
+    window.addEventListener("load", function(){
+      var th0=document.querySelector("th:nth-child(6) > span:nth-child(1)");
+      th0.innerHTML="posts<br>en 2024";
+      document.body.classList.remove("loading");
+    }, false);
+  </script>
+</head>
+<body class="loading">
+  <div class="wait"><div class="loading">chargement...</div><div class="sort-active">tri en cours...</div></div>
+  <div class="table">
+    <h1>Les posts les plus quotés 2024 du topic Henry de Lesquen (top 100)</h1>
+    <h3>(données collectées le lundi 10 novembre 2025 à 13:55:27)</h3>
+    <table class="sortable-onload-show-0 rowstyle-data2 sort">
+      <tr>
+        <th class="sortable-sortBy small">rang</th>
+        <th class="sortable-sortBy">post</th>
+        <th class="sortable-sortBy small">quotes</th>
+        <th class="sortable-sortBy">date</th>
+        <th class="sortable-sortBy">pseudal</th>
+        <th class="sortable-sortBy small">posts<br>en 2024</th>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
