@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2024 du topic du Mouvement démocrate (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 14344, 0, 0],
+    ["Profil supprimé", "participants", 3812, 0, 0],
+    ["hephaestos", "participants", 1999, 0, 0],
+    ["Oxygen3", "participants", 1946, 0, 0],
+    ["tranceorbitale", "participants", 1595, 0, 0],
+    ["corsicapersempre", "participants", 1565, 0, 0],
+    ["klougist", "participants", 1559, 0, 0],
+    ["Glouba Caramba", "participants", 1094, 0, 0],
+    ["freeza01", "participants", 1043, 0, 0],
+    ["captain gouyou", "participants", 996, 0, 0],
+    ["hodjeur", "participants", 964, 0, 0],
+    ["farib", "participants", 922, 0, 0],
+    ["helicon2", "participants", 893, 0, 0],
+    ["Calcoran", "participants", 861, 0, 0],
+    ["[Toine]", "participants", 857, 0, 0],
+    ["mini-mousaille", "participants", 847, 0, 0],
+    ["gliterr", "participants", 822, 0, 0],
+    ["wend", "participants", 800, 0, 0],
+    ["P_erf_ide", "participants", 790, 0, 0],
+    ["Ernestor", "participants", 776, 0, 0],
+    ["Altarius", "participants", 746, 0, 0],
+    ["yoyo08", "participants", 741, 0, 0],
+    ["sorg", "participants", 728, 0, 0],
+    ["Babouchka", "participants", 727, 0, 0],
+    ["tebidoor", "participants", 696, 0, 0],
+    ["starone", "participants", 693, 0, 0],
+    ["VintarJD", "participants", 649, 0, 0],
+    ["Zeux", "participants", 649, 0, 0],
+    ["eurys", "participants", 624, 0, 0],
+    ["Ciler", "participants", 582, 0, 0],
+    ["jack ryan", "participants", 566, 0, 0],
+    ["loulou le marlou", "participants", 552, 0, 0],
+    ["grg6", "participants", 549, 0, 0],
+    ["LooSHA", "participants", 528, 0, 0],
+    ["vicmckay", "participants", 522, 0, 0],
+    ["Gigathlon", "participants", 519, 0, 0],
+    ["alamanda", "participants", 503, 0, 0],
+    ["thurfin", "participants", 499, 0, 0],
+    ["phila", "participants", 472, 0, 0],
+    ["el muchacho", "participants", 466, 0, 0],
+    ["Nico [PPC]", "participants", 465, 0, 0],
+    ["Drizzt", "participants", 460, 0, 0],
+    ["Svenn", "participants", 455, 0, 0],
+    ["moktarama", "participants", 444, 0, 0],
+    ["roscocoltran", "participants", 431, 0, 0],
+    ["xanthe4975", "participants", 413, 0, 0],
+    ["sateeva", "participants", 399, 0, 0],
+    ["pik3", "participants", 388, 0, 0],
+    ["tapiefan", "participants", 388, 0, 0],
+    ["Prodigy", "participants", 368, 0, 0],
+    ["Yagmoth", "participants", 354, 0, 0],
+    ["Tristou", "participants", 351, 0, 0],
+    ["la question", "participants", 349, 0, 0],
+    ["toum_toum", "participants", 341, 0, 0],
+    ["lxl ihsahn lxl", "participants", 330, 0, 0],
+    ["carambar6", "participants", 325, 0, 0],
+    ["CHubaca", "participants", 319, 0, 0],
+    ["SekYo", "participants", 319, 0, 0],
+    ["qedepieds", "participants", 312, 0, 0],
+    ["nitrems", "participants", 300, 0, 0],
+    ["elbarto", "participants", 295, 0, 0],
+    ["maouuu", "participants", 285, 0, 0],
+    ["rogerlelapin", "participants", 283, 0, 0],
+    ["Jack'o'Lantern", "participants", 282, 0, 0],
+    ["Thordax", "participants", 282, 0, 0],
+    ["ucd", "participants", 277, 0, 0],
+    ["mac dornett", "participants", 260, 0, 0],
+    ["barnabe", "participants", 258, 0, 0],
+    ["vicenzo", "participants", 258, 0, 0],
+    ["axo", "participants", 248, 0, 0],
+    ["vended", "participants", 239, 0, 0],
+    ["JacenX", "participants", 238, 0, 0],
+    ["Comet", "participants", 235, 0, 0],
+    ["alien64", "participants", 225, 0, 0],
+    ["nikost", "participants", 221, 0, 0],
+    ["ZePRiNCE", "participants", 221, 0, 0],
+    ["Eozenig", "participants", 219, 0, 0],
+    ["keall", "participants", 210, 0, 0],
+    ["Talisker_44", "participants", 209, 0, 0],
+    ["limonaire", "participants", 205, 0, 0],
+    ["The_Sunrisor", "participants", 199, 0, 0],
+    ["D_omi", "participants", 193, 0, 0],
+    ["asmomo", "participants", 189, 0, 0],
+    ["bertty", "participants", 187, 0, 0],
+    ["vapeur_cochonne", "participants", 187, 0, 0],
+    ["julienf58", "participants", 185, 0, 0],
+    ["Magicpanda", "participants", 177, 0, 0],
+    ["ZeMuf91", "participants", 173, 0, 0],
+    ["Urinoir Desir", "participants", 172, 0, 0],
+    ["schnapsmann", "participants", 162, 0, 0],
+    ["Betcour", "participants", 157, 0, 0],
+    ["Rasthor", "participants", 157, 0, 0],
+    ["Chaos Intestinal", "participants", 156, 0, 0],
+    ["W0r1dIndu5tri35", "participants", 156, 0, 0],
+    ["sir_lune", "participants", 149, 0, 0],
+    ["Domi9999", "participants", 147, 0, 0],
+    ["Super_Tomate", "participants", 146, 0, 0],
+    ["Lam's", "participants", 145, 0, 0],
+    ["kamilolol", "participants", 144, 0, 0],
+    ["Ethel", "participants", 143, 0, 0],
+    ["gilou", "participants", 143, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2024 du topic du Mouvement démocrate (top 100)</h1>
+  <h3>(données collectées le lundi 10 novembre 2025 à 01:47:48)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
