@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>ver</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
+</head>
+<body>
+  <h1 class="title">Stats Du Topic EELV</h1>
+  <div class="index">
+    <div class="section" id="20251110101727">
+      <b><a class="permalink" href="#20251110101727">lundi 10 novembre 2025 à 10:17:27</a></b>
+      <span>600 participants / 30 490 posts / 17 337 smileys / 27 posts roses</span>
+      <a class="graph" href="ver_20251110101727_01_activite_all_year.html">
+        activité all time 2024 par an
+      </a>
+      <a class="graph" href="ver_20251110101727_02_activite_all_month.html">
+        activité all time 2024 par mois
+      </a>
+      <a class="graph" href="ver_20251110101727_03_activite_all_week.html">
+        activité all time 2024 par semaine
+      </a>
+      <a class="graph" href="ver_20251110101727_04_activite_month.html">
+        activité 2024 par mois
+      </a>
+      <a class="graph" href="ver_20251110101727_05_activite_week.html">
+        activité 2024 par semaine
+      </a>
+      <a class="table" href="ver_20251110101727_11_participants_top_100.html">
+        participants 2024 (top 100)
+      </a>
+      <a class="table" href="ver_20251110101727_12_participants_sortants.html">
+        participants sortants 2024 (34)
+      </a>
+      <a class="table" href="ver_20251110101727_13_participants_all_top_500.html">
+        participants all time 2024 (top 500)
+      </a>
+      <a class="table" href="ver_20251110101727_14_participants_mensuel_top_100.html">
+        participants mensuel 2024 (top 100)
+      </a>
+      <a class="table" href="ver_20251110101727_15_participants_annuel_all_top_100.html">
+        participants annuel all time 2024 (top 100)
+      </a>
+      <a class="graph" href="ver_20251110101727_16_treemap_participants_top_100.html">
+        treemap participants 2024 (top 100)
+      </a>
+      <a class="graph" href="ver_20251110101727_17_treemap_participants_all_top_100.html">
+        treemap participants all time 2024 (top 100)
+      </a>
+      <a class="table" href="ver_20251110101727_21_smileys_top_100.html">
+        smileys 2024 (top 100)
+      </a>
+      <a class="table" href="ver_20251110101727_22_smileys_sortants.html">
+        smileys sortants 2024 (45)
+      </a>
+      <a class="table" href="ver_20251110101727_23_smileys_all_top_500.html">
+        smileys all time 2024 (top 500)
+      </a>
+      <a class="table" href="ver_20251110101727_24_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2024 (top 50)
+      </a>
+      <a class="table" href="ver_20251110101727_25_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2024 (top 50)
+      </a>
+      <a class="table" href="ver_20251110101727_31_posts_quotes_top_100.html">
+        posts les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="ver_20251110101727_32_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="table" href="ver_20251110101727_33_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2024 (top 100)
+      </a>
+      <a class="table" href="ver_20251110101727_34_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2024 (34)
+      </a>
+      <a class="table" href="ver_20251110101727_35_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2024 (top 500)
+      </a>
+      <a class="graph" href="ver_20251110101727_g1_counts_all.svg">
+        nombre de posts et de participants all time 2024
+      </a>
+      <a class="graph" href="ver_20251110101727_g2_evol_all.svg">
+        évolution du nombre de participants all time 2024
+      </a>
+    </div>
+  </div>
+</body>
+</html>
