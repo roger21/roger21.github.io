@@ -9,7 +9,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "soc_20251108202345_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "soc_20251108202345_g1_counts_all.svg"
-set title "{/:Bold=18 Le nombre de posts et de participants all time 2024 du topic du Parti Socialiste\n{/:Bold=14 (données collectées le samedi 8 novembre 2025 à 20:23:45)"
+set title "{/:Bold=18 Le nombre de posts et de participants all time 2024 du topic du Parti socialiste\n{/:Bold=14 (données collectées le samedi 8 novembre 2025 à 20:23:45)"
 set ylabel "{/=16 le nombre de posts et de smileys"
 set y2label "{/=16 le nombre de posts roses et de participants"
 set key at graph .025, graph .96 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
@@ -53,7 +53,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "soc_20251108202345_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "soc_20251108202345_g2_evol_all.svg"
-set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2024 du topic du Parti Socialiste\n{/:Bold=14 (données collectées le samedi 8 novembre 2025 à 20:23:45)"
+set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2024 du topic du Parti socialiste\n{/:Bold=14 (données collectées le samedi 8 novembre 2025 à 20:23:45)"
 set xtics ("2003" 1041379200, "2004" 1072915200, "2005" 1104537600, "2006" 1136073600, "2007" 1167609600, "2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 1293840000, "2012" 1325376000, "2013" 1356998400, "2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200, "2025" 1735689600, "2026" 1767225600, "2027" 1798761600, "2028" 1830297600) rotate
 set ytics 0, 1000
 set mytics 2

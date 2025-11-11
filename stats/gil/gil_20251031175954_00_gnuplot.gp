@@ -9,7 +9,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "gil_20251031175954_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "gil_20251031175954_g1_counts_all.svg"
-set title "{/:Bold=18 Le nombre de posts et de participants all time 2024 du topic des Gilets Jaunes\n{/:Bold=14 (données collectées le vendredi 31 octobre 2025 à 17:59:54)"
+set title "{/:Bold=18 Le nombre de posts et de participants all time 2024 du topic des Gilets jaunes\n{/:Bold=14 (données collectées le vendredi 31 octobre 2025 à 17:59:54)"
 set ylabel "{/=16 le nombre de posts et de smileys"
 set y2label "{/=16 le nombre de posts roses et de participants"
 set key at graph .025, graph .96 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
@@ -53,7 +53,7 @@ reset
 set encoding utf8
 set terminal svg size 1920, 1080 dynamic name "gil_20251031175954_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "gil_20251031175954_g2_evol_all.svg"
-set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2024 du topic des Gilets Jaunes\n{/:Bold=14 (données collectées le vendredi 31 octobre 2025 à 17:59:54)"
+set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2024 du topic des Gilets jaunes\n{/:Bold=14 (données collectées le vendredi 31 octobre 2025 à 17:59:54)"
 set xtics ("jan 2016" 1451606400, "feb 2016" 1454284800, "mar 2016" 1456790400, "apr 2016" 1459468800, "may 2016" 1462060800, "jun 2016" 1464739200, "jul 2016" 1467331200, "aug 2016" 1470009600, "sep 2016" 1472688000, "oct 2016" 1475280000, "nov 2016" 1477958400, "dec 2016" 1480550400, "jan 2017" 1483228800, "feb 2017" 1485907200, "mar 2017" 1488326400, "apr 2017" 1491004800, "may 2017" 1493596800, "jun 2017" 1496275200, "jul 2017" 1498867200, "aug 2017" 1501545600, "sep 2017" 1504224000, "oct 2017" 1506816000, "nov 2017" 1509494400, "dec 2017" 1512086400, "jan 2018" 1514764800, "feb 2018" 1517443200, "mar 2018" 1519862400, "apr 2018" 1522540800, "may 2018" 1525132800, "jun 2018" 1527811200, "jul 2018" 1530403200, "aug 2018" 1533081600, "sep 2018" 1535760000, "oct 2018" 1538352000, "nov 2018" 1541030400, "dec 2018" 1543622400, "jan 2019" 1546300800, "feb 2019" 1548979200, "mar 2019" 1551398400, "apr 2019" 1554076800, "may 2019" 1556668800, "jun 2019" 1559347200, "jul 2019" 1561939200, "aug 2019" 1564617600, "sep 2019" 1567296000, "oct 2019" 1569888000, "nov 2019" 1572566400, "dec 2019" 1575158400, "jan 2020" 1577836800, "feb 2020" 1580515200, "mar 2020" 1583020800, "apr 2020" 1585699200, "may 2020" 1588291200, "jun 2020" 1590969600, "jul 2020" 1593561600, "aug 2020" 1596240000, "sep 2020" 1598918400, "oct 2020" 1601510400, "nov 2020" 1604188800, "dec 2020" 1606780800, "jan 2021" 1609459200, "feb 2021" 1612137600, "mar 2021" 1614556800, "apr 2021" 1617235200, "may 2021" 1619827200, "jun 2021" 1622505600, "jul 2021" 1625097600, "aug 2021" 1627776000, "sep 2021" 1630454400, "oct 2021" 1633046400, "nov 2021" 1635724800, "dec 2021" 1638316800, "jan 2022" 1640995200) rotate
 set ytics 0, 250
 set mytics 2
