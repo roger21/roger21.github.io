@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2025 du topic LREM (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 532776, 0, 0],
+    ["Profil supprimé", "participants", 80537, 0, 0],
+    ["moggbomber", "participants", 41933, 0, 0],
+    ["OTH", "participants", 39158, 0, 0],
+    ["Fender", "participants", 26830, 0, 0],
+    ["Theomede", "participants", 26027, 0, 0],
+    ["spartak01", "participants", 25016, 0, 0],
+    ["ph75", "participants", 24560, 0, 0],
+    ["fiscalisator", "participants", 22623, 0, 0],
+    ["Ernestor", "participants", 19714, 0, 0],
+    ["Lyrks", "participants", 17375, 0, 0],
+    ["pistache52", "participants", 16258, 0, 0],
+    ["The NBoc", "participants", 15770, 0, 0],
+    ["StefSamy", "participants", 15677, 0, 0],
+    ["babyboy4", "participants", 14777, 0, 0],
+    ["la lampe", "participants", 14472, 0, 0],
+    ["macgawel", "participants", 14384, 0, 0],
+    ["super_pourri", "participants", 14111, 0, 0],
+    ["La Monne", "participants", 13772, 0, 0],
+    ["pik3", "participants", 13446, 0, 0],
+    ["Kiveu", "participants", 12953, 0, 0],
+    ["patx3", "participants", 12556, 0, 0],
+    ["Tammuz", "participants", 11888, 0, 0],
+    ["epsiloneridani", "participants", 11643, 0, 0],
+    ["radio comptoir", "participants", 11025, 0, 0],
+    ["Kupfer", "participants", 10774, 0, 0],
+    ["ElPedro", "participants", 10737, 0, 0],
+    ["roupillon", "participants", 10362, 0, 0],
+    ["moonboots", "participants", 8943, 0, 0],
+    ["Arngrimlechauve", "participants", 8784, 0, 0],
+    ["Sticki", "participants", 7746, 0, 0],
+    ["autocall", "participants", 7692, 0, 0],
+    ["weeWEEx", "participants", 7632, 0, 0],
+    ["Chips", "participants", 7273, 0, 0],
+    ["CoyoteErable", "participants", 7208, 0, 0],
+    ["teepodavignon", "participants", 7194, 0, 0],
+    ["asmomo", "participants", 7122, 0, 0],
+    ["Marcel Pitou", "participants", 7008, 0, 0],
+    ["[Toine]", "participants", 7005, 0, 0],
+    ["Gottorp", "participants", 6976, 0, 0],
+    ["Scrypt", "participants", 6970, 0, 0],
+    ["PetitJean", "participants", 6915, 0, 0],
+    ["broddok27", "participants", 6871, 0, 0],
+    ["TheBigO", "participants", 6705, 0, 0],
+    ["PinkFloyd31", "participants", 5976, 0, 0],
+    ["thun_on_the_r", "participants", 5950, 0, 0],
+    ["Backbone-", "participants", 5945, 0, 0],
+    ["giorkal", "participants", 5896, 0, 0],
+    ["Latiole", "participants", 5891, 0, 0],
+    ["p'tet'ben", "participants", 5744, 0, 0],
+    ["kolian", "participants", 5647, 0, 0],
+    ["scOulOu", "participants", 5568, 0, 0],
+    ["morb", "participants", 5562, 0, 0],
+    ["Ainex", "participants", 5429, 0, 0],
+    ["kronekenbc", "participants", 5379, 0, 0],
+    ["zeleyou", "participants", 5200, 0, 0],
+    ["grotius", "participants", 5190, 0, 0],
+    ["H2N3", "participants", 5095, 0, 0],
+    ["zad38", "participants", 5092, 0, 0],
+    ["Xamoth", "participants", 5046, 0, 0],
+    ["choufarci", "participants", 4820, 0, 0],
+    ["ricko29", "participants", 4743, 0, 0],
+    ["smiley0041", "participants", 4700, 0, 0],
+    ["Hermes le Messager", "participants", 4616, 0, 0],
+    ["jkf", "participants", 4479, 0, 0],
+    ["Moihey", "participants", 4473, 0, 0],
+    ["Jahaa_sv", "participants", 4470, 0, 0],
+    ["roland-", "participants", 4470, 0, 0],
+    ["dante2002", "participants", 4415, 0, 0],
+    ["fred_div91", "participants", 4377, 0, 0],
+    ["ledenez", "participants", 4372, 0, 0],
+    ["alberich", "participants", 4361, 0, 0],
+    ["poutrella", "participants", 4290, 0, 0],
+    ["schezario", "participants", 4287, 0, 0],
+    ["arthas77", "participants", 4223, 0, 0],
+    ["zyx", "participants", 4207, 0, 0],
+    ["Zog79", "participants", 4200, 0, 0],
+    ["Ciler", "participants", 4185, 0, 0],
+    ["genkidama-hfr", "participants", 4067, 0, 0],
+    ["krosso", "participants", 4037, 0, 0],
+    ["Newbpower", "participants", 4028, 0, 0],
+    ["_Nada", "participants", 3990, 0, 0],
+    ["Burracho", "participants", 3952, 0, 0],
+    ["DooMIII", "participants", 3935, 0, 0],
+    ["XprtZ", "participants", 3902, 0, 0],
+    ["Amenorrhee suspecte", "participants", 3791, 0, 0],
+    ["scrumpz", "participants", 3724, 0, 0],
+    ["It_Connexion", "participants", 3706, 0, 0],
+    ["icumblood", "participants", 3653, 0, 0],
+    ["fazero", "participants", 3593, 0, 0],
+    ["Raspa", "participants", 3589, 0, 0],
+    ["Kalymereau", "participants", 3586, 0, 0],
+    ["otobox", "participants", 3574, 0, 0],
+    ["newbie_master", "participants", 3569, 0, 0],
+    ["gimly the knight", "participants", 3381, 0, 0],
+    ["DeltaVega", "participants", 3349, 0, 0],
+    ["Mathematics", "participants", 3339, 0, 0],
+    ["Blue_Everest", "participants", 3336, 0, 0],
+    ["Darth Carotte", "participants", 3336, 0, 0],
+    ["alien64", "participants", 3320, 0, 0],
+    ["tamino", "participants", 3318, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2025 du topic LREM (top 100)</h1>
+  <h3>(données collectées le mardi 6 janvier 2026 à 10:21:47)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

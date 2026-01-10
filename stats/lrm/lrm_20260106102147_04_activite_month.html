@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>L'activité 2025 par mois du topic LREM</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["corechart", "table"]
+});
+function onload() {
+  var data_lignes = new google.visualization.DataTable();
+  data_lignes.addColumn("date", "mois");
+  data_lignes.addColumn("number", "posts");
+  data_lignes.addColumn("number", "smileys");
+  data_lignes.addColumn("number", "participants");
+  var data_lignes_values = [
+    [new Date(2025, 0, 1, 0, 9, 5), 0, 0, 0],
+    [new Date(2025, 0, 31, 23, 59, 59), 10197, 5247, 329],
+    [new Date(2025, 1, 28, 23, 59, 59), 7584, 3577, 293],
+    [new Date(2025, 2, 31, 23, 59, 59), 8460, 3698, 312],
+    [new Date(2025, 3, 30, 23, 59, 59), 9714, 4356, 265],
+    [new Date(2025, 4, 31, 23, 59, 59), 9645, 4557, 297],
+    [new Date(2025, 5, 30, 23, 59, 59), 12329, 5874, 287],
+    [new Date(2025, 6, 31, 23, 59, 59), 15385, 6423, 384],
+    [new Date(2025, 7, 31, 23, 59, 59), 11510, 5136, 323],
+    [new Date(2025, 8, 30, 23, 59, 59), 13642, 5985, 380],
+    [new Date(2025, 9, 31, 23, 59, 59), 23918, 11719, 490],
+    [new Date(2025, 10, 30, 23, 59, 59), 9434, 4705, 285],
+    [new Date(2025, 11, 31, 21, 31, 34), 9616, 4223, 280]
+  ];
+  data_lignes.addRows(data_lignes_values);
+  var ticks_lignes = [
+    new Date("2024-12-01"),
+    new Date("2025-01-01"),
+    new Date("2025-02-01"),
+    new Date("2025-03-01"),
+    new Date("2025-04-01"),
+    new Date("2025-05-01"),
+    new Date("2025-06-01"),
+    new Date("2025-07-01"),
+    new Date("2025-08-01"),
+    new Date("2025-09-01"),
+    new Date("2025-10-01"),
+    new Date("2025-11-01"),
+    new Date("2025-12-01")
+  ];
+  while(ticks_lignes[0] < data_lignes_values[0][0]) {
+    ticks_lignes.shift();
+  }
+  var data_barres = new google.visualization.DataTable();
+  data_barres.addColumn("date", "mois");
+  data_barres.addColumn("number", "posts");
+  data_barres.addColumn("number", "smileys");
+  data_barres.addColumn("number", "participants");
+  var data_barres_values = [
+    [new Date("2025-01-01"), 10197, 5247, 329],
+    [new Date("2025-02-01"), 7584, 3577, 293],
+    [new Date("2025-03-01"), 8460, 3698, 312],
+    [new Date("2025-04-01"), 9714, 4356, 265],
+    [new Date("2025-05-01"), 9645, 4557, 297],
+    [new Date("2025-06-01"), 12329, 5874, 287],
+    [new Date("2025-07-01"), 15385, 6423, 384],
+    [new Date("2025-08-01"), 11510, 5136, 323],
+    [new Date("2025-09-01"), 13642, 5985, 380],
+    [new Date("2025-10-01"), 23918, 11719, 490],
+    [new Date("2025-11-01"), 9434, 4705, 285],
+    [new Date("2025-12-01"), 9616, 4223, 280]
+  ];
+  data_barres.addRows(data_barres_values);
+  var ticks_barres = [
+    new Date("2024-12-01"),
+    new Date("2025-01-01"),
+    new Date("2025-02-01"),
+    new Date("2025-03-01"),
+    new Date("2025-04-01"),
+    new Date("2025-05-01"),
+    new Date("2025-06-01"),
+    new Date("2025-07-01"),
+    new Date("2025-08-01"),
+    new Date("2025-09-01"),
+    new Date("2025-10-01"),
+    new Date("2025-11-01"),
+    new Date("2025-12-01")
+  ];
+  while(ticks_barres[0] < data_barres_values[0][0]) {
+    ticks_barres.shift();
+  }
+  var options_graph = {
+    aggregationTarget: "category",
+    animation: {
+      duration: 1000,
+      easing: "inAndOut",
+      startup: true
+    },
+    axisTitlesPosition: "none",
+    backgroundColor: "#f8f8f8",
+    chartArea: {
+      left: "6%",
+      top: "9%",
+      width: "92%",
+      height: "84%"
+    },
+    colors: ["#8e8ef8", "#ff9900", "#109618"],
+    crosshair: {
+      focused: {
+        color: "#ffbf60",
+        opacity: 1
+      },
+      orientation: "both",
+      selected: {
+        color: "#f4947f",
+        opacity: 1
+      },
+      trigger: "both"
+    },
+    curveType: "none",
+    enableInteractivity: true,
+    focusTarget: "category",
+    fontName: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    hAxis: {
+      direction: 1,
+      format: "MMMM",
+      logScale: false,
+      minorGridlines: {
+        count: 0
+      },
+      textPosition: "out",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      },
+      ticks: ticks_lignes
+    },
+    interpolateNulls: false,
+    isStacked: false,
+    legend: {
+      alignment: "start",
+      position: "top",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      }
+    },
+    lineWidth: 1,
+    orientation: "horizontal",
+    reverseCategories: false,
+    selectionMode: "single",
+    seriesType: "area",
+    tooltip: {
+      ignoreBounds: false,
+      isHtml: false,
+      showColorCode: true,
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      },
+      trigger: "focus"
+    },
+    vAxis: {
+      direction: 1,
+      format: "#,###",
+      logScale: false,
+      minValue: 0,
+      textPosition: "out",
+      textStyle: {
+        fontName: "Verdana,Arial,Sans-serif,Helvetica",
+        fontSize: 14,
+        bold: true,
+        italic: false
+      }
+    }
+  };
+  var options_table = {
+    allowHtml: false,
+    alternatingRowStyle: true,
+    cssClassNames: {
+      headerRow: "headerRow",
+      tableRow: "tableRow",
+      oddTableRow: "oddTableRow",
+      selectedTableRow: "selectedTableRow",
+      hoverTableRow: "hoverTableRow",
+      headerCell: "headerCell",
+      tableCell: "tableCell"
+    },
+    page: "disable",
+    rtlTable: false,
+    showRowNumber: false,
+    sort: "enable",
+    sortAscending: true,
+    sortColumn: 0
+  };
+  var formater_date = new google.visualization.DateFormat({
+    pattern: "MMMM yyyy"
+  });
+  formater_date.format(data_lignes, 0);
+  formater_date.format(data_barres, 0);
+  var formater_number = new google.visualization.NumberFormat({
+    decimalSymbol: ",",
+    groupingSymbol: " ",
+    fractionDigits: 0
+  });
+  formater_number.format(data_lignes, 1);
+  formater_number.format(data_lignes, 2);
+  formater_number.format(data_lignes, 3);
+  formater_number.format(data_barres, 1);
+  formater_number.format(data_barres, 2);
+  formater_number.format(data_barres, 3);
+  var div_graph = document.querySelector("div#graph");
+  var div_table = document.querySelector("div#table");
+  var div_switcher = document.querySelector("div#switcher");
+  var data_graph = data_lignes.clone();
+  var graph = new google.visualization.ComboChart(div_graph);
+  var data_table = data_barres.clone();
+  var table = new google.visualization.Table(div_table);
+  function select_graph() {
+    var selection = graph.getSelection();
+    if(typeof selection[0] === "undefined" || typeof selection[0].row === "undefined") {
+      graph.setSelection();
+      table.setSelection();
+      return;
+    }
+    if(div_graph.dataset.type === "lignes") {
+      selection[0].row -= 1;
+    }
+    table.setSelection(selection);
+  }
+  google.visualization.events.addListener(graph, "select", select_graph);
+  function select_table() {
+    var selection = table.getSelection();
+    if(typeof selection[0] === "undefined" || typeof selection[0].row === "undefined") {
+      graph.setSelection();
+      table.setSelection();
+      return;
+    }
+    if(div_graph.dataset.type === "lignes") {
+      selection[0].row += 1;
+    }
+    graph.setSelection(selection);
+  }
+  google.visualization.events.addListener(table, "select", select_table);
+  function switcher() {
+    div_switcher.classList.remove("active");
+    div_switcher.removeEventListener("click", switcher, false);
+    graph.setSelection();
+    if(div_graph.dataset.type === "lignes") {
+      options_graph.seriesType = "bars";
+      options_graph.hAxis.ticks = ticks_barres;
+      data_graph = data_barres.clone();
+      graph.draw(data_graph, options_graph);
+      div_graph.dataset.type = "barres";
+      div_switcher.classList.remove("barres");
+      div_switcher.setAttribute("title", "afficher en lignes");
+    } else {
+      options_graph.seriesType = "area";
+      options_graph.hAxis.ticks = ticks_lignes;
+      data_graph = data_lignes.clone();
+      graph.draw(data_graph, options_graph);
+      div_graph.dataset.type = "lignes";
+      div_switcher.classList.add("barres");
+      div_switcher.setAttribute("title", "afficher en barres");
+    }
+    select_table();
+    div_switcher.addEventListener("click", switcher, false);
+    div_switcher.classList.add("active");
+  }
+  var starting = true;
+  google.visualization.events.addListener(graph, "animationfinish", function() {
+    if(starting) {
+      starting = false;
+      options_graph.animation.duration = 0;
+      div_graph.firstElementChild.appendChild(div_switcher);
+      div_switcher.style.display = "block";
+      div_switcher.addEventListener("click", switcher, false);
+      div_switcher.classList.add("active");
+    }
+  });
+  graph.draw(data_graph, options_graph);
+  table.draw(data_table, options_table);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="graph">
+  <h1>L'activité 2025 par mois du topic LREM</h1>
+  <h3>(données collectées le mardi 6 janvier 2026 à 10:21:47)</h3>
+  <div id="graph" data-type="lignes"></div>
+  <div id="switcher" class="link barres" title="afficher en barres"></div>
+  <div id="table"></div>
+</body>
+</html>
