@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2025 du cimetière des célébrités (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 41310, 0, 0],
+    ["Profil supprimé", "participants", 6538, 0, 0],
+    ["PetitJean", "participants", 2504, 0, 0],
+    ["Tammuz", "participants", 2198, 0, 0],
+    ["nakata", "participants", 2137, 0, 0],
+    ["grozibouille", "participants", 1888, 0, 0],
+    ["rheo", "participants", 1665, 0, 0],
+    ["petitebrunette1", "participants", 1613, 0, 0],
+    ["cashless", "participants", 1431, 0, 0],
+    ["Sgt-D", "participants", 1378, 0, 0],
+    ["prospoul", "participants", 1260, 0, 0],
+    ["Laurence67", "participants", 1184, 0, 0],
+    ["CAMPEDEL", "participants", 1173, 0, 0],
+    ["fatah", "participants", 1115, 0, 0],
+    ["Perfector", "participants", 1072, 0, 0],
+    ["Harrrrg", "participants", 1054, 0, 0],
+    ["lilicite", "participants", 1048, 0, 0],
+    ["otobox", "participants", 1020, 0, 0],
+    ["Maldoror", "participants", 1002, 0, 0],
+    ["Mac_Lane", "participants", 981, 0, 0],
+    ["Rasthor", "participants", 951, 0, 0],
+    ["Gordon Shumway", "participants", 912, 0, 0],
+    ["Smelly Jelly", "participants", 904, 0, 0],
+    ["Space", "participants", 874, 0, 0],
+    ["Philip Morris", "participants", 840, 0, 0],
+    ["sicqo", "participants", 839, 0, 0],
+    ["Sticki", "participants", 834, 0, 0],
+    ["Teto", "participants", 801, 0, 0],
+    ["cordelius", "participants", 738, 0, 0],
+    ["Toxin", "participants", 721, 0, 0],
+    ["Eneytihi", "participants", 718, 0, 0],
+    ["deadpool", "participants", 717, 0, 0],
+    ["Johnny_Marrocain", "participants", 714, 0, 0],
+    ["chatoo", "participants", 708, 0, 0],
+    ["johnclaude", "participants", 680, 0, 0],
+    ["gilou", "participants", 655, 0, 0],
+    ["wilek", "participants", 649, 0, 0],
+    ["super_pourri", "participants", 648, 0, 0],
+    ["tourtour", "participants", 646, 0, 0],
+    ["HumanRAGE", "participants", 627, 0, 0],
+    ["cocacolalight", "participants", 583, 0, 0],
+    ["roger21", "participants", 583, 0, 0],
+    ["Eife", "participants", 576, 0, 0],
+    ["justeleblanc", "participants", 559, 0, 0],
+    ["Meganne", "participants", 558, 0, 0],
+    ["F@bek", "participants", 547, 0, 0],
+    ["Mercius", "participants", 546, 0, 0],
+    ["kremlin biceps", "participants", 535, 0, 0],
+    ["F22Raptor", "participants", 531, 0, 0],
+    ["RadjoN", "participants", 524, 0, 0],
+    ["milkyway58", "participants", 517, 0, 0],
+    ["Daphne", "participants", 508, 0, 0],
+    ["Cuistot", "participants", 478, 0, 0],
+    ["joams", "participants", 475, 0, 0],
+    ["meriadeck", "participants", 472, 0, 0],
+    ["viniw", "participants", 461, 0, 0],
+    ["Hoiniel", "participants", 452, 0, 0],
+    ["yngwie", "participants", 450, 0, 0],
+    ["airy", "participants", 449, 0, 0],
+    ["philibear", "participants", 449, 0, 0],
+    ["houckaye", "participants", 446, 0, 0],
+    ["Kalymereau", "participants", 442, 0, 0],
+    ["louyseiz", "participants", 435, 0, 0],
+    ["angellus2", "participants", 432, 0, 0],
+    ["Zoreil", "participants", 429, 0, 0],
+    ["rafioul2", "participants", 420, 0, 0],
+    ["Metaluna", "participants", 413, 0, 0],
+    ["sausalito75", "participants", 412, 0, 0],
+    ["icumblood", "participants", 404, 0, 0],
+    ["SOF40", "participants", 404, 0, 0],
+    ["freeza01", "participants", 402, 0, 0],
+    ["Gallagh", "participants", 398, 0, 0],
+    ["Brad Pitt", "participants", 397, 0, 0],
+    ["musacorp", "participants", 392, 0, 0],
+    ["Maalak", "participants", 389, 0, 0],
+    ["Gruuik Gruuik", "participants", 383, 0, 0],
+    ["barnabe", "participants", 357, 0, 0],
+    ["ink87", "participants", 357, 0, 0],
+    ["Timoonn", "participants", 348, 0, 0],
+    ["hegoalde", "participants", 340, 0, 0],
+    ["Oriane", "participants", 327, 0, 0],
+    ["bobdumas", "participants", 321, 0, 0],
+    ["darage", "participants", 320, 0, 0],
+    ["Micmax", "participants", 320, 0, 0],
+    ["Did_you_find_my_way", "participants", 317, 0, 0],
+    ["FordPrefect", "participants", 315, 0, 0],
+    ["jpcheck", "participants", 313, 0, 0],
+    ["srfcboy", "participants", 313, 0, 0],
+    ["sytchev013", "participants", 313, 0, 0],
+    ["zoukoufxxx", "participants", 309, 0, 0],
+    ["Maiar", "participants", 302, 0, 0],
+    ["DP59", "participants", 288, 0, 0],
+    ["kriloner", "participants", 265, 0, 0],
+    ["t-w", "participants", 265, 0, 0],
+    ["Trifon_Ivanov", "participants", 264, 0, 0],
+    ["franswa202", "participants", 263, 0, 0],
+    ["Grumly132", "participants", 259, 0, 0],
+    ["Gottorp", "participants", 253, 0, 0],
+    ["BillyCorgan", "participants", 250, 0, 0],
+    ["Malodor", "participants", 248, 0, 0],
+    ["demars", "participants", 245, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2025 du cimetière des célébrités (top 100)</h1>
+  <h3>(données collectées le lundi 5 janvier 2026 à 17:15:25)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
