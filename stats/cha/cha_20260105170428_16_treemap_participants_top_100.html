@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2025 du topic Charlie Hebdo (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -28 * -1;
+  }
+  if(value > 0) {
+    return value / 18;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["OTH", "participants", 26, normalize(-28), -28],
+    ["fougnac", "participants", 19, normalize(18), 18],
+    ["GAS", "participants", 17, normalize(0), null],
+    ["Gilgamesh d'Uruk", "participants", 13, normalize(12), 12],
+    ["M_D_C", "participants", 11, normalize(0), null],
+    ["brown paper bag", "participants", 9, normalize(-9), -9],
+    ["Ernestor", "participants", 9, normalize(0), null],
+    ["bellemousse", "participants", 6, normalize(-4), -4],
+    ["Coroners", "participants", 6, normalize(4), 4],
+    ["Quatrier", "participants", 6, normalize(0), null],
+    ["houckaye", "participants", 5, normalize(0), null],
+    ["kareemabduljabbar", "participants", 5, normalize(0), null],
+    ["1000Trees", "participants", 3, normalize(0), null],
+    ["dj pone", "participants", 3, normalize(-5), -5],
+    ["Ivar Loeil malefique", "participants", 3, normalize(0), null],
+    ["lokilefourbe", "participants", 3, normalize(0), null],
+    ["stanzeflasche", "participants", 3, normalize(0), null],
+    ["steeveaustin", "participants", 3, normalize(0), null],
+    ["Ticento", "participants", 3, normalize(1), 1],
+    ["Bweezy", "participants", 2, normalize(0), null],
+    ["chinois02", "participants", 2, normalize(0), null],
+    ["Electrochoc", "participants", 2, normalize(0), null],
+    ["igo2001", "participants", 2, normalize(0), null],
+    ["joams", "participants", 2, normalize(-1), -1],
+    ["John-Nada", "participants", 2, normalize(0), null],
+    ["merise2", "participants", 2, normalize(0), null],
+    ["mirtouf", "participants", 2, normalize(1), 1],
+    ["Polza Mancini", "participants", 2, normalize(0), null],
+    ["senide", "participants", 2, normalize(-1), -1],
+    ["Skopos", "participants", 2, normalize(0), null],
+    ["Till Lindemann", "participants", 2, normalize(-1), -1],
+    ["abonisyah", "participants", 1, normalize(0), null],
+    ["asu5", "participants", 1, normalize(-4), -4],
+    ["autocall", "participants", 1, normalize(0), null],
+    ["Backbone-", "participants", 1, normalize(0), null],
+    ["D_omi", "participants", 1, normalize(0), 0],
+    ["leeligo", "participants", 1, normalize(0), null],
+    ["LeGrandMatheux", "participants", 1, normalize(-4), -4],
+    ["mauvlam", "participants", 1, normalize(0), null],
+    ["Modération", "participants", 1, normalize(0), null],
+    ["nakata", "participants", 1, normalize(0), null],
+    ["poutrella", "participants", 1, normalize(0), null],
+    ["Rem82", "participants", 1, normalize(0), null],
+    ["Scoinscoin", "participants", 1, normalize(0), 0],
+    ["Tammuz", "participants", 1, normalize(-5), -5],
+    ["Theomede", "participants", 1, normalize(0), null],
+    ["verdoux", "participants", 1, normalize(-3), -3],
+    ["vigneuxamsterdam", "participants", 1, normalize(0), null],
+    ["yngwie", "participants", 1, normalize(-2), -2]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2025 du topic Charlie Hebdo (top 100)</h1>
+  <h3>(données collectées le lundi 5 janvier 2026 à 17:04:28)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
