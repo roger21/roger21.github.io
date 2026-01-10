@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2025 du topic Gifs (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 79358, 0, 0],
+    ["Profil supprimé", "participants", 12371, 0, 0],
+    ["Ticento", "participants", 9964, 0, 0],
+    ["viniw", "participants", 3563, 0, 0],
+    ["Pavese69", "participants", 3297, 0, 0],
+    ["Billy54", "participants", 2346, 0, 0],
+    ["chatoo", "participants", 2080, 0, 0],
+    ["mosk", "participants", 1794, 0, 0],
+    ["DrDooM", "participants", 1770, 0, 0],
+    ["-Duncan-", "participants", 1521, 0, 0],
+    ["teepodavignon", "participants", 1358, 0, 0],
+    ["justhynbrydhou", "participants", 1327, 0, 0],
+    ["Cver1", "participants", 1319, 0, 0],
+    ["Berceker United", "participants", 1303, 0, 0],
+    ["Gordon Shumway", "participants", 1193, 0, 0],
+    ["karlit", "participants", 1156, 0, 0],
+    ["mattt-osx", "participants", 1131, 0, 0],
+    ["kmara2", "participants", 1126, 0, 0],
+    ["mucus", "participants", 1101, 0, 0],
+    ["Biiij", "participants", 1088, 0, 0],
+    ["PrAdAr", "participants", 1088, 0, 0],
+    ["ujina", "participants", 1036, 0, 0],
+    ["Gruuik Gruuik", "participants", 1031, 0, 0],
+    ["_tchip_", "participants", 1004, 0, 0],
+    ["frozen_face", "participants", 976, 0, 0],
+    ["DeltaVega", "participants", 935, 0, 0],
+    ["LennyB", "participants", 904, 0, 0],
+    ["sire de Botcor", "participants", 845, 0, 0],
+    ["andre_prigent", "participants", 813, 0, 0],
+    ["Leg9", "participants", 804, 0, 0],
+    ["tibo2002", "participants", 719, 0, 0],
+    ["Azety", "participants", 715, 0, 0],
+    ["pakbo59", "participants", 705, 0, 0],
+    ["iskor", "participants", 694, 0, 0],
+    ["biboo_", "participants", 692, 0, 0],
+    ["ptibeur", "participants", 684, 0, 0],
+    ["HumanRAGE", "participants", 671, 0, 0],
+    ["moggbomber", "participants", 668, 0, 0],
+    ["usma16", "participants", 639, 0, 0],
+    ["yo_play", "participants", 629, 0, 0],
+    ["foul", "participants", 614, 0, 0],
+    ["kulamaker", "participants", 612, 0, 0],
+    ["gerard_sur_aix", "participants", 591, 0, 0],
+    ["arkrom", "participants", 589, 0, 0],
+    ["otacon-yuiitsu", "participants", 575, 0, 0],
+    ["blast3r", "participants", 570, 0, 0],
+    ["King-Arthur", "participants", 559, 0, 0],
+    ["chimm", "participants", 534, 0, 0],
+    ["Till Lindemann", "participants", 525, 0, 0],
+    ["Zoreil", "participants", 502, 0, 0],
+    ["banditoz", "participants", 496, 0, 0],
+    ["Sylfurd", "participants", 483, 0, 0],
+    ["McSouss", "participants", 479, 0, 0],
+    ["Rhadamenthos", "participants", 463, 0, 0],
+    ["klemton", "participants", 453, 0, 0],
+    ["TheHitman", "participants", 445, 0, 0],
+    ["Aardpeer", "participants", 442, 0, 0],
+    ["cybercap", "participants", 431, 0, 0],
+    ["Butcher's motorbike", "participants", 430, 0, 0],
+    ["houckaye", "participants", 430, 0, 0],
+    ["john_tgv", "participants", 430, 0, 0],
+    ["lilicite", "participants", 426, 0, 0],
+    ["10-david", "participants", 422, 0, 0],
+    ["3615Buck", "participants", 416, 0, 0],
+    ["Cardelitre", "participants", 401, 0, 0],
+    ["clemlegrand", "participants", 390, 0, 0],
+    ["philibear", "participants", 390, 0, 0],
+    ["freewind", "participants", 383, 0, 0],
+    ["giHefca", "participants", 383, 0, 0],
+    ["BaF - FlOp", "participants", 382, 0, 0],
+    ["moquette", "participants", 380, 0, 0],
+    ["Lt Ripley", "participants", 377, 0, 0],
+    ["Bakk15", "participants", 376, 0, 0],
+    ["roger21", "participants", 369, 0, 0],
+    ["Kewyn", "participants", 367, 0, 0],
+    ["SolidShark", "participants", 363, 0, 0],
+    ["cordelius", "participants", 362, 0, 0],
+    ["Hippo-fr", "participants", 362, 0, 0],
+    ["SanPe'", "participants", 350, 0, 0],
+    ["Eldricht", "participants", 344, 0, 0],
+    ["Blaq", "participants", 343, 0, 0],
+    ["Maldoror", "participants", 339, 0, 0],
+    ["rz1", "participants", 337, 0, 0],
+    ["TheCreator", "participants", 337, 0, 0],
+    ["lezioul", "participants", 335, 0, 0],
+    ["Z_cool", "participants", 334, 0, 0],
+    ["Paul de Saint-Balby", "participants", 322, 0, 0],
+    ["Ryan", "participants", 320, 0, 0],
+    ["cyd125", "participants", 318, 0, 0],
+    ["angellus2", "participants", 317, 0, 0],
+    ["anti-pop", "participants", 308, 0, 0],
+    ["vinzomatik", "participants", 306, 0, 0],
+    ["mixmax", "participants", 303, 0, 0],
+    ["Kirvel", "participants", 302, 0, 0],
+    ["Meve", "participants", 301, 0, 0],
+    ["sligor", "participants", 300, 0, 0],
+    ["Spaune", "participants", 300, 0, 0],
+    ["PTDRR", "participants", 293, 0, 0],
+    ["vended", "participants", 289, 0, 0],
+    ["giorkal", "participants", 288, 0, 0],
+    ["Raistlin Majere", "participants", 284, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#ffcfcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#cfffcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2025 du topic Gifs (top 100)</h1>
+  <h3>(données collectées le mardi 6 janvier 2026 à 01:24:48)</h3>
+  <div id="treemap"></div>
+</body>
+</html>

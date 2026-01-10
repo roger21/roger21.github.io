@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des posteurs all time 2025 du topic Gifs (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posteurs");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "images");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["Ticento", "posteurs", 41004, 0, 0],
+    ["tous les autres posteurs all time", "posteurs", 25229, 0, 0],
+    ["viniw", "posteurs", 15881, 0, 0],
+    ["Pavese69", "posteurs", 14159, 0, 0],
+    ["Profil supprimé", "posteurs", 4159, 0, 0],
+    ["chatoo", "posteurs", 2322, 0, 0],
+    ["LennyB", "posteurs", 1983, 0, 0],
+    ["Billy54", "posteurs", 1721, 0, 0],
+    ["Yun", "posteurs", 1695, 0, 0],
+    ["anti-pop", "posteurs", 1675, 0, 0],
+    ["-Duncan-", "posteurs", 1566, 0, 0],
+    ["andre_prigent", "posteurs", 1556, 0, 0],
+    ["ujina", "posteurs", 1498, 0, 0],
+    ["justhynbrydhou", "posteurs", 1441, 0, 0],
+    ["frozen_face", "posteurs", 1424, 0, 0],
+    ["Gruuik Gruuik", "posteurs", 1394, 0, 0],
+    ["Mortadelle", "posteurs", 1325, 0, 0],
+    ["mosk", "posteurs", 1288, 0, 0],
+    ["McSouss", "posteurs", 1264, 0, 0],
+    ["avo", "posteurs", 1263, 0, 0],
+    ["Azety", "posteurs", 1258, 0, 0],
+    ["gerard_sur_aix", "posteurs", 1194, 0, 0],
+    ["mattt-osx", "posteurs", 1104, 0, 0],
+    ["Gordon Shumway", "posteurs", 980, 0, 0],
+    ["PrAdAr", "posteurs", 974, 0, 0],
+    ["banditoz", "posteurs", 947, 0, 0],
+    ["DrDooM", "posteurs", 920, 0, 0],
+    ["Hippo-fr", "posteurs", 849, 0, 0],
+    ["mucus", "posteurs", 802, 0, 0],
+    ["Eldricht", "posteurs", 789, 0, 0],
+    ["usma16", "posteurs", 786, 0, 0],
+    ["Sanglier", "posteurs", 785, 0, 0],
+    ["moggbomber", "posteurs", 733, 0, 0],
+    ["cotugno", "posteurs", 663, 0, 0],
+    ["10-david", "posteurs", 648, 0, 0],
+    ["ptibeur", "posteurs", 636, 0, 0],
+    ["Cardelitre", "posteurs", 617, 0, 0],
+    ["sire de Botcor", "posteurs", 585, 0, 0],
+    ["pakbo59", "posteurs", 485, 0, 0],
+    ["Meve", "posteurs", 477, 0, 0],
+    ["King-Arthur", "posteurs", 474, 0, 0],
+    ["blast3r", "posteurs", 469, 0, 0],
+    ["iskor", "posteurs", 447, 0, 0],
+    ["mixmax", "posteurs", 384, 0, 0],
+    ["otacon-yuiitsu", "posteurs", 381, 0, 0],
+    ["TheHitman", "posteurs", 377, 0, 0],
+    ["Fr4p", "posteurs", 370, 0, 0],
+    ["Berceker United", "posteurs", 369, 0, 0],
+    ["ripper0306", "posteurs", 366, 0, 0],
+    ["Rhadamenthos", "posteurs", 360, 0, 0],
+    ["SolidShark", "posteurs", 333, 0, 0],
+    ["Biiij", "posteurs", 332, 0, 0],
+    ["karlit", "posteurs", 320, 0, 0],
+    ["vaoboo", "posteurs", 315, 0, 0],
+    ["angellus2", "posteurs", 307, 0, 0],
+    ["lilicite", "posteurs", 304, 0, 0],
+    ["kostaar", "posteurs", 299, 0, 0],
+    ["acecel", "posteurs", 298, 0, 0],
+    ["kmara2", "posteurs", 291, 0, 0],
+    ["clemlegrand", "posteurs", 278, 0, 0],
+    ["keos92", "posteurs", 269, 0, 0],
+    ["Trash-Kamikaze", "posteurs", 269, 0, 0],
+    ["teepodavignon", "posteurs", 257, 0, 0],
+    ["PTDRR", "posteurs", 253, 0, 0],
+    ["Yems93", "posteurs", 250, 0, 0],
+    ["RipTheJacker", "posteurs", 249, 0, 0],
+    ["Leg9", "posteurs", 242, 0, 0],
+    ["john_tgv", "posteurs", 241, 0, 0],
+    ["Sylfurd", "posteurs", 240, 0, 0],
+    ["kulamaker", "posteurs", 236, 0, 0],
+    ["mko", "posteurs", 230, 0, 0],
+    ["buh31", "posteurs", 228, 0, 0],
+    ["Cver1", "posteurs", 227, 0, 0],
+    ["foul", "posteurs", 216, 0, 0],
+    ["kryus", "posteurs", 215, 0, 0],
+    ["K@zouille", "posteurs", 214, 0, 0],
+    ["tudoes", "posteurs", 209, 0, 0],
+    ["Baron Von Own", "posteurs", 207, 0, 0],
+    ["Johny_One", "posteurs", 197, 0, 0],
+    ["goomi32", "posteurs", 193, 0, 0],
+    ["popeye0", "posteurs", 193, 0, 0],
+    ["Space", "posteurs", 182, 0, 0],
+    ["ErikLund", "posteurs", 177, 0, 0],
+    ["DeltaVega", "posteurs", 175, 0, 0],
+    ["kyouray", "posteurs", 172, 0, 0],
+    ["gebreugg", "posteurs", 165, 0, 0],
+    ["johnclaude", "posteurs", 165, 0, 0],
+    ["PPG Wave", "posteurs", 165, 0, 0],
+    ["H00d", "posteurs", 164, 0, 0],
+    ["_tchip_", "posteurs", 154, 0, 0],
+    ["AK47 silencieux", "posteurs", 152, 0, 0],
+    ["overclockdeux", "posteurs", 152, 0, 0],
+    ["xris75", "posteurs", 152, 0, 0],
+    ["coyotepowa", "posteurs", 149, 0, 0],
+    ["Errare", "posteurs", 149, 0, 0],
+    ["Axxan", "posteurs", 148, 0, 0],
+    ["f3n3k", "posteurs", 148, 0, 0],
+    ["deg-tcd", "posteurs", 145, 0, 0],
+    ["sebastien0123", "posteurs", 145, 0, 0],
+    ["macbeth", "posteurs", 143, 0, 0],
+    ["Paul de Saint-Balby", "posteurs", 141, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " images" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des posteurs <span class="alltime">all time</span> 2025 du topic Gifs (top 100)</h1>
+  <h3>(données collectées le mardi 6 janvier 2026 à 01:24:48)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
