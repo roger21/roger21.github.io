@@ -1,0 +1,56 @@
+rm -rf /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414
+rm /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414.7z
+
+mkdir /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414
+mkdir /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/img
+
+cp /home/moi/devs/www/smi/upd/img/*.png /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/img/
+
+cp /home/moi/devs/www/smi/upd/favicon.ico /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+cp /home/moi/devs/www/smi/upd/gnuplot_svg.js /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+cp /home/moi/devs/www/smi/upd/link.svg /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+cp /home/moi/devs/www/smi/upd/pager.js /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+cp /home/moi/devs/www/smi/upd/sorter.js /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+cp /home/moi/devs/www/smi/upd/style.css /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+
+#cd /home/moi/devs/www/smi/upd/
+
+gnuplot /home/moi/devs/www/smi/upd/gnuplot_20260109142414.gp
+
+sed -i "s/<title>graph_cumul_20260109142414<\/title>/<title>des nombres cumulés en fonction du temps au vendredi 9 janvier 2026 à 14:24:14<\/title>/g" /home/moi/devs/www/smi/upd/graph*_20260109142414.svg
+sed -i "s/<title>graph_year_20260109142414<\/title>/<title>des nombres par an au vendredi 9 janvier 2026 à 14:24:14<\/title>/g" /home/moi/devs/www/smi/upd/graph*_20260109142414.svg
+sed -i "s/<title>graph_month_20260109142414<\/title>/<title>des nombres par mois au vendredi 9 janvier 2026 à 14:24:14<\/title>/g" /home/moi/devs/www/smi/upd/graph*_20260109142414.svg
+sed -i "s/<title>graph_week_20260109142414<\/title>/<title>des nombres par semaine au vendredi 9 janvier 2026 à 14:24:14<\/title>/g" /home/moi/devs/www/smi/upd/graph*_20260109142414.svg
+
+cp /home/moi/devs/www/smi/upd/*_20260109142414* /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+cp /home/moi/devs/www/smi/upd/index.html /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/
+
+mv /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/index.html /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/index_20260109142414.html
+cp /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/stats_wiki_smileys_20260109142414.html /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/index.html
+mv /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/packager_20260109142414.sh /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414/packager_20260109142414.sh.txt
+
+cd /home/moi/devs/www/smi/upd/_old/
+7zr a -t7z -mx=9 -myx=9 stats_wiki_smileys_20260109142414.7z stats_wiki_smileys_20260109142414/
+cd /home/moi/devs/www/smi/upd
+
+rm -rf /home/moi/devs/www/smi/upd/_old/stats_wiki_smileys_20260109142414
+
+rm /home/moi/devs/gittop/stats/smi_full/*_20260109142414*
+cp /home/moi/devs/www/smi/upd/*_20260109142414* /home/moi/devs/gittop/stats/smi_full/
+cp /home/moi/devs/www/smi/upd/index.html /home/moi/devs/gittop/stats/smi_full/
+mv /home/moi/devs/gittop/stats/smi_full/packager_20260109142414.sh /home/moi/devs/gittop/stats/smi_full/packager_20260109142414.sh.txt
+
+rm /home/moi/devs/gittop/stats/smi/*_20260109142414*
+cp /home/moi/devs/www/smi/upd/*_20260109142414* /home/moi/devs/gittop/stats/smi/
+cp /home/moi/devs/www/smi/upd/index.html /home/moi/devs/gittop/stats/smi/
+mv /home/moi/devs/gittop/stats/smi/packager_20260109142414.sh /home/moi/devs/gittop/stats/smi/packager_20260109142414.sh.txt
+rm /home/moi/devs/gittop/stats/smi/stats_wiki_smileys_20260109142414.html
+mv /home/moi/devs/gittop/stats/smi/stats_wiki_smileys_light_20260109142414.html /home/moi/devs/gittop/stats/smi/stats_wiki_smileys_20260109142414.html
+rm /home/moi/devs/gittop/stats/smi/table_*_20260109142414.html
+
+rm /home/www/smi/upd/*_20260109142414*
+rm /home/www/smi/upd/index.html
+
+rm /home/moi/devs/www/smi/upd/*_20260109142414*
+rm /home/moi/devs/www/smi/upd/index.html
+
