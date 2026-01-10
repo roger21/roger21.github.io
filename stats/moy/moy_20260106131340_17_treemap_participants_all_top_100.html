@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2025 du topic conflit au Moyen-Orient (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 65938, 0, 0],
+    ["Dworkin", "participants", 20575, 0, 0],
+    ["Profil supprimé", "participants", 11746, 0, 0],
+    ["freddy021", "participants", 9927, 0, 0],
+    ["Rasthor", "participants", 6184, 0, 0],
+    ["the veggie boy", "participants", 6023, 0, 0],
+    ["basketor63", "participants", 3184, 0, 0],
+    ["Olivie", "participants", 3099, 0, 0],
+    ["scOulOu", "participants", 2994, 0, 0],
+    ["Maouuu", "participants", 2839, 0, 0],
+    ["kami", "participants", 2655, 0, 0],
+    ["fatah", "participants", 2582, 0, 0],
+    ["bernardo56", "participants", 2468, 0, 0],
+    ["joams", "participants", 2358, 0, 0],
+    ["Serpico7", "participants", 2339, 0, 0],
+    ["goodvibe13", "participants", 2320, 0, 0],
+    ["Ernestor", "participants", 2289, 0, 0],
+    ["mikha31", "participants", 2276, 0, 0],
+    ["Ethel", "participants", 2108, 0, 0],
+    ["D_omi", "participants", 2009, 0, 0],
+    ["Errare", "participants", 1910, 0, 0],
+    ["bulldozer_fusion", "participants", 1822, 0, 0],
+    ["Faluja", "participants", 1814, 0, 0],
+    ["jamere20", "participants", 1810, 0, 0],
+    ["nehoria", "participants", 1596, 0, 0],
+    ["vrossi1", "participants", 1549, 0, 0],
+    ["LeGrandMatheux", "participants", 1432, 0, 0],
+    ["esfahani", "participants", 1384, 0, 0],
+    ["deumilcat", "participants", 1381, 0, 0],
+    ["mikestewart", "participants", 1376, 0, 0],
+    ["totoz", "participants", 1362, 0, 0],
+    ["spartak01", "participants", 1346, 0, 0],
+    ["arthas77", "participants", 1302, 0, 0],
+    ["Scoinscoin", "participants", 1244, 0, 0],
+    ["pik3", "participants", 1216, 0, 0],
+    ["roland-", "participants", 1188, 0, 0],
+    ["spellcaster", "participants", 1085, 0, 0],
+    ["Yog Sothoth", "participants", 1081, 0, 0],
+    ["racingman11", "participants", 1064, 0, 0],
+    ["Yems93", "participants", 1036, 0, 0],
+    ["Coroners", "participants", 1013, 0, 0],
+    ["zyx", "participants", 1003, 0, 0],
+    ["lokilefourbe", "participants", 963, 0, 0],
+    ["DooMIII", "participants", 960, 0, 0],
+    ["tarok1", "participants", 951, 0, 0],
+    ["ijk_reference", "participants", 946, 0, 0],
+    ["bluemoon2", "participants", 900, 0, 0],
+    ["loulou le marlou", "participants", 886, 0, 0],
+    ["Tammuz", "participants", 885, 0, 0],
+    ["rionsnoir", "participants", 876, 0, 0],
+    ["Jakes", "participants", 864, 0, 0],
+    ["Jpegasus", "participants", 851, 0, 0],
+    ["PinkFloyd31", "participants", 837, 0, 0],
+    ["Kashgar", "participants", 834, 0, 0],
+    ["verdoux", "participants", 827, 0, 0],
+    ["Amenorrhee suspecte", "participants", 778, 0, 0],
+    ["Aurore boreale", "participants", 775, 0, 0],
+    ["punchnow0", "participants", 772, 0, 0],
+    ["_hendrix_", "participants", 748, 0, 0],
+    ["Terisonen", "participants", 721, 0, 0],
+    ["MacEugene", "participants", 716, 0, 0],
+    ["vanloque", "participants", 711, 0, 0],
+    ["ipnoz", "participants", 706, 0, 0],
+    ["GL912", "participants", 701, 0, 0],
+    ["autocall", "participants", 697, 0, 0],
+    ["yoyo173", "participants", 697, 0, 0],
+    ["Burracho", "participants", 694, 0, 0],
+    ["vicenzo", "participants", 693, 0, 0],
+    ["djobidjoba", "participants", 688, 0, 0],
+    ["shiipitholla", "participants", 679, 0, 0],
+    ["doutrisor", "participants", 676, 0, 0],
+    ["Bernard Gui", "participants", 669, 0, 0],
+    ["mantel", "participants", 666, 0, 0],
+    ["homnibus", "participants", 661, 0, 0],
+    ["F_lanker", "participants", 645, 0, 0],
+    ["abonisyah", "participants", 641, 0, 0],
+    ["Jacquot martin", "participants", 639, 0, 0],
+    ["Azrail", "participants", 611, 0, 0],
+    ["CoyoteErable", "participants", 596, 0, 0],
+    ["sowhat4", "participants", 562, 0, 0],
+    ["Modération", "participants", 560, 0, 0],
+    ["hisvin", "participants", 559, 0, 0],
+    ["Theolaitouais", "participants", 558, 0, 0],
+    ["Messij", "participants", 552, 0, 0],
+    ["fabien44", "participants", 551, 0, 0],
+    ["JohnSmith", "participants", 545, 0, 0],
+    ["Hadock31", "participants", 542, 0, 0],
+    ["Kalymereau", "participants", 538, 0, 0],
+    ["chienBlanc", "participants", 536, 0, 0],
+    ["djamalun961", "participants", 532, 0, 0],
+    ["william72", "participants", 530, 0, 0],
+    ["Hoiniel", "participants", 526, 0, 0],
+    ["la lampe", "participants", 525, 0, 0],
+    ["jpfohr", "participants", 523, 0, 0],
+    ["zemops", "participants", 495, 0, 0],
+    ["incubusss", "participants", 490, 0, 0],
+    ["luckynick", "participants", 481, 0, 0],
+    ["Gilgamesh d'Uruk", "participants", 477, 0, 0],
+    ["Domi9999", "participants", 476, 0, 0],
+    ["The NBoc", "participants", 474, 0, 0],
+    ["markesz", "participants", 472, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2025 du topic conflit au Moyen-Orient (top 100)</h1>
+  <h3>(données collectées le mardi 6 janvier 2026 à 13:13:40)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
