@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants 2025 du bistrot photonum (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -243 * -1;
+  }
+  if(value > 0) {
+    return value / 347;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["Poogz", "participants", 993, normalize(-177), -177],
+    ["bobor", "participants", 462, normalize(-243), -243],
+    ["randolf", "participants", 450, normalize(-134), -134],
+    ["cd5", "participants", 444, normalize(213), 213],
+    ["fegafomatos", "participants", 426, normalize(-120), -120],
+    ["Micmax", "participants", 401, normalize(-11), -11],
+    ["muzah", "participants", 372, normalize(347), 347],
+    ["Bordel", "participants", 349, normalize(21), 21],
+    ["Cygne_d_Etang", "participants", 329, normalize(-159), -159],
+    ["ilium", "participants", 279, normalize(-2), -2],
+    ["delantera", "participants", 243, normalize(9), 9],
+    ["Oms7", "participants", 224, normalize(95), 95],
+    ["Toxin", "participants", 175, normalize(-125), -125],
+    ["Naxos", "participants", 143, normalize(-66), -66],
+    ["isa1ko", "participants", 119, normalize(118), 118],
+    ["le-poulpe", "participants", 79, normalize(-16), -16],
+    ["zim_zum63", "participants", 68, normalize(3), 3],
+    ["zygo_mkii", "participants", 54, normalize(0), null],
+    ["Gnub", "participants", 44, normalize(-35), -35],
+    ["hell'sangels", "participants", 39, normalize(0), null],
+    ["le_6tron", "participants", 22, normalize(0), null],
+    ["db__", "participants", 20, normalize(-41), -41],
+    ["-sarah-", "participants", 17, normalize(0), null],
+    ["infrarouge", "participants", 14, normalize(1), 1],
+    ["martin2troie", "participants", 9, normalize(0), null],
+    ["GAS", "participants", 7, normalize(-4), -4],
+    ["cartemere", "participants", 6, normalize(5), 5],
+    ["darxmurf", "participants", 6, normalize(-2), -2],
+    ["gaelle1041", "participants", 6, normalize(0), null],
+    ["Anathema", "participants", 5, normalize(0), null],
+    ["antilop", "participants", 5, normalize(4), 4],
+    ["Belgianman", "participants", 5, normalize(0), null],
+    ["gugus", "participants", 3, normalize(0), null],
+    ["asters", "participants", 2, normalize(0), null],
+    ["kela6", "participants", 2, normalize(0), null],
+    ["Pingoa", "participants", 2, normalize(0), null],
+    ["rouergue", "participants", 2, normalize(0), null],
+    ["carole32", "participants", 1, normalize(0), null],
+    ["cricri54", "participants", 1, normalize(0), null],
+    ["flu1", "participants", 1, normalize(0), null],
+    ["hyca", "participants", 1, normalize(0), null],
+    ["jonas", "participants", 1, normalize(-2), -2],
+    ["Kalymereau", "participants", 1, normalize(0), null],
+    ["Kayou", "participants", 1, normalize(-5), -5],
+    ["Landolfi", "participants", 1, normalize(-177), -177],
+    ["Modération", "participants", 1, normalize(0), null],
+    ["Opendtc", "participants", 1, normalize(-20), -20],
+    ["Romulus31", "participants", 1, normalize(0), null],
+    ["samuel14", "participants", 1, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants 2025 du bistrot photonum (top 100)</h1>
+  <h3>(données collectées le mardi 6 janvier 2026 à 14:09:42)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
