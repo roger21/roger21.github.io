@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap des participants all time 2025 du topic UE/Europe (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "participants");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["participants", null, 0, 0, 0],
+    ["tous les autres all time", "participants", 71906, 0, 0],
+    ["Profil supprimé", "participants", 18824, 0, 0],
+    ["fiscalisator", "participants", 7833, 0, 0],
+    ["morb", "participants", 6976, 0, 0],
+    ["zyx", "participants", 6903, 0, 0],
+    ["Ibo_Simon", "participants", 5112, 0, 0],
+    ["Gottorp", "participants", 5056, 0, 0],
+    ["epsiloneridani", "participants", 4097, 0, 0],
+    ["nounounounou", "participants", 4079, 0, 0],
+    ["t_faz", "participants", 4045, 0, 0],
+    ["bernardo56", "participants", 4000, 0, 0],
+    ["ph75", "participants", 3879, 0, 0],
+    ["pik3", "participants", 3402, 0, 0],
+    ["poilagratter", "participants", 3300, 0, 0],
+    ["Ciler", "participants", 3263, 0, 0],
+    ["Kromsson", "participants", 3001, 0, 0],
+    ["zeleyou", "participants", 2940, 0, 0],
+    ["_OttO_", "participants", 2936, 0, 0],
+    ["doublebeurre", "participants", 2869, 0, 0],
+    ["Ernestor", "participants", 2866, 0, 0],
+    ["korrigan73", "participants", 2705, 0, 0],
+    ["moonboots", "participants", 2524, 0, 0],
+    ["mlon", "participants", 2523, 0, 0],
+    ["mantel", "participants", 2430, 0, 0],
+    ["giorkal", "participants", 2230, 0, 0],
+    ["[Toine]", "participants", 2058, 0, 0],
+    ["sidela", "participants", 2056, 0, 0],
+    ["240-185", "participants", 1987, 0, 0],
+    ["Tietie006", "participants", 1950, 0, 0],
+    ["NFlamel", "participants", 1824, 0, 0],
+    ["Chips", "participants", 1805, 0, 0],
+    ["xanthe4975", "participants", 1767, 0, 0],
+    ["Hazumaki", "participants", 1725, 0, 0],
+    ["mober", "participants", 1668, 0, 0],
+    ["scOulOu", "participants", 1650, 0, 0],
+    ["dchiesa", "participants", 1609, 0, 0],
+    ["GibiShadok", "participants", 1604, 0, 0],
+    ["smiley0041", "participants", 1582, 0, 0],
+    ["Zzozo", "participants", 1566, 0, 0],
+    ["Baggers", "participants", 1552, 0, 0],
+    ["Aesculapius", "participants", 1512, 0, 0],
+    ["lexomilou", "participants", 1506, 0, 0],
+    ["dreamer18", "participants", 1482, 0, 0],
+    ["roscocoltran", "participants", 1430, 0, 0],
+    ["asmomo", "participants", 1426, 0, 0],
+    ["Svenn", "participants", 1284, 0, 0],
+    ["hephaestos", "participants", 1267, 0, 0],
+    ["Gigathlon", "participants", 1154, 0, 0],
+    ["guippe", "participants", 1143, 0, 0],
+    ["vouzico", "participants", 1110, 0, 0],
+    ["Hermes le Messager", "participants", 1109, 0, 0],
+    ["hynex", "participants", 1075, 0, 0],
+    ["helicon2", "participants", 1069, 0, 0],
+    ["pistache52", "participants", 1066, 0, 0],
+    ["bphenix", "participants", 1054, 0, 0],
+    ["broddok27", "participants", 989, 0, 0],
+    ["sebdeBM", "participants", 925, 0, 0],
+    ["itg", "participants", 922, 0, 0],
+    ["zad38", "participants", 922, 0, 0],
+    ["kfman", "participants", 887, 0, 0],
+    ["Maouuu", "participants", 875, 0, 0],
+    ["Terminatux", "participants", 851, 0, 0],
+    ["Esiuol", "participants", 807, 0, 0],
+    ["starone", "participants", 794, 0, 0],
+    ["docmaboul", "participants", 754, 0, 0],
+    ["HumanRAGE", "participants", 751, 0, 0],
+    ["The NBoc", "participants", 716, 0, 0],
+    ["B00lay Ier", "participants", 708, 0, 0],
+    ["CoyoteErable", "participants", 707, 0, 0],
+    ["SFO", "participants", 707, 0, 0],
+    ["NightEye", "participants", 697, 0, 0],
+    ["Zguvus", "participants", 697, 0, 0],
+    ["DooMIII", "participants", 660, 0, 0],
+    ["Kronos66", "participants", 652, 0, 0],
+    ["vicenzo", "participants", 634, 0, 0],
+    ["weeWEEx", "participants", 634, 0, 0],
+    ["Tolor", "participants", 633, 0, 0],
+    ["markesz", "participants", 623, 0, 0],
+    ["Betcour", "participants", 603, 0, 0],
+    ["jamere", "participants", 596, 0, 0],
+    ["eurys", "participants", 585, 0, 0],
+    ["claude77", "participants", 573, 0, 0],
+    ["Gurney_Halleck", "participants", 568, 0, 0],
+    ["silkr", "participants", 567, 0, 0],
+    ["printf", "participants", 555, 0, 0],
+    ["KALIFORNIA", "participants", 552, 0, 0],
+    ["hisvin", "participants", 548, 0, 0],
+    ["ramzez", "participants", 544, 0, 0],
+    ["super_pourri", "participants", 538, 0, 0],
+    ["Makiavel", "participants", 532, 0, 0],
+    ["hourman", "participants", 529, 0, 0],
+    ["Rasthor", "participants", 529, 0, 0],
+    ["Lam's", "participants", 524, 0, 0],
+    ["Quenteagle", "participants", 520, 0, 0],
+    ["sorg", "participants", 511, 0, 0],
+    ["Killall-9", "participants", 497, 0, 0],
+    ["el muchacho", "participants", 495, 0, 0],
+    ["croustibat31", "participants", 493, 0, 0],
+    ["snakesolid2", "participants", 491, 0, 0],
+    ["Babouchka", "participants", 488, 0, 0],
+    ["glod 2", "participants", 484, 0, 0]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: false,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap des participants <span class="alltime">all time</span> 2025 du topic UE/Europe (top 100)</h1>
+  <h3>(données collectées le lundi 5 janvier 2026 à 20:12:34)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
