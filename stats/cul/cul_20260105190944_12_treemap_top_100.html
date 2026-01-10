@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>La treemap 2025 du topic culture générale (top 100)</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+google.charts.load("51", {
+  "language": "fr",
+  "packages": ["treemap"]
+});
+function normalize(value) {
+  if(value === 0) return 0;
+  if(value < 0) {
+    return value / -983 * -1;
+  }
+  if(value > 0) {
+    return value / 1517;
+  }
+}
+function onload() {
+  var data_treemap = new google.visualization.DataTable();
+  data_treemap.addColumn("string", "posts");
+  data_treemap.addColumn("string", "parent");
+  data_treemap.addColumn("number", "posts");
+  data_treemap.addColumn("number", "evol");
+  data_treemap.addColumn("number", "trueevol");
+  var data_treemap_values = [
+    ["posteurs", null, 0, 0, 0],
+    ["alcyanel", "posteurs", 1535, normalize(1517), 1517],
+    ["Gottorp", "posteurs", 1445, normalize(220), 220],
+    ["Mercius", "posteurs", 1354, normalize(-803), -803],
+    ["XaTriX", "posteurs", 1061, normalize(-60), -60],
+    ["PierrotLeDingue", "posteurs", 873, normalize(-306), -306],
+    ["roger21", "posteurs", 721, normalize(195), 195],
+    ["billgatesanonym", "posteurs", 676, normalize(462), 462],
+    ["Raistlin Majere", "posteurs", 654, normalize(-134), -134],
+    ["D_omi", "posteurs", 646, normalize(0), null],
+    ["SHAMSHIR", "posteurs", 622, normalize(123), 123],
+    ["pistache52", "posteurs", 531, normalize(528), 528],
+    ["gilou", "posteurs", 524, normalize(180), 180],
+    ["Hegemonie", "posteurs", 396, normalize(-240), -240],
+    ["Ryo-Ohki", "posteurs", 362, normalize(360), 360],
+    ["mxpx", "posteurs", 357, normalize(-983), -983],
+    ["-sarah-", "posteurs", 316, normalize(-501), -501],
+    ["Pims_UTT", "posteurs", 312, normalize(193), 193],
+    ["babylone83", "posteurs", 283, normalize(68), 68],
+    ["andhar", "posteurs", 279, normalize(277), 277],
+    ["philibear", "posteurs", 270, normalize(67), 67],
+    ["santiago10", "posteurs", 270, normalize(-144), -144],
+    ["qwazer", "posteurs", 261, normalize(-32), -32],
+    ["Bob The Builder", "posteurs", 252, normalize(-499), -499],
+    ["senide", "posteurs", 234, normalize(-409), -409],
+    ["toum_toum", "posteurs", 232, normalize(70), 70],
+    ["sire de Botcor", "posteurs", 231, normalize(-203), -203],
+    ["pilou92", "posteurs", 229, normalize(77), 77],
+    ["Lagloye", "posteurs", 210, normalize(19), 19],
+    ["caporacaver", "posteurs", 207, normalize(0), null],
+    ["rafioul2", "posteurs", 178, normalize(70), 70],
+    ["macgawel", "posteurs", 168, normalize(-171), -171],
+    ["ganfoud", "posteurs", 161, normalize(-34), -34],
+    ["Jaxom31", "posteurs", 148, normalize(-91), -91],
+    ["fret6", "posteurs", 128, normalize(96), 96],
+    ["dSlaM", "posteurs", 117, normalize(1), 1],
+    ["ledauphinois", "posteurs", 109, normalize(-310), -310],
+    ["athanor-paris", "posteurs", 94, normalize(-318), -318],
+    ["louchinho", "posteurs", 89, normalize(-51), -51],
+    ["FordPrefect", "posteurs", 59, normalize(42), 42],
+    ["TheCreator", "posteurs", 48, normalize(26), 26],
+    ["seianec", "posteurs", 40, normalize(-7), -7],
+    ["atc2520", "posteurs", 38, normalize(0), null],
+    ["meuniere", "posteurs", 37, normalize(27), 27],
+    ["mlon", "posteurs", 30, normalize(-135), -135],
+    ["Bresse", "posteurs", 25, normalize(15), 15],
+    ["Aardpeer", "posteurs", 22, normalize(6), 6],
+    ["Dworkin", "posteurs", 22, normalize(-2), -2],
+    ["chris_hunter", "posteurs", 15, normalize(0), null],
+    ["Upal", "posteurs", 14, normalize(0), null],
+    ["apple douchebag", "posteurs", 13, normalize(0), null],
+    ["Pascalo974", "posteurs", 11, normalize(1), 1],
+    ["jimbofarrar", "posteurs", 10, normalize(6), 6],
+    ["aurichalque", "posteurs", 8, normalize(-8), -8],
+    ["Mac_Lane", "posteurs", 8, normalize(0), null],
+    ["sadlig", "posteurs", 8, normalize(-2), -2],
+    ["Nono", "posteurs", 7, normalize(0), null],
+    ["Daphne", "posteurs", 6, normalize(-7), -7],
+    ["-gaelle-", "posteurs", 6, normalize(0), null],
+    ["Inso-lent", "posteurs", 6, normalize(0), null],
+    ["Toxin", "posteurs", 6, normalize(0), null],
+    ["Eifersucht91", "posteurs", 5, normalize(-206), -206],
+    ["Autumn_love", "posteurs", 4, normalize(0), null],
+    ["carole32", "posteurs", 4, normalize(0), null],
+    ["cisco1", "posteurs", 4, normalize(-32), -32],
+    ["ouf", "posteurs", 4, normalize(0), null],
+    ["Ryoh", "posteurs", 4, normalize(0), null],
+    ["JohnSmith", "posteurs", 3, normalize(0), null],
+    ["MBA de Rambouillet", "posteurs", 3, normalize(0), null],
+    ["Struwwelpeter", "posteurs", 3, normalize(0), null],
+    ["Syzygie", "posteurs", 3, normalize(0), null],
+    ["Z-bLuffer", "posteurs", 3, normalize(0), null],
+    ["Arkin", "posteurs", 2, normalize(1), 1],
+    ["DP59", "posteurs", 2, normalize(0), null],
+    ["gaelle1041", "posteurs", 2, normalize(0), null],
+    ["Homerde", "posteurs", 2, normalize(0), 0],
+    ["maelr", "posteurs", 2, normalize(0), null],
+    ["Modération", "posteurs", 2, normalize(1), 1],
+    ["tous les autres", "posteurs", 2, normalize(-1), -1],
+    ["waddle", "posteurs", 2, normalize(1), 1],
+    ["xanthe", "posteurs", 2, normalize(0), null],
+    ["aresknock", "posteurs", 1, normalize(0), null],
+    ["autocall", "posteurs", 1, normalize(0), null],
+    ["bauer_attitude", "posteurs", 1, normalize(0), null],
+    ["chanko", "posteurs", 1, normalize(0), null],
+    ["doutrisor", "posteurs", 1, normalize(0), null],
+    ["falaenthor", "posteurs", 1, normalize(0), null],
+    ["fissure anale", "posteurs", 1, normalize(0), null],
+    ["groux", "posteurs", 1, normalize(0), null],
+    ["khorum", "posteurs", 1, normalize(0), null],
+    ["kikafars", "posteurs", 1, normalize(0), null],
+    ["k_raf", "posteurs", 1, normalize(-92), -92],
+    ["kray", "posteurs", 1, normalize(0), null],
+    ["Lobster", "posteurs", 1, normalize(0), 0],
+    ["minouz12", "posteurs", 1, normalize(0), 0],
+    ["mko", "posteurs", 1, normalize(0), null],
+    ["muzah", "posteurs", 1, normalize(0), null],
+    ["Proust4", "posteurs", 1, normalize(0), null],
+    ["rolandtopor", "posteurs", 1, normalize(0), null],
+    ["rufo", "posteurs", 1, normalize(0), null],
+    ["Togi", "posteurs", 1, normalize(0), null],
+    ["v0t4r", "posteurs", 1, normalize(0), null]
+  ];
+  data_treemap.addRows(data_treemap_values);
+  var options_treemap = {
+    enableHighlight: true,
+    eventsConfig: {
+      highlight: ["mouseover"],
+      unhighlight: ["mouseout"],
+      rollup: [],
+      drilldown: []
+    },
+    fontColor: "#303030",
+    fontFamily: "Verdana,Arial,Sans-serif,Helvetica",
+    fontSize: 14,
+    forceIFrame: false,
+    headerHeight: 0,
+    maxColor: "#cfffcf",
+    maxHighlightColor: "#ffdfaf",
+    midColor: "#cfcfff",
+    midHighlightColor: "#ffdfaf",
+    minColor: "#ffcfcf",
+    minHighlightColor: "#ffdfaf",
+    noColor: "#cfcfff",
+    noHighlightColor: "#ffdfaf",
+    showScale: true,
+    showTooltips: true,
+    generateTooltip: tooltip
+  };
+  var formater = new Intl.NumberFormat("fr-FR");
+  function format(value) {
+    if(value === null) return "new";
+    else if(value === 0) return "=";
+    else if(value < 0) return "\u2212" + formater.format(Math.abs(value));
+    else return "+" + formater.format(value);
+  }
+  function tooltip(row, size, value) {
+    return "<div class=\"tooltip\">" + data_treemap.getValue(row, 0) +
+      " (" + row + ") : " + formater.format(data_treemap.getValue(row, 2)) + " posts" +
+      " / " + format(data_treemap.getValue(row, 4)) + "</div>";
+  }
+  var div_treemap = document.querySelector("div#treemap");
+  var treemap = new google.visualization.TreeMap(div_treemap);
+  treemap.draw(data_treemap, options_treemap);
+}
+google.charts.setOnLoadCallback(onload);
+  </script>
+</head>
+<body class="treemap">
+  <h1>La treemap 2025 du topic culture générale (top 100)</h1>
+  <h3>(données collectées le lundi 5 janvier 2026 à 19:09:44)</h3>
+  <div id="treemap"></div>
+</body>
+</html>
