@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>med</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
+</head>
+<body>
+  <h1 class="title">Stats Du Topic Des Médias</h1>
+  <div class="index">
+    <div class="section" id="20260116194820">
+      <b><a class="permalink" href="#20260116194820">vendredi 16 janvier 2026 à 19:48:20</a></b>
+      <span>739 participants / 71 493 posts / 60 647 smileys / 76 posts roses</span>
+      <a class="graph" href="med_20260116194820_01_activite_all_year.html">
+        activité all time 2025 par an
+      </a>
+      <a class="graph" href="med_20260116194820_02_activite_all_month.html">
+        activité all time 2025 par mois
+      </a>
+      <a class="graph" href="med_20260116194820_03_activite_all_week.html">
+        activité all time 2025 par semaine
+      </a>
+      <a class="graph" href="med_20260116194820_04_activite_month.html">
+        activité 2025 par mois
+      </a>
+      <a class="graph" href="med_20260116194820_05_activite_week.html">
+        activité 2025 par semaine
+      </a>
+      <a class="table" href="med_20260116194820_11_participants_top_100.html">
+        participants 2025 (top 100)
+      </a>
+      <a class="table" href="med_20260116194820_12_participants_sortants.html">
+        participants sortants 2025 (30)
+      </a>
+      <a class="table" href="med_20260116194820_13_participants_all_top_500.html">
+        participants all time 2025 (top 500)
+      </a>
+      <a class="table" href="med_20260116194820_14_participants_mensuel_top_100.html">
+        participants mensuel 2025 (top 100)
+      </a>
+      <a class="table" href="med_20260116194820_15_participants_annuel_all_top_100.html">
+        participants annuel all time 2025 (top 100)
+      </a>
+      <a class="graph" href="med_20260116194820_16_treemap_participants_top_100.html">
+        treemap participants 2025 (top 100)
+      </a>
+      <a class="graph" href="med_20260116194820_17_treemap_participants_all_top_100.html">
+        treemap participants all time 2025 (top 100)
+      </a>
+      <a class="table" href="med_20260116194820_21_smileys_top_100.html">
+        smileys 2025 (top 100)
+      </a>
+      <a class="table" href="med_20260116194820_22_smileys_sortants.html">
+        smileys sortants 2025 (40)
+      </a>
+      <a class="table" href="med_20260116194820_23_smileys_all_top_500.html">
+        smileys all time 2025 (top 500)
+      </a>
+      <a class="table" href="med_20260116194820_24_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2025 (top 50)
+      </a>
+      <a class="table" href="med_20260116194820_25_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2025 (top 50)
+      </a>
+      <a class="table" href="med_20260116194820_31_posts_quotes_top_100.html">
+        posts les plus quotés 2025 (top 100)
+      </a>
+      <a class="table" href="med_20260116194820_32_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2025 (top 500)
+      </a>
+      <a class="table" href="med_20260116194820_33_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2025 (top 100)
+      </a>
+      <a class="table" href="med_20260116194820_34_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2025 (39)
+      </a>
+      <a class="table" href="med_20260116194820_35_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2025 (top 500)
+      </a>
+      <a class="graph" href="med_20260116194820_g1_counts_all.svg">
+        nombre de posts et de participants all time 2025
+      </a>
+      <a class="graph" href="med_20260116194820_g2_evol_all.svg">
+        évolution du nombre de participants all time 2025
+      </a>
+    </div>
+  </div>
+</body>
+</html>

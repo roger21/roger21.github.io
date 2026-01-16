@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- utf-8: Ω -->
+  <meta charset="utf-8">
+  <title>sor</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="icon" href="favicon.ico" type="image/png">
+  <script type="text/javascript">
+    function highlight_hash() {
+      let sections = document.querySelectorAll("div.index > div.section.highlight[id]");
+      for(let s of sections) {
+        s.classList.toggle("highlight", false);
+      }
+      if(window.location.hash) {
+        let section = document.querySelector("#id" + window.location.hash.substring(1));
+        if(section) {
+          section.classList.toggle("highlight", true);
+        }
+      }
+    }
+    window.addEventListener("hashchange", highlight_hash, false);
+    window.addEventListener("load", function() {
+      let ids = document.querySelectorAll("div.index > div.section[id]");
+      for(let id of ids) {
+        id.setAttribute("id", "id" + id.getAttribute("id"));
+      }
+      highlight_hash();
+    }, false);
+  </script>
+</head>
+<body>
+  <h1 class="title">Stats Du Topic Dissidence</h1>
+  <div class="index">
+    <div class="section" id="20260116200756">
+      <b><a class="permalink" href="#20260116200756">vendredi 16 janvier 2026 à 20:07:56</a></b>
+      <span>1 484 participants / 219 209 posts / 158 541 smileys / 159 posts roses</span>
+      <a class="graph" href="sor_20260116200756_01_activite_all_year.html">
+        activité all time 2025 par an
+      </a>
+      <a class="graph" href="sor_20260116200756_02_activite_all_month.html">
+        activité all time 2025 par mois
+      </a>
+      <a class="graph" href="sor_20260116200756_03_activite_all_week.html">
+        activité all time 2025 par semaine
+      </a>
+      <a class="graph" href="sor_20260116200756_04_activite_month.html">
+        activité 2025 par mois
+      </a>
+      <a class="graph" href="sor_20260116200756_05_activite_week.html">
+        activité 2025 par semaine
+      </a>
+      <a class="table" href="sor_20260116200756_11_participants_top_100.html">
+        participants 2025 (top 100)
+      </a>
+      <a class="table" href="sor_20260116200756_12_participants_sortants.html">
+        participants sortants 2025 (26)
+      </a>
+      <a class="table" href="sor_20260116200756_13_participants_all_top_500.html">
+        participants all time 2025 (top 500)
+      </a>
+      <a class="table" href="sor_20260116200756_14_participants_mensuel_top_100.html">
+        participants mensuel 2025 (top 100)
+      </a>
+      <a class="table" href="sor_20260116200756_15_participants_annuel_all_top_100.html">
+        participants annuel all time 2025 (top 100)
+      </a>
+      <a class="graph" href="sor_20260116200756_16_treemap_participants_top_100.html">
+        treemap participants 2025 (top 100)
+      </a>
+      <a class="graph" href="sor_20260116200756_17_treemap_participants_all_top_100.html">
+        treemap participants all time 2025 (top 100)
+      </a>
+      <a class="table" href="sor_20260116200756_21_smileys_top_100.html">
+        smileys 2025 (top 100)
+      </a>
+      <a class="table" href="sor_20260116200756_22_smileys_sortants.html">
+        smileys sortants 2025 (35)
+      </a>
+      <a class="table" href="sor_20260116200756_23_smileys_all_top_500.html">
+        smileys all time 2025 (top 500)
+      </a>
+      <a class="table" href="sor_20260116200756_24_smileys_persos_mensuel_top_50.html">
+        smileys persos mensuel 2025 (top 50)
+      </a>
+      <a class="table" href="sor_20260116200756_25_smileys_persos_annuel_all_top_50.html">
+        smileys persos annuel all time 2025 (top 50)
+      </a>
+      <a class="table" href="sor_20260116200756_31_posts_quotes_top_100.html">
+        posts les plus quotés 2025 (top 100)
+      </a>
+      <a class="table" href="sor_20260116200756_32_posts_quotes_all_top_500.html">
+        posts les plus quotés all time 2025 (top 500)
+      </a>
+      <a class="table" href="sor_20260116200756_33_pseudals_quotes_top_100.html">
+        pseudals les plus quotés 2025 (top 100)
+      </a>
+      <a class="table" href="sor_20260116200756_34_pseudals_quotes_sortants.html">
+        pseudals les plus quotés sortants 2025 (38)
+      </a>
+      <a class="table" href="sor_20260116200756_35_pseudals_quotes_all_top_500.html">
+        pseudals les plus quotés all time 2025 (top 500)
+      </a>
+      <a class="graph" href="sor_20260116200756_g1_counts_all.svg">
+        nombre de posts et de participants all time 2025
+      </a>
+      <a class="graph" href="sor_20260116200756_g2_evol_all.svg">
+        évolution du nombre de participants all time 2025
+      </a>
+    </div>
+  </div>
+</body>
+</html>
