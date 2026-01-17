@@ -5,8 +5,9 @@
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cul_20260105190944_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20260105190944_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du topic culture générale\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 19:09:44)"
@@ -29,7 +30,7 @@ set mouse mouseformat "DateTime"
 set size .985,1
 set origin .015,0
 
-bigger(s) = sprintf("{/:Bold=16 %.f", s)
+bigger(s) = sprintf("{/:Bold=16 %'.0f", s)
 
 plot [1273509357:1776906311][0:682945.2] \
 "cul_20260105190944_00_data_count_posts.txt" u 1:2 w line lw 2 lc rgbcolor "#003fbf" title "le nombre de posts", \
@@ -53,8 +54,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cul_20260105190944_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20260105190944_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du topic culture générale\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 19:09:44)"
@@ -71,7 +73,7 @@ set mouse mouseformat "DateTime"
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .975, graph .06 bottom right Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 # il faut déterminer k empiriquement, ici k vaut .11
 # ensuite on peut choisir la taille des graphs et du titre avec la formule t + 2x + k + x + k = 1
@@ -89,7 +91,7 @@ set mytics 2
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .975, graph .88 top right Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 set size .985,.35 # x + k
 set origin .015,0
@@ -106,8 +108,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cul_20260105190944_g3_course_image" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20260105190944_g3_course_image.svg"
 set title "{/:Bold=18 Le topic culture générale versus le topic images en nombre de posts en 2025\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 19:09:44)"
@@ -146,8 +149,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cul_20260105190944_g4_course_image_zoom" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20260105190944_g4_course_image_zoom.svg"
 set title "{/:Bold=18 Le topic culture générale versus le topic images en nombre de posts zoomé en 2025\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 19:09:44)"
@@ -186,8 +190,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cul_20260105190944_g5_babylones_mayrde" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cul_20260105190944_g5_babylones_mayrde.svg"
 set title "{/:Bold=18 Le nombre all time de laurekas et de babylones de mayrde du topic culture générale en 2025\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 19:09:44)"
@@ -201,11 +206,13 @@ set mytics 2
 set y2tics 0, 20
 set link y2 via y / 50 inverse y * 50
 set grid xtics mxtics ytics mytics back lc "#3f3f3f", lc "#9f9f9f"
+set format y "%'.0f"
+set format y2 "%'.0f"
 set style fill transparent solid .4
 set boxwidth 0.75
 
-boldus(s) = sprintf("{/:Bold=14 %.f}", s)
-minus(s) = sprintf("{/:Bold=14 %.2f %}", s)
+boldus(s) = sprintf("{/:Bold=14 %'.0f}", s)
+minus(s) = sprintf("{/:Bold=14 %'.2f %}", s)
 
 set size .985,1
 set origin .015,0

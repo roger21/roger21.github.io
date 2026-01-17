@@ -5,8 +5,9 @@
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "lrm_20260106102147_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du topic LREM\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 10:21:47)"
@@ -29,7 +30,7 @@ set mouse mouseformat "DateTime"
 set size .985,1
 set origin .015,0
 
-bigger(s) = sprintf("{/:Bold=16 %.f", s)
+bigger(s) = sprintf("{/:Bold=16 %'.0f", s)
 
 plot [1457633917:1773296026][0:1524149.55] \
 "lrm_20260106102147_00_data_count_posts.txt" u 1:2 w line lw 2 lc rgbcolor "#003fbf" title "le nombre de posts", \
@@ -49,8 +50,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "lrm_20260106102147_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du topic LREM\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 10:21:47)"
@@ -67,7 +69,7 @@ set mouse mouseformat "DateTime"
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .025, graph .94 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 # il faut déterminer k empiriquement, ici k vaut .11
 # ensuite on peut choisir la taille des graphs et du titre avec la formule t + 2x + k + x + k = 1
@@ -85,7 +87,7 @@ set mytics 2
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .025, graph .88 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 set size .985,.35 # x + k
 set origin .015,0
@@ -102,8 +104,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g3_lrem_versus_politiques" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "lrm_20260106102147_g3_lrem_versus_politiques.svg"
 set title "{/:Bold=18 Le topic LREM versus les topics politiques en nombre de posts en 2025\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 10:21:47)"
@@ -122,15 +125,15 @@ set mouse mouseformat "DateTime"
 set size .985,1
 set origin .015,0
 
-bigger(s) = sprintf("{/:Bold=16 %.f", s)
-label_lrem(s) = sprintf("{/:Bold=16 LREM\n{/:Bold=16 %.f", s)
-label_republicains(s) = sprintf("{/:Bold=16 LR\n{/:Bold=16 %.f", s)
-label_socialiste(s) = sprintf("{/:Bold=16 PS\n{/:Bold=16 %.f", s)
-label_lfi(s) = sprintf("{/:Bold=16 LFI\n{/:Bold=16 %.f", s)
-label_zemmour(s) = sprintf("{/:Bold=16 %.f\n{/:Bold=16 Zemmour", s)
-label_national(s) = sprintf("{/:Bold=16 RN\n{/:Bold=16 %.f", s)
-label_modem(s) = sprintf("{/:Bold=16 %.f\n{/:Bold=16 MoDem", s)
-label_verts(s) = sprintf("{/:Bold=16 EELV\n{/:Bold=16 %.f", s)
+bigger(s) = sprintf("{/:Bold=16 %'.0f", s)
+label_lrem(s) = sprintf("{/:Bold=16 LREM\n{/:Bold=16 %'.0f", s)
+label_republicains(s) = sprintf("{/:Bold=16 LR\n{/:Bold=16 %'.0f", s)
+label_socialiste(s) = sprintf("{/:Bold=16 %'.0f\n{/:Bold=16 PS", s)
+label_lfi(s) = sprintf("{/:Bold=16 LFI\n{/:Bold=16 %'.0f", s)
+label_zemmour(s) = sprintf("{/:Bold=16 %'.0f\n{/:Bold=16 Zemmour", s)
+label_national(s) = sprintf("{/:Bold=16 RN\n{/:Bold=16 %'.0f", s)
+label_modem(s) = sprintf("{/:Bold=16 %'.0f\n{/:Bold=16 MoDem", s)
+label_verts(s) = sprintf("{/:Bold=16 EELV\n{/:Bold=16 %'.0f", s)
 
 plot [1104537600:1814400000][0:1600000] \
 "lrm_20260106102147_00_data_count_posts_lrem.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f2d618" title "posts all time du topic LREM", \

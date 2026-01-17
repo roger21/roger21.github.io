@@ -5,8 +5,9 @@
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cim_20260105171525_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cim_20260105171525_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du cimetière des célébrités\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 17:15:25)"
@@ -29,7 +30,7 @@ set mouse mouseformat "DateTime"
 set size .985,1
 set origin .015,0
 
-bigger(s) = sprintf("{/:Bold=16 %.f", s)
+bigger(s) = sprintf("{/:Bold=16 %'.0f", s)
 
 plot [1179123699:1778757010][0:118723.5] \
 "cim_20260105171525_00_data_count_posts.txt" u 1:2 w line lw 2 lc rgbcolor "#003fbf" title "le nombre de posts", \
@@ -37,7 +38,7 @@ plot [1179123699:1778757010][0:118723.5] \
 "cim_20260105171525_00_data_count_participants.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#109618" title "le nombre de participants (sur y2)", \
 "cim_20260105171525_00_data_count_roses.txt" u 1:2 axes x1y2 w line lw 2 lc rgbcolor "#dc3912" title "le nombre de posts roses (sur y2)", \
 "cim_20260105171525_00_data_count_posts.txt" every ::113070::113070 u 1:2:(bigger($2)) w labels right tc rgbcolor "#003fbf" point lc rgbcolor "#003fbf" pt 7 ps 1 offset 0,.6 notitle, \
-"cim_20260105171525_00_data_count_smileys.txt" every ::68267::68267 u 1:2:(bigger($2)) w labels left tc rgbcolor "#ff9900" point lc rgbcolor "#ff9900" pt 7 ps 1 offset .7,-.3 notitle, \
+"cim_20260105171525_00_data_count_smileys.txt" every ::68267::68267 u 1:2:(bigger($2)) w labels right tc rgbcolor "#ff9900" point lc rgbcolor "#ff9900" pt 7 ps 1 offset 0,.6 notitle, \
 "cim_20260105171525_00_data_count_participants.txt" every ::2044::2044 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#109618" point lc rgbcolor "#109618" pt 7 ps 1 offset 0,.6 notitle, \
 "cim_20260105171525_00_data_count_roses.txt" every ::166::166 u 1:2:(bigger($2)) axes x1y2 w labels right tc rgbcolor "#dc3912" point lc rgbcolor "#dc3912" pt 7 ps 1 offset 0,.6 notitle
 
@@ -49,8 +50,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "cim_20260105171525_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "cim_20260105171525_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du cimetière des célébrités\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 17:15:25)"
@@ -67,7 +69,7 @@ set mouse mouseformat "DateTime"
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .025, graph .94 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 # il faut déterminer k empiriquement, ici k vaut .11
 # ensuite on peut choisir la taille des graphs et du titre avec la formule t + 2x + k + x + k = 1
@@ -85,7 +87,7 @@ set mytics 2
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .025, graph .88 top left Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 set size .985,.35 # x + k
 set origin .015,0

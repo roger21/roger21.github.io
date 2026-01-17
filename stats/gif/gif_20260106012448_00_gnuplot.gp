@@ -5,8 +5,9 @@
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "gif_20260106012448_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "gif_20260106012448_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du topic Gifs\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 01:24:48)"
@@ -29,7 +30,7 @@ set mouse mouseformat "DateTime"
 set size .985,1
 set origin .015,0
 
-bigger(s) = sprintf("{/:Bold=16 %.f", s)
+bigger(s) = sprintf("{/:Bold=16 %'.0f", s)
 
 plot [1069082748:1780914676][0:179434.5] \
 "gif_20260106012448_00_data_count_posts.txt" u 1:2 w line lw 2 lc rgbcolor "#003fbf" title "le nombre de posts", \
@@ -53,8 +54,9 @@ set output
 unset multiplot
 reset session
 reset
-#set locale "french"
 set encoding utf8
+set locale "fr_FR.utf8"
+set decimalsign locale "fr_FR.utf8"
 set terminal svg size 1920, 1080 dynamic name "gif_20260106012448_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
 set output "gif_20260106012448_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du topic Gifs\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 01:24:48)"
@@ -71,7 +73,7 @@ set mouse mouseformat "DateTime"
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .975, graph .06 bottom right Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 # il faut déterminer k empiriquement, ici k vaut .11
 # ensuite on peut choisir la taille des graphs et du titre avec la formule t + 2x + k + x + k = 1
@@ -89,7 +91,7 @@ set mytics 2
 
 set ylabel "{/=16 le nombre de participants"
 set key at graph .975, graph .88 top right Left opaque reverse samplen 3 box spacing 1.2 height .4 width -7
-set format y "%'4.0f"
+set format y "%'5.0f"
 
 set size .985,.35 # x + k
 set origin .015,0
