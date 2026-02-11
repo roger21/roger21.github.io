@@ -8,7 +8,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "img_20260106053326_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "img_20260106053326_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "img_20260106053326_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du topic images\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 05:33:26)"
 set ylabel "{/=16 le nombre de posts, d'images, de smileys et d'images en spoilers"
@@ -57,7 +57,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "img_20260106053326_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "img_20260106053326_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "img_20260106053326_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du topic images\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 05:33:26)"
 set xtics ("2005" 1104537600, "2006" 1136073600, "2007" 1167609600, "2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 1293840000, "2012" 1325376000, "2013" 1356998400, "2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200, "2025" 1735689600, "2026" 1767225600, "2027" 1798761600, "2028" 1830297600, "2029" 1861920000) rotate
@@ -97,7 +97,7 @@ set size .985,.35 # x + k
 set origin .015,0
 
 plot [1192689846:1778491007][0:2076.8] \
-"img_20260106053326_00_data_evol.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#983fcf" title "le nombre de participants présents   "
+"img_20260106053326_00_data_evol.txt" u 1:4 w lines lw 2 lc rgbcolor "#983fcf" title "le nombre de participants présents   "
 
 unset multiplot
 set output

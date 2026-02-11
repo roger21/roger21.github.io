@@ -8,7 +8,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "lrm_20260106102147_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du topic LREM\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 10:21:47)"
 set ylabel "{/=16 le nombre de posts et de smileys"
@@ -53,7 +53,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "lrm_20260106102147_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du topic LREM\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 10:21:47)"
 set xtics ("2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200, "2025" 1735689600, "2026" 1767225600, "2027" 1798761600, "2028" 1830297600, "2029" 1861920000) rotate
@@ -93,7 +93,7 @@ set size .985,.35 # x + k
 set origin .015,0
 
 plot [1457633917:1773296026][0:1215.5] \
-"lrm_20260106102147_00_data_evol.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#983fcf" title "le nombre de participants présents   "
+"lrm_20260106102147_00_data_evol.txt" u 1:4 w lines lw 2 lc rgbcolor "#983fcf" title "le nombre de participants présents   "
 
 unset multiplot
 set output
@@ -107,7 +107,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g3_lrem_versus_politiques" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "lrm_20260106102147_g3_lrem_versus_politiques" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "lrm_20260106102147_g3_lrem_versus_politiques.svg"
 set title "{/:Bold=18 Le topic LREM versus les topics politiques en nombre de posts en 2025\n{/:Bold=14 (données collectées le mardi 6 janvier 2026 à 10:21:47)"
 set ylabel "{/=16 le nombre de posts"
@@ -136,14 +136,14 @@ label_modem(s) = sprintf("{/:Bold=16 %'.0f\n{/:Bold=16 MoDem", s)
 label_verts(s) = sprintf("{/:Bold=16 EELV\n{/:Bold=16 %'.0f", s)
 
 plot [1104537600:1814400000][0:1600000] \
-"lrm_20260106102147_00_data_count_posts_lrem.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f2d618" title "posts all time du topic LREM", \
-"lrm_20260106102147_00_data_count_posts_republicains.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#4363d8" title "posts all time du topic LR", \
-"lrm_20260106102147_00_data_count_posts_socialiste.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f032e6" title "posts all time du topic PS", \
-"lrm_20260106102147_00_data_count_posts_lfi.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#e6194b" title "posts all time du topic LFI", \
-"lrm_20260106102147_00_data_count_posts_zemmour.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#42d4f4" title "posts all time du topic Zemmour", \
-"lrm_20260106102147_00_data_count_posts_national.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#911eb4" title "posts all time du topic RN", \
-"lrm_20260106102147_00_data_count_posts_modem.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f58231" title "posts all time du topic MoDem", \
-"lrm_20260106102147_00_data_count_posts_verts.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#3cb44b" title "posts all time du topic EELV", \
+"lrm_20260106102147_00_data_count_posts_lrem.txt" u 1:2 w lines lw 2 lc rgbcolor "#f2d618" title "posts all time du topic LREM", \
+"lrm_20260106102147_00_data_count_posts_republicains.txt" u 1:2 w lines lw 2 lc rgbcolor "#4363d8" title "posts all time du topic LR", \
+"lrm_20260106102147_00_data_count_posts_socialiste.txt" u 1:2 w lines lw 2 lc rgbcolor "#f032e6" title "posts all time du topic PS", \
+"lrm_20260106102147_00_data_count_posts_lfi.txt" u 1:2 w lines lw 2 lc rgbcolor "#e6194b" title "posts all time du topic LFI", \
+"lrm_20260106102147_00_data_count_posts_zemmour.txt" u 1:2 w lines lw 2 lc rgbcolor "#42d4f4" title "posts all time du topic Zemmour", \
+"lrm_20260106102147_00_data_count_posts_national.txt" u 1:2 w lines lw 2 lc rgbcolor "#911eb4" title "posts all time du topic RN", \
+"lrm_20260106102147_00_data_count_posts_modem.txt" u 1:2 w lines lw 2 lc rgbcolor "#f58231" title "posts all time du topic MoDem", \
+"lrm_20260106102147_00_data_count_posts_verts.txt" u 1:2 w lines lw 2 lc rgbcolor "#3cb44b" title "posts all time du topic EELV", \
 "lrm_20260106102147_00_data_count_posts_lrem.txt" every ::1451571::1451571 u 1:2:(label_lrem($2)) w labels left tc rgbcolor "#f2d618" point lc rgbcolor "#f2d618" pt 7 ps 1 offset .7,.3 notitle, \
 "lrm_20260106102147_00_data_count_posts_republicains.txt" every ::1072707::1072707 u 1:2:(label_republicains($2)) w labels left tc rgbcolor "#4363d8" point lc rgbcolor "#4363d8" pt 7 ps 1 offset .7,.3 notitle, \
 "lrm_20260106102147_00_data_count_posts_socialiste.txt" every ::633809::633809 u 1:2:(label_socialiste($2)) w labels left tc rgbcolor "#f032e6" point lc rgbcolor "#f032e6" pt 7 ps 1 offset .7,.75 notitle, \

@@ -8,7 +8,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g1_counts_all" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "foo_20260105204004_g1_counts_all.svg"
 set title "{/:Bold=18 Le nombre de posts et de participants all time 2025 du topic foot\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 20:40:04)"
 set ylabel "{/=16 le nombre de posts et de smileys"
@@ -53,7 +53,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g2_evol_all" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "foo_20260105204004_g2_evol_all.svg"
 set multiplot title "{/:Bold=18 L'évolution du nombre de participants all time 2025 du topic foot\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 20:40:04)"
 set xtics ("2004" 1072915200, "2005" 1104537600, "2006" 1136073600, "2007" 1167609600, "2008" 1199145600, "2009" 1230768000, "2010" 1262304000, "2011" 1293840000, "2012" 1325376000, "2013" 1356998400, "2014" 1388534400, "2015" 1420070400, "2016" 1451606400, "2017" 1483228800, "2018" 1514764800, "2019" 1546300800, "2020" 1577836800, "2021" 1609459200, "2022" 1640995200, "2023" 1672531200, "2024" 1704067200, "2025" 1735689600, "2026" 1767225600, "2027" 1798761600, "2028" 1830297600, "2029" 1861920000) rotate
@@ -93,7 +93,7 @@ set size .985,.35 # x + k
 set origin .015,0
 
 plot [1140342006:1779517436][0:1237.5] \
-"foo_20260105204004_00_data_evol.txt" u 1:4 smooth bezier lw 2 lc rgbcolor "#983fcf" title "le nombre de participants présents   "
+"foo_20260105204004_00_data_evol.txt" u 1:4 w lines lw 2 lc rgbcolor "#983fcf" title "le nombre de participants présents   "
 
 unset multiplot
 set output
@@ -107,7 +107,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g3_foot_versus_covid" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g3_foot_versus_covid" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "foo_20260105204004_g3_foot_versus_covid.svg"
 set title "{/:Bold=18 Le topic foot versus le topic COVID-19 en nombre de posts en 2025\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 20:40:04)"
 set ylabel "{/=16 le nombre de posts"
@@ -164,7 +164,7 @@ reset
 set encoding utf8
 set locale "fr_FR.utf8"
 set decimalsign locale "fr_FR.utf8"
-set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g4_foot_versus_world" font "Verdana,Arial,Sans-serif,Helvetica,14" dashlength 2 linewidth 1 background "#ffffff"
+set terminal svg size 1920, 1080 dynamic name "foo_20260105204004_g4_foot_versus_world" font "Verdana,Arial,Sans-serif,Helvetica,14" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "foo_20260105204004_g4_foot_versus_world.svg"
 set title "{/:Bold=18 Le topic foot versus the world en nombre de posts en 2025\n{/:Bold=14 (données collectées le lundi 5 janvier 2026 à 20:40:04)"
 set ylabel "{/=16 le nombre de posts"
@@ -194,15 +194,15 @@ label_uspolitics(s) = sprintf("{/:Bold=16 US Politics\n{/:Bold=16 %'.0f", s)
 label_moyenorient(s) = sprintf("{/:Bold=16 Moyen-Orient\n{/:Bold=16 %'.0f", s)
 
 plot [1041379200:1830297600][0:3250000] \
-"foo_20260105204004_00_data_count_posts_foot.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#e6194b" title "posts all time du topic foot", \
-"foo_20260105204004_00_data_count_posts_gsnalf.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#3cb44b" title "posts all time du topic GSNALF", \
-"foo_20260105204004_00_data_count_posts_photonum.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#ffe119" title "posts all time du bistrot photonum", \
-"foo_20260105204004_00_data_count_posts_lrem.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#4363d8" title "posts all time du topic LREM", \
-"foo_20260105204004_00_data_count_posts_insomniaks.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f58231" title "posts all time du topic insomniaks", \
-"foo_20260105204004_00_data_count_posts_covid.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#911eb4" title "posts all time du topic COVID-19", \
-"foo_20260105204004_00_data_count_posts_ukraine.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#42d4f4" title "posts all time du topic Ukraine", \
-"foo_20260105204004_00_data_count_posts_uspolitics.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#f032e6" title "posts all time du topic US Politics", \
-"foo_20260105204004_00_data_count_posts_moyenorient.txt" u 1:2 smooth bezier lw 2 lc rgbcolor "#bfef45" title "posts all time du topic Moyen-Orient", \
+"foo_20260105204004_00_data_count_posts_foot.txt" u 1:2 w lines lw 2 lc rgbcolor "#e6194b" title "posts all time du topic foot", \
+"foo_20260105204004_00_data_count_posts_gsnalf.txt" u 1:2 w lines lw 2 lc rgbcolor "#3cb44b" title "posts all time du topic GSNALF", \
+"foo_20260105204004_00_data_count_posts_photonum.txt" u 1:2 w lines lw 2 lc rgbcolor "#ffe119" title "posts all time du bistrot photonum", \
+"foo_20260105204004_00_data_count_posts_lrem.txt" u 1:2 w lines lw 2 lc rgbcolor "#4363d8" title "posts all time du topic LREM", \
+"foo_20260105204004_00_data_count_posts_insomniaks.txt" u 1:2 w lines lw 2 lc rgbcolor "#f58231" title "posts all time du topic insomniaks", \
+"foo_20260105204004_00_data_count_posts_covid.txt" u 1:2 w lines lw 2 lc rgbcolor "#911eb4" title "posts all time du topic COVID-19", \
+"foo_20260105204004_00_data_count_posts_ukraine.txt" u 1:2 w lines lw 2 lc rgbcolor "#42d4f4" title "posts all time du topic Ukraine", \
+"foo_20260105204004_00_data_count_posts_uspolitics.txt" u 1:2 w lines lw 2 lc rgbcolor "#f032e6" title "posts all time du topic US Politics", \
+"foo_20260105204004_00_data_count_posts_moyenorient.txt" u 1:2 w lines lw 2 lc rgbcolor "#bfef45" title "posts all time du topic Moyen-Orient", \
 "foo_20260105204004_00_data_count_posts_foot.txt" every ::3007640::3007640 u 1:2:(label_foot($2)) w labels left tc rgbcolor "#e6194b" point lc rgbcolor "#e6194b" pt 7 ps 1 offset .7,.3 notitle, \
 "foo_20260105204004_00_data_count_posts_gsnalf.txt" every ::2161017::2161017 u 1:2:(label_gsnalf($2)) w labels left tc rgbcolor "#3cb44b" point lc rgbcolor "#3cb44b" pt 7 ps 1 offset .7,.3 notitle, \
 "foo_20260105204004_00_data_count_posts_photonum.txt" every ::1899627::1899627 u 1:2:(label_photonum($2)) w labels left tc rgbcolor "#ffe119" point lc rgbcolor "#ffe119" pt 7 ps 1 offset .7,.3 notitle, \
