@@ -11,7 +11,7 @@ set decimalsign locale "fr_FR.utf8"
 set terminal pngcairo size 1920, 1080 font "Verdana,11" rounded dashlength 2 linewidth 1 background "#ffffff"
 set output "hfr_20251211113722_g1_account_creations.png"
 set title "{/:Bold=14 Le nombre de comptes créés par an au jeudi 11 décembre 2025\n\n{/=12 (données collectées entre le jeudi 11 décembre 2025 à 11:37:22 et le dimanche 14 décembre 2025 à 19:07:11)"
-set key at graph .975, graph .97 top right Left opaque reverse samplen 3 box spacing 1.2 height .4 width -4
+set key at graph .975, graph .97 top right Left opaque reverse samplen 3 box spacing 1.2 height .4 width -4.5
 set style data histogram
 set style histogram clustered gap 1
 set ytics 0, 25000
@@ -27,10 +27,12 @@ set size 1,1
 set origin 0,0
 
 plot [-1:26][0:159828.39] \
-"hfr_20251211113722_00_data_creations.txt" u 3:xtic(2) lw 2 lc rgbcolor "#ff7f0e" title "le nombre de comptes créés", \
-"hfr_20251211113722_00_data_creations.txt" u 4:xtic(2) lw 2 lc rgbcolor "#2ca02c" title "le nombre de comptes créés avec au moins 1 post", \
-"hfr_20251211113722_00_data_creations.txt" u 1:($3):(boldus($3)) w labels center rotate by 90 tc rgbcolor "#9030d0" font "Liberation Mono" offset -1.2,2.3 notitle, \
-"hfr_20251211113722_00_data_creations.txt" u 1:($4):(boldus($4)) w labels center rotate by 90 tc rgbcolor "#9030d0" font "Liberation Mono" offset 1.2,2.3 notitle
+"hfr_20251211113722_00_data_creations.txt" u 3:xtic(2) lw 2 lc rgbcolor "#f58231" title "le nombre de comptes créés", \
+"hfr_20251211113722_00_data_creations.txt" u 4:xtic(2) lw 2 lc rgbcolor "#3cb44b" title "le nombre de comptes créés avec au moins 1 post", \
+"hfr_20251211113722_00_data_creations.txt" u 5:xtic(2) lw 2 lc rgbcolor "#d022a6" title "le nombre de comptes créés avec au moins 1 smiley", \
+"hfr_20251211113722_00_data_creations.txt" u 1:($3):(boldus($3)) w labels center rotate by 90 tc rgbcolor "#9030d0" font "Liberation Mono" offset -1.9,2.3 notitle, \
+"hfr_20251211113722_00_data_creations.txt" u 1:($4):(boldus($4)) w labels center rotate by 90 tc rgbcolor "#9030d0" font "Liberation Mono" offset .05,2.3 notitle, \
+"hfr_20251211113722_00_data_creations.txt" u 1:($5):(boldus($5)) w labels center rotate by 90 tc rgbcolor "#9030d0" font "Liberation Mono" offset 1.8,2.3 notitle
 
 set output
 
@@ -68,9 +70,9 @@ set size 1,.325 # x + k
 set origin 0,.62 # 2 x
 
 plot [933123840:1782063360][0:1288233.72] \
-"hfr_20251211113722_00_data_active.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "le nombre de créations de comptes", \
+"hfr_20251211113722_00_data_active.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "le nombre de comptes créés", \
 "hfr_20251211113722_00_data_active.txt" u 1:3 w lines lw 2 lc rgbcolor "#dc3912" title "le nombre de derniers messages", \
-"hfr_20251211113722_00_data_active.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#983fcf" title "le nombre de comptes actifs                           "
+"hfr_20251211113722_00_data_active.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#983fcf" title "le nombre de comptes actifs                     "
 
 set ytics 0, 200000
 set mytics 2
@@ -82,9 +84,9 @@ set size 1,.325 # x + k
 set origin 0,.31 # x
 
 plot [933123840:1782063360][0:739707.12] \
-"hfr_20251211113722_00_data_active_posters.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "le nombre de créations de comptes avec au moins 1 post", \
+"hfr_20251211113722_00_data_active_posters.txt" u 1:2 w lines lw 2 lc rgbcolor "#003fbf" title "le nombre de comptes créés avec au moins 1 post", \
 "hfr_20251211113722_00_data_active_posters.txt" u 1:3 w lines lw 2 lc rgbcolor "#dc3912" title "le nombre de derniers messages", \
-"hfr_20251211113722_00_data_active_posters.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#983fcf" title "le nombre de comptes actifs                           "
+"hfr_20251211113722_00_data_active_posters.txt" u 1:2:3 w filledcurves lw 2 lc rgbcolor "#983fcf" title "le nombre de comptes actifs                     "
 
 set ytics 0, 40000
 set mytics 2
@@ -96,7 +98,7 @@ set size 1,.325 # x + k
 set origin 0,0 # 0
 
 plot [933123840:1782063360][0:87152.76] \
-"hfr_20251211113722_00_data_active.txt" u 1:4 w lines lw 2 lc rgbcolor "#983fcf" title "le nombre de comptes actifs                           "
+"hfr_20251211113722_00_data_active.txt" u 1:4 w lines lw 2 lc rgbcolor "#983fcf" title "le nombre de comptes actifs                     "
 
 unset multiplot
 set output
