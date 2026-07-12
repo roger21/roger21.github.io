@@ -39,8 +39,37 @@ div.section > span{
   margin:5px 30px 10px;
 }
 div.section > span > span.inactive{
-	background-color:#ffd7e7;
-	padding:0 4px 2px;
+  background-color:#ffd7e7;
+  padding:0 4px 2px;
+}
+div.section span.show_hide_button{
+  padding:0 12px 0 4px;
+  background-repeat:no-repeat;
+  background-position:right 4px bottom 5px;
+  background-size:auto 5px;
+  background-image:url(dot_open.svg);
+  cursor:pointer;
+}
+div.section span.show_hide_button.opened{
+  background-image:url(dot_close.svg);
+}
+div.section span.show_hide_button:hover{
+  opacity:.6;
+}
+div.section > span.show_hide_section{
+  margin:0 30px 10px;
+  border:1px dashed;
+  padding:6px 14px 8px;
+  align-self:flex-start;
+  display:none;
+}
+div.section > span.show_hide_section.opened{
+  display:block;
+}
+div.section span.value{
+  font-weight:bold;
+  color:#365ea8;
+  
 }
 div.section > a{
   display:block;
@@ -198,6 +227,10 @@ a{
 a:visited{
   color:#b07070;
   text-decoration:none;
+}
+a.uncolor,
+a.uncolor:visited{
+  color:inherit;
 }
 a:hover, a:visited:hover{
   text-decoration:none;
