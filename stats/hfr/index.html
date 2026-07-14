@@ -20,83 +20,18 @@
       }
     }
     window.addEventListener("hashchange", highlight_hash, false);
-    function show_hide(e) {
-      let opened = this.classList.contains("opened");
-      this.classList.toggle("opened", !opened);
-      document.getElementById(this.dataset.for).classList.toggle("opened", !opened);
-    }
     window.addEventListener("load", function() {
       let ids = document.querySelectorAll("div.index > div.section[id]");
       for(let id of ids) {
         id.setAttribute("id", "id" + id.getAttribute("id"));
       }
       highlight_hash();
-      let show_hide_buttons = document.querySelectorAll("div.index > div.section span.show_hide_button");
-      for(let button of show_hide_buttons) {
-        button.addEventListener("click", show_hide, false);
-      }
     }, false);
   </script>
 </head>
 <body>
   <h1 class="title">Stats Des Profils Du Forum</h1>
   <div class="index">
-    <div class="section" id="20251211113723">
-      <b><a class="permalink" href="#20251211113723">jeudi 11 décembre 2025</a></b>
-      <span>
-        <span class="value">1 213 473</span> pages collectées de «<span class="value"><a class="uncolor" href="https://forum.hardware.fr/hfr/profil-1.htm"> FLo</a></span>» à «<span class="value"><a class="uncolor" href="https://forum.hardware.fr/hfr/profil-1213473.htm">tapronireland</a></span>» entre le <span class="value">jeudi 11 décembre 2025 à 11:37:22</span> et le <span class="value">dimanche 14 décembre 2025 à 19:07:11</span>
-      </span>
-      <span>
-        soit un temps de collecte de <span class="value">3 jours, 7 heures, 29 minutes et 49 secondes</span> et une fréquence de traitement de <span title="4,240118606193 pages par seconde" class="value">4,240 pages par seconde</span> en moyenne <span title="détails" class="show_hide_button" data-for="times_20251211113723"></span>
-      </span>
-      <span class="show_hide_section" id="times_20251211113723">
-        <span class="value">2 requêtes</span> ont nécessité <span class="value">95 essais</span> cumulés pour un temps total de <span class="value">1 min 51 s 203 ms</span> avec une pause de <span class="value">1 s</span> entre les essais<br>
-        le temps moyen de traitement d’une page est de <span title="235,842459345202 ms" class="value">235,842 ms</span> avec une amplitude allant de <span title="178,513000 ms" class="value">178,513 ms</span> à <span title="1 min 49 s 657,958000 ms" class="value">1 min 49 s 657,958 ms</span><br>
-        le temps moyen de traitement d’une page vide est de <span title="217,614135598142 ms" class="value">217,614 ms</span> avec une amplitude allant de <span title="178,513000 ms" class="value">178,513 ms</span> à <span title="1 s 653,965000 ms" class="value">1 s 653,965 ms</span><br>
-        le temps moyen de traitement d’un profil est de <span title="236,158243416171 ms" class="value">236,158 ms</span> avec une amplitude allant de <span title="182,919000 ms" class="value">182,919 ms</span> à <span title="1 min 49 s 657,958000 ms" class="value">1 min 49 s 657,958 ms</span><br>
-        le temps moyen de récupération d’une page est de <span title="230,485827617617 ms" class="value">230,486 ms</span> avec une amplitude allant de <span title="174,663685 ms" class="value">174,664 ms</span> à <span title="1 min 49 s 651,127406 ms" class="value">1 min 49 s 651,127 ms</span><br>
-        le temps moyen de récupération d’une page vide est de <span title="212,870912696961 ms" class="value">212,871 ms</span> avec une amplitude allant de <span title="174,663685 ms" class="value">174,664 ms</span> à <span title="1 s 650,110492 ms" class="value">1 s 650,110 ms</span><br>
-        le temps moyen de récupération d’un profil est de <span title="230,790985108817 ms" class="value">230,791 ms</span> avec une amplitude allant de <span title="179,583798 ms" class="value">179,584 ms</span> à <span title="1 min 49 s 651,127406 ms" class="value">1 min 49 s 651,127 ms</span><br>
-        le temps moyen de traitement pur d’une page est de <span title="5,356631727584 ms" class="value">5,357 ms</span> avec une amplitude allant de <span title="1,936621 ms" class="value">1,937 ms</span> à <span title="869,978633 ms" class="value">869,979 ms</span><br>
-        le temps moyen de traitement pur d’une page vide est de <span title="4,743222901181 ms" class="value">4,743 ms</span> avec une amplitude allant de <span title="1,936621 ms" class="value">1,937 ms</span> à <span title="341,741688 ms" class="value">341,742 ms</span><br>
-        le temps moyen de traitement pur d’un profil est de <span title="5,367258307354 ms" class="value">5,367 ms</span> avec une amplitude allant de <span title="2,073718 ms" class="value">2,074 ms</span> à <span title="869,978633 ms" class="value">869,979 ms</span>
-      </span>
-      <span>
-        <span style="color:#267326;" class="value">1 192 809</span> profils soit <span title="98,297119095357 %" style="color:#267326;" class="value">98,297 %</span> des pages collectées<br>
-        <span style="color:#329932;" class="value">684 914</span> profils avec au moins un post soit <span title="56,442458958708 %" style="color:#329932;" class="value">56,442 %</span> des pages collectées et <span title="57,420257560096 %" style="color:#329932;" class="value">57,420 %</span> des profils<br>
-        <span style="color:#3fbf3f;" class="value">14 392</span> profils ayant posté depuis au moins un an soit <span title="1,186017323830 %" style="color:#3fbf3f;" class="value">1,186 %</span> des pages collectées, <span title="1,206563666102 %" style="color:#3fbf3f;" class="value">1,207 %</span> des profils et <span title="2,101285708863 %" style="color:#3fbf3f;" class="value">2,101 %</span> des profils avec au moins un post
-      </span>
-      <span>
-        <span style="color:#cc0000;" class="value">20 664</span> pages vides soit <span title="1,702880904643 %" style="color:#cc0000;" class="value">1,703 %</span> des pages collectées<br>
-        <span style="color:#e63900;" class="value">507 895</span> profils avec aucun post soit <span title="41,854660136649 %" style="color:#e63900;" class="value">41,855 %</span> des pages collectées et <span title="42,579742439905 %" style="color:#e63900;" class="value">42,580 %</span> des profils<br>
-        <span style="color:#ff8000;" class="value">670 522</span> profils n’ayant pas posté depuis plus d’un an soit <span title="55,256441634878 %" style="color:#ff8000;" class="value">55,256 %</span> des pages collectées, <span title="56,213693893993 %" style="color:#ff8000;" class="value">56,214 %</span> des profils et <span title="97,898714291137 %" style="color:#ff8000;" class="value">97,899 %</span> des profils avec au moins un post
-      </span>
-      <span>
-        parmi les <span class="value">20 664</span> pages vides, <span class="value">20 661</span> sont des «<span class="value"><a class="uncolor" href="https://forum.hardware.fr/hfr/profil-156.htm">Requète invalide !</a></span>» avec le code <span class="value">HTTP 404</span> et <span class="value">3</span> sont des «<span class="value"><a class="uncolor" href="https://forum.hardware.fr/hfr/profil-4919.htm">Désolé, ce pseudo n'existe pas</a></span>» avec le code <span class="value">HTTP 200</span>
-      </span>
-      <span>
-        <span class="value">12 892</span> profils ont au moins un smiley perso soit <span title="1,080810087784 %" class="value">1,081 %</span> des profils pour un total de <span class="value">31 359</span> smileys persos soit <span title="0,239000391665 %" class="value">0,239 %</span> des <span class="value">13 120 899</span> emplacements disponibles et pour une moyenne de <span title="2,432438721688 smileys persos par profil à smileys" class="value">2,432 smileys persos par profil à smileys</span> <span title="détails" class="show_hide_button" data-for="smileys_20251211113723"></span>
-      </span>
-      <span class="show_hide_section" id="smileys_20251211113723">
-        <span class="value">10 788</span> profils à smileys ont au moins un post soit <span title="83,679801427242 %" class="value">83,680 %</span> des profils à smileys pour un total de <span class="value">23 584</span> smileys persos soit <span title="75,206479798463 %" class="value">75,206 %</span> des smileys persos et pour une moyenne de <span title="2,186132740082 smileys persos par profil" class="value">2,186 smileys persos par profil</span><br>
-        <span class="value">2 104</span> profils à smileys n’ont aucun post soit <span title="16,320198572758 %" class="value">16,320 %</span> des profils à smileys pour un total de <span class="value">7 775</span> smileys persos soit <span title="24,793520201537 %" class="value">24,794 %</span> des smileys persos et pour une moyenne de <span title="3,695342205323 smileys persos par profil" class="value">3,695 smileys persos par profil</span><br>
-        <span class="value">590</span> profils ont 11 smileys persos soit <span title="4,576481538939 %" class="value">4,576 %</span> des profils à smileys pour un total de <span class="value">6 490</span> smileys persos soit <span title="20,695813004241 %" class="value">20,696 %</span> des smileys persos<br>
-        <span class="value">276</span> profils avec 11 smileys persos ont au moins un post soit <span title="46,779661016949 %" class="value">46,780 %</span> des profils avec 11 smileys persos pour un total de <span class="value">3 036</span> smileys persos soit <span title="9,681431168086 %" class="value">9,681 %</span> des smileys persos<br>
-        <span class="value">314</span> profils avec 11 smileys persos n’ont aucun post soit <span title="53,220338983051 %" class="value">53,220 %</span> des profils avec 11 smileys persos pour un total de <span class="value">3 454</span> smileys persos soit <span title="11,014381836156 %" class="value">11,014 %</span> des smileys persos
-      </span>
-      <a class="liste" href="hfr_20251211113723_01_detail_champs.html">
-        détail des champs renseignés
-      </a>
-      <a class="table" href="hfr_20251211113723_01_detail_champs.html">
-        pouet
-      </a>
-      <a class="graph" href="hfr_20251211113723_g1_account_creations.png">
-        nombre de comptes créés par an
-      </a>
-      <a class="graph" href="hfr_20251211113723_g2_active_accounts.png">
-        évolution du nombre de comptes actifs
-      </a>
-    </div>
     <div class="section" id="20251211113722">
       <b><a class="permalink" href="#20251211113722">jeudi 11 décembre 2025</a></b>
       <span>données collectées entre le jeudi 11 décembre 2025 à 11:37:22 et le dimanche 14 décembre 2025 à 19:07:11</span>
